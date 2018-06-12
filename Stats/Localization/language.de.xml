@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageResource>
+  <LanguageTwoLetterCode>de</LanguageTwoLetterCode>
+  <Version>1</Version>
+  <LocalizedItems>
+    <LocalizedItem>
+      <Key>Reset</Key>
+      <Value>Zurücksetzen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UpdateEveryXSeconds</Key>
+      <Value>Alle x sekunden aktualisieren</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AutoHide</Key>
+      <Value>Automatisch ausblenden</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HideItemsBelowTreshold</Key>
+      <Value>Werte unter dem Grenzwert ausblenden</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>BackgroundColor</Key>
+      <Value>Hintergrundfarbe</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ForegroundColor</Key>
+      <Value>Vordergrundfarbe</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AccentColor</Key>
+      <Value>Akzentfarbe</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>MainWindow</Key>
+      <Value>Hauptfenster</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ColumnCount</Key>
+      <Value>Spaltenzahl</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemWidth</Key>
+      <Value>Wertbreite</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemHeight</Key>
+      <Value>Werthöhe</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemPadding</Key>
+      <Value>Wertabstand</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextScale</Key>
+      <Value>Werttext Skalierung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Items</Key>
+      <Value>Werte</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Enabled</Key>
+      <Value>Aktiviert</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CriticalTreshold</Key>
+      <Value>Kritischer Grenzwert</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Electricity</Key>
+      <Value>Stromverbrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Heating</Key>
+      <Value>Heizwärmeverbrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Water</Key>
+      <Value>Trinkwasserverbrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SewageTreatment</Key>
+      <Value>Abwassersystemauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterReserveTank</Key>
+      <Value>Trinkwasserreservetankkapazitäten</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceStorage</Key>
+      <Value>Water pumping service tanks usage</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceVehicles</Key>
+      <Value>Water pumping service vehicles in use</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Landfill</Key>
+      <Value>Mülldeponie-Nutzung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>LandfillVehicles</Key>
+      <Value>Mülldeponiefahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessing</Key>
+      <Value>Müllverarbeitungsauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessingVehicles</Key>
+      <Value>Müllverarbeitungsfahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ElementarySchool</Key>
+      <Value>Grundschulauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HighSchool</Key>
+      <Value>Mittelschulauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>University</Key>
+      <Value>Universitätsauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Healthcare</Key>
+      <Value>Krankenhausauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HealthcareVehicles</Key>
+      <Value>Krankenwagen in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageIllnessRate</Key>
+      <Value>Krankheitsquote</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Cemetery</Key>
+      <Value>Friedhofauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CemeteryVehicles</Key>
+      <Value>Friedhoffahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Crematorium</Key>
+      <Value>Krematorienauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrematoriumVehicles</Key>
+      <Value>Krematorienfahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>TrafficJam</Key>
+      <Value>Stau</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GroundPollution</Key>
+      <Value>Bodenverschmutzung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DrinkingWaterPollution</Key>
+      <Value>Trinkwasserverschmutzung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>NoisePollution</Key>
+      <Value>Lärmbelastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireHazard</Key>
+      <Value>Brandgefahr</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireDepartmentVehicles</Key>
+      <Value>Feuerwehrfahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrimeRate</Key>
+      <Value>Kriminalitätsrate</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHoldingCells</Key>
+      <Value>U-Haft Zellen in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceVehicles</Key>
+      <Value>Polizeifahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonCells</Key>
+      <Value>Gefängnisauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonVehicles</Key>
+      <Value>Gefängnistransporter in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Unemployment</Key>
+      <Value>Arbeitslosenquote</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>RoadMaintenanceVehicles</Key>
+      <Value>Straßeninstandhaltungsfahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ParkMaintenanceVehicles</Key>
+      <Value>Parkinstandhaltungsfahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDump</Key>
+      <Value>Schneelagerkapazitäten in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDumpVehicles</Key>
+      <Value>Schneeräumfahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CityUnattractiveness</Key>
+      <Value>Stadtablehnung</Value>
+    </LocalizedItem>
+  </LocalizedItems>
+</LanguageResource>
