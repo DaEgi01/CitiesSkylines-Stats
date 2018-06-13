@@ -27,7 +27,7 @@ namespace Stats.Localization
         public string Reset => this.itemsDictionary["Reset"];
         public string UpdateEveryXSeconds => this.itemsDictionary["UpdateEveryXSeconds"];
         public string AutoHide => itemsDictionary["AutoHide"];
-        public string HideItemsBelowTreshold => itemsDictionary["HideItemsBelowTreshold"];
+        public string HideItemsBelowThreshold => itemsDictionary["HideItemsBelowThreshold"];
         public string BackgroundColor => itemsDictionary["BackgroundColor"];
         public string ForegroundColor => itemsDictionary["ForegroundColor"];
         public string AccentColor => itemsDictionary["AccentColor"];
@@ -39,7 +39,7 @@ namespace Stats.Localization
         public string ItemTextScale => itemsDictionary["ItemTextScale"];
         public string Items => itemsDictionary["Items"];
         public string Enabled => itemsDictionary["Enabled"];
-        public string CriticalTreshold => itemsDictionary["CriticalTreshold"];
+        public string CriticalThreshold => itemsDictionary["CriticalThreshold"];
         public string Electricity => itemsDictionary[ItemData.Electricity];
         public string Heating => itemsDictionary[ItemData.Heating];
         public string Water => itemsDictionary[ItemData.Water];

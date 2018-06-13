@@ -56,12 +56,12 @@ namespace Stats.Configuration
             }
         }
 
-        public bool MainPanelHideItemsBelowTreshold
+        public bool MainPanelHideItemsBelowThreshold
         {
-            get => dto.MainPanelHideItemsBelowTreshold;
+            get => dto.MainPanelHideItemsBelowThreshold;
             set
             {
-                dto.MainPanelHideItemsBelowTreshold = value;
+                dto.MainPanelHideItemsBelowThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -156,12 +156,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int ElectricityCriticalTreshold
+        public int ElectricityCriticalThreshold
         {
-            get => dto.ElectricityCriticalTreshold;
+            get => dto.ElectricityCriticalThreshold;
             set
             {
-                dto.ElectricityCriticalTreshold = value;
+                dto.ElectricityCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -186,12 +186,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int HeatingCriticalTreshold
+        public int HeatingCriticalThreshold
         {
-            get => dto.HeatingCriticalTreshold;
+            get => dto.HeatingCriticalThreshold;
             set
             {
-                dto.HeatingCriticalTreshold = value;
+                dto.HeatingCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -216,12 +216,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int WaterCriticalTreshold
+        public int WaterCriticalThreshold
         {
-            get => dto.WaterCriticalTreshold;
+            get => dto.WaterCriticalThreshold;
             set
             {
-                dto.WaterCriticalTreshold = value;
+                dto.WaterCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -246,12 +246,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int SewageTreatmentCriticalTreshold
+        public int SewageTreatmentCriticalThreshold
         {
-            get => dto.SewageTreatmentCriticalTreshold;
+            get => dto.SewageTreatmentCriticalThreshold;
             set
             {
-                dto.SewageTreatmentCriticalTreshold = value;
+                dto.SewageTreatmentCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -276,12 +276,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int WaterReserveTankCriticalTreshold
+        public int WaterReserveTankCriticalThreshold
         {
-            get => dto.WaterReserveTankCriticalTreshold;
+            get => dto.WaterReserveTankCriticalThreshold;
             set
             {
-                dto.WaterReserveTankCriticalTreshold = value;
+                dto.WaterReserveTankCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -306,12 +306,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int WaterPumpingServiceStorageCriticalTreshold
+        public int WaterPumpingServiceStorageCriticalThreshold
         {
-            get => dto.WaterPumpingServiceStorageCriticalTreshold;
+            get => dto.WaterPumpingServiceStorageCriticalThreshold;
             set
             {
-                dto.WaterPumpingServiceStorageCriticalTreshold = value;
+                dto.WaterPumpingServiceStorageCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -336,12 +336,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int WaterPumpingServiceVehiclesCriticalTreshold
+        public int WaterPumpingServiceVehiclesCriticalThreshold
         {
-            get => dto.WaterPumpingServiceVehiclesCriticalTreshold;
+            get => dto.WaterPumpingServiceVehiclesCriticalThreshold;
             set
             {
-                dto.WaterPumpingServiceVehiclesCriticalTreshold = value;
+                dto.WaterPumpingServiceVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -366,12 +366,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int LandfillCriticalTreshold
+        public int LandfillCriticalThreshold
         {
-            get => dto.LandfillCriticalTreshold;
+            get => dto.LandfillCriticalThreshold;
             set
             {
-                dto.LandfillCriticalTreshold = value;
+                dto.LandfillCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -396,12 +396,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int LandfillVehiclesCriticalTreshold
+        public int LandfillVehiclesCriticalThreshold
         {
-            get => dto.LandfillVehiclesCriticalTreshold;
+            get => dto.LandfillVehiclesCriticalThreshold;
             set
             {
-                dto.LandfillVehiclesCriticalTreshold = value;
+                dto.LandfillVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -426,12 +426,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int GarbageProcessingCriticalTreshold
+        public int GarbageProcessingCriticalThreshold
         {
-            get => dto.GarbageProcessingCriticalTreshold;
+            get => dto.GarbageProcessingCriticalThreshold;
             set
             {
-                dto.GarbageProcessingCriticalTreshold = value;
+                dto.GarbageProcessingCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -456,12 +456,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int GarbageProcessingVehiclesCriticalTreshold
+        public int GarbageProcessingVehiclesCriticalThreshold
         {
-            get => dto.GarbageProcessingVehiclesCriticalTreshold;
+            get => dto.GarbageProcessingVehiclesCriticalThreshold;
             set
             {
-                dto.GarbageProcessingVehiclesCriticalTreshold = value;
+                dto.GarbageProcessingVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -486,12 +486,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int ElementarySchoolCriticalTreshold
+        public int ElementarySchoolCriticalThreshold
         {
-            get => dto.ElementarySchoolCriticalTreshold;
+            get => dto.ElementarySchoolCriticalThreshold;
             set
             {
-                dto.ElementarySchoolCriticalTreshold = value;
+                dto.ElementarySchoolCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -516,12 +516,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int HighSchoolCriticalTreshold
+        public int HighSchoolCriticalThreshold
         {
-            get => dto.HighSchoolCriticalTreshold;
+            get => dto.HighSchoolCriticalThreshold;
             set
             {
-                dto.HighSchoolCriticalTreshold = value;
+                dto.HighSchoolCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -546,12 +546,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int UniversityCriticalTreshold
+        public int UniversityCriticalThreshold
         {
-            get => dto.UniversityCriticalTreshold;
+            get => dto.UniversityCriticalThreshold;
             set
             {
-                dto.UniversityCriticalTreshold = value;
+                dto.UniversityCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -576,12 +576,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int HealthcareCriticalTreshold
+        public int HealthcareCriticalThreshold
         {
-            get => dto.HealthcareCriticalTreshold;
+            get => dto.HealthcareCriticalThreshold;
             set
             {
-                dto.HealthcareCriticalTreshold = value;
+                dto.HealthcareCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -606,12 +606,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int HealthcareVehiclesCriticalTreshold
+        public int HealthcareVehiclesCriticalThreshold
         {
-            get => dto.HealthcareVehiclesCriticalTreshold;
+            get => dto.HealthcareVehiclesCriticalThreshold;
             set
             {
-                dto.HealthcareVehiclesCriticalTreshold = value;
+                dto.HealthcareVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -636,12 +636,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int AverageIllnessRateCriticalTreshold
+        public int AverageIllnessRateCriticalThreshold
         {
-            get => dto.AverageIllnessRateCriticalTreshold;
+            get => dto.AverageIllnessRateCriticalThreshold;
             set
             {
-                dto.AverageIllnessRateCriticalTreshold = value;
+                dto.AverageIllnessRateCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -666,12 +666,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int CemeteryCriticalTreshold
+        public int CemeteryCriticalThreshold
         {
-            get => dto.CemeteryCriticalTreshold;
+            get => dto.CemeteryCriticalThreshold;
             set
             {
-                dto.CemeteryCriticalTreshold = value;
+                dto.CemeteryCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -696,12 +696,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int CemeteryVehiclesCriticalTreshold
+        public int CemeteryVehiclesCriticalThreshold
         {
-            get => dto.CemeteryVehiclesCriticalTreshold;
+            get => dto.CemeteryVehiclesCriticalThreshold;
             set
             {
-                dto.CemeteryVehiclesCriticalTreshold = value;
+                dto.CemeteryVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -726,12 +726,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int CrematoriumCriticalTreshold
+        public int CrematoriumCriticalThreshold
         {
-            get => dto.CrematoriumCriticalTreshold;
+            get => dto.CrematoriumCriticalThreshold;
             set
             {
-                dto.CrematoriumCriticalTreshold = value;
+                dto.CrematoriumCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -756,12 +756,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int CrematoriumVehiclesCriticalTreshold
+        public int CrematoriumVehiclesCriticalThreshold
         {
-            get => dto.CrematoriumVehiclesCriticalTreshold;
+            get => dto.CrematoriumVehiclesCriticalThreshold;
             set
             {
-                dto.CrematoriumVehiclesCriticalTreshold = value;
+                dto.CrematoriumVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -786,12 +786,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int GroundPollutionCriticalTreshold
+        public int GroundPollutionCriticalThreshold
         {
-            get => dto.GroundPollutionCriticalTreshold;
+            get => dto.GroundPollutionCriticalThreshold;
             set
             {
-                dto.GroundPollutionCriticalTreshold = value;
+                dto.GroundPollutionCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -816,12 +816,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int DrinkingWaterPollutionCriticalTreshold
+        public int DrinkingWaterPollutionCriticalThreshold
         {
-            get => dto.DrinkingWaterPollutionCriticalTreshold;
+            get => dto.DrinkingWaterPollutionCriticalThreshold;
             set
             {
-                dto.DrinkingWaterPollutionCriticalTreshold = value;
+                dto.DrinkingWaterPollutionCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -846,12 +846,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int NoisePollutionCriticalTreshold
+        public int NoisePollutionCriticalThreshold
         {
-            get => dto.NoisePollutionCriticalTreshold;
+            get => dto.NoisePollutionCriticalThreshold;
             set
             {
-                dto.NoisePollutionCriticalTreshold = value;
+                dto.NoisePollutionCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -876,12 +876,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int FireHazardCriticalTreshold
+        public int FireHazardCriticalThreshold
         {
-            get => dto.FireHazardCriticalTreshold;
+            get => dto.FireHazardCriticalThreshold;
             set
             {
-                dto.FireHazardCriticalTreshold = value;
+                dto.FireHazardCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -906,12 +906,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int FireDepartmentVehiclesCriticalTreshold
+        public int FireDepartmentVehiclesCriticalThreshold
         {
-            get => dto.FireDepartmentVehiclesCriticalTreshold;
+            get => dto.FireDepartmentVehiclesCriticalThreshold;
             set
             {
-                dto.FireDepartmentVehiclesCriticalTreshold = value;
+                dto.FireDepartmentVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -936,12 +936,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int CrimeRateCriticalTreshold
+        public int CrimeRateCriticalThreshold
         {
-            get => dto.CrimeRateCriticalTreshold;
+            get => dto.CrimeRateCriticalThreshold;
             set
             {
-                dto.CrimeRateCriticalTreshold = value;
+                dto.CrimeRateCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -966,12 +966,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int PoliceHoldingCellsCriticalTreshold
+        public int PoliceHoldingCellsCriticalThreshold
         {
-            get => dto.PoliceHoldingCellsCriticalTreshold;
+            get => dto.PoliceHoldingCellsCriticalThreshold;
             set
             {
-                dto.PoliceHoldingCellsCriticalTreshold = value;
+                dto.PoliceHoldingCellsCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -996,12 +996,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int PoliceVehiclesCriticalTreshold
+        public int PoliceVehiclesCriticalThreshold
         {
-            get => dto.PoliceVehiclesCriticalTreshold;
+            get => dto.PoliceVehiclesCriticalThreshold;
             set
             {
-                dto.PoliceVehiclesCriticalTreshold = value;
+                dto.PoliceVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1026,12 +1026,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int PrisonCellsCriticalTreshold
+        public int PrisonCellsCriticalThreshold
         {
-            get => dto.PrisonCellsCriticalTreshold;
+            get => dto.PrisonCellsCriticalThreshold;
             set
             {
-                dto.PrisonCellsCriticalTreshold = value;
+                dto.PrisonCellsCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1056,12 +1056,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int PrisonVehiclesCriticalTreshold
+        public int PrisonVehiclesCriticalThreshold
         {
-            get => dto.PrisonVehiclesCriticalTreshold;
+            get => dto.PrisonVehiclesCriticalThreshold;
             set
             {
-                dto.PrisonVehiclesCriticalTreshold = value;
+                dto.PrisonVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1086,12 +1086,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int UnemploymentCriticalTreshold
+        public int UnemploymentCriticalThreshold
         {
-            get => dto.UnemploymentCriticalTreshold;
+            get => dto.UnemploymentCriticalThreshold;
             set
             {
-                dto.UnemploymentCriticalTreshold = value;
+                dto.UnemploymentCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1116,12 +1116,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int TrafficJamCriticalTreshold
+        public int TrafficJamCriticalThreshold
         {
-            get => dto.TrafficJamCriticalTreshold;
+            get => dto.TrafficJamCriticalThreshold;
             set
             {
-                dto.TrafficJamCriticalTreshold = value;
+                dto.TrafficJamCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1146,12 +1146,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int RoadMaintenanceVehiclesCriticalTreshold
+        public int RoadMaintenanceVehiclesCriticalThreshold
         {
-            get => dto.RoadMaintenanceVehiclesCriticalTreshold;
+            get => dto.RoadMaintenanceVehiclesCriticalThreshold;
             set
             {
-                dto.RoadMaintenanceVehiclesCriticalTreshold = value;
+                dto.RoadMaintenanceVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1176,12 +1176,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int SnowDumpCriticalTreshold
+        public int SnowDumpCriticalThreshold
         {
-            get => dto.SnowDumpCriticalTreshold;
+            get => dto.SnowDumpCriticalThreshold;
             set
             {
-                dto.SnowDumpCriticalTreshold = value;
+                dto.SnowDumpCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1206,12 +1206,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int SnowDumpVehiclesCriticalTreshold
+        public int SnowDumpVehiclesCriticalThreshold
         {
-            get => dto.SnowDumpVehiclesCriticalTreshold;
+            get => dto.SnowDumpVehiclesCriticalThreshold;
             set
             {
-                dto.SnowDumpVehiclesCriticalTreshold = value;
+                dto.SnowDumpVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1236,12 +1236,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int ParkMaintenanceVehiclesCriticalTreshold
+        public int ParkMaintenanceVehiclesCriticalThreshold
         {
-            get => dto.ParkMaintenanceVehiclesCriticalTreshold;
+            get => dto.ParkMaintenanceVehiclesCriticalThreshold;
             set
             {
-                dto.ParkMaintenanceVehiclesCriticalTreshold = value;
+                dto.ParkMaintenanceVehiclesCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1266,12 +1266,12 @@ namespace Stats.Configuration
             }
         }
 
-        public int CityUnattractivenessCriticalTreshold
+        public int CityUnattractivenessCriticalThreshold
         {
-            get => dto.CityUnattractivenessCriticalTreshold;
+            get => dto.CityUnattractivenessCriticalThreshold;
             set
             {
-                dto.CityUnattractivenessCriticalTreshold = value;
+                dto.CityUnattractivenessCriticalThreshold = value;
                 this.OnPropertyChanged();
             }
         }
@@ -1301,118 +1301,118 @@ namespace Stats.Configuration
             this.dto.ItemPadding = dto.ItemPadding;
             this.dto.ItemTextScale = dto.ItemTextScale;
             this.dto.Electricity = dto.Electricity;
-            this.dto.ElectricityCriticalTreshold = dto.ElectricityCriticalTreshold;
+            this.dto.ElectricityCriticalThreshold = dto.ElectricityCriticalThreshold;
             this.dto.ElectricitySortOrder = dto.ElectricitySortOrder;
             this.dto.Heating = dto.Heating;
-            this.dto.HeatingCriticalTreshold = dto.HeatingCriticalTreshold;
+            this.dto.HeatingCriticalThreshold = dto.HeatingCriticalThreshold;
             this.dto.HeatingSortOrder = dto.HeatingSortOrder;
             this.dto.Water = dto.Water;
-            this.dto.WaterCriticalTreshold = dto.WaterCriticalTreshold;
+            this.dto.WaterCriticalThreshold = dto.WaterCriticalThreshold;
             this.dto.WaterSortOrder = dto.WaterSortOrder;
             this.dto.SewageTreatment = dto.SewageTreatment;
-            this.dto.SewageTreatmentCriticalTreshold = dto.SewageTreatmentCriticalTreshold;
+            this.dto.SewageTreatmentCriticalThreshold = dto.SewageTreatmentCriticalThreshold;
             this.dto.SewageTreatmentSortOrder = dto.SewageTreatmentSortOrder;
             this.dto.WaterReserveTank = dto.WaterReserveTank;
-            this.dto.WaterReserveTankCriticalTreshold = dto.WaterReserveTankCriticalTreshold;
+            this.dto.WaterReserveTankCriticalThreshold = dto.WaterReserveTankCriticalThreshold;
             this.dto.WaterReserveTankSortOrder = dto.WaterReserveTankSortOrder;
             this.dto.WaterPumpingServiceStorage = dto.WaterPumpingServiceStorage;
-            this.dto.WaterPumpingServiceStorageCriticalTreshold = dto.WaterPumpingServiceStorageCriticalTreshold;
+            this.dto.WaterPumpingServiceStorageCriticalThreshold = dto.WaterPumpingServiceStorageCriticalThreshold;
             this.dto.WaterPumpingServiceStorageSortOrder = dto.WaterPumpingServiceStorageSortOrder;
             this.dto.WaterPumpingServiceVehicles = dto.WaterPumpingServiceVehicles;
-            this.dto.WaterPumpingServiceVehiclesCriticalTreshold = dto.WaterPumpingServiceVehiclesCriticalTreshold;
+            this.dto.WaterPumpingServiceVehiclesCriticalThreshold = dto.WaterPumpingServiceVehiclesCriticalThreshold;
             this.dto.WaterPumpingServiceVehiclesSortOrder = dto.WaterPumpingServiceVehiclesSortOrder;
             this.dto.Landfill = dto.Landfill;
-            this.dto.LandfillCriticalTreshold = dto.LandfillCriticalTreshold;
+            this.dto.LandfillCriticalThreshold = dto.LandfillCriticalThreshold;
             this.dto.LandfillSortOrder = dto.LandfillSortOrder;
             this.dto.LandfillVehicles = dto.LandfillVehicles;
-            this.dto.LandfillVehiclesCriticalTreshold = dto.LandfillVehiclesCriticalTreshold;
+            this.dto.LandfillVehiclesCriticalThreshold = dto.LandfillVehiclesCriticalThreshold;
             this.dto.LandfillVehiclesSortOrder = dto.LandfillVehiclesSortOrder;
             this.dto.GarbageProcessing = dto.GarbageProcessing;
-            this.dto.GarbageProcessingCriticalTreshold = dto.GarbageProcessingCriticalTreshold;
+            this.dto.GarbageProcessingCriticalThreshold = dto.GarbageProcessingCriticalThreshold;
             this.dto.GarbageProcessingSortOrder = dto.GarbageProcessingSortOrder;
             this.dto.GarbageProcessingVehicles = dto.GarbageProcessingVehicles;
-            this.dto.GarbageProcessingVehiclesCriticalTreshold = dto.GarbageProcessingVehiclesCriticalTreshold;
+            this.dto.GarbageProcessingVehiclesCriticalThreshold = dto.GarbageProcessingVehiclesCriticalThreshold;
             this.dto.GarbageProcessingVehiclesSortOrder = dto.GarbageProcessingVehiclesSortOrder;
             this.dto.ElementarySchool = dto.ElementarySchool;
-            this.dto.ElementarySchoolCriticalTreshold = dto.ElementarySchoolCriticalTreshold;
+            this.dto.ElementarySchoolCriticalThreshold = dto.ElementarySchoolCriticalThreshold;
             this.dto.ElementarySchoolSortOrder = dto.ElementarySchoolSortOrder;
             this.dto.HighSchool = dto.HighSchool;
-            this.dto.HighSchoolCriticalTreshold = dto.HighSchoolCriticalTreshold;
+            this.dto.HighSchoolCriticalThreshold = dto.HighSchoolCriticalThreshold;
             this.dto.HighSchoolSortOrder = dto.HighSchoolSortOrder;
             this.dto.University = dto.University;
-            this.dto.UniversityCriticalTreshold = dto.UniversityCriticalTreshold;
+            this.dto.UniversityCriticalThreshold = dto.UniversityCriticalThreshold;
             this.dto.UniversitySortOrder = dto.UniversitySortOrder;
             this.dto.Healthcare = dto.Healthcare;
-            this.dto.HealthcareCriticalTreshold = dto.HealthcareCriticalTreshold;
+            this.dto.HealthcareCriticalThreshold = dto.HealthcareCriticalThreshold;
             this.dto.HealthcareSortOrder = dto.HealthcareSortOrder;
             this.dto.HealthcareVehicles = dto.HealthcareVehicles;
-            this.dto.HealthcareVehiclesCriticalTreshold = dto.HealthcareVehiclesCriticalTreshold;
+            this.dto.HealthcareVehiclesCriticalThreshold = dto.HealthcareVehiclesCriticalThreshold;
             this.dto.HealthcareVehiclesSortOrder = dto.HealthcareVehiclesSortOrder;
             this.dto.AverageIllnessRate = dto.AverageIllnessRate;
-            this.dto.AverageIllnessRateCriticalTreshold = dto.AverageIllnessRateCriticalTreshold;
+            this.dto.AverageIllnessRateCriticalThreshold = dto.AverageIllnessRateCriticalThreshold;
             this.dto.AverageIllnessRateSortOrder = dto.AverageIllnessRateSortOrder;
             this.dto.Cemetery = dto.Cemetery;
-            this.dto.CemeteryCriticalTreshold = dto.CemeteryCriticalTreshold;
+            this.dto.CemeteryCriticalThreshold = dto.CemeteryCriticalThreshold;
             this.dto.CemeterySortOrder = dto.CemeterySortOrder;
             this.dto.CemeteryVehicles = dto.CemeteryVehicles;
-            this.dto.CemeteryVehiclesCriticalTreshold = dto.CemeteryVehiclesCriticalTreshold;
+            this.dto.CemeteryVehiclesCriticalThreshold = dto.CemeteryVehiclesCriticalThreshold;
             this.dto.CemeteryVehiclesSortOrder = dto.CemeteryVehiclesSortOrder;
             this.dto.Crematorium = dto.Crematorium;
-            this.dto.CrematoriumCriticalTreshold = dto.CrematoriumCriticalTreshold;
+            this.dto.CrematoriumCriticalThreshold = dto.CrematoriumCriticalThreshold;
             this.dto.CrematoriumSortOrder = dto.CrematoriumSortOrder;
             this.dto.CrematoriumVehicles = dto.CrematoriumVehicles;
-            this.dto.CrematoriumVehiclesCriticalTreshold = dto.CrematoriumVehiclesCriticalTreshold;
+            this.dto.CrematoriumVehiclesCriticalThreshold = dto.CrematoriumVehiclesCriticalThreshold;
             this.dto.CrematoriumVehiclesSortOrder = dto.CrematoriumVehiclesSortOrder;
             this.dto.GroundPollution = dto.GroundPollution;
-            this.dto.GroundPollutionCriticalTreshold = dto.GroundPollutionCriticalTreshold;
+            this.dto.GroundPollutionCriticalThreshold = dto.GroundPollutionCriticalThreshold;
             this.dto.GroundPollutionSortOrder = dto.GroundPollutionSortOrder;
             this.dto.DrinkingWaterPollution = dto.DrinkingWaterPollution;
-            this.dto.DrinkingWaterPollutionCriticalTreshold = dto.DrinkingWaterPollutionCriticalTreshold;
+            this.dto.DrinkingWaterPollutionCriticalThreshold = dto.DrinkingWaterPollutionCriticalThreshold;
             this.dto.DrinkingWaterPollutionSortOrder = dto.DrinkingWaterPollutionSortOrder;
             this.dto.NoisePollution = dto.NoisePollution;
-            this.dto.NoisePollutionCriticalTreshold = dto.NoisePollutionCriticalTreshold;
+            this.dto.NoisePollutionCriticalThreshold = dto.NoisePollutionCriticalThreshold;
             this.dto.NoisePollutionSortOrder = dto.NoisePollutionSortOrder;
             this.dto.FireHazard = dto.FireHazard;
-            this.dto.FireHazardCriticalTreshold = dto.FireHazardCriticalTreshold;
+            this.dto.FireHazardCriticalThreshold = dto.FireHazardCriticalThreshold;
             this.dto.FireHazardSortOrder = dto.FireHazardSortOrder;
             this.dto.FireDepartmentVehicles = dto.FireDepartmentVehicles;
-            this.dto.FireDepartmentVehiclesCriticalTreshold = dto.FireDepartmentVehiclesCriticalTreshold;
+            this.dto.FireDepartmentVehiclesCriticalThreshold = dto.FireDepartmentVehiclesCriticalThreshold;
             this.dto.FireDepartmentVehiclesSortOrder = dto.FireDepartmentVehiclesSortOrder;
             this.dto.CrimeRate = dto.CrimeRate;
-            this.dto.CrimeRateCriticalTreshold = dto.CrimeRateCriticalTreshold;
+            this.dto.CrimeRateCriticalThreshold = dto.CrimeRateCriticalThreshold;
             this.dto.CrimeRateSortOrder = dto.CrimeRateSortOrder;
             this.dto.PoliceHoldingCells = dto.PoliceHoldingCells;
-            this.dto.PoliceHoldingCellsCriticalTreshold = dto.PoliceHoldingCellsCriticalTreshold;
+            this.dto.PoliceHoldingCellsCriticalThreshold = dto.PoliceHoldingCellsCriticalThreshold;
             this.dto.PoliceHoldingCellsSortOrder = dto.PoliceHoldingCellsSortOrder;
             this.dto.PoliceVehicles = dto.PoliceVehicles;
-            this.dto.PoliceVehiclesCriticalTreshold = dto.PoliceVehiclesCriticalTreshold;
+            this.dto.PoliceVehiclesCriticalThreshold = dto.PoliceVehiclesCriticalThreshold;
             this.dto.PoliceVehiclesSortOrder = dto.PoliceVehiclesSortOrder;
             this.dto.PrisonCells = dto.PrisonCells;
-            this.dto.PrisonCellsCriticalTreshold = dto.PrisonCellsCriticalTreshold;
+            this.dto.PrisonCellsCriticalThreshold = dto.PrisonCellsCriticalThreshold;
             this.dto.PrisonCellsSortOrder = dto.PrisonCellsSortOrder;
             this.dto.PrisonVehicles = dto.PrisonVehicles;
-            this.dto.PrisonVehiclesCriticalTreshold = dto.PrisonVehiclesCriticalTreshold;
+            this.dto.PrisonVehiclesCriticalThreshold = dto.PrisonVehiclesCriticalThreshold;
             this.dto.PrisonVehiclesSortOrder = dto.PrisonVehiclesSortOrder;
             this.dto.Unemployment = dto.Unemployment;
-            this.dto.UnemploymentCriticalTreshold = dto.UnemploymentCriticalTreshold;
+            this.dto.UnemploymentCriticalThreshold = dto.UnemploymentCriticalThreshold;
             this.dto.UnemploymentSortOrder = dto.UnemploymentSortOrder;
             this.dto.TrafficJam = dto.TrafficJam;
-            this.dto.TrafficJamCriticalTreshold = dto.TrafficJamCriticalTreshold;
+            this.dto.TrafficJamCriticalThreshold = dto.TrafficJamCriticalThreshold;
             this.dto.TrafficJamSortOrder = dto.TrafficJamSortOrder;
             this.dto.RoadMaintenanceVehicles = dto.RoadMaintenanceVehicles;
-            this.dto.RoadMaintenanceVehiclesCriticalTreshold = dto.RoadMaintenanceVehiclesCriticalTreshold;
+            this.dto.RoadMaintenanceVehiclesCriticalThreshold = dto.RoadMaintenanceVehiclesCriticalThreshold;
             this.dto.RoadMaintenanceVehiclesSortOrder = dto.RoadMaintenanceVehiclesSortOrder;
             this.dto.SnowDump = dto.SnowDump;
-            this.dto.SnowDumpCriticalTreshold = dto.SnowDumpCriticalTreshold;
+            this.dto.SnowDumpCriticalThreshold = dto.SnowDumpCriticalThreshold;
             this.dto.SnowDumpSortOrder = dto.SnowDumpSortOrder;
             this.dto.SnowDumpVehicles = dto.SnowDumpVehicles;
-            this.dto.SnowDumpVehiclesCriticalTreshold = dto.SnowDumpVehiclesCriticalTreshold;
+            this.dto.SnowDumpVehiclesCriticalThreshold = dto.SnowDumpVehiclesCriticalThreshold;
             this.dto.SnowDumpVehiclesSortOrder = dto.SnowDumpVehiclesSortOrder;
             this.dto.ParkMaintenanceVehicles = dto.ParkMaintenanceVehicles;
-            this.dto.ParkMaintenanceVehiclesCriticalTreshold = dto.ParkMaintenanceVehiclesCriticalTreshold;
+            this.dto.ParkMaintenanceVehiclesCriticalThreshold = dto.ParkMaintenanceVehiclesCriticalThreshold;
             this.dto.ParkMaintenanceVehiclesSortOrder = dto.ParkMaintenanceVehiclesSortOrder;
             this.dto.CityUnattractiveness = dto.CityUnattractiveness;
-            this.dto.CityUnattractivenessCriticalTreshold = dto.CityUnattractivenessCriticalTreshold;
+            this.dto.CityUnattractivenessCriticalThreshold = dto.CityUnattractivenessCriticalThreshold;
             this.dto.CityUnattractivenessSortOrder = dto.CityUnattractivenessSortOrder;
 
             this.OnPropertyChanged();
@@ -1435,118 +1435,118 @@ namespace Stats.Configuration
                 ItemPadding = this.ItemPadding,
                 ItemTextScale = this.ItemTextScale,
                 Electricity = this.Electricity,
-                ElectricityCriticalTreshold = this.ElectricityCriticalTreshold,
+                ElectricityCriticalThreshold = this.ElectricityCriticalThreshold,
                 ElectricitySortOrder = this.ElectricitySortOrder,
                 Heating = this.Heating,
-                HeatingCriticalTreshold = this.HeatingCriticalTreshold,
+                HeatingCriticalThreshold = this.HeatingCriticalThreshold,
                 HeatingSortOrder = this.HeatingSortOrder,
                 Water = this.Water,
-                WaterCriticalTreshold = this.WaterCriticalTreshold,
+                WaterCriticalThreshold = this.WaterCriticalThreshold,
                 WaterSortOrder = this.WaterSortOrder,
                 SewageTreatment = this.SewageTreatment,
-                SewageTreatmentCriticalTreshold = this.SewageTreatmentCriticalTreshold,
+                SewageTreatmentCriticalThreshold = this.SewageTreatmentCriticalThreshold,
                 SewageTreatmentSortOrder = this.SewageTreatmentSortOrder,
                 WaterReserveTank = this.WaterReserveTank,
-                WaterReserveTankCriticalTreshold = this.WaterReserveTankCriticalTreshold,
+                WaterReserveTankCriticalThreshold = this.WaterReserveTankCriticalThreshold,
                 WaterReserveTankSortOrder = this.WaterReserveTankSortOrder,
                 WaterPumpingServiceStorage = this.WaterPumpingServiceStorage,
-                WaterPumpingServiceStorageCriticalTreshold = this.WaterPumpingServiceStorageCriticalTreshold,
+                WaterPumpingServiceStorageCriticalThreshold = this.WaterPumpingServiceStorageCriticalThreshold,
                 WaterPumpingServiceStorageSortOrder = this.WaterPumpingServiceStorageSortOrder,
                 WaterPumpingServiceVehicles = this.WaterPumpingServiceVehicles,
-                WaterPumpingServiceVehiclesCriticalTreshold = this.WaterPumpingServiceVehiclesCriticalTreshold,
+                WaterPumpingServiceVehiclesCriticalThreshold = this.WaterPumpingServiceVehiclesCriticalThreshold,
                 WaterPumpingServiceVehiclesSortOrder = this.WaterPumpingServiceVehiclesSortOrder,
                 Landfill = this.Landfill,
-                LandfillCriticalTreshold = this.LandfillCriticalTreshold,
+                LandfillCriticalThreshold = this.LandfillCriticalThreshold,
                 LandfillSortOrder = this.LandfillSortOrder,
                 LandfillVehicles = this.LandfillVehicles,
-                LandfillVehiclesCriticalTreshold = this.LandfillVehiclesCriticalTreshold,
+                LandfillVehiclesCriticalThreshold = this.LandfillVehiclesCriticalThreshold,
                 LandfillVehiclesSortOrder = this.LandfillVehiclesSortOrder,
                 GarbageProcessing = this.GarbageProcessing,
-                GarbageProcessingCriticalTreshold = this.GarbageProcessingCriticalTreshold,
+                GarbageProcessingCriticalThreshold = this.GarbageProcessingCriticalThreshold,
                 GarbageProcessingSortOrder = this.GarbageProcessingSortOrder,
                 GarbageProcessingVehicles = this.GarbageProcessingVehicles,
-                GarbageProcessingVehiclesCriticalTreshold = this.GarbageProcessingVehiclesCriticalTreshold,
+                GarbageProcessingVehiclesCriticalThreshold = this.GarbageProcessingVehiclesCriticalThreshold,
                 GarbageProcessingVehiclesSortOrder = this.GarbageProcessingVehiclesSortOrder,
                 ElementarySchool = this.ElementarySchool,
-                ElementarySchoolCriticalTreshold = this.ElementarySchoolCriticalTreshold,
+                ElementarySchoolCriticalThreshold = this.ElementarySchoolCriticalThreshold,
                 ElementarySchoolSortOrder = this.ElementarySchoolSortOrder,
                 HighSchool = this.HighSchool,
-                HighSchoolCriticalTreshold = this.HighSchoolCriticalTreshold,
+                HighSchoolCriticalThreshold = this.HighSchoolCriticalThreshold,
                 HighSchoolSortOrder = this.HighSchoolSortOrder,
                 University = this.University,
-                UniversityCriticalTreshold = this.UniversityCriticalTreshold,
+                UniversityCriticalThreshold = this.UniversityCriticalThreshold,
                 UniversitySortOrder = this.UniversitySortOrder,
                 Healthcare = this.Healthcare,
-                HealthcareCriticalTreshold = this.HealthcareCriticalTreshold,
+                HealthcareCriticalThreshold = this.HealthcareCriticalThreshold,
                 HealthcareSortOrder = this.HealthcareSortOrder,
                 HealthcareVehicles = this.HealthcareVehicles,
-                HealthcareVehiclesCriticalTreshold = this.HealthcareVehiclesCriticalTreshold,
+                HealthcareVehiclesCriticalThreshold = this.HealthcareVehiclesCriticalThreshold,
                 HealthcareVehiclesSortOrder = this.HealthcareVehiclesSortOrder,
                 AverageIllnessRate = this.AverageIllnessRate,
-                AverageIllnessRateCriticalTreshold = this.AverageIllnessRateCriticalTreshold,
+                AverageIllnessRateCriticalThreshold = this.AverageIllnessRateCriticalThreshold,
                 AverageIllnessRateSortOrder = this.AverageIllnessRateSortOrder,
                 Cemetery = this.Cemetery,
-                CemeteryCriticalTreshold = this.CemeteryCriticalTreshold,
+                CemeteryCriticalThreshold = this.CemeteryCriticalThreshold,
                 CemeterySortOrder = this.CemeterySortOrder,
                 CemeteryVehicles = this.CemeteryVehicles,
-                CemeteryVehiclesCriticalTreshold = this.CemeteryVehiclesCriticalTreshold,
+                CemeteryVehiclesCriticalThreshold = this.CemeteryVehiclesCriticalThreshold,
                 CemeteryVehiclesSortOrder = this.CemeteryVehiclesSortOrder,
                 Crematorium = this.Crematorium,
-                CrematoriumCriticalTreshold = this.CrematoriumCriticalTreshold,
+                CrematoriumCriticalThreshold = this.CrematoriumCriticalThreshold,
                 CrematoriumSortOrder = this.CrematoriumSortOrder,
                 CrematoriumVehicles = this.CrematoriumVehicles,
-                CrematoriumVehiclesCriticalTreshold = this.CrematoriumVehiclesCriticalTreshold,
+                CrematoriumVehiclesCriticalThreshold = this.CrematoriumVehiclesCriticalThreshold,
                 CrematoriumVehiclesSortOrder = this.CrematoriumVehiclesSortOrder,
                 GroundPollution = this.GroundPollution,
-                GroundPollutionCriticalTreshold = this.GroundPollutionCriticalTreshold,
+                GroundPollutionCriticalThreshold = this.GroundPollutionCriticalThreshold,
                 GroundPollutionSortOrder = this.GroundPollutionSortOrder,
                 DrinkingWaterPollution = this.DrinkingWaterPollution,
-                DrinkingWaterPollutionCriticalTreshold = this.DrinkingWaterPollutionCriticalTreshold,
+                DrinkingWaterPollutionCriticalThreshold = this.DrinkingWaterPollutionCriticalThreshold,
                 DrinkingWaterPollutionSortOrder = this.DrinkingWaterPollutionSortOrder,
                 NoisePollution = this.NoisePollution,
-                NoisePollutionCriticalTreshold = this.NoisePollutionCriticalTreshold,
+                NoisePollutionCriticalThreshold = this.NoisePollutionCriticalThreshold,
                 NoisePollutionSortOrder = this.NoisePollutionSortOrder,
                 FireHazard = this.FireHazard,
-                FireHazardCriticalTreshold = this.FireHazardCriticalTreshold,
+                FireHazardCriticalThreshold = this.FireHazardCriticalThreshold,
                 FireHazardSortOrder = this.FireHazardSortOrder,
                 FireDepartmentVehicles = this.FireDepartmentVehicles,
-                FireDepartmentVehiclesCriticalTreshold = this.FireDepartmentVehiclesCriticalTreshold,
+                FireDepartmentVehiclesCriticalThreshold = this.FireDepartmentVehiclesCriticalThreshold,
                 FireDepartmentVehiclesSortOrder = this.FireDepartmentVehiclesSortOrder,
                 CrimeRate = this.CrimeRate,
-                CrimeRateCriticalTreshold = this.CrimeRateCriticalTreshold,
+                CrimeRateCriticalThreshold = this.CrimeRateCriticalThreshold,
                 CrimeRateSortOrder = this.CrimeRateSortOrder,
                 PoliceHoldingCells = this.PoliceHoldingCells,
-                PoliceHoldingCellsCriticalTreshold = this.PoliceHoldingCellsCriticalTreshold,
+                PoliceHoldingCellsCriticalThreshold = this.PoliceHoldingCellsCriticalThreshold,
                 PoliceHoldingCellsSortOrder = this.PoliceHoldingCellsSortOrder,
                 PoliceVehicles = this.PoliceVehicles,
-                PoliceVehiclesCriticalTreshold = this.PoliceVehiclesCriticalTreshold,
+                PoliceVehiclesCriticalThreshold = this.PoliceVehiclesCriticalThreshold,
                 PoliceVehiclesSortOrder = this.PoliceVehiclesSortOrder,
                 PrisonCells = this.PrisonCells,
-                PrisonCellsCriticalTreshold = this.PrisonCellsCriticalTreshold,
+                PrisonCellsCriticalThreshold = this.PrisonCellsCriticalThreshold,
                 PrisonCellsSortOrder = this.PrisonCellsSortOrder,
                 PrisonVehicles = this.PrisonVehicles,
-                PrisonVehiclesCriticalTreshold = this.PrisonVehiclesCriticalTreshold,
+                PrisonVehiclesCriticalThreshold = this.PrisonVehiclesCriticalThreshold,
                 PrisonVehiclesSortOrder = this.PrisonVehiclesSortOrder,
                 Unemployment = this.Unemployment,
-                UnemploymentCriticalTreshold = this.UnemploymentCriticalTreshold,
+                UnemploymentCriticalThreshold = this.UnemploymentCriticalThreshold,
                 UnemploymentSortOrder = this.UnemploymentSortOrder,
                 TrafficJam = this.TrafficJam,
-                TrafficJamCriticalTreshold = this.TrafficJamCriticalTreshold,
+                TrafficJamCriticalThreshold = this.TrafficJamCriticalThreshold,
                 TrafficJamSortOrder = this.TrafficJamSortOrder,
                 RoadMaintenanceVehicles = this.RoadMaintenanceVehicles,
-                RoadMaintenanceVehiclesCriticalTreshold = this.RoadMaintenanceVehiclesCriticalTreshold,
+                RoadMaintenanceVehiclesCriticalThreshold = this.RoadMaintenanceVehiclesCriticalThreshold,
                 RoadMaintenanceVehiclesSortOrder = this.RoadMaintenanceVehiclesSortOrder,
                 SnowDump = this.SnowDump,
-                SnowDumpCriticalTreshold = this.SnowDumpCriticalTreshold,
+                SnowDumpCriticalThreshold = this.SnowDumpCriticalThreshold,
                 SnowDumpSortOrder = this.SnowDumpSortOrder,
                 SnowDumpVehicles = this.SnowDumpVehicles,
-                SnowDumpVehiclesCriticalTreshold = this.SnowDumpVehiclesCriticalTreshold,
+                SnowDumpVehiclesCriticalThreshold = this.SnowDumpVehiclesCriticalThreshold,
                 SnowDumpVehiclesSortOrder = this.SnowDumpVehiclesSortOrder,
                 ParkMaintenanceVehicles = this.ParkMaintenanceVehicles,
-                ParkMaintenanceVehiclesCriticalTreshold = this.ParkMaintenanceVehiclesCriticalTreshold,
+                ParkMaintenanceVehiclesCriticalThreshold = this.ParkMaintenanceVehiclesCriticalThreshold,
                 ParkMaintenanceVehiclesSortOrder = this.ParkMaintenanceVehiclesSortOrder,
                 CityUnattractiveness = this.CityUnattractiveness,
-                CityUnattractivenessCriticalTreshold = this.CityUnattractivenessCriticalTreshold,
+                CityUnattractivenessCriticalThreshold = this.CityUnattractivenessCriticalThreshold,
                 CityUnattractivenessSortOrder = this.CityUnattractivenessSortOrder
             };
 

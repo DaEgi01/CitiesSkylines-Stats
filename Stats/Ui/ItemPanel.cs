@@ -28,7 +28,7 @@ namespace Stats.Ui
         public UIButton PercentButton { get; private set; }
 
         public int? Percent { get; set; }
-        public int CriticalTreshold { get; set; }
+        public int CriticalThreshold { get; set; }
         public int SortOrder { get; set; }
 
         private void CreateAndAddPercentButton()

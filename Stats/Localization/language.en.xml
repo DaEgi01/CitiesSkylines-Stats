@@ -17,8 +17,8 @@
       <Value>Autohide</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>HideItemsBelowTreshold</Key>
-      <Value>Hide items below treshold</Value>
+      <Key>HideItemsBelowThreshold</Key>
+      <Value>Hide items below threshold</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>BackgroundColor</Key>
@@ -65,8 +65,8 @@
       <Value>Enabled</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>CriticalTreshold</Key>
-      <Value>Critical treshold</Value>
+      <Key>CriticalThreshold</Key>
+      <Value>Critical threshold</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Electricity</Key>

@@ -21,84 +21,84 @@ namespace Stats.Configuration
         private UISlider itemPadding;
         private UISlider itemTextScale;
         private UICheckBox autoHide;
-        private UICheckBox hideItemsBelowTreshold;
+        private UICheckBox hideItemsBelowThreshold;
 
         private UICheckBox electricity;
-        private UISlider electricityCriticalTreshold;
+        private UISlider electricityCriticalThreshold;
         private UICheckBox heating;
-        private UISlider heatingCriticalTreshold;
+        private UISlider heatingCriticalThreshold;
         private UICheckBox water;
-        private UISlider waterCriticalTreshold;
+        private UISlider waterCriticalThreshold;
         private UICheckBox sewageTreatment;
-        private UISlider sewageTreatmentCriticalTreshold;
+        private UISlider sewageTreatmentCriticalThreshold;
         private UICheckBox waterReserveTank;
-        private UISlider waterReserveTankCriticalTreshold;
+        private UISlider waterReserveTankCriticalThreshold;
         private UICheckBox waterPumpingServiceStorage;
-        private UISlider waterPumpingServiceStorageCriticalTreshold;
+        private UISlider waterPumpingServiceStorageCriticalThreshold;
         private UICheckBox waterPumpingServiceVehicles;
-        private UISlider waterPumpingServiceVehiclesCriticalTreshold;
+        private UISlider waterPumpingServiceVehiclesCriticalThreshold;
         private UICheckBox landfill;
-        private UISlider landfillCriticalTreshold;
+        private UISlider landfillCriticalThreshold;
         private UICheckBox landfillVehicles;
-        private UISlider landfillVehiclesCriticalTreshold;
+        private UISlider landfillVehiclesCriticalThreshold;
         private UICheckBox garbageProcessing;
-        private UISlider garbageProcessingCriticalTreshold;
+        private UISlider garbageProcessingCriticalThreshold;
         private UICheckBox garbageProcessingVehicles;
-        private UISlider garbageProcessingVehiclesCriticalTreshold;
+        private UISlider garbageProcessingVehiclesCriticalThreshold;
         private UICheckBox elementarySchool;
-        private UISlider elementarySchoolCriticalTreshold;
+        private UISlider elementarySchoolCriticalThreshold;
         private UICheckBox highSchool;
-        private UISlider highSchoolCriticalTreshold;
+        private UISlider highSchoolCriticalThreshold;
         private UICheckBox university;
-        private UISlider universityCriticalTreshold;
+        private UISlider universityCriticalThreshold;
         private UICheckBox healthcare;
-        private UISlider healthcareCriticalTreshold;
+        private UISlider healthcareCriticalThreshold;
         private UICheckBox healthcareVehicles;
-        private UISlider healthcareVehiclesCriticalTreshold;
+        private UISlider healthcareVehiclesCriticalThreshold;
         private UICheckBox averageIllnessRate;
-        private UISlider averageIllnessRateCriticalTreshold;
+        private UISlider averageIllnessRateCriticalThreshold;
         private UICheckBox cemetery;
-        private UISlider cemeteryCriticalTreshold;
+        private UISlider cemeteryCriticalThreshold;
         private UICheckBox cemeteryVehicles;
-        private UISlider cemeteryVehiclesCriticalTreshold;
+        private UISlider cemeteryVehiclesCriticalThreshold;
         private UICheckBox crematorium;
-        private UISlider crematoriumCriticalTreshold;
+        private UISlider crematoriumCriticalThreshold;
         private UICheckBox crematoriumVehicles;
-        private UISlider crematoriumVehiclesCriticalTreshold;
+        private UISlider crematoriumVehiclesCriticalThreshold;
         private UICheckBox groundPollution;
-        private UISlider groundPollutionCriticalTreshold;
+        private UISlider groundPollutionCriticalThreshold;
         private UICheckBox drinkingWaterPollution;
-        private UISlider drinkingWaterPollutionCriticalTreshold;
+        private UISlider drinkingWaterPollutionCriticalThreshold;
         private UICheckBox noisePollution;
-        private UISlider noisePollutionCriticalTreshold;
+        private UISlider noisePollutionCriticalThreshold;
         private UICheckBox fireHazard;
-        private UISlider fireHazardCriticalTreshold;
+        private UISlider fireHazardCriticalThreshold;
         private UICheckBox fireDepartmentVehicles;
-        private UISlider fireDepartmentVehiclesCriticalTreshold;
+        private UISlider fireDepartmentVehiclesCriticalThreshold;
         private UICheckBox crimeRate;
-        private UISlider crimeRateCriticalTreshold;
+        private UISlider crimeRateCriticalThreshold;
         private UICheckBox policeHoldingCells;
-        private UISlider policeHoldingCellsCriticalTreshold;
+        private UISlider policeHoldingCellsCriticalThreshold;
         private UICheckBox policeVehicles;
-        private UISlider policeVehiclesCriticalTreshold;
+        private UISlider policeVehiclesCriticalThreshold;
         private UICheckBox prisonCells;
-        private UISlider prisonCellsCriticalTreshold;
+        private UISlider prisonCellsCriticalThreshold;
         private UICheckBox prisonVehicles;
-        private UISlider prisonVehiclesCriticalTreshold;
+        private UISlider prisonVehiclesCriticalThreshold;
         private UICheckBox unemployment;
-        private UISlider unemploymentCriticalTreshold;
+        private UISlider unemploymentCriticalThreshold;
         private UICheckBox trafficJam;
-        private UISlider trafficJamCriticalTreshold;
+        private UISlider trafficJamCriticalThreshold;
         private UICheckBox roadMaintenanceVehicles;
-        private UISlider roadMaintenanceVehiclesCriticalTreshold;
+        private UISlider roadMaintenanceVehiclesCriticalThreshold;
         private UICheckBox snowDump;
-        private UISlider snowDumpCriticalTreshold;
+        private UISlider snowDumpCriticalThreshold;
         private UICheckBox snowDumpVehicles;
-        private UISlider snowDumpVehiclesCriticalTreshold;
+        private UISlider snowDumpVehiclesCriticalThreshold;
         private UICheckBox parkMaintenanceVehicles;
-        private UISlider parkMaintenanceVehiclesCriticalTreshold;
+        private UISlider parkMaintenanceVehiclesCriticalThreshold;
         private UICheckBox cityUnattractiveness;
-        private UISlider cityUnattractivenessCriticalTreshold;
+        private UISlider cityUnattractivenessCriticalThreshold;
 
         public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationModel configuration, LanguageResourceModel languageResource)
         {
@@ -169,9 +169,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.hideItemsBelowTreshold = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsBelowTreshold, this.configuration.MainPanelHideItemsBelowTreshold, _checked =>
+            this.hideItemsBelowThreshold = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsBelowThreshold, this.configuration.MainPanelHideItemsBelowThreshold, _checked =>
             {
-                this.configuration.MainPanelHideItemsBelowTreshold = _checked;
+                this.configuration.MainPanelHideItemsBelowThreshold = _checked;
                 this.configuration.Save();
             }) as UICheckBox;
 
@@ -185,9 +185,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.electricityCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.ElectricityCriticalTreshold, value =>
+            this.electricityCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.ElectricityCriticalThreshold, value =>
             {
-                this.configuration.ElectricityCriticalTreshold = (int)value;
+                this.configuration.ElectricityCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -197,9 +197,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.heatingCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.HeatingCriticalTreshold, value =>
+            this.heatingCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.HeatingCriticalThreshold, value =>
             {
-                this.configuration.HeatingCriticalTreshold = (int)value;
+                this.configuration.HeatingCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -209,9 +209,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.waterCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.WaterCriticalTreshold, value =>
+            this.waterCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.WaterCriticalThreshold, value =>
             {
-                this.configuration.WaterCriticalTreshold = (int)value;
+                this.configuration.WaterCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -221,9 +221,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.sewageTreatmentCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.SewageTreatmentCriticalTreshold, value =>
+            this.sewageTreatmentCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SewageTreatmentCriticalThreshold, value =>
             {
-                this.configuration.SewageTreatmentCriticalTreshold = (int)value;
+                this.configuration.SewageTreatmentCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -233,9 +233,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.waterReserveTankCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.WaterReserveTankCriticalTreshold, value =>
+            this.waterReserveTankCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.WaterReserveTankCriticalThreshold, value =>
             {
-                this.configuration.WaterReserveTankCriticalTreshold = (int)value;
+                this.configuration.WaterReserveTankCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -245,9 +245,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.waterPumpingServiceStorageCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.WaterPumpingServiceStorageCriticalTreshold, value =>
+            this.waterPumpingServiceStorageCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.WaterPumpingServiceStorageCriticalThreshold, value =>
             {
-                this.configuration.WaterPumpingServiceStorageCriticalTreshold = (int)value;
+                this.configuration.WaterPumpingServiceStorageCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -257,9 +257,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.waterPumpingServiceVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.WaterPumpingServiceVehiclesCriticalTreshold, value =>
+            this.waterPumpingServiceVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.WaterPumpingServiceVehiclesCriticalThreshold, value =>
             {
-                this.configuration.WaterPumpingServiceVehiclesCriticalTreshold = (int)value;
+                this.configuration.WaterPumpingServiceVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -269,9 +269,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.landfillCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.LandfillCriticalTreshold, value =>
+            this.landfillCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.LandfillCriticalThreshold, value =>
             {
-                this.configuration.LandfillCriticalTreshold = (int)value;
+                this.configuration.LandfillCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -281,9 +281,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.landfillVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.LandfillVehiclesCriticalTreshold, value =>
+            this.landfillVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.LandfillVehiclesCriticalThreshold, value =>
             {
-                this.configuration.LandfillVehiclesCriticalTreshold = (int)value;
+                this.configuration.LandfillVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -293,9 +293,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.garbageProcessingCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.GarbageProcessingCriticalTreshold, value =>
+            this.garbageProcessingCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.GarbageProcessingCriticalThreshold, value =>
             {
-                this.configuration.GarbageProcessingCriticalTreshold = (int)value;
+                this.configuration.GarbageProcessingCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -305,9 +305,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.garbageProcessingVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.GarbageProcessingVehiclesCriticalTreshold, value =>
+            this.garbageProcessingVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.GarbageProcessingVehiclesCriticalThreshold, value =>
             {
-                this.configuration.GarbageProcessingVehiclesCriticalTreshold = (int)value;
+                this.configuration.GarbageProcessingVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -317,9 +317,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.elementarySchoolCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.ElementarySchoolCriticalTreshold, value =>
+            this.elementarySchoolCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.ElementarySchoolCriticalThreshold, value =>
             {
-                this.configuration.ElementarySchoolCriticalTreshold = (int)value;
+                this.configuration.ElementarySchoolCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -329,9 +329,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.highSchoolCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.HighSchoolCriticalTreshold, value =>
+            this.highSchoolCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.HighSchoolCriticalThreshold, value =>
             {
-                this.configuration.HighSchoolCriticalTreshold = (int)value;
+                this.configuration.HighSchoolCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -341,9 +341,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.universityCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.UniversityCriticalTreshold, value =>
+            this.universityCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.UniversityCriticalThreshold, value =>
             {
-                this.configuration.UniversityCriticalTreshold = (int)value;
+                this.configuration.UniversityCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -353,9 +353,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.healthcareCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.HealthcareCriticalTreshold, value =>
+            this.healthcareCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.HealthcareCriticalThreshold, value =>
             {
-                this.configuration.HealthcareCriticalTreshold = (int)value;
+                this.configuration.HealthcareCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -365,9 +365,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.healthcareVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.HealthcareVehiclesCriticalTreshold, value =>
+            this.healthcareVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.HealthcareVehiclesCriticalThreshold, value =>
             {
-                this.configuration.HealthcareVehiclesCriticalTreshold = (int)value;
+                this.configuration.HealthcareVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -377,9 +377,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.averageIllnessRateCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.AverageIllnessRateCriticalTreshold, value =>
+            this.averageIllnessRateCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.AverageIllnessRateCriticalThreshold, value =>
             {
-                this.configuration.AverageIllnessRateCriticalTreshold = (int)value;
+                this.configuration.AverageIllnessRateCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -389,9 +389,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.cemeteryCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.CemeteryCriticalTreshold, value =>
+            this.cemeteryCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.CemeteryCriticalThreshold, value =>
             {
-                this.configuration.CemeteryCriticalTreshold = (int)value;
+                this.configuration.CemeteryCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -401,9 +401,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.cemeteryVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.CemeteryVehiclesCriticalTreshold, value =>
+            this.cemeteryVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.CemeteryVehiclesCriticalThreshold, value =>
             {
-                this.configuration.CemeteryVehiclesCriticalTreshold = (int)value;
+                this.configuration.CemeteryVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -413,9 +413,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.crematoriumCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.CrematoriumCriticalTreshold, value =>
+            this.crematoriumCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.CrematoriumCriticalThreshold, value =>
             {
-                this.configuration.CrematoriumCriticalTreshold = (int)value;
+                this.configuration.CrematoriumCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -425,9 +425,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.crematoriumVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.CrematoriumVehiclesCriticalTreshold, value =>
+            this.crematoriumVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.CrematoriumVehiclesCriticalThreshold, value =>
             {
-                this.configuration.CrematoriumVehiclesCriticalTreshold = (int)value;
+                this.configuration.CrematoriumVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -437,9 +437,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.groundPollutionCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.GroundPollutionCriticalTreshold, value =>
+            this.groundPollutionCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.GroundPollutionCriticalThreshold, value =>
             {
-                this.configuration.GroundPollutionCriticalTreshold = (int)value;
+                this.configuration.GroundPollutionCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -449,9 +449,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.drinkingWaterPollutionCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.DrinkingWaterPollutionCriticalTreshold, value =>
+            this.drinkingWaterPollutionCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.DrinkingWaterPollutionCriticalThreshold, value =>
             {
-                this.configuration.DrinkingWaterPollutionCriticalTreshold = (int)value;
+                this.configuration.DrinkingWaterPollutionCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -461,9 +461,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.noisePollutionCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.NoisePollutionCriticalTreshold, value =>
+            this.noisePollutionCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.NoisePollutionCriticalThreshold, value =>
             {
-                this.configuration.NoisePollutionCriticalTreshold = (int)value;
+                this.configuration.NoisePollutionCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -473,9 +473,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.fireHazardCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.FireHazardCriticalTreshold, value =>
+            this.fireHazardCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.FireHazardCriticalThreshold, value =>
             {
-                this.configuration.FireHazardCriticalTreshold = (int)value;
+                this.configuration.FireHazardCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -485,9 +485,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.fireDepartmentVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.FireDepartmentVehiclesCriticalTreshold, value =>
+            this.fireDepartmentVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.FireDepartmentVehiclesCriticalThreshold, value =>
             {
-                this.configuration.FireDepartmentVehiclesCriticalTreshold = (int)value;
+                this.configuration.FireDepartmentVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -497,9 +497,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.crimeRateCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.CrimeRateCriticalTreshold, value =>
+            this.crimeRateCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.CrimeRateCriticalThreshold, value =>
             {
-                this.configuration.CrimeRateCriticalTreshold = (int)value;
+                this.configuration.CrimeRateCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -509,9 +509,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.policeHoldingCellsCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.PoliceHoldingCellsCriticalTreshold, value =>
+            this.policeHoldingCellsCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PoliceHoldingCellsCriticalThreshold, value =>
             {
-                this.configuration.PoliceHoldingCellsCriticalTreshold = (int)value;
+                this.configuration.PoliceHoldingCellsCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -521,9 +521,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.policeVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.PoliceVehiclesCriticalTreshold, value =>
+            this.policeVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PoliceVehiclesCriticalThreshold, value =>
             {
-                this.configuration.PoliceVehiclesCriticalTreshold = (int)value;
+                this.configuration.PoliceVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -533,9 +533,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.prisonCellsCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.PrisonCellsCriticalTreshold, value =>
+            this.prisonCellsCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PrisonCellsCriticalThreshold, value =>
             {
-                this.configuration.PrisonCellsCriticalTreshold = (int)value;
+                this.configuration.PrisonCellsCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -545,9 +545,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.prisonVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.PrisonVehiclesCriticalTreshold, value =>
+            this.prisonVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PrisonVehiclesCriticalThreshold, value =>
             {
-                this.configuration.PrisonVehiclesCriticalTreshold = (int)value;
+                this.configuration.PrisonVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -557,9 +557,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.unemploymentCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.UnemploymentCriticalTreshold, value =>
+            this.unemploymentCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.UnemploymentCriticalThreshold, value =>
             {
-                this.configuration.UnemploymentCriticalTreshold = (int)value;
+                this.configuration.UnemploymentCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -569,9 +569,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.trafficJamCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.TrafficJamCriticalTreshold, value =>
+            this.trafficJamCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.TrafficJamCriticalThreshold, value =>
             {
-                this.configuration.TrafficJamCriticalTreshold = (int)value;
+                this.configuration.TrafficJamCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -581,9 +581,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.roadMaintenanceVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.RoadMaintenanceVehiclesCriticalTreshold, value =>
+            this.roadMaintenanceVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.RoadMaintenanceVehiclesCriticalThreshold, value =>
             {
-                this.configuration.RoadMaintenanceVehiclesCriticalTreshold = (int)value;
+                this.configuration.RoadMaintenanceVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -593,9 +593,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.snowDumpCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.SnowDumpCriticalTreshold, value =>
+            this.snowDumpCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SnowDumpCriticalThreshold, value =>
             {
-                this.configuration.SnowDumpCriticalTreshold = (int)value;
+                this.configuration.SnowDumpCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -605,9 +605,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.snowDumpVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.SnowDumpVehiclesCriticalTreshold, value =>
+            this.snowDumpVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SnowDumpVehiclesCriticalThreshold, value =>
             {
-                this.configuration.SnowDumpVehiclesCriticalTreshold = (int)value;
+                this.configuration.SnowDumpVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -617,9 +617,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.parkMaintenanceVehiclesCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.ParkMaintenanceVehiclesCriticalTreshold, value =>
+            this.parkMaintenanceVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.ParkMaintenanceVehiclesCriticalThreshold, value =>
             {
-                this.configuration.ParkMaintenanceVehiclesCriticalTreshold = (int)value;
+                this.configuration.ParkMaintenanceVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
@@ -629,9 +629,9 @@ namespace Stats.Configuration
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.cityUnattractivenessCriticalTreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalTreshold, 0, 100, 1, this.configuration.CityUnattractivenessCriticalTreshold, value =>
+            this.cityUnattractivenessCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.CityUnattractivenessCriticalThreshold, value =>
             {
-                this.configuration.CityUnattractivenessCriticalTreshold = (int)value;
+                this.configuration.CityUnattractivenessCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
         }

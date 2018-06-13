@@ -2,15 +2,15 @@
 {
     public struct ItemDisplayInfo
     {
-        public ItemDisplayInfo(bool enabled, int criticalTresholdInPercent, int sortOrder)
+        public ItemDisplayInfo(bool enabled, int criticalThresholdInPercent, int sortOrder)
         {
             this.Enabled = enabled;
-            this.CriticalTreshold = criticalTresholdInPercent;
+            this.CriticalThreshold = criticalThresholdInPercent;
             this.SortOrder = sortOrder;
         }
 
         public bool Enabled { get; }
-        public int CriticalTreshold { get; }
+        public int CriticalThreshold { get; }
         public int SortOrder { get; }
     }
 }

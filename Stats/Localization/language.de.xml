@@ -17,7 +17,7 @@
       <Value>Automatisch ausblenden</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>HideItemsBelowTreshold</Key>
+      <Key>HideItemsBelowThreshold</Key>
       <Value>Werte unter dem Grenzwert ausblenden</Value>
     </LocalizedItem>
     <LocalizedItem>
@@ -65,7 +65,7 @@
       <Value>Aktiviert</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>CriticalTreshold</Key>
+      <Key>CriticalThreshold</Key>
       <Value>Kritischer Grenzwert</Value>
     </LocalizedItem>
     <LocalizedItem>
