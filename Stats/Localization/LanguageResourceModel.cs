@@ -1,34 +1,27 @@
 ﻿using ColossalFramework.Globalization;
+using Stats.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Stats.Localization
 {
-    public class LanguageResourceModel
+    public class LanguageResourceModel : IDisposable
     {
-        private readonly LocaleManager localeManager;
+        private readonly ConfigurationModel configuration;
         private readonly LanguageResourceService languageResourceService;
-        private readonly LanguageResourceDto languageResourceDto;
 
         private Dictionary<string, string> itemsDictionary;
 
-        public LanguageResourceModel(LocaleManager localeManager, LanguageResourceService languageResourceService, LanguageResourceDto languageResourceDto)
+        public LanguageResourceModel(ConfigurationModel configuration, LanguageResourceService languageResourceService, LocaleManager localeManager)
         {
-            this.localeManager = localeManager ?? throw new ArgumentNullException(nameof(localeManager));
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
-            this.languageResourceDto = languageResourceDto ?? throw new ArgumentNullException(nameof(languageResourceDto));
+
+            var languageResourceDto = languageResourceService.Load(localeManager.language);
+            this.itemsDictionary = languageResourceDto.LocalizedItems.ToDictionary(x => x.Key, x => x.Value);
 
             LocaleManager.eventLocaleChanged += LocaleManager_eventLocaleChanged;
-            this.UpdateFromDto(languageResourceDto);
-
-            foreach (var item in itemsDictionary)
-            {
-                if (string.IsNullOrEmpty(item.Value))
-                {
-                    throw new Exception($"A translation value is missing for the language '{languageResourceDto.LanguageTwoLetterCode}' and the item '{item.Key}'.");
-                }
-            }
         }
 
         public string Reset => this.itemsDictionary["Reset"];
@@ -86,20 +79,26 @@ namespace Stats.Localization
         public string SnowDumpVehicles => itemsDictionary[ItemData.SnowDumpVehicles];
         public string CityUnattractiveness => itemsDictionary[ItemData.CityUnattractiveness];
 
-        private void UpdateFromDto(LanguageResourceDto dto)
-        {
-            this.itemsDictionary = dto.LocalizedItems.ToDictionary(x => x.Key, x => x.Value);
-        }
-
-        public void UpdateFromLanguage(string languageTwoLetterCode)
-        {
-            var dto = this.languageResourceService.Load(languageTwoLetterCode);
-            this.UpdateFromDto(dto);
-        }
-
         public string GetLocalizedString(ItemData item)
         {
             return this.itemsDictionary[item.SystemName];
+        }
+
+        public void Dispose()
+        {
+            LocaleManager.eventLocaleChanged -= LocaleManager_eventLocaleChanged;
+        }
+
+        private void LocaleManager_eventLocaleChanged()
+        {
+            var languageResourceDto = this.languageResourceService.Load(LocaleManager.instance.language);
+            this.UpdateFromDto(languageResourceDto);
+        }
+
+        private void UpdateFromDto(LanguageResourceDto dto)
+        {
+            this.itemsDictionary = dto.LocalizedItems.ToDictionary(x => x.Key, x => x.Value);
+            this.OnLanguageChanged();
         }
 
         public event Action LanguageChanged;
@@ -107,12 +106,6 @@ namespace Stats.Localization
         private void OnLanguageChanged()
         {
             this.LanguageChanged?.Invoke();
-        }
-
-        private void LocaleManager_eventLocaleChanged()
-        {
-            this.UpdateFromLanguage(this.localeManager.language);
-            this.OnLanguageChanged();
         }
     }
 }

@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using UnityEngine;
 
 namespace Stats.Localization
 {
@@ -11,19 +10,21 @@ namespace Stats.Localization
     {
         private readonly string modSystemName;
         private readonly string workshopId;
+        private readonly PluginManager pluginManager;
 
-        public LanguageResourceService(string modSystemName, string workshopId)
+        public LanguageResourceService(string modSystemName, string workshopId, PluginManager pluginManager)
         {
             this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
             this.workshopId = workshopId ?? throw new ArgumentNullException(nameof(workshopId));
+            this.pluginManager = pluginManager ?? throw new ArgumentNullException(nameof(pluginManager));
         }
 
         private string GetExpectedFileFullName(string languageTwoLetterCode)
         {
-            var plugin = PluginManager.instance.GetPluginsInfo().Where(x => x.name == this.modSystemName || x.name == this.workshopId).FirstOrDefault();
+            var plugin = this.pluginManager.GetPluginsInfo().Where(x => x.name == this.modSystemName || x.name == this.workshopId).FirstOrDefault();
             return Path.Combine(plugin.modPath,
-                Path.Combine(
-                    "Localization", $"language.{languageTwoLetterCode}.xml"
+                Path.Combine("Localization", 
+                    $"language.{languageTwoLetterCode}.xml"
                 )
             );
         }

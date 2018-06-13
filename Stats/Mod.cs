@@ -1,11 +1,11 @@
-﻿using Stats.Configuration;
-using Stats.Localization;
-using Stats.Ui;
-using ColossalFramework;
-using ColossalFramework.Globalization;
+﻿using ColossalFramework.Globalization;
 using ColossalFramework.IO;
+using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
+using Stats.Configuration;
+using Stats.Localization;
+using Stats.Ui;
 using System.IO;
 using UnityEngine;
 
@@ -41,21 +41,19 @@ namespace Stats
                 this.configuration = new ConfigurationModel(this.configurationService, configurationDto);
             }
 
-            this.languageResourceService = new LanguageResourceService(this.SystemName, this.WorkshopId);
-            var localeManager = SingletonLite<LocaleManager>.instance;
-            var languageResourceDto = this.languageResourceService.Load(localeManager.language);
-            this.languageResource = new LanguageResourceModel(localeManager, languageResourceService, languageResourceDto);
-
             this.gameEngineService = new GameEngineService();
         }
 
         public void OnDisabled()
         {
-            this.configurationService = null;
             this.configuration = null;
-            this.languageResourceService = null;
+
+            this.languageResource.Dispose();
             this.languageResource = null;
+
+            this.configurationService = null;
             this.gameEngineService = null;
+            this.languageResourceService = null;
         }
 
         public void OnCreated(ILoading loading)
@@ -100,14 +98,13 @@ namespace Stats
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            ////so that the options ui is created with the correct language on language switch
-            var localeManager = SingletonLite<LocaleManager>.instance;
-            var languageResourceDto = this.languageResourceService.Load(localeManager.language);
-            var languageResource = new LanguageResourceModel(localeManager, this.languageResourceService, languageResourceDto);
+            this.languageResourceService = new LanguageResourceService(this.SystemName, this.WorkshopId, PluginManager.instance);
+            var languageResourceDto = this.languageResourceService.Load(LocaleManager.instance.language);
+            this.languageResource = new LanguageResourceModel(this.configuration, languageResourceService, LocaleManager.instance);
 
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            var configurationUiBuilder = new ConfigurationPanel(helper, modFullTitle, this.configuration, this.languageResource);
-            configurationUiBuilder.Initialize();
+            var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configuration, this.languageResource);
+            configurationPanel.Initialize();
         }
 
         //TODO: split item configuration from main panel 
