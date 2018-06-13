@@ -90,11 +90,11 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceStorage</Key>
-      <Value>Water pumping service tanks usage</Value>
+      <Value>Wasserabpumpdienst Wasserkapazität</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceVehicles</Key>
-      <Value>Water pumping service vehicles in use</Value>
+      <Value>Wasserabpumpdienstfahrzeuge in Gebrauch</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Landfill</Key>

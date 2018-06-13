@@ -14,14 +14,14 @@ namespace Stats.Configuration
         private readonly ConfigurationModel configuration;
         private readonly LanguageResourceModel languageResource;
 
-        private UICheckBox autoHide;
-        private UICheckBox hideItemsBelowTreshold;
         private UISlider updateEveryXSeconds;
         private UISlider columnCountSlider;
         private UISlider itemWidth;
         private UISlider itemHeight;
         private UISlider itemPadding;
         private UISlider itemTextScale;
+        private UICheckBox autoHide;
+        private UICheckBox hideItemsBelowTreshold;
 
         private UICheckBox electricity;
         private UISlider electricityCriticalTreshold;
