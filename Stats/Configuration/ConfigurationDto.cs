@@ -37,7 +37,7 @@ namespace Stats.Configuration
         public int SewageTreatmentSortOrder { get; set; } = 4000;
 
         public bool WaterReserveTank { get; set; } = true;
-        public int WaterReserveTankCriticalThreshold { get; set; } = 80;
+        public int WaterReserveTankCriticalThreshold { get; set; } = 20;
         public int WaterReserveTankSortOrder { get; set; } = 5000;
 
         public bool WaterPumpingServiceStorage { get; set; } = true;
