@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageResource>
+  <LanguageTwoLetterCode>ru</LanguageTwoLetterCode>
+  <Version>1</Version>
+  <LocalizedItems>
+    <LocalizedItem>
+      <Key>Reset</Key>
+      <Value>Сброс</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UpdateEveryXSeconds</Key>
+      <Value>Обновлять каждые x секунд(ы)</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AutoHide</Key>
+      <Value>Автоскрытие</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HideItemsBelowThreshold</Key>
+      <Value>Скрыть элементы ниже порогового значения</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>BackgroundColor</Key>
+      <Value>Фоновый цвет</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ForegroundColor</Key>
+      <Value>Цвет переднего плана</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AccentColor</Key>
+      <Value>Цвет акцента</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>MainWindow</Key>
+      <Value>Инфопанель</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ColumnCount</Key>
+      <Value>Количество столбцов</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemWidth</Key>
+      <Value>Ширина инфопанели</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemHeight</Key>
+      <Value>Высота инфопанели</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemPadding</Key>
+      <Value>Заполнение инфопанели</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextScale</Key>
+      <Value>Размер текста инфопанели</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Items</Key>
+      <Value>Показатели</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Enabled</Key>
+      <Value>Включено</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CriticalThreshold</Key>
+      <Value>Критический порог</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Electricity</Key>
+      <Value>Электричество</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Heating</Key>
+      <Value>Отопление</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Water</Key>
+      <Value>Водопровод</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SewageTreatment</Key>
+      <Value>Канализация</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterReserveTank</Key>
+      <Value>Запас воды</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceStorage</Key>
+      <Value>Резервуары воды</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceVehicles</Key>
+      <Value>Водяные насосы</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Landfill</Key>
+      <Value>Мусорные свалки</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>LandfillVehicles</Key>
+      <Value>Мусоровозы со свалок</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessing</Key>
+      <Value>Переработка мусора</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessingVehicles</Key>
+      <Value>Мусоровозы с переработки мусора</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ElementarySchool</Key>
+      <Value>Начальные школы</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HighSchool</Key>
+      <Value>Высшие школы</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>University</Key>
+      <Value>Университеты</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Healthcare</Key>
+      <Value>Больницы</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HealthcareVehicles</Key>
+      <Value>Кареты скорой помощи</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageIllnessRate</Key>
+      <Value>Заболеваемость</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Cemetery</Key>
+      <Value>Кладбища</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CemeteryVehicles</Key>
+      <Value>Катафалки кладбищ</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Crematorium</Key>
+      <Value>Крематории</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrematoriumVehicles</Key>
+      <Value>Катафалки крематориев</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>TrafficJam</Key>
+      <Value>Дорожные пробки</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GroundPollution</Key>
+      <Value>Загрязнение почвы</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DrinkingWaterPollution</Key>
+      <Value>Загрязнение питьевой воды</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>NoisePollution</Key>
+      <Value>Шум</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireHazard</Key>
+      <Value>Пожароопасность</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireDepartmentVehicles</Key>
+      <Value>Пожарные машины</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrimeRate</Key>
+      <Value>Уровень преступности</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHoldingCells</Key>
+      <Value>Заключённые</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceVehicles</Key>
+      <Value>Полицейские автомобили</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonCells</Key>
+      <Value>Тюрьмы</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonVehicles</Key>
+      <Value>Тюремный транспорт</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Unemployment</Key>
+      <Value>Безработица</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>RoadMaintenanceVehicles</Key>
+      <Value>Дорожно-ремонтный транспорт</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ParkMaintenanceVehicles</Key>
+      <Value>Транспорт обслуживания парков</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDump</Key>
+      <Value>Снежные свалки</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDumpVehicles</Key>
+      <Value>Снегоуборочный транспорт</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CityUnattractiveness</Key>
+      <Value>Непривлекательность города</Value>
+    </LocalizedItem>
+  </LocalizedItems>
+</LanguageResource>
