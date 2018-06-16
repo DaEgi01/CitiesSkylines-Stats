@@ -379,7 +379,7 @@ namespace Stats.Ui
             {
                 var waterStorageTotal = allDistricts.GetWaterStorageCapacity();
                 var waterStorageInUse = allDistricts.GetWaterStorageAmount();
-                this.waterReserveTankPanel.Percent = GetUsagePercent(waterStorageTotal, waterStorageInUse);
+                this.waterReserveTankPanel.Percent = GetAvailabilityPercent(waterStorageTotal, waterStorageInUse);
             }
 
             if (this.configuration.WaterPumpingServiceStorage || this.configuration.WaterPumpingServiceVehicles)
@@ -971,16 +971,7 @@ namespace Stats.Ui
             return enabled;
         }
 
-        private string GetAvailabilityPercentString(long capacity, long need)
-        {
-            var availability = GetAvailabilityPercent(capacity, need);
-            if (availability.HasValue)
-                return availability.Value.ToString() + "%";
-
-            return "-%";
-        }
-
-        private float? GetAvailabilityPercent(long capacity, long need)
+        private int? GetAvailabilityPercent(long capacity, long need)
         {
             if (capacity == 0)
                 return null;
@@ -989,16 +980,6 @@ namespace Stats.Ui
                 return 0;
 
             return (int)((1 - need / (float)capacity) * 100);
-        }
-
-        private string GetUsagePercentString(int? percent)
-        {
-            if (percent.HasValue)
-            {
-                return percent.Value.ToString() + "%";
-            }
-
-            return "-%";
         }
 
         private int? GetUsagePercent(long capacity, long usage)
@@ -1010,6 +991,16 @@ namespace Stats.Ui
                 return 0;
 
             return (int)((usage / (float)capacity) * 100);
+        }
+
+        private string GetUsagePercentString(int? percent)
+        {
+            if (percent.HasValue)
+            {
+                return percent.Value.ToString() + "%";
+            }
+
+            return "-%";
         }
 
         private void UpdateItemsLayout()
