@@ -86,7 +86,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterReserveTank</Key>
-      <Value>Water reserve tanks usage</Value>
+      <Value>Water reserve tanks emptying degree</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceStorage</Key>

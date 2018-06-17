@@ -86,7 +86,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterReserveTank</Key>
-      <Value>Trinkwasserreservetankkapazitäten</Value>
+      <Value>Trinkwasserreserven Leerungsgrad</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceStorage</Key>
@@ -98,7 +98,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>Landfill</Key>
-      <Value>Mülldeponie-Nutzung</Value>
+      <Value>Mülldeponieauslastung</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>LandfillVehicles</Key>
