@@ -86,7 +86,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterReserveTank</Key>
-      <Value>Запас воды</Value>
+      <Value>Пустота резервуаров</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceStorage</Key>
