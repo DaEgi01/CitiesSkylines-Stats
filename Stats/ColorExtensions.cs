@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using UnityEngine;
 
 namespace Stats
@@ -25,17 +24,13 @@ namespace Stats
 
         public static string GetColorString(this Color32 color)
         {
-            var sb = new StringBuilder();
-
-            sb.Append(color.r.ToString());
-            sb.Append(",");
-            sb.Append(color.g.ToString());
-            sb.Append(",");
-            sb.Append(color.b.ToString());
-            sb.Append(",");
-            sb.Append(color.a.ToString());
-
-            return sb.ToString();
+            return color.r.ToString()
+                + ","
+                + color.g.ToString()
+                + ","
+                + color.b.ToString()
+                + ","
+                + color.a.ToString();
         }
     }
 }
