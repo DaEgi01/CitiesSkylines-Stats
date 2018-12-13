@@ -2,11 +2,12 @@
 using ColossalFramework.UI;
 using Stats.Configuration;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Stats.Ui
 {
-    public class ItemPanel : UIPanel
+    public class ItemPanel : UIPanel, IComparer<ItemPanel>
     {
         private ItemData itemData;
         private ConfigurationModel configuration;
@@ -109,6 +110,11 @@ namespace Stats.Ui
             this.PercentButton.width = this.width - this.height;
             this.PercentButton.height = this.height;
             this.PercentButton.textScale = this.configuration.ItemTextScale;
+        }
+
+        public int Compare(ItemPanel x, ItemPanel y)
+        {
+            return x.SortOrder.CompareTo(y.SortOrder);
         }
     }
 }
