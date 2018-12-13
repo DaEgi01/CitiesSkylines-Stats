@@ -22,6 +22,7 @@ namespace Stats.Configuration
         private UISlider itemTextScale;
         private UICheckBox autoHide;
         private UICheckBox hideItemsBelowThreshold;
+        private UICheckBox hideItemsNotAvailable;
 
         private UICheckBox electricity;
         private UISlider electricityCriticalThreshold;
@@ -172,6 +173,12 @@ namespace Stats.Configuration
             this.hideItemsBelowThreshold = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsBelowThreshold, this.configuration.MainPanelHideItemsBelowThreshold, _checked =>
             {
                 this.configuration.MainPanelHideItemsBelowThreshold = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.hideItemsNotAvailable = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsNotAvailable, this.configuration.MainPanelHideItemsNotAvailable, _checked =>
+            {
+                this.configuration.MainPanelHideItemsNotAvailable = _checked;
                 this.configuration.Save();
             }) as UICheckBox;
 

@@ -10,6 +10,7 @@ namespace Stats.Configuration
         public int MainPanelUpdateEveryXSeconds { get; set; } = 3;
         public bool MainPanelAutoHide { get; set; } = false;
         public bool MainPanelHideItemsBelowThreshold { get; set; } = true;
+        public bool MainPanelHideItemsNotAvailable { get; set; } = true;
         public int MainPanelColumnCount { get; set; } = 2;
         public string MainPanelBackgroundColor { get; set; } = "50, 50, 50, 255";
         public string MainPanelForegroundColor { get; set; } = "255, 255, 255, 255";

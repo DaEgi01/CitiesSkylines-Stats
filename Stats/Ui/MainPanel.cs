@@ -76,15 +76,15 @@ namespace Stats.Ui
             this.CreateAndAddDragHandle();
             this.CreateAndAddAllUiItems();
             this.UpdateLocalizedTooltips();
-            this.UpdateUi(forceLayout: true);
+            this.UpdateUi(true);
 
-            this.configuration.PropertyChanged += this.UpdateUi;
+            this.configuration.PropertyChanged += this.UpdateUiAndForceLayout;
             this.languageResource.LanguageChanged += this.UpdateLocalizedTooltips;
         }
 
         public override void OnDestroy()
         {
-            this.configuration.PropertyChanged -= this.UpdateUi;
+            this.configuration.PropertyChanged -= this.UpdateUiAndForceLayout;
             this.languageResource.LanguageChanged -= this.UpdateLocalizedTooltips;
 
             base.OnDestroy();
@@ -247,9 +247,9 @@ namespace Stats.Ui
             this.cityUnattractivenessPanel.UpdateLocalizedTooltips(this.languageResource.CityUnattractiveness);
         }
 
-        private void UpdateUi()
+        private void UpdateUiAndForceLayout()
         {
-            this.UpdateUi(false);
+            this.UpdateUi(true);
         }
 
         private void UpdateUi(bool forceLayout)
@@ -917,7 +917,7 @@ namespace Stats.Ui
                 this.cityUnattractivenessPanel.Percent = (100 - cityAttractiveness);
             }
 
-            this.UpdateUi();
+            this.UpdateUiAndForceLayout();
 
             base.Update();
         }
@@ -963,12 +963,24 @@ namespace Stats.Ui
 
         private bool GetItemVisibility(bool enabled, int? percent, int criticalThreshold)
         {
-            if (this.configuration.MainPanelHideItemsBelowThreshold)
+            if (!enabled)
             {
-                return enabled && (!percent.HasValue || percent.Value >= criticalThreshold);
+                return false;
             }
 
-            return enabled;
+            if (percent.HasValue)
+            {
+                if (this.configuration.MainPanelHideItemsBelowThreshold)
+                {
+                    return criticalThreshold < percent.Value;
+                }
+
+                return true;
+            }
+            else
+            {
+                return !this.configuration.MainPanelHideItemsNotAvailable;
+            }
         }
 
         private int? GetAvailabilityPercent(long capacity, long need)

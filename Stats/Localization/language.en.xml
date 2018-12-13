@@ -21,6 +21,10 @@
       <Value>Hide items below threshold</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>HideItemsNotAvailable</Key>
+      <Value>Hide not available items</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>BackgroundColor</Key>
       <Value>Background color</Value>
     </LocalizedItem>

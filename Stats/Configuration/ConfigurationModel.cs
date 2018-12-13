@@ -66,6 +66,16 @@ namespace Stats.Configuration
             }
         }
 
+        public bool MainPanelHideItemsNotAvailable
+        {
+            get => dto.MainPanelHideItemsNotAvailable;
+            set
+            {
+                dto.MainPanelHideItemsNotAvailable = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         public int MainPanelColumnCount
         {
             get => dto.MainPanelColumnCount;

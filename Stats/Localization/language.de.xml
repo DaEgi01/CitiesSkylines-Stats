@@ -21,6 +21,10 @@
       <Value>Werte unter dem Grenzwert ausblenden</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>HideItemsNotAvailable</Key>
+      <Value>Nicht verfügbare Werte ausblenden</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>BackgroundColor</Key>
       <Value>Hintergrundfarbe</Value>
     </LocalizedItem>

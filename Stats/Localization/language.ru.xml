@@ -21,6 +21,10 @@
       <Value>Скрыть элементы ниже порогового значения</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>HideItemsNotAvailable</Key>
+      <Value>Скрыть элементы недоступны</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>BackgroundColor</Key>
       <Value>Фоновый цвет</Value>
     </LocalizedItem>

@@ -28,6 +28,7 @@ namespace Stats.Localization
         public string UpdateEveryXSeconds => this.itemsDictionary["UpdateEveryXSeconds"];
         public string AutoHide => itemsDictionary["AutoHide"];
         public string HideItemsBelowThreshold => itemsDictionary["HideItemsBelowThreshold"];
+        public string HideItemsNotAvailable => itemsDictionary["HideItemsNotAvailable"];
         public string BackgroundColor => itemsDictionary["BackgroundColor"];
         public string ForegroundColor => itemsDictionary["ForegroundColor"];
         public string AccentColor => itemsDictionary["AccentColor"];
