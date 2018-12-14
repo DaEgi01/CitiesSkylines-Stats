@@ -22,7 +22,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>HideItemsNotAvailable</Key>
-      <Value>Скрыть элементы недоступны</Value>
+      <Value>Скрыть недоступные элементы</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>BackgroundColor</Key>
