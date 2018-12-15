@@ -646,12 +646,15 @@ namespace Stats.Configuration
         private void UpdateUi()
         {
             this.updateEveryXSeconds.value = this.configuration.MainPanelUpdateEveryXSeconds;
-            this.autoHide.isChecked = this.configuration.MainPanelAutoHide;
             this.columnCountSlider.value = this.configuration.MainPanelColumnCount;
             this.itemWidth.value = this.configuration.ItemWidth;
             this.itemHeight.value = this.configuration.ItemHeight;
             this.itemPadding.value = this.configuration.ItemPadding;
             this.itemTextScale.value = this.configuration.ItemTextScale;
+            this.autoHide.isChecked = this.configuration.MainPanelAutoHide;
+            this.hideItemsBelowThreshold.isChecked = this.configuration.MainPanelHideItemsBelowThreshold;
+            this.hideItemsNotAvailable.isChecked = this.configuration.MainPanelHideItemsNotAvailable;
+
             this.electricity.isChecked = this.configuration.Electricity;
             this.heating.isChecked = this.configuration.Heating;
             this.water.isChecked = this.configuration.Water;
