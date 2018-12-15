@@ -917,7 +917,7 @@ namespace Stats.Ui
                 this.cityUnattractivenessPanel.Percent = (100 - cityAttractiveness);
             }
 
-            this.UpdateUiAndForceLayout();
+            this.UpdateUi(false);
 
             base.Update();
         }
