@@ -25,7 +25,7 @@ namespace Stats
         public string SystemName => "Stats";
         public string Name => "Stats";
         public string Description => "Adds a configurable panel to display all vital city stats at a glance.";
-        public string Version => "1.0.7";
+        public string Version => "1.0.8";
         public string WorkshopId => "1410077595";
 
         public void OnEnabled()
