@@ -11,8 +11,10 @@ namespace Stats.Configuration
 
         private readonly UIHelperBase uiHelperBase;
         private readonly ModFullTitle modFullTitle;
-        private readonly ConfigurationModel configuration;
+        private readonly ConfigurationService configurationService;
         private readonly LanguageResourceModel languageResource;
+
+        private ConfigurationModel configuration;
 
         private UISlider updateEveryXSeconds;
         private UISlider columnCountSlider;
@@ -101,10 +103,11 @@ namespace Stats.Configuration
         private UICheckBox cityUnattractiveness;
         private UISlider cityUnattractivenessCriticalThreshold;
 
-        public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationModel configuration, LanguageResourceModel languageResource)
+        public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationService configurationService, ConfigurationModel configuration, LanguageResourceModel languageResource)
         {
             this.uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
             this.modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
         }
@@ -117,9 +120,8 @@ namespace Stats.Configuration
 
             mainGroupUiHelper.AddButton(this.languageResource.Reset, () =>
             {
-                this.configuration.ResetToDefault();
-                this.configuration.Save();
-                this.UpdateUi();
+                this.configuration.Reset();
+                this.UpdateUiFromModel();
             });
 
             mainGroupUiHelper.AddSpace(space);
@@ -594,30 +596,6 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.snowDump = itemGroupUiHelper.AddCheckbox(languageResource.SnowDump, this.configuration.SnowDump, _checked =>
-            {
-                this.configuration.SnowDump = _checked;
-                this.configuration.Save();
-            }) as UICheckBox;
-
-            this.snowDumpCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SnowDumpCriticalThreshold, value =>
-            {
-                this.configuration.SnowDumpCriticalThreshold = (int)value;
-                this.configuration.Save();
-            });
-
-            this.snowDumpVehicles = itemGroupUiHelper.AddCheckbox(languageResource.SnowDumpVehicles, this.configuration.SnowDumpVehicles, _checked =>
-            {
-                this.configuration.SnowDumpVehicles = _checked;
-                this.configuration.Save();
-            }) as UICheckBox;
-
-            this.snowDumpVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SnowDumpVehiclesCriticalThreshold, value =>
-            {
-                this.configuration.SnowDumpVehiclesCriticalThreshold = (int)value;
-                this.configuration.Save();
-            });
-
             this.parkMaintenanceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.ParkMaintenanceVehicles, this.configuration.ParkMaintenanceVehicles, _checked =>
             {
                 this.configuration.ParkMaintenanceVehicles = _checked;
@@ -641,9 +619,33 @@ namespace Stats.Configuration
                 this.configuration.CityUnattractivenessCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
+
+            this.snowDump = itemGroupUiHelper.AddCheckbox(languageResource.SnowDump, this.configuration.SnowDump, _checked =>
+            {
+                this.configuration.SnowDump = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.snowDumpCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SnowDumpCriticalThreshold, value =>
+            {
+                this.configuration.SnowDumpCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
+            this.snowDumpVehicles = itemGroupUiHelper.AddCheckbox(languageResource.SnowDumpVehicles, this.configuration.SnowDumpVehicles, _checked =>
+            {
+                this.configuration.SnowDumpVehicles = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.snowDumpVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.SnowDumpVehiclesCriticalThreshold, value =>
+            {
+                this.configuration.SnowDumpVehiclesCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
         }
 
-        private void UpdateUi()
+        private void UpdateUiFromModel()
         {
             this.updateEveryXSeconds.value = this.configuration.MainPanelUpdateEveryXSeconds;
             this.columnCountSlider.value = this.configuration.MainPanelColumnCount;
@@ -656,43 +658,81 @@ namespace Stats.Configuration
             this.hideItemsNotAvailable.isChecked = this.configuration.MainPanelHideItemsNotAvailable;
 
             this.electricity.isChecked = this.configuration.Electricity;
+            this.electricityCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.heating.isChecked = this.configuration.Heating;
+            this.heatingCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.water.isChecked = this.configuration.Water;
+            this.waterCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.sewageTreatment.isChecked = this.configuration.SewageTreatment;
+            this.sewageTreatmentCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.waterReserveTank.isChecked = this.configuration.WaterReserveTank;
+            this.waterReserveTankCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.waterPumpingServiceStorage.isChecked = this.configuration.WaterPumpingServiceStorage;
+            this.waterPumpingServiceStorageCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.waterPumpingServiceVehicles.isChecked = this.configuration.WaterPumpingServiceVehicles;
+            this.waterPumpingServiceVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.landfill.isChecked = this.configuration.Landfill;
+            this.landfillCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.landfillVehicles.isChecked = this.configuration.LandfillVehicles;
+            this.landfillVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.garbageProcessing.isChecked = this.configuration.GarbageProcessing;
+            this.garbageProcessingCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.garbageProcessingVehicles.isChecked = this.configuration.GarbageProcessingVehicles;
+            this.garbageProcessingVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.elementarySchool.isChecked = this.configuration.ElementarySchool;
+            this.elementarySchoolCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.highSchool.isChecked = this.configuration.HighSchool;
+            this.highSchoolCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.university.isChecked = this.configuration.University;
+            this.universityCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.healthcare.isChecked = this.configuration.Healthcare;
+            this.healthcareCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.healthcareVehicles.isChecked = this.configuration.HealthcareVehicles;
+            this.healthcareVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.averageIllnessRate.isChecked = this.configuration.AverageIllnessRate;
+            this.averageIllnessRateCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.cemetery.isChecked = this.configuration.Cemetery;
+            this.cemeteryCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.cemeteryVehicles.isChecked = this.configuration.CemeteryVehicles;
+            this.cemeteryVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.crematorium.isChecked = this.configuration.Crematorium;
+            this.crematoriumCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.crematoriumVehicles.isChecked = this.configuration.CrematoriumVehicles;
+            this.crematoriumVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.groundPollution.isChecked = this.configuration.GroundPollution;
+            this.groundPollutionCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.drinkingWaterPollution.isChecked = this.configuration.DrinkingWaterPollution;
+            this.drinkingWaterPollutionCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.noisePollution.isChecked = this.configuration.NoisePollution;
+            this.noisePollutionCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.fireHazard.isChecked = this.configuration.FireHazard;
+            this.fireHazardCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.fireDepartmentVehicles.isChecked = this.configuration.FireDepartmentVehicles;
+            this.fireDepartmentVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.crimeRate.isChecked = this.configuration.CrimeRate;
+            this.crimeRateCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.policeHoldingCells.isChecked = this.configuration.PoliceHoldingCells;
+            this.policeHoldingCellsCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.policeVehicles.isChecked = this.configuration.PoliceVehicles;
+            this.policeVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.prisonCells.isChecked = this.configuration.PrisonCells;
+            this.prisonCellsCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.prisonVehicles.isChecked = this.configuration.PrisonVehicles;
+            this.prisonVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.unemployment.isChecked = this.configuration.Unemployment;
+            this.unemploymentCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.trafficJam.isChecked = this.configuration.TrafficJam;
+            this.trafficJamCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.roadMaintenanceVehicles.isChecked = this.configuration.RoadMaintenanceVehicles;
+            this.roadMaintenanceVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.snowDump.isChecked = this.configuration.SnowDump;
+            this.snowDumpCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.snowDumpVehicles.isChecked = this.configuration.SnowDumpVehicles;
+            this.snowDumpVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.parkMaintenanceVehicles.isChecked = this.configuration.ParkMaintenanceVehicles;
+            this.parkMaintenanceVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.cityUnattractiveness.isChecked = this.configuration.CityUnattractiveness;
+            this.cityUnattractivenessCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
         }
     }
 }

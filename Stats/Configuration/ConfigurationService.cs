@@ -5,17 +5,17 @@ namespace Stats.Configuration
 {
     public class ConfigurationService
     {
-        private readonly string configurationFileFullName;
-
         public ConfigurationService(string configurationFileFullName)
         {
-            this.configurationFileFullName = configurationFileFullName;
+            this.ConfigurationFileFullName = configurationFileFullName;
         }
+
+        public string ConfigurationFileFullName { get; }
 
         public ConfigurationDto Load()
         {
             var serializer = new XmlSerializer(typeof(ConfigurationDto));
-            using (var streamReader = new StreamReader(configurationFileFullName))
+            using (var streamReader = new StreamReader(ConfigurationFileFullName))
             {
                 return (ConfigurationDto)serializer.Deserialize(streamReader);
             }
@@ -24,7 +24,7 @@ namespace Stats.Configuration
         public void Save(ConfigurationDto configuration)
         {
             var serializer = new XmlSerializer(typeof(ConfigurationDto));
-            using (var streamWriter = new StreamWriter(configurationFileFullName))
+            using (var streamWriter = new StreamWriter(ConfigurationFileFullName))
             {
                 serializer.Serialize(streamWriter, configuration);
             }

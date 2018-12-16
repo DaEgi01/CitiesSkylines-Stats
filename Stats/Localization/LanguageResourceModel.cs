@@ -1,5 +1,4 @@
 ﻿using ColossalFramework.Globalization;
-using Stats.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +7,12 @@ namespace Stats.Localization
 {
     public class LanguageResourceModel : IDisposable
     {
-        private readonly ConfigurationModel configuration;
         private readonly LanguageResourceService languageResourceService;
 
         private Dictionary<string, string> itemsDictionary;
 
-        public LanguageResourceModel(ConfigurationModel configuration, LanguageResourceService languageResourceService, LocaleManager localeManager)
+        public LanguageResourceModel(LanguageResourceService languageResourceService, LocaleManager localeManager)
         {
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
 
             var languageResourceDto = languageResourceService.Load(localeManager.language);
@@ -41,6 +38,7 @@ namespace Stats.Localization
         public string Items => itemsDictionary["Items"];
         public string Enabled => itemsDictionary["Enabled"];
         public string CriticalThreshold => itemsDictionary["CriticalThreshold"];
+
         public string Electricity => itemsDictionary[ItemData.Electricity];
         public string Heating => itemsDictionary[ItemData.Heating];
         public string Water => itemsDictionary[ItemData.Water];

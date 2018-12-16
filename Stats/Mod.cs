@@ -11,14 +11,16 @@ using UnityEngine;
 
 namespace Stats
 {
-    public class Mod : ILoadingExtension, IUserMod
+    public class Mod : LoadingExtensionBase, IUserMod
     {
         private ConfigurationService configurationService;
-        private ConfigurationModel configuration;
         private LanguageResourceService languageResourceService;
-        private LanguageResourceModel languageResource;
         private GameEngineService gameEngineService;
-        private GameObject mainPanelGameObject;
+
+        private ConfigurationModel configuration;
+        private LanguageResourceModel languageResource;
+
+        private MainPanel mainPanel;
 
         public string SystemName => "Stats";
         public string Name => "Stats";
@@ -28,82 +30,89 @@ namespace Stats
 
         public void OnEnabled()
         {
-            var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
-            this.configurationService = new ConfigurationService(configurationFileFullName);
-            if (File.Exists(configurationFileFullName))
-            {
-                var configurationDto = configurationService.Load();
-                this.configuration = new ConfigurationModel(this.configurationService, configurationDto);
-            }
-            else
-            {
-                var configurationDto = new ConfigurationDto();
-                this.configuration = new ConfigurationModel(this.configurationService, configurationDto);
-            }
+            this.InitializeDependencies();
 
-            this.gameEngineService = new GameEngineService();
+            if (LoadingManager.instance.m_loadingComplete)
+            {
+                this.InitializeMainPanel();
+            }
         }
 
         public void OnDisabled()
         {
-            this.configuration = null;
+            if (LoadingManager.instance.m_loadingComplete)
+            {
+                this.DestroyMainPanel();
+            }
 
-            this.languageResource.Dispose();
-            this.languageResource = null;
-
-            this.configurationService = null;
-            this.gameEngineService = null;
-            this.languageResourceService = null;
+            this.DestroyDependencies();
         }
 
-        public void OnCreated(ILoading loading)
-        {
-        }
-
-        public void OnReleased()
-        {
-        }
-
-        public void OnLevelLoaded(LoadMode mode)
+        public override void OnLevelLoaded(LoadMode mode)
         {
             if (!(mode == LoadMode.LoadGame || mode == LoadMode.NewGame || mode == LoadMode.NewGameFromScenario))
             {
                 return;
             }
-            
-            this.mainPanelGameObject = new GameObject(this.SystemName);
-            var mainPanel = mainPanelGameObject.AddComponent<MainPanel>();
-            var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
-            UIView.GetAView().AttachUIComponent(mainPanelGameObject);
-            mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource);
-            mainPanel.relativePosition = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
+
+            this.InitializeMainPanel();
         }
 
-        public void OnLevelUnloading()
+        public override void OnLevelUnloading()
         {
-            if (this.mainPanelGameObject == null)
-                return;
+            this.DestroyMainPanel();
+        }
 
+        private void InitializeDependencies()
+        {
+            var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
+            this.configurationService = new ConfigurationService(configurationFileFullName);
+            this.languageResourceService = new LanguageResourceService(this.SystemName, this.WorkshopId, PluginManager.instance);
+            this.gameEngineService = new GameEngineService();
+
+            this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
+                ? new ConfigurationModel(configurationService, configurationService.Load())
+                : new ConfigurationModel(configurationService, new ConfigurationDto());
+            this.languageResource = new LanguageResourceModel(languageResourceService, LocaleManager.instance);
+        }
+
+        private void DestroyDependencies()
+        {
+            this.configurationService = null;
+            this.languageResourceService = null;
+            this.gameEngineService = null;
+
+            this.configuration = null;
+            this.languageResource.Dispose();
+            this.languageResource = null;
+        }
+
+        private void InitializeMainPanel()
+        {
+            var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
+            this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource);
+            this.mainPanel.relativePosition = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
+        }
+
+        private void DestroyMainPanel()
+        {
             SaveMainPanelPosition();
-            GameObject.Destroy(this.mainPanelGameObject);
+            this.mainPanel.Disable();
+            GameObject.Destroy(this.mainPanel.gameObject);
         }
 
         private void SaveMainPanelPosition()
         {
-            var mainPanel = this.mainPanelGameObject.GetComponent<MainPanel>();
-            this.configuration.MainPanelPositionX = mainPanel.relativePosition.x;
-            this.configuration.MainPanelPositionY = mainPanel.relativePosition.y;
+            this.configuration.MainPanelPositionX = this.mainPanel.relativePosition.x;
+            this.configuration.MainPanelPositionY = this.mainPanel.relativePosition.y;
             this.configuration.Save();
         }
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            this.languageResourceService = new LanguageResourceService(this.SystemName, this.WorkshopId, PluginManager.instance);
-            var languageResourceDto = this.languageResourceService.Load(LocaleManager.instance.language);
-            this.languageResource = new LanguageResourceModel(this.configuration, languageResourceService, LocaleManager.instance);
-
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configuration, this.languageResource);
+            var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configurationService, this.configuration, this.languageResource);
             configurationPanel.Initialize();
         }
 
