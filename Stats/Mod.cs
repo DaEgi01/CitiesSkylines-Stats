@@ -73,7 +73,9 @@ namespace Stats
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
                 ? new ConfigurationModel(configurationService, configurationService.Load())
                 : new ConfigurationModel(configurationService, new ConfigurationDto());
-            this.languageResource = new LanguageResourceModel(languageResourceService, LocaleManager.instance);
+
+            //do not instanciate languageResource here.
+            //LocaleManager.instance must be called later than during OnEnabled() or causes bugs
         }
 
         private void DestroyDependencies()
@@ -111,6 +113,8 @@ namespace Stats
 
         public void OnSettingsUI(UIHelperBase helper)
         {
+            this.languageResource = new LanguageResourceModel(languageResourceService, LocaleManager.instance);
+
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
             var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configurationService, this.configuration, this.languageResource);
             configurationPanel.Initialize();
