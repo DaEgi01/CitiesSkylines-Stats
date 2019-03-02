@@ -134,5 +134,7 @@ namespace Stats
         //TODO: move itempanel logic out of mainpanel
         //TODO: values per building type
         //TODO: values per district
+        //TODO: taxi
+        //TODO: post
     }
 }
