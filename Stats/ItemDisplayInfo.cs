@@ -1,6 +1,6 @@
 ﻿namespace Stats
 {
-    public struct ItemDisplayInfo
+    public readonly struct ItemDisplayInfo
     {
         public ItemDisplayInfo(bool enabled, int criticalThresholdInPercent, int sortOrder)
         {
