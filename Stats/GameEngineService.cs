@@ -6,7 +6,8 @@
         {
             var result = false;
 
-            for (uint i = 0; i < PrefabCollection<BuildingInfo>.LoadedCount(); i++)
+            var loadedCount = PrefabCollection<BuildingInfo>.LoadedCount();
+            for (uint i = 0; i < loadedCount; i++)
             {
                 var bi = PrefabCollection<BuildingInfo>.GetLoaded(i);
                 if (bi != null && bi.m_buildingAI is SnowDumpAI)
