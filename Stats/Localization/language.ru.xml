@@ -224,5 +224,9 @@
       <Key>CityUnattractiveness</Key>
       <Value>Непривлекательность города</Value>
     </LocalizedItem>
+    <LocalizedItem>
+      <Key>Taxis</Key>
+      <Value>Таксис</Value>
+    </LocalizedItem>
   </LocalizedItems>
 </LanguageResource>

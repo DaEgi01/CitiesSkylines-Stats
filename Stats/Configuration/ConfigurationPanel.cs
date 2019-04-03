@@ -11,7 +11,6 @@ namespace Stats.Configuration
 
         private readonly UIHelperBase uiHelperBase;
         private readonly ModFullTitle modFullTitle;
-        private readonly ConfigurationService configurationService;
         private readonly LanguageResourceModel languageResource;
 
         private ConfigurationModel configuration;
@@ -28,86 +27,125 @@ namespace Stats.Configuration
 
         private UICheckBox electricity;
         private UISlider electricityCriticalThreshold;
+
         private UICheckBox heating;
         private UISlider heatingCriticalThreshold;
+
         private UICheckBox water;
         private UISlider waterCriticalThreshold;
+
         private UICheckBox sewageTreatment;
         private UISlider sewageTreatmentCriticalThreshold;
+
         private UICheckBox waterReserveTank;
         private UISlider waterReserveTankCriticalThreshold;
+
         private UICheckBox waterPumpingServiceStorage;
         private UISlider waterPumpingServiceStorageCriticalThreshold;
+
         private UICheckBox waterPumpingServiceVehicles;
         private UISlider waterPumpingServiceVehiclesCriticalThreshold;
+
         private UICheckBox landfill;
         private UISlider landfillCriticalThreshold;
+
         private UICheckBox landfillVehicles;
         private UISlider landfillVehiclesCriticalThreshold;
+
         private UICheckBox garbageProcessing;
         private UISlider garbageProcessingCriticalThreshold;
+
         private UICheckBox garbageProcessingVehicles;
         private UISlider garbageProcessingVehiclesCriticalThreshold;
+
         private UICheckBox elementarySchool;
         private UISlider elementarySchoolCriticalThreshold;
+
         private UICheckBox highSchool;
         private UISlider highSchoolCriticalThreshold;
+
         private UICheckBox university;
         private UISlider universityCriticalThreshold;
+
         private UICheckBox healthcare;
         private UISlider healthcareCriticalThreshold;
+
         private UICheckBox healthcareVehicles;
         private UISlider healthcareVehiclesCriticalThreshold;
+
         private UICheckBox averageIllnessRate;
         private UISlider averageIllnessRateCriticalThreshold;
+
         private UICheckBox cemetery;
         private UISlider cemeteryCriticalThreshold;
+
         private UICheckBox cemeteryVehicles;
         private UISlider cemeteryVehiclesCriticalThreshold;
+
         private UICheckBox crematorium;
         private UISlider crematoriumCriticalThreshold;
+
         private UICheckBox crematoriumVehicles;
         private UISlider crematoriumVehiclesCriticalThreshold;
+
         private UICheckBox groundPollution;
         private UISlider groundPollutionCriticalThreshold;
+
         private UICheckBox drinkingWaterPollution;
         private UISlider drinkingWaterPollutionCriticalThreshold;
+
         private UICheckBox noisePollution;
         private UISlider noisePollutionCriticalThreshold;
+
         private UICheckBox fireHazard;
         private UISlider fireHazardCriticalThreshold;
+
         private UICheckBox fireDepartmentVehicles;
         private UISlider fireDepartmentVehiclesCriticalThreshold;
+
         private UICheckBox crimeRate;
         private UISlider crimeRateCriticalThreshold;
+
         private UICheckBox policeHoldingCells;
         private UISlider policeHoldingCellsCriticalThreshold;
+
         private UICheckBox policeVehicles;
         private UISlider policeVehiclesCriticalThreshold;
+
         private UICheckBox prisonCells;
         private UISlider prisonCellsCriticalThreshold;
+
         private UICheckBox prisonVehicles;
         private UISlider prisonVehiclesCriticalThreshold;
+
         private UICheckBox unemployment;
         private UISlider unemploymentCriticalThreshold;
+
         private UICheckBox trafficJam;
         private UISlider trafficJamCriticalThreshold;
+
         private UICheckBox roadMaintenanceVehicles;
         private UISlider roadMaintenanceVehiclesCriticalThreshold;
+
         private UICheckBox snowDump;
         private UISlider snowDumpCriticalThreshold;
+
         private UICheckBox snowDumpVehicles;
         private UISlider snowDumpVehiclesCriticalThreshold;
+
         private UICheckBox parkMaintenanceVehicles;
         private UISlider parkMaintenanceVehiclesCriticalThreshold;
+
         private UICheckBox cityUnattractiveness;
         private UISlider cityUnattractivenessCriticalThreshold;
 
-        public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationService configurationService, ConfigurationModel configuration, LanguageResourceModel languageResource)
+        private UICheckBox taxis;
+        private UISlider taxisCriticalThreshold;
+
+        public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationModel configuration, LanguageResourceModel languageResource)
         {
             this.uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
             this.modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
-            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
         }
@@ -643,6 +681,18 @@ namespace Stats.Configuration
                 this.configuration.SnowDumpVehiclesCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
+
+            this.taxis = itemGroupUiHelper.AddCheckbox(languageResource.Taxis, this.configuration.Taxis, _checked =>
+            {
+                this.configuration.Taxis = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.taxisCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.TaxisCriticalThreshold, value =>
+            {
+                this.configuration.TaxisCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
         }
 
         private void UpdateUiFromModel()
@@ -733,6 +783,8 @@ namespace Stats.Configuration
             this.parkMaintenanceVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.cityUnattractiveness.isChecked = this.configuration.CityUnattractiveness;
             this.cityUnattractivenessCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
+            this.taxis.isChecked = this.configuration.Taxis;
+            this.taxisCriticalThreshold.value = this.configuration.TaxisCriticalThreshold;
         }
     }
 }

@@ -224,5 +224,9 @@
       <Key>CityUnattractiveness</Key>
       <Value>City unattractivness</Value>
     </LocalizedItem>
+    <LocalizedItem>
+      <Key>Taxis</Key>
+      <Value>Taxis in use</Value>
+    </LocalizedItem>
   </LocalizedItems>
 </LanguageResource>

@@ -224,5 +224,9 @@
       <Key>CityUnattractiveness</Key>
       <Value>Stadtablehnung</Value>
     </LocalizedItem>
+    <LocalizedItem>
+      <Key>Taxis</Key>
+      <Value>Taxis in Gebrauch</Value>
+    </LocalizedItem>
   </LocalizedItems>
 </LanguageResource>

@@ -77,6 +77,7 @@ namespace Stats.Localization
         public string SnowDump => itemsDictionary[ItemData.SnowDump];
         public string SnowDumpVehicles => itemsDictionary[ItemData.SnowDumpVehicles];
         public string CityUnattractiveness => itemsDictionary[ItemData.CityUnattractiveness];
+        public string Taxis => itemsDictionary[ItemData.Taxis];
 
         public string GetLocalizedString(ItemData item)
         {

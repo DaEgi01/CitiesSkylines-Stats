@@ -62,6 +62,7 @@ namespace Stats
         public static readonly ItemData SnowDump = new ItemData("SnowDump", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
         public static readonly ItemData SnowDumpVehicles = new ItemData("SnowDumpVehicles", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
         public static readonly ItemData CityUnattractiveness = new ItemData("CityUnattractiveness", "InfoIconTourism", InfoManager.InfoMode.Tourism, InfoManager.SubInfoMode.Attractiveness);
+        public static readonly ItemData Taxis = new ItemData("Taxis", "SubBarPublicTransportTaxi", InfoManager.InfoMode.Transport, InfoManager.SubInfoMode.NormalTransport);
 
         public static List<ItemData> AllItems => new List<ItemData>()
         {
@@ -102,7 +103,8 @@ namespace Stats
             ParkMaintenanceVehicles,
             SnowDump,
             SnowDumpVehicles,
-            CityUnattractiveness
+            CityUnattractiveness,
+            Taxis
         };
 
         public static implicit operator string(ItemData item)

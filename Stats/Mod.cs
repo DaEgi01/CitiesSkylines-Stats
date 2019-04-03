@@ -120,7 +120,6 @@ namespace Stats
             configurationPanel.Initialize();
         }
 
-        //TODO: taxi
         //TODO: post
         //TODO: helicopters in use
         //TODO: disaster buses and helis in use

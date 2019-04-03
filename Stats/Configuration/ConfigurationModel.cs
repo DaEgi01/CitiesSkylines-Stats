@@ -1291,6 +1291,36 @@ namespace Stats.Configuration
             }
         }
 
+        public bool Taxis
+        {
+            get => dto.Taxis;
+            set
+            {
+                dto.Taxis = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int TaxisCriticalThreshold
+        {
+            get => dto.TaxisCriticalThreshold;
+            set
+            {
+                dto.TaxisCriticalThreshold = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int TaxisSortOrder
+        {
+            get => dto.TaxisSortOrder;
+            set
+            {
+                dto.TaxisSortOrder = value;
+                LayoutDirty = true;
+            }
+        }
+
         public void Save()
         {
             this.configurationService.Save(this.dto);

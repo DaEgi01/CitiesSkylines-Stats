@@ -56,6 +56,7 @@ namespace Stats.Ui
         private ItemPanel snowDumpVehiclesPanel;
         private ItemPanel parkMaintenanceVehiclesPanel;
         private ItemPanel cityUnattractivenessPanel;
+        private ItemPanel taxisPanel;
 
         private List<ItemPanel> allItemPanels;
 
@@ -142,6 +143,7 @@ namespace Stats.Ui
             }
             this.parkMaintenanceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.ParkMaintenanceVehicles);
             this.cityUnattractivenessPanel = this.CreateUiItemAndAddButtons(ItemData.CityUnattractiveness);
+            this.taxisPanel = this.CreateUiItemAndAddButtons(ItemData.Taxis);
 
             this.allItemPanels = new List<ItemPanel>
             {
@@ -180,7 +182,8 @@ namespace Stats.Ui
                 this.trafficJamPanel,
                 this.roadMaintenanceVehiclesPanel,
                 this.parkMaintenanceVehiclesPanel,
-                this.cityUnattractivenessPanel
+                this.cityUnattractivenessPanel,
+                this.taxisPanel
             };
 
             if (this.mapHasSnowDumps)
@@ -248,6 +251,7 @@ namespace Stats.Ui
             this.roadMaintenanceVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.RoadMaintenanceVehicles);
             this.parkMaintenanceVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.ParkMaintenanceVehicles);
             this.cityUnattractivenessPanel.UpdateLocalizedTooltips(this.languageResource.CityUnattractiveness);
+            this.taxisPanel.UpdateLocalizedTooltips(this.languageResource.Taxis);
             if (mapHasSnowDumps)
             {
                 this.snowDumpPanel.UpdateLocalizedTooltips(this.languageResource.SnowDump);
@@ -304,6 +308,7 @@ namespace Stats.Ui
             itemVisibilityChanged |= this.UpdateItemDisplay(this.roadMaintenanceVehiclesPanel, this.configuration.RoadMaintenanceVehicles, roadMaintenanceVehiclesPanel.Percent, this.configuration.RoadMaintenanceVehiclesCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.parkMaintenanceVehiclesPanel, this.configuration.ParkMaintenanceVehicles, parkMaintenanceVehiclesPanel.Percent, this.configuration.ParkMaintenanceVehiclesCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.cityUnattractivenessPanel, this.configuration.CityUnattractiveness, cityUnattractivenessPanel.Percent, this.configuration.CityUnattractivenessCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.taxisPanel, this.configuration.Taxis, taxisPanel.Percent, this.configuration.TaxisCriticalThreshold);
 
             if (this.mapHasSnowDumps)
             {
@@ -925,6 +930,42 @@ namespace Stats.Ui
                 var cityAttractiveness = 100 * (cityAttractivenessAndLandValue) / Mathf.Max(cityAttractivenessAndLandValue + 200, 200);
 
                 this.cityUnattractivenessPanel.Percent = (100 - cityAttractiveness);
+            }
+
+            if (this.configuration.Taxis)
+            {
+                var taxisTotal = 0;
+                var taxisInUse = 0;
+
+                var buildingManager = Singleton<BuildingManager>.instance;
+                var publicTransportBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.PublicTransport);
+
+                for (int i = 0; i < publicTransportBuildingIds.m_size; i++)
+                {
+                    var buildingId = publicTransportBuildingIds[i];
+                    var building = buildingManager.m_buildings.m_buffer[buildingId];
+                    var buildingAi = building.Info?.GetAI();
+                    if (buildingAi is DepotAI depotAi)
+                    {
+                        if (depotAi.m_transportInfo == null || depotAi.m_maxVehicleCount == 0 || depotAi.m_transportInfo.m_transportType != TransportInfo.TransportType.Taxi)
+                        {
+                            continue;
+                        }
+
+                        int budget = Singleton<EconomyManager>.instance.GetBudget(depotAi.m_info.m_class);
+                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                        int taxiCount = 0;
+                        int cargo = 0;
+                        int capacity = 0;
+                        int outside = 0;
+                        GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Taxi, ref taxiCount, ref cargo, ref capacity, ref outside);
+
+                        taxisTotal += (productionRate * depotAi.m_maxVehicleCount + 99) / 100;
+                        taxisInUse += taxiCount;
+                    }
+                }
+
+                this.taxisPanel.Percent = GetUsagePercent(taxisTotal, taxisInUse);
             }
 
             this.UpdateItemsAndLayoutIfVisibilityChanged();

@@ -172,5 +172,9 @@ namespace Stats.Configuration
         public bool CityUnattractiveness { get; set; } = true;
         public int CityUnattractivenessCriticalThreshold { get; set; } = 20;
         public int CityUnattractivenessSortOrder { get; set; } = 38000;
+
+        public bool Taxis { get; set; } = true;
+        public int TaxisCriticalThreshold { get; set; } = 80;
+        public int TaxisSortOrder { get; set; } = 39000;
     }
 }
