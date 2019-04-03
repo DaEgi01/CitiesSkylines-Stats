@@ -32,7 +32,7 @@ namespace Stats
         {
             this.InitializeDependencies();
 
-            if (LoadingManager.instance.m_loadingComplete)
+            if (LoadingManager.exists && LoadingManager.instance.m_loadingComplete)
             {
                 this.InitializeMainPanel();
             }
@@ -40,7 +40,7 @@ namespace Stats
 
         public void OnDisabled()
         {
-            if (LoadingManager.instance.m_loadingComplete)
+            if (LoadingManager.exists && LoadingManager.instance.m_loadingComplete)
             {
                 this.DestroyMainPanel();
             }
@@ -74,8 +74,12 @@ namespace Stats
                 ? new ConfigurationModel(configurationService, configurationService.Load())
                 : new ConfigurationModel(configurationService, new ConfigurationDto());
 
-            //do not instanciate languageResource here.
-            //LocaleManager.instance must be called later than during OnEnabled() or causes bugs
+            //do not instantiate LocaleManager here.
+            //LocaleManager.instance must be called later than during OnEnabled() at the first game start or will causes bugs
+            if (LocaleManager.exists)
+            {
+                this.languageResource = new LanguageResourceModel(this.languageResourceService, LocaleManager.instance);
+            }
         }
 
         private void DestroyDependencies()
@@ -113,10 +117,14 @@ namespace Stats
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            this.languageResource = new LanguageResourceModel(languageResourceService, LocaleManager.instance);
+            //Workaround for game start only, because here we can access LocaleManager.instance without issues.
+            if (this.languageResource == null)
+            {
+                this.languageResource = new LanguageResourceModel(this.languageResourceService, LocaleManager.instance);
+            }
 
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configurationService, this.configuration, this.languageResource);
+            var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configuration, this.languageResource);
             configurationPanel.Initialize();
         }
 
