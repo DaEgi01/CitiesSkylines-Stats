@@ -9,50 +9,45 @@ namespace Stats
         //MaintenanceDepotAI.GetTransferReason rewritten as a static method (private instance method).
         public static TransferManager.TransferReason GetTransferReason(MaintenanceDepotAI maintenanceDepotAI)
         {
-            ItemClass.Service service = maintenanceDepotAI.m_info.m_class.m_service;
-            if (service == ItemClass.Service.Road)
+            switch (maintenanceDepotAI.m_info.m_class.m_service)
             {
-                return TransferManager.TransferReason.RoadMaintenance;
+                case ItemClass.Service.Road:
+                    return TransferManager.TransferReason.RoadMaintenance;
+                case ItemClass.Service.Beautification:
+                    return TransferManager.TransferReason.ParkMaintenance;
+                default:
+                    return TransferManager.TransferReason.None;
             }
-            if (service != ItemClass.Service.Beautification)
-            {
-                return TransferManager.TransferReason.None;
-            }
-            return TransferManager.TransferReason.ParkMaintenance;
         }
 
         //CommonBuildingAI.CalculateOwnVehicles rewritten as a static method (protected instance method).
         public static void CalculateOwnVehicles(ushort buildingID, ref Building data, TransferManager.TransferReason material, ref int count, ref int cargo, ref int capacity, ref int outside)
         {
-            int num;
-            int num1;
-            VehicleManager vehicleManager = Singleton<VehicleManager>.instance;
-            ushort mOwnVehicles = data.m_ownVehicles;
+            VehicleManager instance = Singleton<VehicleManager>.instance;
+            ushort num = data.m_ownVehicles;
             int num2 = 0;
-            while (mOwnVehicles != 0)
+            do
             {
-                if (vehicleManager.m_vehicles.m_buffer[mOwnVehicles].m_transferType == (byte)material)
+                if (num == 0)
                 {
-                    VehicleInfo info = vehicleManager.m_vehicles.m_buffer[mOwnVehicles].Info;
-                    info.m_vehicleAI.GetSize(mOwnVehicles, ref vehicleManager.m_vehicles.m_buffer[mOwnVehicles], out num, out num1);
-                    cargo += Mathf.Min(num, num1);
-                    capacity += num1;
+                    return;
+                }
+                if ((TransferManager.TransferReason)instance.m_vehicles.m_buffer[num].m_transferType == material)
+                {
+                    VehicleInfo info = instance.m_vehicles.m_buffer[num].Info;
+                    info.m_vehicleAI.GetSize(num, ref instance.m_vehicles.m_buffer[num], out int size, out int max);
+                    cargo += Mathf.Min(size, max);
+                    capacity += max;
                     count++;
-                    if ((int)(vehicleManager.m_vehicles.m_buffer[mOwnVehicles].m_flags & (Vehicle.Flags.Importing | Vehicle.Flags.Exporting)) != 0)
+                    if ((instance.m_vehicles.m_buffer[num].m_flags & (Vehicle.Flags.Importing | Vehicle.Flags.Exporting)) != 0)
                     {
                         outside++;
                     }
                 }
-                mOwnVehicles = vehicleManager.m_vehicles.m_buffer[mOwnVehicles].m_nextOwnVehicle;
-                int num3 = num2 + 1;
-                num2 = num3;
-                if (num3 <= 16384)
-                {
-                    continue;
-                }
-                CODebugBase<LogChannel>.Error(LogChannel.Core, string.Concat("Invalid list detected!\n", Environment.StackTrace));
-                break;
+                num = instance.m_vehicles.m_buffer[num].m_nextOwnVehicle;
             }
+            while (++num2 <= 16384);
+            CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
         }
     }
 }
