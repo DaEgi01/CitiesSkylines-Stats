@@ -120,12 +120,15 @@ namespace Stats
             configurationPanel.Initialize();
         }
 
-        //TODO: split item configuration from main panel 
-        //TODO: reset position button
-        //TODO: color picker
+        //TODO: taxi
+        //TODO: post
         //TODO: helicopters in use
         //TODO: disaster buses and helis in use
         //TODO: rebuild vehicles in use
+
+        //TODO: split item configuration from main panel 
+        //TODO: reset position button
+        //TODO: color picker
         //TODO: add happiness values
         //TODO: maybe natural resources used
         //TODO: icons
@@ -134,7 +137,5 @@ namespace Stats
         //TODO: move itempanel logic out of mainpanel
         //TODO: values per building type
         //TODO: values per district
-        //TODO: taxi
-        //TODO: post
     }
 }
