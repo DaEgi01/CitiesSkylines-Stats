@@ -128,20 +128,20 @@ namespace Stats
             configurationPanel.Initialize();
         }
 
-        //TODO: post
-        //TODO: helicopters in use
-        //TODO: disaster buses and helis in use
-        //TODO: rebuild vehicles in use
-
+        //TODO: postvans in use
+        //TODO: posttrucks in use
+        //TODO: disaster response vehicles and helis in use
+        //TODO: evacuation buses in use
+        //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves.
         //TODO: split item configuration from main panel 
         //TODO: reset position button
         //TODO: color picker
         //TODO: add happiness values
         //TODO: maybe natural resources used
-        //TODO: icons
-        //TODO: performance
-        //TODO: refactoring
         //TODO: move itempanel logic out of mainpanel
+        //TODO: performance (for example GetBudget can be done once)
+        //TODO: refactoring
+        //TODO: icons
         //TODO: values per building type
         //TODO: values per district
     }
