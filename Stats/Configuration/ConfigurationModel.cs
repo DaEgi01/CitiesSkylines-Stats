@@ -631,6 +631,36 @@ namespace Stats.Configuration
             }
         }
 
+        public bool MedicalHelicopters
+        {
+            get => dto.MedicalHelicopters;
+            set
+            {
+                dto.MedicalHelicopters = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int MedicalHelicoptersCriticalThreshold
+        {
+            get => dto.MedicalHelicoptersCriticalThreshold;
+            set
+            {
+                dto.MedicalHelicoptersCriticalThreshold = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int MedicalHelicoptersSortOrder
+        {
+            get => dto.MedicalHelicoptersSortOrder;
+            set
+            {
+                dto.MedicalHelicoptersSortOrder = value;
+                LayoutDirty = true;
+            }
+        }
+
         public bool AverageIllnessRate
         {
             get => dto.AverageIllnessRate;
@@ -931,6 +961,36 @@ namespace Stats.Configuration
             }
         }
 
+        public bool FireHelicopters
+        {
+            get => dto.FireHelicopters;
+            set
+            {
+                dto.FireHelicopters = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int FireHelicoptersCriticalThreshold
+        {
+            get => dto.FireHelicoptersCriticalThreshold;
+            set
+            {
+                dto.FireHelicoptersCriticalThreshold = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int FireHelicoptersSortOrder
+        {
+            get => dto.FireHelicoptersSortOrder;
+            set
+            {
+                dto.FireHelicoptersSortOrder = value;
+                LayoutDirty = true;
+            }
+        }
+
         public bool CrimeRate
         {
             get => dto.CrimeRate;
@@ -1017,6 +1077,36 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceVehiclesSortOrder = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public bool PoliceHelicopters
+        {
+            get => dto.PoliceHelicopters;
+            set
+            {
+                dto.PoliceHelicopters = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int PoliceHelicoptersCriticalThreshold
+        {
+            get => dto.PoliceHelicoptersCriticalThreshold;
+            set
+            {
+                dto.PoliceHelicoptersCriticalThreshold = value;
+                LayoutDirty = true;
+            }
+        }
+
+        public int PoliceHelicoptersSortOrder
+        {
+            get => dto.PoliceHelicoptersSortOrder;
+            set
+            {
+                dto.PoliceHelicoptersSortOrder = value;
                 LayoutDirty = true;
             }
         }

@@ -85,6 +85,10 @@ namespace Stats.Configuration
         public int HealthcareVehiclesCriticalThreshold { get; set; } = 80;
         public int HealthcareVehiclesSortOrder { get; set; } = 16000;
 
+        public bool MedicalHelicopters { get; set; } = true;
+        public int MedicalHelicoptersCriticalThreshold { get; set; } = 80;
+        public int MedicalHelicoptersSortOrder { get; set; } = 16500;
+
         public bool AverageIllnessRate { get; set; } = true;
         public int AverageIllnessRateCriticalThreshold { get; set; } = 20;
         public int AverageIllnessRateSortOrder { get; set; } = 17000;
@@ -125,6 +129,10 @@ namespace Stats.Configuration
         public int FireDepartmentVehiclesCriticalThreshold { get; set; } = 80;
         public int FireDepartmentVehiclesSortOrder { get; set; } = 26000;
 
+        public bool FireHelicopters { get; set; } = true;
+        public int FireHelicoptersCriticalThreshold { get; set; } = 80;
+        public int FireHelicoptersSortOrder { get; set; } = 26500;
+
         public bool CrimeRate { get; set; } = true;
         public int CrimeRateCriticalThreshold { get; set; } = 20;
         public int CrimeRateSortOrder { get; set; } = 27000;
@@ -136,6 +144,10 @@ namespace Stats.Configuration
         public bool PoliceVehicles { get; set; } = true;
         public int PoliceVehiclesCriticalThreshold { get; set; } = 80;
         public int PoliceVehiclesSortOrder { get; set; } = 29000;
+
+        public bool PoliceHelicopters { get; set; } = true;
+        public int PoliceHelicoptersCriticalThreshold { get; set; } = 80;
+        public int PoliceHelicoptersSortOrder { get; set; } = 29500;
 
         public bool PrisonCells { get; set; } = true;
         public int PrisonCellsCriticalThreshold { get; set; } = 80;

@@ -41,6 +41,7 @@ namespace Stats
         public static readonly ItemData AverageIllnessRate = new ItemData("AverageIllnessRate", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.HealthCare);
         public static readonly ItemData Healthcare = new ItemData("Healthcare", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.HealthCare);
         public static readonly ItemData HealthcareVehicles = new ItemData("HealthcareVehicles", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.HealthCare);
+        public static readonly ItemData MedicalHelicopters = new ItemData("MedicalHelicopters", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.HealthCare);
         public static readonly ItemData Cemetery = new ItemData("Cemetery", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.DeathCare);
         public static readonly ItemData CemeteryVehicles = new ItemData("CemeteryVehicles", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.DeathCare);
         public static readonly ItemData Crematorium = new ItemData("Crematorium", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.DeathCare);
@@ -50,9 +51,11 @@ namespace Stats
         public static readonly ItemData NoisePollution = new ItemData("NoisePollution", "InfoIconNoisePollution", InfoManager.InfoMode.NoisePollution, InfoManager.SubInfoMode.Default);
         public static readonly ItemData FireHazard = new ItemData("FireHazard", "InfoIconFireSafety", InfoManager.InfoMode.FireSafety, InfoManager.SubInfoMode.Default);
         public static readonly ItemData FireDepartmentVehicles = new ItemData("FireDepartmentVehicles", "InfoIconFireSafety", InfoManager.InfoMode.FireSafety, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData FireHelicopters = new ItemData("FireHelicopters", "InfoIconFireSafety", InfoManager.InfoMode.FireSafety, InfoManager.SubInfoMode.Default);
         public static readonly ItemData CrimeRate = new ItemData("CrimeRate", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
         public static readonly ItemData PoliceHoldingCells = new ItemData("PoliceHoldingCells", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
         public static readonly ItemData PoliceVehicles = new ItemData("PoliceVehicles", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PoliceHelicopters = new ItemData("PoliceHelicopters", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
         public static readonly ItemData PrisonCells = new ItemData("PrisonCells", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
         public static readonly ItemData PrisonVehicles = new ItemData("PrisonVehicles", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
         public static readonly ItemData Unemployment = new ItemData("Unemployment", "InfoIconPopulation", InfoManager.InfoMode.Density, InfoManager.SubInfoMode.Default);

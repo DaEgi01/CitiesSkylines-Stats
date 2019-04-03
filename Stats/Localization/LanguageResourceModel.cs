@@ -55,6 +55,7 @@ namespace Stats.Localization
         public string University => itemsDictionary[ItemData.University];
         public string Healthcare => itemsDictionary[ItemData.Healthcare];
         public string HealthcareVehicles => itemsDictionary[ItemData.HealthcareVehicles];
+        public string MedicalHelicopters => itemsDictionary[ItemData.MedicalHelicopters];
         public string AverageIllnessRate => itemsDictionary[ItemData.AverageIllnessRate];
         public string Cemetery => itemsDictionary[ItemData.Cemetery];
         public string CemeteryVehicles => itemsDictionary[ItemData.CemeteryVehicles];
@@ -66,9 +67,11 @@ namespace Stats.Localization
         public string NoisePollution => itemsDictionary[ItemData.NoisePollution];
         public string FireHazard => itemsDictionary[ItemData.FireHazard];
         public string FireDepartmentVehicles => itemsDictionary[ItemData.FireDepartmentVehicles];
+        public string FireHelicopters => itemsDictionary[ItemData.FireHelicopters];
         public string CrimeRate => itemsDictionary[ItemData.CrimeRate];
         public string PoliceHoldingCells => itemsDictionary[ItemData.PoliceHoldingCells];
         public string PoliceVehicles => itemsDictionary[ItemData.PoliceVehicles];
+        public string PoliceHelicopters => itemsDictionary[ItemData.PoliceHelicopters];
         public string PrisonCells => itemsDictionary[ItemData.PrisonCells];
         public string PrisonVehicles => itemsDictionary[ItemData.PrisonVehicles];
         public string Unemployment => itemsDictionary[ItemData.Unemployment];
@@ -78,11 +81,6 @@ namespace Stats.Localization
         public string SnowDumpVehicles => itemsDictionary[ItemData.SnowDumpVehicles];
         public string CityUnattractiveness => itemsDictionary[ItemData.CityUnattractiveness];
         public string Taxis => itemsDictionary[ItemData.Taxis];
-
-        public string GetLocalizedString(ItemData item)
-        {
-            return this.itemsDictionary[item.SystemName];
-        }
 
         public void Dispose()
         {

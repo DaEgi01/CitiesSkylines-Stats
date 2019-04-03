@@ -73,6 +73,9 @@ namespace Stats.Configuration
         private UICheckBox healthcareVehicles;
         private UISlider healthcareVehiclesCriticalThreshold;
 
+        private UICheckBox medicalHelicopters;
+        private UISlider medicalHelicoptersCriticalThreshold;
+
         private UICheckBox averageIllnessRate;
         private UISlider averageIllnessRateCriticalThreshold;
 
@@ -103,6 +106,9 @@ namespace Stats.Configuration
         private UICheckBox fireDepartmentVehicles;
         private UISlider fireDepartmentVehiclesCriticalThreshold;
 
+        private UICheckBox fireHelicopters;
+        private UISlider fireHelicoptersCriticalThreshold;
+
         private UICheckBox crimeRate;
         private UISlider crimeRateCriticalThreshold;
 
@@ -111,6 +117,9 @@ namespace Stats.Configuration
 
         private UICheckBox policeVehicles;
         private UISlider policeVehiclesCriticalThreshold;
+
+        private UICheckBox policeHelicopters;
+        private UISlider policeHelicoptersCriticalThreshold;
 
         private UICheckBox prisonCells;
         private UISlider prisonCellsCriticalThreshold;
@@ -418,6 +427,18 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
+            this.medicalHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.MedicalHelicopters, this.configuration.MedicalHelicopters, _checked =>
+            {
+                this.configuration.MedicalHelicopters = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.medicalHelicoptersCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.MedicalHelicoptersCriticalThreshold, value =>
+            {
+                this.configuration.MedicalHelicoptersCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
             this.averageIllnessRate = itemGroupUiHelper.AddCheckbox(languageResource.AverageIllnessRate, this.configuration.AverageIllnessRate, _checked =>
             {
                 this.configuration.AverageIllnessRate = _checked;
@@ -538,6 +559,18 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
+            this.fireHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.FireHelicopters, this.configuration.FireHelicopters, _checked =>
+            {
+                this.configuration.FireHelicopters = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.fireHelicoptersCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.FireHelicoptersCriticalThreshold, value =>
+            {
+                this.configuration.FireHelicoptersCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
             this.crimeRate = itemGroupUiHelper.AddCheckbox(languageResource.CrimeRate, this.configuration.CrimeRate, _checked =>
             {
                 this.configuration.CrimeRate = _checked;
@@ -571,6 +604,18 @@ namespace Stats.Configuration
             this.policeVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PoliceVehiclesCriticalThreshold, value =>
             {
                 this.configuration.PoliceVehiclesCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
+            this.policeHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.PoliceHelicopters, this.configuration.PoliceHelicopters, _checked =>
+            {
+                this.configuration.PoliceHelicopters = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.policeHelicoptersCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PoliceHelicoptersCriticalThreshold, value =>
+            {
+                this.configuration.PoliceHelicoptersCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 

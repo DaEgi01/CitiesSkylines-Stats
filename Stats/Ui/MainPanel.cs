@@ -34,6 +34,7 @@ namespace Stats.Ui
         private ItemPanel universityPanel;
         private ItemPanel healthcarePanel;
         private ItemPanel healthcareVehiclesPanel;
+        private ItemPanel medicalHelicoptersPanel;
         private ItemPanel averageIllnessRatePanel;
         private ItemPanel cemeteryPanel;
         private ItemPanel cemeteryVehiclesPanel;
@@ -44,9 +45,11 @@ namespace Stats.Ui
         private ItemPanel noisePollutionPanel;
         private ItemPanel fireHazardPanel;
         private ItemPanel fireDepartmentVehiclesPanel;
+        private ItemPanel fireHelicoptersPanel;
         private ItemPanel crimeRatePanel;
         private ItemPanel policeHoldingCellsPanel;
         private ItemPanel policeVehiclesPanel;
+        private ItemPanel policeHelicoptersPanel;
         private ItemPanel prisonCellsPanel;
         private ItemPanel prisonVehiclesPanel;
         private ItemPanel unemploymentPanel;
@@ -118,6 +121,7 @@ namespace Stats.Ui
             this.universityPanel = this.CreateUiItemAndAddButtons(ItemData.University);
             this.healthcarePanel = this.CreateUiItemAndAddButtons(ItemData.Healthcare);
             this.healthcareVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.HealthcareVehicles);
+            this.medicalHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.MedicalHelicopters);
             this.averageIllnessRatePanel = this.CreateUiItemAndAddButtons(ItemData.AverageIllnessRate);
             this.cemeteryPanel = this.CreateUiItemAndAddButtons(ItemData.Cemetery);
             this.cemeteryVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.CemeteryVehicles);
@@ -128,9 +132,11 @@ namespace Stats.Ui
             this.noisePollutionPanel = this.CreateUiItemAndAddButtons(ItemData.NoisePollution);
             this.fireHazardPanel = this.CreateUiItemAndAddButtons(ItemData.FireHazard);
             this.fireDepartmentVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.FireDepartmentVehicles);
+            this.fireHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.FireHelicopters);
             this.crimeRatePanel = this.CreateUiItemAndAddButtons(ItemData.CrimeRate);
             this.policeHoldingCellsPanel = this.CreateUiItemAndAddButtons(ItemData.PoliceHoldingCells);
             this.policeVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.PoliceVehicles);
+            this.policeHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.PoliceHelicopters);
             this.prisonCellsPanel = this.CreateUiItemAndAddButtons(ItemData.PrisonCells);
             this.prisonVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.PrisonVehicles);
             this.unemploymentPanel = this.CreateUiItemAndAddButtons(ItemData.Unemployment);
@@ -163,6 +169,7 @@ namespace Stats.Ui
                 this.universityPanel,
                 this.healthcarePanel,
                 this.healthcareVehiclesPanel,
+                this.medicalHelicoptersPanel,
                 this.averageIllnessRatePanel,
                 this.cemeteryPanel,
                 this.cemeteryVehiclesPanel,
@@ -173,9 +180,11 @@ namespace Stats.Ui
                 this.noisePollutionPanel,
                 this.fireHazardPanel,
                 this.fireDepartmentVehiclesPanel,
+                this.fireHelicoptersPanel,
                 this.crimeRatePanel,
                 this.policeHoldingCellsPanel,
                 this.policeVehiclesPanel,
+                this.policeHelicoptersPanel,
                 this.prisonCellsPanel,
                 this.prisonVehiclesPanel,
                 this.unemploymentPanel,
@@ -231,6 +240,7 @@ namespace Stats.Ui
             this.universityPanel.UpdateLocalizedTooltips(this.languageResource.University);
             this.healthcarePanel.UpdateLocalizedTooltips(this.languageResource.Healthcare);
             this.healthcareVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.HealthcareVehicles);
+            this.medicalHelicoptersPanel.UpdateLocalizedTooltips(this.languageResource.MedicalHelicopters);
             this.averageIllnessRatePanel.UpdateLocalizedTooltips(this.languageResource.AverageIllnessRate);
             this.cemeteryPanel.UpdateLocalizedTooltips(this.languageResource.Cemetery);
             this.cemeteryVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.CemeteryVehicles);
@@ -241,9 +251,11 @@ namespace Stats.Ui
             this.noisePollutionPanel.UpdateLocalizedTooltips(this.languageResource.NoisePollution);
             this.fireHazardPanel.UpdateLocalizedTooltips(this.languageResource.FireHazard);
             this.fireDepartmentVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.FireDepartmentVehicles);
+            this.fireHelicoptersPanel.UpdateLocalizedTooltips(this.languageResource.FireHelicopters);
             this.crimeRatePanel.UpdateLocalizedTooltips(this.languageResource.CrimeRate);
             this.policeHoldingCellsPanel.UpdateLocalizedTooltips(this.languageResource.PoliceHoldingCells);
             this.policeVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.PoliceVehicles);
+            this.policeHelicoptersPanel.UpdateLocalizedTooltips(this.languageResource.PoliceHelicopters);
             this.prisonCellsPanel.UpdateLocalizedTooltips(this.languageResource.PrisonCells);
             this.prisonVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.PrisonVehicles);
             this.unemploymentPanel.UpdateLocalizedTooltips(this.languageResource.Unemployment);
@@ -289,6 +301,7 @@ namespace Stats.Ui
             itemVisibilityChanged |= this.UpdateItemDisplay(this.averageIllnessRatePanel, this.configuration.AverageIllnessRate, averageIllnessRatePanel.Percent, this.configuration.AverageIllnessRateCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.healthcarePanel, this.configuration.Healthcare, healthcarePanel.Percent, this.configuration.HealthcareCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.healthcareVehiclesPanel, this.configuration.HealthcareVehicles, healthcareVehiclesPanel.Percent, this.configuration.HealthcareVehiclesCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.medicalHelicoptersPanel, this.configuration.MedicalHelicopters, medicalHelicoptersPanel.Percent, this.configuration.MedicalHelicoptersCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.cemeteryPanel, this.configuration.Cemetery, cemeteryPanel.Percent, this.configuration.CemeteryCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.cemeteryVehiclesPanel, this.configuration.CemeteryVehicles, cemeteryVehiclesPanel.Percent, this.configuration.CemeteryVehiclesCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.crematoriumPanel, this.configuration.Crematorium, crematoriumPanel.Percent, this.configuration.CrematoriumCriticalThreshold);
@@ -298,9 +311,11 @@ namespace Stats.Ui
             itemVisibilityChanged |= this.UpdateItemDisplay(this.noisePollutionPanel, this.configuration.NoisePollution, noisePollutionPanel.Percent, this.configuration.NoisePollutionCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.fireHazardPanel, this.configuration.FireHazard, fireHazardPanel.Percent, this.configuration.FireHazardCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.fireDepartmentVehiclesPanel, this.configuration.FireDepartmentVehicles, fireDepartmentVehiclesPanel.Percent, this.configuration.FireDepartmentVehiclesCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.fireHelicoptersPanel, this.configuration.FireHelicopters, fireHelicoptersPanel.Percent, this.configuration.FireHelicoptersCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.crimeRatePanel, this.configuration.CrimeRate, crimeRatePanel.Percent, this.configuration.CrimeRateCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.policeHoldingCellsPanel, this.configuration.PoliceHoldingCells, policeHoldingCellsPanel.Percent, this.configuration.PoliceHoldingCellsCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.policeVehiclesPanel, this.configuration.PoliceVehicles, policeVehiclesPanel.Percent, this.configuration.PoliceVehiclesCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.policeHelicoptersPanel, this.configuration.PoliceHelicopters, policeHelicoptersPanel.Percent, this.configuration.PoliceHelicoptersCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.prisonCellsPanel, this.configuration.PrisonCells, prisonCellsPanel.Percent, this.configuration.PrisonCellsCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.prisonVehiclesPanel, this.configuration.PrisonVehicles, prisonVehiclesPanel.Percent, this.configuration.PrisonVehiclesCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.unemploymentPanel, this.configuration.Unemployment, unemploymentPanel.Percent, this.configuration.UnemploymentCriticalThreshold);
@@ -564,10 +579,16 @@ namespace Stats.Ui
                 this.crematoriumPanel.Percent = GetUsagePercent(cremateCapacity, deadCount);
             }
 
-            if (this.configuration.HealthcareVehicles || this.configuration.CemeteryVehicles || this.configuration.CrematoriumVehicles)
+            if (this.configuration.HealthcareVehicles
+                || this.configuration.MedicalHelicopters
+                || this.configuration.CemeteryVehicles
+                || this.configuration.CrematoriumVehicles)
             {
                 var healthcareVehiclesTotal = 0;
                 var healthcareVehiclesInUse = 0;
+
+                var medicalHelicoptersTotal = 0;
+                var medicalHelicoptersInUse = 0;
 
                 var cemeteryVehiclesTotal = 0;
                 var cemeteryVehiclesInUse = 0;
@@ -583,57 +604,83 @@ namespace Stats.Ui
                     var buildingId = healthcareBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
                     var buildingAi = building.Info?.GetAI();
-                    if (buildingAi is HospitalAI hospitalAi)
-                    {
-                        int budget = Singleton<EconomyManager>.instance.GetBudget(hospitalAi.m_info.m_class);
-                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                        int healthcareVehicles = (productionRate * hospitalAi.m_ambulanceCount + 99) / 100;
-                        int count = 0;
-                        int cargo = 0;
-                        int capacity = 0;
-                        int outside = 0;
-                        GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Sick, ref count, ref cargo, ref capacity, ref outside);
-
-                        healthcareVehiclesTotal += healthcareVehicles;
-                        healthcareVehiclesInUse += count;
-                    }
-                    else if (buildingAi is CemeteryAI cemeteryAi)
-                    {
-                        int budget = Singleton<EconomyManager>.instance.GetBudget(cemeteryAi.m_info.m_class);
-                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-
-                        int cemeteryVehicles = (productionRate * cemeteryAi.m_hearseCount + 99) / 100;
-                        int count = 0;
-                        int cargo = 0;
-                        int capacity = 0;
-                        int outside = 0;
-                        if ((building.m_flags & Building.Flags.Downgrading) == Building.Flags.None)
-                        {
-                            GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Dead, ref count, ref cargo, ref capacity, ref outside);
-                        }
-                        else
-                        {
-                            GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.DeadMove, ref count, ref cargo, ref capacity, ref outside);
-                        }
-
-                        if (cemeteryAi.m_graveCount == 0) //crematory
-                        {
-                            crematoriumVehiclesTotal += cemeteryVehicles;
-                            crematoriumVehiclesInUse += count;
-                        }
-                        else //cemetery
-                        {
-                            cemeteryVehiclesTotal += cemeteryVehicles;
-                            cemeteryVehiclesInUse += count;
-                        }
-                    }
-                    else
+                    if (buildingAi == null)
                     {
                         continue;
+                    }
+
+                    switch (buildingAi)
+                    {
+                        case HospitalAI hospitalAI:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(hospitalAI.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int healthcareVehicles = (productionRate * hospitalAI.m_ambulanceCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Sick, ref count, ref cargo, ref capacity, ref outside);
+
+                                healthcareVehiclesTotal += healthcareVehicles;
+                                healthcareVehiclesInUse += count;
+                            }
+
+                            break;
+                        case HelicopterDepotAI helicopterDepotAI:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int medicalHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Sick2, ref count, ref cargo, ref capacity, ref outside);
+
+                                medicalHelicoptersTotal += medicalHelicopters;
+                                medicalHelicoptersInUse += count;
+                            }
+                            break;
+                        case CemeteryAI cemeteryAI:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(cemeteryAI.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+
+                                int cemeteryVehicles = (productionRate * cemeteryAI.m_hearseCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                if ((building.m_flags & Building.Flags.Downgrading) == Building.Flags.None)
+                                {
+                                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Dead, ref count, ref cargo, ref capacity, ref outside);
+                                }
+                                else
+                                {
+                                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.DeadMove, ref count, ref cargo, ref capacity, ref outside);
+                                }
+
+                                if (cemeteryAI.m_graveCount == 0) //crematory
+                                {
+                                    crematoriumVehiclesTotal += cemeteryVehicles;
+                                    crematoriumVehiclesInUse += count;
+                                }
+                                else //cemetery
+                                {
+                                    cemeteryVehiclesTotal += cemeteryVehicles;
+                                    cemeteryVehiclesInUse += count;
+                                }
+                            }
+
+                            break;
+                        default:
+                            continue;
                     }
                 }
 
                 this.healthcareVehiclesPanel.Percent = GetUsagePercent(healthcareVehiclesTotal, healthcareVehiclesInUse);
+                this.medicalHelicoptersPanel.Percent = GetUsagePercent(medicalHelicoptersTotal, medicalHelicoptersInUse);
                 this.cemeteryVehiclesPanel.Percent = GetUsagePercent(cemeteryVehiclesTotal, cemeteryVehiclesInUse);
                 this.crematoriumVehiclesPanel.Percent = GetUsagePercent(crematoriumVehiclesTotal, crematoriumVehiclesInUse);
             }
@@ -665,10 +712,13 @@ namespace Stats.Ui
                 this.fireHazardPanel.Percent = fireHazard;
             }
 
-            if (this.configuration.FireDepartmentVehicles)
+            if (this.configuration.FireDepartmentVehicles || this.configuration.FireHelicopters)
             {
                 var fireDepartmentVehiclesTotal = 0;
                 var fireDepartmentVehiclesInUse = 0;
+
+                var fireHelicoptersTotal = 0;
+                var fireHelicoptersInUse = 0;
 
                 var buildingManager = Singleton<BuildingManager>.instance;
                 var fireDepartmentBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.FireDepartment);
@@ -677,26 +727,64 @@ namespace Stats.Ui
                 {
                     var buildingId = fireDepartmentBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
-                    var buildingAi = building.Info?.GetAI() as FireStationAI;
+                    var buildingAi = building.Info?.GetAI();
                     if (buildingAi == null)
                     {
                         continue;
                     }
 
-                    int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAi.m_info.m_class);
-                    int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                    int fireTrucks = (productionRate * buildingAi.m_fireTruckCount + 99) / 100;
-                    int count = 0;
-                    int cargo = 0;
-                    int capacity = 0;
-                    int outside = 0;
-                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Fire, ref count, ref cargo, ref capacity, ref outside);
+                    switch (buildingAi)
+                    {
+                        case FireStationAI fireStationAI:
+                            {
+                                if (!this.configuration.FireDepartmentVehicles)
+                                {
+                                    continue;
+                                }
 
-                    fireDepartmentVehiclesTotal += fireTrucks;
-                    fireDepartmentVehiclesInUse += count;
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(fireStationAI.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int fireTrucks = (productionRate * fireStationAI.m_fireTruckCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Fire, ref count, ref cargo, ref capacity, ref outside);
+
+                                fireDepartmentVehiclesTotal += fireTrucks;
+                                fireDepartmentVehiclesInUse += count;
+                            }
+
+                            break;
+                        case HelicopterDepotAI helicopterDepotAI:
+                            {
+                                if (!this.configuration.FireHelicopters)
+                                {
+                                    continue;
+                                }
+
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int fireHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.ForestFire, ref count, ref cargo, ref capacity, ref outside);
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Fire2, ref count, ref cargo, ref capacity, ref outside);
+
+                                fireHelicoptersTotal += fireHelicopters;
+                                fireHelicoptersInUse += count;
+                            }
+
+                            break;
+                        default:
+                            continue;
+                    }
                 }
 
                 this.fireDepartmentVehiclesPanel.Percent = GetUsagePercent(fireDepartmentVehiclesTotal, fireDepartmentVehiclesInUse);
+                this.fireHelicoptersPanel.Percent = GetUsagePercent(fireHelicoptersTotal, fireHelicoptersInUse);
             }
 
             if (this.configuration.CrimeRate)
@@ -704,13 +792,16 @@ namespace Stats.Ui
                 this.crimeRatePanel.Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].m_finalCrimeRate;
             }
 
-            if (this.configuration.PoliceHoldingCells || this.configuration.PoliceVehicles || this.configuration.PrisonCells || this.configuration.PrisonVehicles)
+            if (this.configuration.PoliceHoldingCells || this.configuration.PoliceVehicles || this.configuration.PrisonCells || this.configuration.PrisonVehicles || this.configuration.PoliceHelicopters)
             {
                 var policeHoldingCellsTotal = 0;
                 var policeHoldingCellsInUse = 0;
 
                 var policeVehiclesTotal = 0;
                 var policeVehiclesInUse = 0;
+
+                var policeHelicoptersTotal = 0;
+                var policeHelicoptersInUse = 0;
 
                 var prisonCellsTotal = 0;
                 var prisonCellsInUse = 0;
@@ -725,70 +816,108 @@ namespace Stats.Ui
                 {
                     var buildingId = policeBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
-                    var buildingAi = building.Info?.GetAI() as PoliceStationAI;
+                    var buildingAi = building.Info?.GetAI();
                     if (buildingAi == null)
                     {
                         continue;
                     }
 
-                    //PoliceStationAI.GetLocalizedStats
-                    var instance = Singleton<CitizenManager>.instance;
-                    uint num = building.m_citizenUnits;
-                    int num2 = 0;
-                    int cellsInUse = 0;
-                    while (num != 0u)
+                    switch (buildingAi)
                     {
-                        uint nextUnit = instance.m_units.m_buffer[(int)((UIntPtr)num)].m_nextUnit;
-                        if ((ushort)(instance.m_units.m_buffer[(int)((UIntPtr)num)].m_flags & CitizenUnit.Flags.Visit) != 0)
-                        {
-                            for (int j = 0; j < 5; j++)
+                        case PoliceStationAI policeStationAi:
                             {
-                                uint citizen = instance.m_units.m_buffer[(int)((UIntPtr)num)].GetCitizen(j);
-                                if (citizen != 0u && instance.m_citizens.m_buffer[(int)((UIntPtr)citizen)].CurrentLocation == Citizen.Location.Visit)
+                                if (!this.configuration.PoliceHelicopters)
                                 {
-                                    cellsInUse++;
+                                    continue;
+                                }
+
+                                //PoliceStationAI.GetLocalizedStats
+                                var instance = Singleton<CitizenManager>.instance;
+                                uint num = building.m_citizenUnits;
+                                int num2 = 0;
+                                int cellsInUse = 0;
+                                while (num != 0)
+                                {
+                                    uint nextUnit = instance.m_units.m_buffer[num].m_nextUnit;
+                                    if ((instance.m_units.m_buffer[num].m_flags & CitizenUnit.Flags.Visit) != 0)
+                                    {
+                                        for (int j = 0; j < 5; j++)
+                                        {
+                                            uint citizen = instance.m_units.m_buffer[num].GetCitizen(j);
+                                            if (citizen != 0 && instance.m_citizens.m_buffer[citizen].CurrentLocation == Citizen.Location.Visit)
+                                            {
+                                                cellsInUse++;
+                                            }
+                                        }
+                                    }
+                                    num = nextUnit;
+                                    if (++num2 > 524288)
+                                    {
+                                        CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+                                        break;
+                                    }
+                                }
+
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(policeStationAi.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int policeCars = (productionRate * policeStationAi.m_policeCarCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                if (policeStationAi.m_info.m_class.m_level < ItemClass.Level.Level4)
+                                {
+                                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Crime, ref count, ref cargo, ref capacity, ref outside);
+
+                                    policeHoldingCellsInUse += cellsInUse;
+                                    policeHoldingCellsTotal += policeStationAi.m_jailCapacity;
+
+                                    policeVehiclesTotal += policeCars;
+                                    policeVehiclesInUse += count;
+                                }
+                                else
+                                {
+                                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.CriminalMove, ref count, ref cargo, ref capacity, ref outside);
+
+                                    prisonCellsTotal += policeStationAi.m_jailCapacity;
+                                    prisonCellsInUse += cellsInUse;
+
+                                    prisonVehiclesTotal += policeCars;
+                                    prisonVehiclesInUse += count;
                                 }
                             }
-                        }
-                        num = nextUnit;
-                        if (++num2 > 524288)
-                        {
-                            CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
                             break;
-                        }
+                        case HelicopterDepotAI helicopterDepotAI:
+                            {
+                                if (!this.configuration.PoliceHelicopters)
+                                {
+                                    continue;
+                                }
+
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int policeHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Crime, ref count, ref cargo, ref capacity, ref outside);
+
+                                policeHelicoptersTotal += policeHelicopters;
+                                policeHelicoptersInUse += count;
+                            }
+
+                            break;
+                        default:
+                            continue;
                     }
 
-                    int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAi.m_info.m_class);
-                    int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                    int policeCars = (productionRate * buildingAi.m_policeCarCount + 99) / 100;
-                    int count = 0;
-                    int cargo = 0;
-                    int capacity = 0;
-                    int outside = 0;
-                    if (buildingAi.m_info.m_class.m_level < ItemClass.Level.Level4)
-                    {
-                        GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Crime, ref count, ref cargo, ref capacity, ref outside);
-
-                        policeHoldingCellsInUse += cellsInUse;
-                        policeHoldingCellsTotal += buildingAi.m_jailCapacity;
-
-                        policeVehiclesTotal += policeCars;
-                        policeVehiclesInUse += count;
-                    }
-                    else
-                    {
-                        GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.CriminalMove, ref count, ref cargo, ref capacity, ref outside);
-
-                        prisonCellsTotal += buildingAi.m_jailCapacity;
-                        prisonCellsInUse += cellsInUse;
-
-                        prisonVehiclesTotal += policeCars;
-                        prisonVehiclesInUse += count;
-                    }
+                    
                 }
 
                 this.policeHoldingCellsPanel.Percent = GetUsagePercent(policeHoldingCellsTotal, policeHoldingCellsInUse);
                 this.policeVehiclesPanel.Percent = GetUsagePercent(policeVehiclesTotal, policeVehiclesInUse);
+                this.policeHelicoptersPanel.Percent = GetUsagePercent(policeHelicoptersTotal, policeHelicoptersInUse);
                 this.prisonCellsPanel.Percent = GetUsagePercent(prisonCellsTotal, prisonCellsInUse);
                 this.prisonVehiclesPanel.Percent = GetUsagePercent(prisonVehiclesTotal, prisonVehiclesInUse);
             }

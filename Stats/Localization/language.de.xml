@@ -137,6 +137,10 @@
       <Value>Krankenwagen in Gebrauch</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>MedicalHelicopters</Key>
+      <Value>Rettungshubgeschrauber in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>AverageIllnessRate</Key>
       <Value>Krankheitsquote</Value>
     </LocalizedItem>
@@ -181,6 +185,10 @@
       <Value>Feuerwehrfahrzeuge in Gebrauch</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>FireHelicopters</Key>
+      <Value>Feuerwehrhubschrauber in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>CrimeRate</Key>
       <Value>Kriminalitätsrate</Value>
     </LocalizedItem>
@@ -191,6 +199,10 @@
     <LocalizedItem>
       <Key>PoliceVehicles</Key>
       <Value>Polizeifahrzeuge in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHelicopters</Key>
+      <Value>Polizeihubschrauber in Gebrauch</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>PrisonCells</Key>
