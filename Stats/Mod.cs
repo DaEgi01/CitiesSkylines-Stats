@@ -132,7 +132,9 @@ namespace Stats
         //TODO: posttrucks in use
         //TODO: disaster response vehicles and helis in use
         //TODO: evacuation buses in use
-        //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves.
+        //TODO: reset should also work for main panel position
+        //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
+        //TODO: rework healthcare: split sick citizen from hospital beds
         //TODO: split item configuration from main panel 
         //TODO: reset position button
         //TODO: color picker
