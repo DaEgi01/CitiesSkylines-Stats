@@ -128,6 +128,7 @@ namespace Stats
             configurationPanel.Initialize();
         }
 
+        //TODO: reset does not work properly, see unemployment critical threshold
         //TODO: postvans in use
         //TODO: posttrucks in use
         //TODO: disaster response vehicles and helis in use
