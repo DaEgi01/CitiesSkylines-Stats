@@ -81,7 +81,9 @@ namespace Stats.Ui
             this.CreateAndAddDragHandle();
             this.CreateAndAddAllUiItems();
             this.UpdateLocalizedTooltips();
-            
+
+            this.relativePosition = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
+
             this.configuration.LayoutChanged += this.UpdateLayout;
             this.configuration.PositionChanged += this.UpdatePosition;
             this.languageResource.LanguageChanged += this.UpdateLocalizedTooltips;
@@ -1259,7 +1261,7 @@ namespace Stats.Ui
 
         private void UpdatePosition()
         {
-            this.transform.position = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
+            this.relativePosition = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
         }
 
         private float CalculatePanelWidth(int visibleItemCount)

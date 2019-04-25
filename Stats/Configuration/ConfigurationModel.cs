@@ -20,7 +20,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelPositionX = value;
-                this.OnPositionChanged();
+                // don't this.OnPositionChanged(); here - that will cause issues with position saving
             }
         }
 
@@ -30,7 +30,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelPositionY = value;
-                this.OnPositionChanged();
+                // don't this.OnPositionChanged(); here - that will cause issues with position saving
             }
         }
 
