@@ -784,6 +784,8 @@ namespace Stats.Configuration
             this.healthcareCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.healthcareVehicles.isChecked = this.configuration.HealthcareVehicles;
             this.healthcareVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
+            this.medicalHelicopters.isChecked = this.configuration.MedicalHelicopters;
+            this.medicalHelicoptersCriticalThreshold.value = this.configuration.MedicalHelicoptersCriticalThreshold;
             this.averageIllnessRate.isChecked = this.configuration.AverageIllnessRate;
             this.averageIllnessRateCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.cemetery.isChecked = this.configuration.Cemetery;
@@ -810,6 +812,8 @@ namespace Stats.Configuration
             this.policeHoldingCellsCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.policeVehicles.isChecked = this.configuration.PoliceVehicles;
             this.policeVehiclesCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
+            this.policeHelicopters.isChecked = this.configuration.PoliceHelicopters;
+            this.policeHelicoptersCriticalThreshold.value = this.configuration.PoliceHelicoptersCriticalThreshold;
             this.prisonCells.isChecked = this.configuration.PrisonCells;
             this.prisonCellsCriticalThreshold.value = this.configuration.ElectricityCriticalThreshold;
             this.prisonVehicles.isChecked = this.configuration.PrisonVehicles;
