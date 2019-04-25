@@ -5,10 +5,10 @@ namespace Stats.Configuration
 {
     public class ConfigurationModel
     {
-        private readonly ConfigurationService configurationService;
+        private readonly ConfigurationService<ConfigurationDto> configurationService;
         private ConfigurationDto dto;
 
-        public ConfigurationModel(ConfigurationService configurationService, ConfigurationDto configurationDto)
+        public ConfigurationModel(ConfigurationService<ConfigurationDto> configurationService, ConfigurationDto configurationDto)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.dto = configurationDto ?? throw new ArgumentNullException(nameof(configurationDto));

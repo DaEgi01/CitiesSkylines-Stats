@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Stats.Configuration
 {
-    public class ConfigurationService
+    public class ConfigurationService<T>
     {
         public ConfigurationService(string configurationFileFullName)
         {
@@ -12,18 +12,18 @@ namespace Stats.Configuration
 
         public string ConfigurationFileFullName { get; }
 
-        public ConfigurationDto Load()
+        public T Load()
         {
-            var serializer = new XmlSerializer(typeof(ConfigurationDto));
+            var serializer = new XmlSerializer(typeof(T));
             using (var streamReader = new StreamReader(ConfigurationFileFullName))
             {
-                return (ConfigurationDto)serializer.Deserialize(streamReader);
+                return (T)serializer.Deserialize(streamReader);
             }
         }
 
-        public void Save(ConfigurationDto configuration)
+        public void Save(T configuration)
         {
-            var serializer = new XmlSerializer(typeof(ConfigurationDto));
+            var serializer = new XmlSerializer(typeof(T));
             using (var streamWriter = new StreamWriter(ConfigurationFileFullName))
             {
                 serializer.Serialize(streamWriter, configuration);
