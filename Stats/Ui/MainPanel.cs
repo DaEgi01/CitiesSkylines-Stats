@@ -82,11 +82,15 @@ namespace Stats.Ui
             this.CreateAndAddAllUiItems();
             this.UpdateLocalizedTooltips();
 
+            this.configuration.LayoutChanged += this.UpdateItemsAndLayoutIfVisibilityChanged;
+            this.configuration.PositionChanged += this.UpdatePanelPosition;
             this.languageResource.LanguageChanged += this.UpdateLocalizedTooltips;
         }
 
         public override void OnDestroy()
         {
+            this.configuration.LayoutChanged -= this.UpdateItemsAndLayoutIfVisibilityChanged;
+            this.configuration.PositionChanged -= this.UpdatePanelPosition;
             this.languageResource.LanguageChanged -= this.UpdateLocalizedTooltips;
 
             base.OnDestroy();
@@ -276,7 +280,8 @@ namespace Stats.Ui
             var itemVisibilityChanged = this.UpdateItemsDisplay();
             if (itemVisibilityChanged)
             {
-                this.UpdateLayout();
+                this.UpdateItemsLayout();
+                this.UpdatePanelSize();
             }
         }
 
@@ -334,13 +339,6 @@ namespace Stats.Ui
             return itemVisibilityChanged;
         }
 
-        private void UpdateLayout()
-        {
-            this.UpdateItemsLayout();
-            this.UpdatePanelSize();
-            this.configuration.LayoutDirty = false;
-        }
-
         public override void Update()
         {
             if (this.configuration.MainPanelAutoHide && !this.containsMouse)
@@ -350,12 +348,6 @@ namespace Stats.Ui
             else
             {
                 this.opacity = 1;
-            }
-
-            if (this.configuration.LayoutDirty)
-            {
-                this.UpdateItemsDisplay();
-                this.UpdateLayout();
             }
 
             if (this.configuration.MainPanelUpdateEveryXSeconds == 0)
@@ -1257,6 +1249,11 @@ namespace Stats.Ui
 
             this.uiDragHandle.width = newWidth;
             this.uiDragHandle.height = newHeight;
+        }
+
+        private void UpdatePanelPosition()
+        {
+            this.transform.position = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
         }
 
         private float CalculatePanelWidth(int visibleItemCount)

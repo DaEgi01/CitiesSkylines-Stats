@@ -171,6 +171,11 @@ namespace Stats.Configuration
                 this.UpdateUiFromModel();
             });
 
+            mainGroupUiHelper.AddButton(this.languageResource.ResetPosition, () =>
+            {
+                this.configuration.ResetPosition();
+            });
+
             mainGroupUiHelper.AddSpace(space);
 
             var mainPanelGroupUiHelper = mainGroupUiHelper.AddGroup(languageResource.MainWindow);
@@ -487,7 +492,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.crematoriumVehicles = itemGroupUiHelper.AddCheckbox(languageResource.CrematoriumVehicles, this.configuration.Crematorium, _checked =>
+            this.crematoriumVehicles = itemGroupUiHelper.AddCheckbox(languageResource.CrematoriumVehicles, this.configuration.CrematoriumVehicles, _checked =>
             {
                 this.configuration.CrematoriumVehicles = _checked;
                 this.configuration.Save();
@@ -761,7 +766,7 @@ namespace Stats.Configuration
             this.sewageTreatment.isChecked = this.configuration.SewageTreatment;
             this.sewageTreatmentCriticalThreshold.value = this.configuration.SewageTreatmentCriticalThreshold;
             this.waterReserveTank.isChecked = this.configuration.WaterReserveTank;
-            this.waterReserveTankCriticalThreshold.value = this.configuration.WaterPumpingServiceStorageCriticalThreshold;
+            this.waterReserveTankCriticalThreshold.value = this.configuration.WaterReserveTankCriticalThreshold;
             this.waterPumpingServiceStorage.isChecked = this.configuration.WaterPumpingServiceStorage;
             this.waterPumpingServiceStorageCriticalThreshold.value = this.configuration.WaterPumpingServiceStorageCriticalThreshold;
             this.waterPumpingServiceVehicles.isChecked = this.configuration.WaterPumpingServiceVehicles;
@@ -806,6 +811,8 @@ namespace Stats.Configuration
             this.fireHazardCriticalThreshold.value = this.configuration.FireHazardCriticalThreshold;
             this.fireDepartmentVehicles.isChecked = this.configuration.FireDepartmentVehicles;
             this.fireDepartmentVehiclesCriticalThreshold.value = this.configuration.FireDepartmentVehiclesCriticalThreshold;
+            this.fireHelicopters.isChecked = this.configuration.FireHelicopters;
+            this.fireHelicoptersCriticalThreshold.value = this.configuration.FireHelicoptersCriticalThreshold;
             this.crimeRate.isChecked = this.configuration.CrimeRate;
             this.crimeRateCriticalThreshold.value = this.configuration.CrimeRateCriticalThreshold;
             this.policeHoldingCells.isChecked = this.configuration.PoliceHoldingCells;

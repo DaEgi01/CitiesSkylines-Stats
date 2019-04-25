@@ -9,6 +9,10 @@
       <Value>Сброс</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>ResetPosition</Key>
+      <Value>Reset Position</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>UpdateEveryXSeconds</Key>
       <Value>Обновлять каждые x секунд(ы)</Value>
     </LocalizedItem>

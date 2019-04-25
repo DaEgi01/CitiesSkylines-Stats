@@ -9,6 +9,10 @@
       <Value>Zurücksetzen</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>ResetPosition</Key>
+      <Value>Position zurücksetzen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>UpdateEveryXSeconds</Key>
       <Value>Alle x sekunden aktualisieren</Value>
     </LocalizedItem>

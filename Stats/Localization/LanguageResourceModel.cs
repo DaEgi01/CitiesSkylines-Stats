@@ -22,6 +22,7 @@ namespace Stats.Localization
         }
 
         public string Reset => this.itemsDictionary["Reset"];
+        public string ResetPosition => this.itemsDictionary["ResetPosition"];
         public string UpdateEveryXSeconds => this.itemsDictionary["UpdateEveryXSeconds"];
         public string AutoHide => itemsDictionary["AutoHide"];
         public string HideItemsBelowThreshold => itemsDictionary["HideItemsBelowThreshold"];
