@@ -81,16 +81,16 @@ namespace Stats.Ui
             this.CreateAndAddDragHandle();
             this.CreateAndAddAllUiItems();
             this.UpdateLocalizedTooltips();
-
-            this.configuration.LayoutChanged += this.UpdateItemsAndLayoutIfVisibilityChanged;
-            this.configuration.PositionChanged += this.UpdatePanelPosition;
+            
+            this.configuration.LayoutChanged += this.UpdateLayout;
+            this.configuration.PositionChanged += this.UpdatePosition;
             this.languageResource.LanguageChanged += this.UpdateLocalizedTooltips;
         }
 
         public override void OnDestroy()
         {
-            this.configuration.LayoutChanged -= this.UpdateItemsAndLayoutIfVisibilityChanged;
-            this.configuration.PositionChanged -= this.UpdatePanelPosition;
+            this.configuration.LayoutChanged -= this.UpdateLayout;
+            this.configuration.PositionChanged -= this.UpdatePosition;
             this.languageResource.LanguageChanged -= this.UpdateLocalizedTooltips;
 
             base.OnDestroy();
@@ -280,9 +280,15 @@ namespace Stats.Ui
             var itemVisibilityChanged = this.UpdateItemsDisplay();
             if (itemVisibilityChanged)
             {
-                this.UpdateItemsLayout();
-                this.UpdatePanelSize();
+                this.UpdateLayout();
             }
+        }
+
+        private void UpdateLayout()
+        {
+            this.UpdateItemsDisplay();
+            this.UpdateItemsLayout();
+            this.UpdatePanelSize();
         }
 
         private bool UpdateItemsDisplay()
@@ -1251,7 +1257,7 @@ namespace Stats.Ui
             this.uiDragHandle.height = newHeight;
         }
 
-        private void UpdatePanelPosition()
+        private void UpdatePosition()
         {
             this.transform.position = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
         }
