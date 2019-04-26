@@ -157,7 +157,7 @@ namespace Stats.Ui
             this.cityUnattractivenessPanel = this.CreateUiItemAndAddButtons(ItemData.CityUnattractiveness);
             this.taxisPanel = this.CreateUiItemAndAddButtons(ItemData.Taxis);
 
-            this.allItemPanels = new List<ItemPanel>
+            var itemPanels = new List<ItemPanel>
             {
                 this.electricityPanel,
                 this.heatingPanel,
@@ -207,7 +207,7 @@ namespace Stats.Ui
                 this.allItemPanels.Add(this.snowDumpVehiclesPanel);
             }
 
-            this.allItemPanels = this.allItemPanels
+            this.allItemPanels = itemPanels
                 .OrderBy(x => x.SortOrder)
                 .ToList();
         }
@@ -1119,9 +1119,9 @@ namespace Stats.Ui
             return oldItemVisible != newItemVisible;
         }
 
-        private Color32 GetItemTextColor(int? percent, int Threshold)
+        private Color32 GetItemTextColor(int? percent, int threshold)
         {
-            if (!percent.HasValue || percent.Value >= Threshold)
+            if (!percent.HasValue || percent.Value >= threshold)
             {
                 return this.configuration.MainPanelAccentColor;
             }
@@ -1129,9 +1129,9 @@ namespace Stats.Ui
             return this.configuration.MainPanelForegroundColor;
         }
 
-        private Color32 GetItemHoveredTextColor(int? percent, int criticalThreshold)
+        private Color32 GetItemHoveredTextColor(int? percent, int threshold)
         {
-            if (!percent.HasValue || percent.Value >= criticalThreshold)
+            if (!percent.HasValue || percent.Value >= threshold)
             {
                 return this.configuration.MainPanelForegroundColor;
             }
@@ -1139,7 +1139,7 @@ namespace Stats.Ui
             return this.configuration.MainPanelAccentColor;
         }
 
-        private bool GetItemVisibility(bool enabled, int? percent, int criticalThreshold)
+        private bool GetItemVisibility(bool enabled, int? percent, int threshold)
         {
             if (!enabled)
             {
@@ -1150,7 +1150,7 @@ namespace Stats.Ui
             {
                 if (this.configuration.MainPanelHideItemsBelowThreshold)
                 {
-                    return criticalThreshold < percent.Value;
+                    return threshold < percent.Value;
                 }
 
                 return true;
