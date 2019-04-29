@@ -21,9 +21,16 @@ namespace Stats.Localization
 
         private string GetExpectedFileFullName(string languageTwoLetterCode)
         {
-            var plugin = this.pluginManager.GetPluginsInfo().Where(x => x.name == this.modSystemName || x.name == this.workshopId).FirstOrDefault();
-            return Path.Combine(plugin.modPath,
-                Path.Combine("Localization", 
+            var plugin = this.pluginManager.GetPluginsInfo()
+                .Where(x => 
+                    x.name == this.modSystemName 
+                    || x.name == this.workshopId
+                ).FirstOrDefault();
+
+            return Path.Combine(
+                plugin.modPath,
+                Path.Combine(
+                    "Localization", 
                     $"language.{languageTwoLetterCode}.xml"
                 )
             );
@@ -32,6 +39,7 @@ namespace Stats.Localization
         public T Load(string languageTwoLetterCode)
         {
             var fileFullName = this.GetExpectedFileFullName(languageTwoLetterCode);
+
             if (!File.Exists(fileFullName))
             {
                 fileFullName = this.GetExpectedFileFullName("en");
