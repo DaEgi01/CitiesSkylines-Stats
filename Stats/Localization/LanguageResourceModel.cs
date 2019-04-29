@@ -7,11 +7,11 @@ namespace Stats.Localization
 {
     public class LanguageResourceModel : IDisposable
     {
-        private readonly LanguageResourceService languageResourceService;
+        private readonly LanguageResourceService<LanguageResourceDto> languageResourceService;
 
         private Dictionary<string, string> itemsDictionary;
 
-        public LanguageResourceModel(LanguageResourceService languageResourceService, LocaleManager localeManager)
+        public LanguageResourceModel(LanguageResourceService<LanguageResourceDto> languageResourceService, LocaleManager localeManager)
         {
             this.languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
 

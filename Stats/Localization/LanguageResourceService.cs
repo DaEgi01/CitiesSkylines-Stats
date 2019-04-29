@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace Stats.Localization
 {
-    public class LanguageResourceService
+    public class LanguageResourceService<T>
     {
         private readonly string modSystemName;
         private readonly string workshopId;
@@ -29,7 +29,7 @@ namespace Stats.Localization
             );
         }
 
-        public LanguageResourceDto Load(string languageTwoLetterCode)
+        public T Load(string languageTwoLetterCode)
         {
             var fileFullName = this.GetExpectedFileFullName(languageTwoLetterCode);
             if (!File.Exists(fileFullName))
@@ -42,10 +42,10 @@ namespace Stats.Localization
                 throw new Exception("Localization file and english fallback file not found.");
             }
 
-            var serializer = new XmlSerializer(typeof(LanguageResourceDto));
+            var serializer = new XmlSerializer(typeof(T));
             using (var streamReader = new StreamReader(fileFullName))
             {
-                return (LanguageResourceDto)serializer.Deserialize(streamReader);
+                return (T)serializer.Deserialize(streamReader);
             }
         }
     }

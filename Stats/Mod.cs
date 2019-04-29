@@ -14,7 +14,7 @@ namespace Stats
     public class Mod : LoadingExtensionBase, IUserMod
     {
         private ConfigurationService<ConfigurationDto> configurationService;
-        private LanguageResourceService languageResourceService;
+        private LanguageResourceService<LanguageResourceDto> languageResourceService;
         private GameEngineService gameEngineService;
 
         private ConfigurationModel configuration;
@@ -67,7 +67,7 @@ namespace Stats
         {
             var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
             this.configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
-            this.languageResourceService = new LanguageResourceService(this.SystemName, this.WorkshopId, PluginManager.instance);
+            this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(this.SystemName, this.WorkshopId, PluginManager.instance);
             this.gameEngineService = new GameEngineService();
 
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
