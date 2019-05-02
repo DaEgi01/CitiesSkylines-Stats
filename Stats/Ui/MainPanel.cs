@@ -1067,6 +1067,7 @@ namespace Stats.Ui
                                 int export = 0;
                                 GameMethods.CalculateVehicles(buildingId, ref building, ref unsortedMail, ref sortedMail, ref unsortedCapacity, ref sortedCapacity, ref ownVanCount, ref ownTruckCount, ref import, ref export);
 
+                                //TODO mail and stuff
                                 int num = building.m_customBuffer1 * 1000;
                                 int num2 = building.m_customBuffer2 * 1000;
 
@@ -1074,16 +1075,12 @@ namespace Stats.Ui
                                 {
                                     postVansTotal += (productionRate * postOfficeAi.m_postVanCount + 99) / 100;
                                     postVansInUse += ownVanCount;
-
-                                    this.postVansPanel.Percent = GetUsagePercent(postVansTotal, postVansInUse);
                                 }
                                 
                                 if (this.configuration.PostTrucks)
                                 {
                                     postTrucksTotal += (productionRate * postOfficeAi.m_postTruckCount + 99) / 100;
                                     postTrucksInUse += ownTruckCount;
-
-                                    this.postTrucksPanel.Percent = GetUsagePercent(postTrucksTotal, postTrucksInUse);
                                 }
 
                                 break;
@@ -1092,6 +1089,59 @@ namespace Stats.Ui
                             continue;
                     }
                 }
+
+                this.postVansPanel.Percent = GetUsagePercent(postVansTotal, postVansInUse);
+                this.postTrucksPanel.Percent = GetUsagePercent(postTrucksTotal, postTrucksInUse);
+            }
+
+            if (this.configuration.DisasterResponseVehicles || this.configuration.DisasterResponseHelicopters)
+            {
+                var disasterResponseVehiclesTotal = 0;
+                var disasterResponseVehiclesInUse = 0;
+
+                var disasterResponseHelicoptersTotal = 0;
+                var disasterResponseHelicoptersInUse = 0;
+
+                var buildingManager = Singleton<BuildingManager>.instance;
+                var publicTransportBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.Disaster);
+                for (int i = 0; i < publicTransportBuildingIds.m_size; i++)
+                {
+                    var buildingId = publicTransportBuildingIds[i];
+                    var building = buildingManager.m_buildings.m_buffer[buildingId];
+                    var buildingAi = building.Info?.GetAI();
+                    if (buildingAi is DisasterResponseBuildingAI disasterResponseBuildingAi)
+                    {
+                        int budget = Singleton<EconomyManager>.instance.GetBudget(disasterResponseBuildingAi.m_info.m_class);
+                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                        
+                        if (this.configuration.DisasterResponseVehicles)
+                        {
+                            disasterResponseVehiclesTotal += (productionRate * disasterResponseBuildingAi.m_vehicleCount + 99) / 100;
+                            int disasterVehicles = 0;
+                            int cargo = 0;
+                            int capacity = 0;
+                            int outside = 0;
+                            GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Collapsed, ref disasterVehicles, ref cargo, ref capacity, ref outside);
+
+                            disasterResponseVehiclesInUse += disasterVehicles;
+                        }
+
+                        if (this.configuration.DisasterResponseHelicopters)
+                        {
+                            disasterResponseHelicoptersTotal += (productionRate * disasterResponseBuildingAi.m_helicopterCount + 99) / 100;
+                            int disasterHelicopters = 0;
+                            int cargo2 = 0;
+                            int capacity2 = 0;
+                            int outside2 = 0;
+                            GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Collapsed2, ref disasterHelicopters, ref cargo2, ref capacity2, ref outside2);
+
+                            disasterResponseHelicoptersInUse += disasterHelicopters;
+                        }
+                    }
+                }
+
+                this.disasterResponseVehiclesPanel.Percent = GetUsagePercent(disasterResponseVehiclesTotal, disasterResponseVehiclesInUse);
+                this.disasterResponseHelicoptersPanel.Percent = GetUsagePercent(disasterResponseHelicoptersTotal, disasterResponseHelicoptersInUse);
             }
 
             this.UpdateItemsAndLayoutIfVisibilityChanged();
