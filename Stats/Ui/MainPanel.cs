@@ -243,55 +243,9 @@ namespace Stats.Ui
 
         private void UpdateLocalizedTooltips()
         {
-            this.electricityPanel.UpdateLocalizedTooltips();
-            this.heatingPanel.UpdateLocalizedTooltips();
-            this.waterPanel.UpdateLocalizedTooltips();
-            this.sewageTreatmentPanel.UpdateLocalizedTooltips();
-            this.waterReserveTankPanel.UpdateLocalizedTooltips();
-            this.waterPumpingServiceStoragePanel.UpdateLocalizedTooltips();
-            this.waterPumpingServiceVehiclesPanel.UpdateLocalizedTooltips();
-            this.landfillPanel.UpdateLocalizedTooltips();
-            this.landfillVehiclesPanel.UpdateLocalizedTooltips();
-            this.garbageProcessingPanel.UpdateLocalizedTooltips();
-            this.garbageProcessingVehiclesPanel.UpdateLocalizedTooltips();
-            this.elementarySchoolPanel.UpdateLocalizedTooltips();
-            this.highSchoolPanel.UpdateLocalizedTooltips();
-            this.universityPanel.UpdateLocalizedTooltips();
-            this.healthcarePanel.UpdateLocalizedTooltips();
-            this.healthcareVehiclesPanel.UpdateLocalizedTooltips();
-            this.medicalHelicoptersPanel.UpdateLocalizedTooltips();
-            this.averageIllnessRatePanel.UpdateLocalizedTooltips();
-            this.cemeteryPanel.UpdateLocalizedTooltips();
-            this.cemeteryVehiclesPanel.UpdateLocalizedTooltips();
-            this.crematoriumPanel.UpdateLocalizedTooltips();
-            this.crematoriumVehiclesPanel.UpdateLocalizedTooltips();
-            this.groundPollutionPanel.UpdateLocalizedTooltips();
-            this.drinkingWaterPollutionPanel.UpdateLocalizedTooltips();
-            this.noisePollutionPanel.UpdateLocalizedTooltips();
-            this.fireHazardPanel.UpdateLocalizedTooltips();
-            this.fireDepartmentVehiclesPanel.UpdateLocalizedTooltips();
-            this.fireHelicoptersPanel.UpdateLocalizedTooltips();
-            this.crimeRatePanel.UpdateLocalizedTooltips();
-            this.policeHoldingCellsPanel.UpdateLocalizedTooltips();
-            this.policeVehiclesPanel.UpdateLocalizedTooltips();
-            this.policeHelicoptersPanel.UpdateLocalizedTooltips();
-            this.prisonCellsPanel.UpdateLocalizedTooltips();
-            this.prisonVehiclesPanel.UpdateLocalizedTooltips();
-            this.unemploymentPanel.UpdateLocalizedTooltips();
-            this.trafficJamPanel.UpdateLocalizedTooltips();
-            this.roadMaintenanceVehiclesPanel.UpdateLocalizedTooltips();
-            this.parkMaintenanceVehiclesPanel.UpdateLocalizedTooltips();
-            this.cityUnattractivenessPanel.UpdateLocalizedTooltips();
-            this.taxisPanel.UpdateLocalizedTooltips();
-            this.postVansPanel.UpdateLocalizedTooltips();
-            this.postTrucksPanel.UpdateLocalizedTooltips();
-            this.disasterResponseVehiclesPanel.UpdateLocalizedTooltips();
-            this.disasterResponseHelicoptersPanel.UpdateLocalizedTooltips();
-
-            if (mapHasSnowDumps)
+            for (int i = 0; i < allItemPanels.Count; i++)
             {
-                this.snowDumpPanel.UpdateLocalizedTooltips();
-                this.snowDumpVehiclesPanel.UpdateLocalizedTooltips();
+                allItemPanels[i].UpdateLocalizedTooltips();
             }
         }
 
