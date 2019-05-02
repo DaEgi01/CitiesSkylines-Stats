@@ -60,6 +60,10 @@ namespace Stats.Ui
         private ItemPanel parkMaintenanceVehiclesPanel;
         private ItemPanel cityUnattractivenessPanel;
         private ItemPanel taxisPanel;
+        private ItemPanel postVansPanel;
+        private ItemPanel postTrucksPanel;
+        private ItemPanel disasterResponseVehiclesPanel;
+        private ItemPanel disasterResponseHelicoptersPanel;
 
         private List<ItemPanel> allItemPanels;
 
@@ -148,14 +152,19 @@ namespace Stats.Ui
             this.unemploymentPanel = this.CreateUiItemAndAddButtons(ItemData.Unemployment);
             this.trafficJamPanel = this.CreateUiItemAndAddButtons(ItemData.TrafficJam);
             this.roadMaintenanceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.RoadMaintenanceVehicles);
+            this.parkMaintenanceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.ParkMaintenanceVehicles);
+            this.cityUnattractivenessPanel = this.CreateUiItemAndAddButtons(ItemData.CityUnattractiveness);
+            this.taxisPanel = this.CreateUiItemAndAddButtons(ItemData.Taxis);
+            this.postVansPanel = this.CreateUiItemAndAddButtons(ItemData.PostVans);
+            this.postTrucksPanel = this.CreateUiItemAndAddButtons(ItemData.PostTrucks);
+            this.disasterResponseVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.DisasterResponseVehicles);
+            this.disasterResponseHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.DisasterResponseHelicopters);
+
             if (mapHasSnowDumps)
             {
                 this.snowDumpPanel = this.CreateUiItemAndAddButtons(ItemData.SnowDump);
                 this.snowDumpVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.SnowDumpVehicles);
             }
-            this.parkMaintenanceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.ParkMaintenanceVehicles);
-            this.cityUnattractivenessPanel = this.CreateUiItemAndAddButtons(ItemData.CityUnattractiveness);
-            this.taxisPanel = this.CreateUiItemAndAddButtons(ItemData.Taxis);
 
             var itemPanels = new List<ItemPanel>
             {
@@ -198,7 +207,11 @@ namespace Stats.Ui
                 this.roadMaintenanceVehiclesPanel,
                 this.parkMaintenanceVehiclesPanel,
                 this.cityUnattractivenessPanel,
-                this.taxisPanel
+                this.taxisPanel,
+                this.postVansPanel,
+                this.postTrucksPanel,
+                this.disasterResponseVehiclesPanel,
+                this.disasterResponseHelicoptersPanel
             };
 
             if (this.mapHasSnowDumps)
@@ -215,7 +228,7 @@ namespace Stats.Ui
         private ItemPanel CreateUiItemAndAddButtons(ItemData itemData)
         {
             var uiItem = this.CreateAndAddItemPanel();
-            uiItem.Initialize(itemData, this.configuration);
+            uiItem.Initialize(itemData, this.configuration, this.languageResource);
             return uiItem;
         }
 
@@ -230,50 +243,55 @@ namespace Stats.Ui
 
         private void UpdateLocalizedTooltips()
         {
-            this.electricityPanel.UpdateLocalizedTooltips(this.languageResource.Electricity);
-            this.heatingPanel.UpdateLocalizedTooltips(this.languageResource.Heating);
-            this.waterPanel.UpdateLocalizedTooltips(this.languageResource.Water);
-            this.sewageTreatmentPanel.UpdateLocalizedTooltips(this.languageResource.SewageTreatment);
-            this.waterReserveTankPanel.UpdateLocalizedTooltips(this.languageResource.WaterReserveTank);
-            this.waterPumpingServiceStoragePanel.UpdateLocalizedTooltips(this.languageResource.WaterPumpingServiceStorage);
-            this.waterPumpingServiceVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.WaterPumpingServiceVehicles);
-            this.landfillPanel.UpdateLocalizedTooltips(this.languageResource.Landfill);
-            this.landfillVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.LandfillVehicles);
-            this.garbageProcessingPanel.UpdateLocalizedTooltips(this.languageResource.GarbageProcessing);
-            this.garbageProcessingVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.GarbageProcessingVehicles);
-            this.elementarySchoolPanel.UpdateLocalizedTooltips(this.languageResource.ElementarySchool);
-            this.highSchoolPanel.UpdateLocalizedTooltips(this.languageResource.HighSchool);
-            this.universityPanel.UpdateLocalizedTooltips(this.languageResource.University);
-            this.healthcarePanel.UpdateLocalizedTooltips(this.languageResource.Healthcare);
-            this.healthcareVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.HealthcareVehicles);
-            this.medicalHelicoptersPanel.UpdateLocalizedTooltips(this.languageResource.MedicalHelicopters);
-            this.averageIllnessRatePanel.UpdateLocalizedTooltips(this.languageResource.AverageIllnessRate);
-            this.cemeteryPanel.UpdateLocalizedTooltips(this.languageResource.Cemetery);
-            this.cemeteryVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.CemeteryVehicles);
-            this.crematoriumPanel.UpdateLocalizedTooltips(this.languageResource.Crematorium);
-            this.crematoriumVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.CrematoriumVehicles);
-            this.groundPollutionPanel.UpdateLocalizedTooltips(this.languageResource.GroundPollution);
-            this.drinkingWaterPollutionPanel.UpdateLocalizedTooltips(this.languageResource.DrinkingWaterPollution);
-            this.noisePollutionPanel.UpdateLocalizedTooltips(this.languageResource.NoisePollution);
-            this.fireHazardPanel.UpdateLocalizedTooltips(this.languageResource.FireHazard);
-            this.fireDepartmentVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.FireDepartmentVehicles);
-            this.fireHelicoptersPanel.UpdateLocalizedTooltips(this.languageResource.FireHelicopters);
-            this.crimeRatePanel.UpdateLocalizedTooltips(this.languageResource.CrimeRate);
-            this.policeHoldingCellsPanel.UpdateLocalizedTooltips(this.languageResource.PoliceHoldingCells);
-            this.policeVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.PoliceVehicles);
-            this.policeHelicoptersPanel.UpdateLocalizedTooltips(this.languageResource.PoliceHelicopters);
-            this.prisonCellsPanel.UpdateLocalizedTooltips(this.languageResource.PrisonCells);
-            this.prisonVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.PrisonVehicles);
-            this.unemploymentPanel.UpdateLocalizedTooltips(this.languageResource.Unemployment);
-            this.trafficJamPanel.UpdateLocalizedTooltips(this.languageResource.TrafficJam);
-            this.roadMaintenanceVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.RoadMaintenanceVehicles);
-            this.parkMaintenanceVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.ParkMaintenanceVehicles);
-            this.cityUnattractivenessPanel.UpdateLocalizedTooltips(this.languageResource.CityUnattractiveness);
-            this.taxisPanel.UpdateLocalizedTooltips(this.languageResource.Taxis);
+            this.electricityPanel.UpdateLocalizedTooltips();
+            this.heatingPanel.UpdateLocalizedTooltips();
+            this.waterPanel.UpdateLocalizedTooltips();
+            this.sewageTreatmentPanel.UpdateLocalizedTooltips();
+            this.waterReserveTankPanel.UpdateLocalizedTooltips();
+            this.waterPumpingServiceStoragePanel.UpdateLocalizedTooltips();
+            this.waterPumpingServiceVehiclesPanel.UpdateLocalizedTooltips();
+            this.landfillPanel.UpdateLocalizedTooltips();
+            this.landfillVehiclesPanel.UpdateLocalizedTooltips();
+            this.garbageProcessingPanel.UpdateLocalizedTooltips();
+            this.garbageProcessingVehiclesPanel.UpdateLocalizedTooltips();
+            this.elementarySchoolPanel.UpdateLocalizedTooltips();
+            this.highSchoolPanel.UpdateLocalizedTooltips();
+            this.universityPanel.UpdateLocalizedTooltips();
+            this.healthcarePanel.UpdateLocalizedTooltips();
+            this.healthcareVehiclesPanel.UpdateLocalizedTooltips();
+            this.medicalHelicoptersPanel.UpdateLocalizedTooltips();
+            this.averageIllnessRatePanel.UpdateLocalizedTooltips();
+            this.cemeteryPanel.UpdateLocalizedTooltips();
+            this.cemeteryVehiclesPanel.UpdateLocalizedTooltips();
+            this.crematoriumPanel.UpdateLocalizedTooltips();
+            this.crematoriumVehiclesPanel.UpdateLocalizedTooltips();
+            this.groundPollutionPanel.UpdateLocalizedTooltips();
+            this.drinkingWaterPollutionPanel.UpdateLocalizedTooltips();
+            this.noisePollutionPanel.UpdateLocalizedTooltips();
+            this.fireHazardPanel.UpdateLocalizedTooltips();
+            this.fireDepartmentVehiclesPanel.UpdateLocalizedTooltips();
+            this.fireHelicoptersPanel.UpdateLocalizedTooltips();
+            this.crimeRatePanel.UpdateLocalizedTooltips();
+            this.policeHoldingCellsPanel.UpdateLocalizedTooltips();
+            this.policeVehiclesPanel.UpdateLocalizedTooltips();
+            this.policeHelicoptersPanel.UpdateLocalizedTooltips();
+            this.prisonCellsPanel.UpdateLocalizedTooltips();
+            this.prisonVehiclesPanel.UpdateLocalizedTooltips();
+            this.unemploymentPanel.UpdateLocalizedTooltips();
+            this.trafficJamPanel.UpdateLocalizedTooltips();
+            this.roadMaintenanceVehiclesPanel.UpdateLocalizedTooltips();
+            this.parkMaintenanceVehiclesPanel.UpdateLocalizedTooltips();
+            this.cityUnattractivenessPanel.UpdateLocalizedTooltips();
+            this.taxisPanel.UpdateLocalizedTooltips();
+            this.postVansPanel.UpdateLocalizedTooltips();
+            this.postTrucksPanel.UpdateLocalizedTooltips();
+            this.disasterResponseVehiclesPanel.UpdateLocalizedTooltips();
+            this.disasterResponseHelicoptersPanel.UpdateLocalizedTooltips();
+
             if (mapHasSnowDumps)
             {
-                this.snowDumpPanel.UpdateLocalizedTooltips(this.languageResource.SnowDump);
-                this.snowDumpVehiclesPanel.UpdateLocalizedTooltips(this.languageResource.SnowDumpVehicles);
+                this.snowDumpPanel.UpdateLocalizedTooltips();
+                this.snowDumpVehiclesPanel.UpdateLocalizedTooltips();
             }
         }
 
@@ -337,6 +355,10 @@ namespace Stats.Ui
             itemVisibilityChanged |= this.UpdateItemDisplay(this.parkMaintenanceVehiclesPanel, this.configuration.ParkMaintenanceVehicles, parkMaintenanceVehiclesPanel.Percent, this.configuration.ParkMaintenanceVehiclesCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.cityUnattractivenessPanel, this.configuration.CityUnattractiveness, cityUnattractivenessPanel.Percent, this.configuration.CityUnattractivenessCriticalThreshold);
             itemVisibilityChanged |= this.UpdateItemDisplay(this.taxisPanel, this.configuration.Taxis, taxisPanel.Percent, this.configuration.TaxisCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.postVansPanel, this.configuration.PostVans, postVansPanel.Percent, this.configuration.PostVansCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.postTrucksPanel, this.configuration.PostTrucks, postTrucksPanel.Percent, this.configuration.PostTrucksCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.disasterResponseVehiclesPanel, this.configuration.DisasterResponseVehicles, disasterResponseVehiclesPanel.Percent, this.configuration.DisasterResponseVehiclesCriticalThreshold);
+            itemVisibilityChanged |= this.UpdateItemDisplay(this.disasterResponseHelicoptersPanel, this.configuration.DisasterResponseHelicopters, disasterResponseHelicoptersPanel.Percent, this.configuration.DisasterResponseHelicoptersCriticalThreshold);
 
             if (this.mapHasSnowDumps)
             {
@@ -489,7 +511,6 @@ namespace Stats.Ui
 
                 var buildingManager = Singleton<BuildingManager>.instance;
                 var garbageBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.Garbage);
-
                 for (int i = 0; i < garbageBuildingIds.m_size; i++)
                 {
                     var buildingId = garbageBuildingIds[i];
@@ -604,11 +625,6 @@ namespace Stats.Ui
                     var buildingId = healthcareBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
                     var buildingAi = building.Info?.GetAI();
-                    if (buildingAi == null)
-                    {
-                        continue;
-                    }
-
                     switch (buildingAi)
                     {
                         case HospitalAI hospitalAI:
@@ -624,9 +640,9 @@ namespace Stats.Ui
 
                                 healthcareVehiclesTotal += healthcareVehicles;
                                 healthcareVehiclesInUse += count;
-                            }
 
-                            break;
+                                break;
+                            }
                         case HelicopterDepotAI helicopterDepotAI:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
@@ -640,8 +656,9 @@ namespace Stats.Ui
 
                                 medicalHelicoptersTotal += medicalHelicopters;
                                 medicalHelicoptersInUse += count;
+
+                                break;
                             }
-                            break;
                         case CemeteryAI cemeteryAI:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(cemeteryAI.m_info.m_class);
@@ -671,9 +688,9 @@ namespace Stats.Ui
                                     cemeteryVehiclesTotal += cemeteryVehicles;
                                     cemeteryVehiclesInUse += count;
                                 }
-                            }
 
-                            break;
+                                break;
+                            }
                         default:
                             continue;
                     }
@@ -728,20 +745,10 @@ namespace Stats.Ui
                     var buildingId = fireDepartmentBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
                     var buildingAi = building.Info?.GetAI();
-                    if (buildingAi == null)
-                    {
-                        continue;
-                    }
-
                     switch (buildingAi)
                     {
-                        case FireStationAI fireStationAI:
+                        case FireStationAI fireStationAI when this.configuration.FireDepartmentVehicles:
                             {
-                                if (!this.configuration.FireDepartmentVehicles)
-                                {
-                                    continue;
-                                }
-
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(fireStationAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
                                 int fireTrucks = (productionRate * fireStationAI.m_fireTruckCount + 99) / 100;
@@ -756,13 +763,8 @@ namespace Stats.Ui
                             }
 
                             break;
-                        case HelicopterDepotAI helicopterDepotAI:
+                        case HelicopterDepotAI helicopterDepotAI when this.configuration.FireHelicopters:
                             {
-                                if (!this.configuration.FireHelicopters)
-                                {
-                                    continue;
-                                }
-
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
                                 int fireHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
@@ -824,13 +826,8 @@ namespace Stats.Ui
 
                     switch (buildingAi)
                     {
-                        case PoliceStationAI policeStationAi:
+                        case PoliceStationAI policeStationAi when this.configuration.PoliceHelicopters:
                             {
-                                if (!this.configuration.PoliceHelicopters)
-                                {
-                                    continue;
-                                }
-
                                 //PoliceStationAI.GetLocalizedStats
                                 var instance = Singleton<CitizenManager>.instance;
                                 uint num = building.m_citizenUnits;
@@ -887,13 +884,8 @@ namespace Stats.Ui
                                 }
                             }
                             break;
-                        case HelicopterDepotAI helicopterDepotAI:
+                        case HelicopterDepotAI helicopterDepotAI when this.configuration.PoliceHelicopters:
                             {
-                                if (!this.configuration.PoliceHelicopters)
-                                {
-                                    continue;
-                                }
-
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
                                 int policeHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
@@ -950,47 +942,52 @@ namespace Stats.Ui
                     var buildingId = roadMaintenanceBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
                     var buildingAi = building.Info?.GetAI();
-                    if (buildingAi is MaintenanceDepotAI maintenanceDepotAi)
+                    switch (buildingAi)
                     {
-                        int budget = Singleton<EconomyManager>.instance.GetBudget(maintenanceDepotAi.m_info.m_class);
-                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                        int trucks = (productionRate * maintenanceDepotAi.m_maintenanceTruckCount + 99) / 100;
-                        int truckCount = 0;
-                        int cargo = 0;
-                        int capacity = 0;
-                        int outside = 0;
-                        GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.RoadMaintenance, ref truckCount, ref cargo, ref capacity, ref outside);
+                        case MaintenanceDepotAI maintenanceDepotAi:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(maintenanceDepotAi.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int trucks = (productionRate * maintenanceDepotAi.m_maintenanceTruckCount + 99) / 100;
+                                int truckCount = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.RoadMaintenance, ref truckCount, ref cargo, ref capacity, ref outside);
 
-                        roadMaintenanceVehiclesTotal += trucks;
-                        roadMaintenanceVehiclesInUse += truckCount;
-                    }
-                    else if (this.mapHasSnowDumps && buildingAi is SnowDumpAI snowDumpAi)
-                    {
-                        int budget = Singleton<EconomyManager>.instance.GetBudget(snowDumpAi.m_info.m_class);
-                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                        int snowTrucks = (productionRate * snowDumpAi.m_snowTruckCount + 99) / 100;
-                        int count = 0;
-                        int cargo = 0;
-                        int capacity = 0;
-                        int outside = 0;
-                        if ((building.m_flags & Building.Flags.Downgrading) == Building.Flags.None)
-                        {
-                            GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Snow, ref count, ref cargo, ref capacity, ref outside);
-                        }
-                        else
-                        {
-                            GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.SnowMove, ref count, ref cargo, ref capacity, ref outside);
-                        }
+                                roadMaintenanceVehiclesTotal += trucks;
+                                roadMaintenanceVehiclesInUse += truckCount;
 
-                        snowDumpStorageTotal += snowDumpAi.m_snowCapacity;
-                        snowDumpStorageInUse += snowDumpAi.GetSnowAmount(buildingId, ref building);
+                                break;
+                            }
+                        case SnowDumpAI snowDumpAi when this.mapHasSnowDumps:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(snowDumpAi.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int snowTrucks = (productionRate * snowDumpAi.m_snowTruckCount + 99) / 100;
+                                int count = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                if ((building.m_flags & Building.Flags.Downgrading) == Building.Flags.None)
+                                {
+                                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Snow, ref count, ref cargo, ref capacity, ref outside);
+                                }
+                                else
+                                {
+                                    GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.SnowMove, ref count, ref cargo, ref capacity, ref outside);
+                                }
 
-                        snowDumpVehiclesTotal += snowTrucks;
-                        snowDumpVehiclesInUse += count;
-                    }
-                    else
-                    {
-                        continue;
+                                snowDumpStorageTotal += snowDumpAi.m_snowCapacity;
+                                snowDumpStorageInUse += snowDumpAi.GetSnowAmount(buildingId, ref building);
+
+                                snowDumpVehiclesTotal += snowTrucks;
+                                snowDumpVehiclesInUse += count;
+
+                                break;
+                            }
+                        default:
+                            continue;
                     }
                 }
 
@@ -1061,40 +1058,86 @@ namespace Stats.Ui
                 this.cityUnattractivenessPanel.Percent = (100 - cityAttractiveness);
             }
 
-            if (this.configuration.Taxis)
+            if (this.configuration.Taxis || this.configuration.PostVans || this.configuration.PostTrucks)
             {
                 var taxisTotal = 0;
                 var taxisInUse = 0;
 
+                var postVansTotal = 0;
+                var postVansInUse = 0;
+
+                var postTrucksTotal = 0;
+                var postTrucksInUse = 0;
+
                 var buildingManager = Singleton<BuildingManager>.instance;
                 var publicTransportBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.PublicTransport);
-
                 for (int i = 0; i < publicTransportBuildingIds.m_size; i++)
                 {
                     var buildingId = publicTransportBuildingIds[i];
                     var building = buildingManager.m_buildings.m_buffer[buildingId];
                     var buildingAi = building.Info?.GetAI();
-                    if (buildingAi is DepotAI depotAi)
+                    switch (buildingAi)
                     {
-                        if (depotAi.m_transportInfo == null || depotAi.m_maxVehicleCount == 0 || depotAi.m_transportInfo.m_transportType != TransportInfo.TransportType.Taxi)
-                        {
+                        case DepotAI depotAi when this.configuration.Taxis
+                            && depotAi.m_transportInfo != null
+                            && depotAi.m_maxVehicleCount != 0
+                            && depotAi.m_transportInfo.m_transportType == TransportInfo.TransportType.Taxi:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(depotAi.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int taxiCount = 0;
+                                int cargo = 0;
+                                int capacity = 0;
+                                int outside = 0;
+                                GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Taxi, ref taxiCount, ref cargo, ref capacity, ref outside);
+
+                                taxisTotal += (productionRate * depotAi.m_maxVehicleCount + 99) / 100;
+                                taxisInUse += taxiCount;
+
+                                this.taxisPanel.Percent = GetUsagePercent(taxisTotal, taxisInUse);
+
+                                break;
+                            }
+                        case PostOfficeAI postOfficeAi when this.configuration.PostVans
+                            || this.configuration.PostTrucks:
+                            {
+                                int budget = Singleton<EconomyManager>.instance.GetBudget(postOfficeAi.m_info.m_class);
+                                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
+                                int unsortedMail = 0;
+                                int sortedMail = 0;
+                                int unsortedCapacity = 0;
+                                int sortedCapacity = 0;
+                                int ownVanCount = 0;
+                                int ownTruckCount = 0;
+                                int import = 0;
+                                int export = 0;
+                                GameMethods.CalculateVehicles(buildingId, ref building, ref unsortedMail, ref sortedMail, ref unsortedCapacity, ref sortedCapacity, ref ownVanCount, ref ownTruckCount, ref import, ref export);
+
+                                int num = building.m_customBuffer1 * 1000;
+                                int num2 = building.m_customBuffer2 * 1000;
+
+                                if (this.configuration.PostVans)
+                                {
+                                    postVansTotal += (productionRate * postOfficeAi.m_postVanCount + 99) / 100;
+                                    postVansInUse += ownVanCount;
+
+                                    this.postVansPanel.Percent = GetUsagePercent(postVansTotal, postVansInUse);
+                                }
+                                
+                                if (this.configuration.PostTrucks)
+                                {
+                                    postTrucksTotal += (productionRate * postOfficeAi.m_postTruckCount + 99) / 100;
+                                    postTrucksInUse += ownTruckCount;
+
+                                    this.postTrucksPanel.Percent = GetUsagePercent(postTrucksTotal, postTrucksInUse);
+                                }
+
+                                break;
+                            }
+                        default:
                             continue;
-                        }
-
-                        int budget = Singleton<EconomyManager>.instance.GetBudget(depotAi.m_info.m_class);
-                        int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                        int taxiCount = 0;
-                        int cargo = 0;
-                        int capacity = 0;
-                        int outside = 0;
-                        GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Taxi, ref taxiCount, ref cargo, ref capacity, ref outside);
-
-                        taxisTotal += (productionRate * depotAi.m_maxVehicleCount + 99) / 100;
-                        taxisInUse += taxiCount;
                     }
                 }
-
-                this.taxisPanel.Percent = GetUsagePercent(taxisTotal, taxisInUse);
             }
 
             this.UpdateItemsAndLayoutIfVisibilityChanged();

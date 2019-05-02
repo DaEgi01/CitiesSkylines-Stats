@@ -127,9 +127,10 @@ namespace Stats
             configurationPanel.Initialize();
         }
 
-        //TODO: postvans in use
-        //TODO: posttrucks in use
-        //TODO: disaster response vehicles and helis in use
+        //TODO: postvans in use - to be tested, add translations
+        //TODO: posttrucks in use - to be tested, add translations
+        //TODO: disaster response vehicles - to be tested (double check overlay on click), add translations
+        //TODO: disaster response helicopters - to be tested
         //TODO: evacuation buses in use
         //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
         //TODO: rework healthcare: split sick citizen from hospital beds

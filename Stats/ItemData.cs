@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Stats
 {
-    public class ItemData : IEquatable<ItemData>
+    public class ItemData
     {
         private ItemData(
             string systemName,
@@ -66,8 +67,12 @@ namespace Stats
         public static readonly ItemData SnowDumpVehicles = new ItemData("SnowDumpVehicles", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
         public static readonly ItemData CityUnattractiveness = new ItemData("CityUnattractiveness", "InfoIconTourism", InfoManager.InfoMode.Tourism, InfoManager.SubInfoMode.Attractiveness);
         public static readonly ItemData Taxis = new ItemData("Taxis", "SubBarPublicTransportTaxi", InfoManager.InfoMode.Transport, InfoManager.SubInfoMode.NormalTransport);
+        public static readonly ItemData PostVans = new ItemData("PostVans", "InfoIconPost", InfoManager.InfoMode.Post, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PostTrucks = new ItemData("PostTrucks", "InfoIconPost", InfoManager.InfoMode.Post, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData DisasterResponseVehicles = new ItemData("DisasterResponseVehicles", "InfoIconDestruction", InfoManager.InfoMode.Destruction, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData DisasterResponseHelicopters = new ItemData("DisasterResponseHelicopters", "InfoIconDestruction", InfoManager.InfoMode.Destruction, InfoManager.SubInfoMode.Default);
 
-        public static List<ItemData> AllItems => new List<ItemData>()
+        public static ReadOnlyCollection<ItemData> AllItems => new List<ItemData>
         {
             Electricity,
             Heating,
@@ -83,67 +88,43 @@ namespace Stats
             ElementarySchool,
             HighSchool,
             University,
+            AverageIllnessRate,
             Healthcare,
             HealthcareVehicles,
-            AverageIllnessRate,
+            MedicalHelicopters,
             Cemetery,
             CemeteryVehicles,
             Crematorium,
             CrematoriumVehicles,
-            TrafficJam,
             GroundPollution,
             DrinkingWaterPollution,
             NoisePollution,
             FireHazard,
             FireDepartmentVehicles,
+            FireHelicopters,
             CrimeRate,
             PoliceHoldingCells,
             PoliceVehicles,
+            PoliceHelicopters,
             PrisonCells,
             PrisonVehicles,
             Unemployment,
+            TrafficJam,
             RoadMaintenanceVehicles,
             ParkMaintenanceVehicles,
             SnowDump,
             SnowDumpVehicles,
             CityUnattractiveness,
-            Taxis
-        };
-
-        public static implicit operator string(ItemData item)
-        {
-            return item.SystemName;
-        }
+            Taxis,
+            PostVans,
+            PostTrucks,
+            DisasterResponseVehicles,
+            DisasterResponseHelicopters
+        }.AsReadOnly();
 
         public static ItemData Parse(string systemName)
         {
             return AllItems.FirstOrDefault(x => x.SystemName == systemName);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            if (obj is ItemData item)
-            {
-                this.Equals(item);
-            }
-
-            return false;
-        }
-
-        public bool Equals(ItemData other)
-        {
-            return this.SystemName == other.SystemName;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.SystemName.GetHashCode();
         }
     }
 }

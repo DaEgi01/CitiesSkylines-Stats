@@ -188,5 +188,21 @@ namespace Stats.Configuration
         public bool Taxis { get; set; } = true;
         public int TaxisCriticalThreshold { get; set; } = 80;
         public int TaxisSortOrder { get; set; } = 39000;
+
+        public bool PostVans { get; set; } = true;
+        public int PostVansCriticalThreshold { get; set; } = 80;
+        public int PostVansSortOrder { get; set; } = 40000;
+
+        public bool PostTrucks { get; set; } = true;
+        public int PostTrucksCriticalThreshold { get; set; } = 80;
+        public int PostTrucksSortOrder { get; set; } = 41000;
+
+        public bool DisasterResponseVehicles { get; set; } = true;
+        public int DisasterResponseVehiclesCriticalThreshold { get; set; } = 80;
+        public int DisasterResponseVehiclesSortOrder { get; set; } = 42000;
+
+        public bool DisasterResponseHelicopters { get; set; } = true;
+        public int DisasterResponseHelicoptersCriticalThreshold { get; set; } = 80;
+        public int DisasterResponseHelicoptersSortOrder { get; set; } = 43000;
     }
 }

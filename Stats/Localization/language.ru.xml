@@ -244,5 +244,21 @@
       <Key>Taxis</Key>
       <Value>Таксис</Value>
     </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostVans</Key>
+      <Value>Post vans in use</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostTrucks</Key>
+      <Value>Post trucks in use</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseVehicles</Key>
+      <Value>Disaster response vehicles in use</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseHelicopters</Key>
+      <Value>Disaster response helicopters in use</Value>
+    </LocalizedItem>
   </LocalizedItems>
 </LanguageResource>

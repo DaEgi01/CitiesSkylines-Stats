@@ -244,5 +244,21 @@
       <Key>Taxis</Key>
       <Value>Taxis in Gebrauch</Value>
     </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostVans</Key>
+      <Value>Posttransporter in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostTrucks</Key>
+      <Value>Postlastwagen in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseVehicles</Key>
+      <Value>Katastrophenschutzfahrzeug in Gebrauch</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseHelicopters</Key>
+      <Value>Katastrophenschutzhelikopter in Gebrauch</Value>
+    </LocalizedItem>
   </LocalizedItems>
 </LanguageResource>

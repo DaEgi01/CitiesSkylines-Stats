@@ -8,10 +8,10 @@ namespace Stats.Configuration
         private readonly ConfigurationService<ConfigurationDto> configurationService;
         private ConfigurationDto dto;
 
-        public ConfigurationModel(ConfigurationService<ConfigurationDto> configurationService, ConfigurationDto configurationDto)
+        public ConfigurationModel(ConfigurationService<ConfigurationDto> configurationService, ConfigurationDto dto)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
-            this.dto = configurationDto ?? throw new ArgumentNullException(nameof(configurationDto));
+            this.dto = dto ?? throw new ArgumentNullException(nameof(dto));
         }
 
         public float MainPanelPositionX
@@ -20,7 +20,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelPositionX = value;
-                // don't this.OnPositionChanged(); here - that will cause issues with position saving
+                // don't OnPositionChanged(); here - that will cause issues with position saving
             }
         }
 
@@ -30,7 +30,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelPositionY = value;
-                // don't this.OnPositionChanged(); here - that will cause issues with position saving
+                // don't OnPositionChanged(); here - that will cause issues with position saving
             }
         }
 
@@ -58,7 +58,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelHideItemsBelowThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -68,7 +68,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelHideItemsNotAvailable = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -78,7 +78,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MainPanelColumnCount = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -115,7 +115,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ItemWidth = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -125,7 +125,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ItemHeight = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -135,7 +135,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ItemPadding = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -145,7 +145,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ItemTextScale = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -155,7 +155,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Electricity = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -165,7 +165,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ElectricityCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -175,7 +175,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ElectricitySortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -185,7 +185,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Heating = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -195,7 +195,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HeatingCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -205,7 +205,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HeatingSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -215,7 +215,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Water = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -225,7 +225,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -235,7 +235,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -245,7 +245,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SewageTreatment = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -255,7 +255,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SewageTreatmentCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -265,7 +265,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SewageTreatmentSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -275,7 +275,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterReserveTank = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -285,7 +285,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterReserveTankCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -295,7 +295,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterReserveTankSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -305,7 +305,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterPumpingServiceStorage = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -315,7 +315,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterPumpingServiceStorageCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -325,7 +325,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterPumpingServiceStorageSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -335,7 +335,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterPumpingServiceVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -345,7 +345,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterPumpingServiceVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -355,7 +355,7 @@ namespace Stats.Configuration
             set
             {
                 dto.WaterPumpingServiceVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -365,7 +365,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Landfill = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -375,7 +375,7 @@ namespace Stats.Configuration
             set
             {
                 dto.LandfillCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -385,7 +385,7 @@ namespace Stats.Configuration
             set
             {
                 dto.LandfillSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -395,7 +395,7 @@ namespace Stats.Configuration
             set
             {
                 dto.LandfillVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -405,7 +405,7 @@ namespace Stats.Configuration
             set
             {
                 dto.LandfillVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -415,7 +415,7 @@ namespace Stats.Configuration
             set
             {
                 dto.LandfillVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -425,7 +425,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GarbageProcessing = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -435,7 +435,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GarbageProcessingCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -445,7 +445,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GarbageProcessingSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -455,7 +455,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GarbageProcessingVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -465,7 +465,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GarbageProcessingVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -475,7 +475,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GarbageProcessingVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -485,7 +485,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ElementarySchool = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -495,7 +495,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ElementarySchoolCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -505,7 +505,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ElementarySchoolSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -515,7 +515,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HighSchool = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -525,7 +525,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HighSchoolCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -535,7 +535,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HighSchoolSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -545,7 +545,7 @@ namespace Stats.Configuration
             set
             {
                 dto.University = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -555,7 +555,7 @@ namespace Stats.Configuration
             set
             {
                 dto.UniversityCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -565,7 +565,7 @@ namespace Stats.Configuration
             set
             {
                 dto.UniversitySortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -575,7 +575,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Healthcare = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -585,7 +585,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HealthcareCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -595,7 +595,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HealthcareSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -605,7 +605,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HealthcareVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -615,7 +615,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HealthcareVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -625,7 +625,7 @@ namespace Stats.Configuration
             set
             {
                 dto.HealthcareVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -635,7 +635,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MedicalHelicopters = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -645,7 +645,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MedicalHelicoptersCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -655,7 +655,7 @@ namespace Stats.Configuration
             set
             {
                 dto.MedicalHelicoptersSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -665,7 +665,7 @@ namespace Stats.Configuration
             set
             {
                 dto.AverageIllnessRate = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -675,7 +675,7 @@ namespace Stats.Configuration
             set
             {
                 dto.AverageIllnessRateCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -685,7 +685,7 @@ namespace Stats.Configuration
             set
             {
                 dto.AverageIllnessRateSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -695,7 +695,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Cemetery = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -705,7 +705,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CemeteryCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -715,7 +715,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CemeterySortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -725,7 +725,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CemeteryVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -735,7 +735,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CemeteryVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -745,7 +745,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CemeteryVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -755,7 +755,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Crematorium = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -765,7 +765,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrematoriumCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -775,7 +775,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrematoriumSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -785,7 +785,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrematoriumVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -795,7 +795,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrematoriumVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -805,7 +805,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrematoriumVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -815,7 +815,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GroundPollution = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -825,7 +825,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GroundPollutionCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -835,7 +835,7 @@ namespace Stats.Configuration
             set
             {
                 dto.GroundPollutionSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -845,7 +845,7 @@ namespace Stats.Configuration
             set
             {
                 dto.DrinkingWaterPollution = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -855,7 +855,7 @@ namespace Stats.Configuration
             set
             {
                 dto.DrinkingWaterPollutionCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -865,7 +865,7 @@ namespace Stats.Configuration
             set
             {
                 dto.DrinkingWaterPollutionSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -875,7 +875,7 @@ namespace Stats.Configuration
             set
             {
                 dto.NoisePollution = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -885,7 +885,7 @@ namespace Stats.Configuration
             set
             {
                 dto.NoisePollutionCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -895,7 +895,7 @@ namespace Stats.Configuration
             set
             {
                 dto.NoisePollutionSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -905,7 +905,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireHazard = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -915,7 +915,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireHazardCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -925,7 +925,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireHazardSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -935,7 +935,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireDepartmentVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -945,7 +945,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireDepartmentVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -955,7 +955,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireDepartmentVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -965,7 +965,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireHelicopters = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -975,7 +975,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireHelicoptersCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -985,7 +985,7 @@ namespace Stats.Configuration
             set
             {
                 dto.FireHelicoptersSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -995,7 +995,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrimeRate = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1005,7 +1005,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrimeRateCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1015,7 +1015,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CrimeRateSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1025,7 +1025,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceHoldingCells = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1035,7 +1035,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceHoldingCellsCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1045,7 +1045,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceHoldingCellsSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1055,7 +1055,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1065,7 +1065,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1075,7 +1075,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1085,7 +1085,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceHelicopters = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1095,7 +1095,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceHelicoptersCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1105,7 +1105,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PoliceHelicoptersSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1115,7 +1115,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PrisonCells = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1125,7 +1125,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PrisonCellsCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1135,7 +1135,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PrisonCellsSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1145,7 +1145,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PrisonVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1155,7 +1155,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PrisonVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1165,7 +1165,7 @@ namespace Stats.Configuration
             set
             {
                 dto.PrisonVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1175,7 +1175,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Unemployment = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1185,7 +1185,7 @@ namespace Stats.Configuration
             set
             {
                 dto.UnemploymentCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1195,7 +1195,7 @@ namespace Stats.Configuration
             set
             {
                 dto.UnemploymentSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1205,7 +1205,7 @@ namespace Stats.Configuration
             set
             {
                 dto.TrafficJam = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1215,7 +1215,7 @@ namespace Stats.Configuration
             set
             {
                 dto.TrafficJamCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1225,7 +1225,7 @@ namespace Stats.Configuration
             set
             {
                 dto.TrafficJamSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1235,7 +1235,7 @@ namespace Stats.Configuration
             set
             {
                 dto.RoadMaintenanceVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1245,7 +1245,7 @@ namespace Stats.Configuration
             set
             {
                 dto.RoadMaintenanceVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1255,7 +1255,7 @@ namespace Stats.Configuration
             set
             {
                 dto.RoadMaintenanceVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1265,7 +1265,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SnowDump = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1275,7 +1275,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SnowDumpCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1285,7 +1285,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SnowDumpSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1295,7 +1295,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SnowDumpVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1305,7 +1305,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SnowDumpVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1315,7 +1315,7 @@ namespace Stats.Configuration
             set
             {
                 dto.SnowDumpVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1325,7 +1325,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ParkMaintenanceVehicles = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1335,7 +1335,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ParkMaintenanceVehiclesCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1345,7 +1345,7 @@ namespace Stats.Configuration
             set
             {
                 dto.ParkMaintenanceVehiclesSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1355,7 +1355,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CityUnattractiveness = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1365,7 +1365,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CityUnattractivenessCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1375,7 +1375,7 @@ namespace Stats.Configuration
             set
             {
                 dto.CityUnattractivenessSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1385,7 +1385,7 @@ namespace Stats.Configuration
             set
             {
                 dto.Taxis = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1395,7 +1395,7 @@ namespace Stats.Configuration
             set
             {
                 dto.TaxisCriticalThreshold = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
             }
         }
 
@@ -1405,43 +1405,163 @@ namespace Stats.Configuration
             set
             {
                 dto.TaxisSortOrder = value;
-                this.OnLayoutChanged();
+                OnLayoutChanged();
+            }
+        }
+
+        public bool PostVans
+        {
+            get => dto.PostVans;
+            set
+            {
+                dto.PostVans = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int PostVansCriticalThreshold
+        {
+            get => dto.PostVansCriticalThreshold;
+            set
+            {
+                dto.PostVansCriticalThreshold = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int PostVansSortOrder
+        {
+            get => dto.PostVansSortOrder;
+            set
+            {
+                dto.PostVansSortOrder = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public bool PostTrucks
+        {
+            get => dto.PostTrucks;
+            set
+            {
+                dto.PostTrucks = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int PostTrucksCriticalThreshold
+        {
+            get => dto.PostTrucksCriticalThreshold;
+            set
+            {
+                dto.PostTrucksCriticalThreshold = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int PostTrucksSortOrder
+        {
+            get => dto.PostTrucksSortOrder;
+            set
+            {
+                dto.PostTrucksSortOrder = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public bool DisasterResponseVehicles
+        {
+            get => dto.DisasterResponseVehicles;
+            set
+            {
+                dto.DisasterResponseVehicles = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int DisasterResponseVehiclesCriticalThreshold
+        {
+            get => dto.DisasterResponseVehiclesCriticalThreshold;
+            set
+            {
+                dto.DisasterResponseVehiclesCriticalThreshold = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int DisasterResponseVehiclesSortOrder
+        {
+            get => dto.DisasterResponseVehiclesSortOrder;
+            set
+            {
+                dto.DisasterResponseVehiclesSortOrder = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public bool DisasterResponseHelicopters
+        {
+            get => dto.DisasterResponseHelicopters;
+            set
+            {
+                dto.DisasterResponseHelicopters = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int DisasterResponseHelicoptersCriticalThreshold
+        {
+            get => dto.DisasterResponseHelicoptersCriticalThreshold;
+            set
+            {
+                dto.DisasterResponseHelicoptersCriticalThreshold = value;
+                OnLayoutChanged();
+            }
+        }
+
+        public int DisasterResponseHelicoptersSortOrder
+        {
+            get => dto.DisasterResponseHelicoptersSortOrder;
+            set
+            {
+                dto.DisasterResponseHelicoptersSortOrder = value;
+                OnLayoutChanged();
             }
         }
 
         public void Save()
         {
-            this.configurationService.Save(this.dto);
+            configurationService.Save(dto);
         }
 
         public void Reset()
         {
-            this.dto = new ConfigurationDto();
-            this.configurationService.Save(this.dto);
-            this.OnLayoutChanged();
-            this.OnPositionChanged();
+            dto = new ConfigurationDto();
+            configurationService.Save(dto);
+            OnLayoutChanged();
+            OnPositionChanged();
         }
 
         public void ResetPosition()
         {
-            this.dto.MainPanelPositionX = 0;
-            this.dto.MainPanelPositionY = 0;
-            this.configurationService.Save(this.dto);
-            this.OnPositionChanged();
+            dto.MainPanelPositionX = 0;
+            dto.MainPanelPositionY = 0;
+            configurationService.Save(dto);
+            OnPositionChanged();
         }
 
         public event Action LayoutChanged;
 
         private void OnLayoutChanged()
         {
-            this.LayoutChanged?.Invoke();
+            LayoutChanged?.Invoke();
         }
 
         public event Action PositionChanged;
 
         private void OnPositionChanged()
         {
-            this.PositionChanged?.Invoke();
+            PositionChanged?.Invoke();
         }
     }
 }

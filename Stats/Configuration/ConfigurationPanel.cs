@@ -12,8 +12,7 @@ namespace Stats.Configuration
         private readonly UIHelperBase uiHelperBase;
         private readonly ModFullTitle modFullTitle;
         private readonly LanguageResourceModel languageResource;
-
-        private ConfigurationModel configuration;
+        private readonly ConfigurationModel configuration;
 
         private UISlider updateEveryXSeconds;
         private UISlider columnCountSlider;
@@ -151,6 +150,18 @@ namespace Stats.Configuration
         private UICheckBox taxis;
         private UISlider taxisCriticalThreshold;
 
+        private UICheckBox postVans;
+        private UISlider postVansCriticalThreshold;
+
+        private UICheckBox postTrucks;
+        private UISlider postTrucksCriticalThreshold;
+
+        private UICheckBox disasterResponseVehicles;
+        private UISlider disasterResponseVehiclesCriticalThreshold;
+
+        private UICheckBox disasterResponseHelicopters;
+        private UISlider disasterResponseHelicoptersCriticalThreshold;
+
         public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationModel configuration, LanguageResourceModel languageResource)
         {
             this.uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
@@ -240,7 +251,7 @@ namespace Stats.Configuration
             var itemGroupContentPanel = (itemGroupUiHelper as UIHelper).self as UIPanel;
             itemGroupContentPanel.backgroundSprite = string.Empty;
 
-            this.electricity = itemGroupUiHelper.AddCheckbox(languageResource.Electricity, this.configuration.Electricity, _checked =>
+            this.electricity = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Electricity), this.configuration.Electricity, _checked =>
             {
                 this.configuration.Electricity = _checked;
                 this.configuration.Save();
@@ -252,7 +263,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.heating = itemGroupUiHelper.AddCheckbox(languageResource.Heating, this.configuration.Heating, _checked =>
+            this.heating = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Heating), this.configuration.Heating, _checked =>
             {
                 this.configuration.Heating = _checked;
                 this.configuration.Save();
@@ -264,7 +275,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.water = itemGroupUiHelper.AddCheckbox(languageResource.Water, this.configuration.Water, _checked =>
+            this.water = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Water), this.configuration.Water, _checked =>
             {
                 this.configuration.Water = _checked;
                 this.configuration.Save();
@@ -276,7 +287,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.sewageTreatment = itemGroupUiHelper.AddCheckbox(languageResource.SewageTreatment, this.configuration.SewageTreatment, _checked =>
+            this.sewageTreatment = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.SewageTreatment), this.configuration.SewageTreatment, _checked =>
             {
                 this.configuration.SewageTreatment = _checked;
                 this.configuration.Save();
@@ -288,7 +299,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.waterReserveTank = itemGroupUiHelper.AddCheckbox(languageResource.WaterReserveTank, this.configuration.WaterReserveTank, _checked =>
+            this.waterReserveTank = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.WaterReserveTank), this.configuration.WaterReserveTank, _checked =>
             {
                 this.configuration.WaterReserveTank = _checked;
                 this.configuration.Save();
@@ -300,7 +311,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.waterPumpingServiceStorage = itemGroupUiHelper.AddCheckbox(languageResource.WaterPumpingServiceStorage, this.configuration.WaterPumpingServiceStorage, _checked =>
+            this.waterPumpingServiceStorage = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.WaterPumpingServiceStorage), this.configuration.WaterPumpingServiceStorage, _checked =>
             {
                 this.configuration.WaterPumpingServiceStorage = _checked;
                 this.configuration.Save();
@@ -312,7 +323,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.waterPumpingServiceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.WaterPumpingServiceVehicles, this.configuration.WaterPumpingServiceVehicles, _checked =>
+            this.waterPumpingServiceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.WaterPumpingServiceVehicles), this.configuration.WaterPumpingServiceVehicles, _checked =>
             {
                 this.configuration.WaterPumpingServiceVehicles = _checked;
                 this.configuration.Save();
@@ -324,7 +335,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.landfill = itemGroupUiHelper.AddCheckbox(languageResource.Landfill, this.configuration.Landfill, _checked =>
+            this.landfill = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Landfill), this.configuration.Landfill, _checked =>
             {
                 this.configuration.Landfill = _checked;
                 this.configuration.Save();
@@ -336,7 +347,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.landfillVehicles = itemGroupUiHelper.AddCheckbox(languageResource.LandfillVehicles, this.configuration.LandfillVehicles, _checked =>
+            this.landfillVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.LandfillVehicles), this.configuration.LandfillVehicles, _checked =>
             {
                 this.configuration.LandfillVehicles = _checked;
                 this.configuration.Save();
@@ -348,7 +359,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.garbageProcessing = itemGroupUiHelper.AddCheckbox(languageResource.GarbageProcessing, this.configuration.GarbageProcessing, _checked =>
+            this.garbageProcessing = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.GarbageProcessing), this.configuration.GarbageProcessing, _checked =>
             {
                 this.configuration.GarbageProcessing = _checked;
                 this.configuration.Save();
@@ -360,7 +371,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.garbageProcessingVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GarbageProcessingVehicles, this.configuration.GarbageProcessingVehicles, _checked =>
+            this.garbageProcessingVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.GarbageProcessingVehicles), this.configuration.GarbageProcessingVehicles, _checked =>
             {
                 this.configuration.GarbageProcessingVehicles = _checked;
                 this.configuration.Save();
@@ -372,7 +383,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.elementarySchool = itemGroupUiHelper.AddCheckbox(languageResource.ElementarySchool, this.configuration.ElementarySchool, _checked =>
+            this.elementarySchool = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.ElementarySchool), this.configuration.ElementarySchool, _checked =>
             {
                 this.configuration.ElementarySchool = _checked;
                 this.configuration.Save();
@@ -384,7 +395,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.highSchool = itemGroupUiHelper.AddCheckbox(languageResource.HighSchool, this.configuration.HighSchool, _checked =>
+            this.highSchool = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.HighSchool), this.configuration.HighSchool, _checked =>
             {
                 this.configuration.HighSchool = _checked;
                 this.configuration.Save();
@@ -396,7 +407,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.university = itemGroupUiHelper.AddCheckbox(languageResource.University, this.configuration.University, _checked =>
+            this.university = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.University), this.configuration.University, _checked =>
             {
                 this.configuration.University = _checked;
                 this.configuration.Save();
@@ -408,7 +419,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.healthcare = itemGroupUiHelper.AddCheckbox(languageResource.Healthcare, this.configuration.Healthcare, _checked =>
+            this.healthcare = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Healthcare), this.configuration.Healthcare, _checked =>
             {
                 this.configuration.Healthcare = _checked;
                 this.configuration.Save();
@@ -420,7 +431,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.healthcareVehicles = itemGroupUiHelper.AddCheckbox(languageResource.HealthcareVehicles, this.configuration.HealthcareVehicles, _checked =>
+            this.healthcareVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.HealthcareVehicles), this.configuration.HealthcareVehicles, _checked =>
             {
                 this.configuration.HealthcareVehicles = _checked;
                 this.configuration.Save();
@@ -432,7 +443,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.medicalHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.MedicalHelicopters, this.configuration.MedicalHelicopters, _checked =>
+            this.medicalHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.MedicalHelicopters), this.configuration.MedicalHelicopters, _checked =>
             {
                 this.configuration.MedicalHelicopters = _checked;
                 this.configuration.Save();
@@ -444,7 +455,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.averageIllnessRate = itemGroupUiHelper.AddCheckbox(languageResource.AverageIllnessRate, this.configuration.AverageIllnessRate, _checked =>
+            this.averageIllnessRate = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.AverageIllnessRate), this.configuration.AverageIllnessRate, _checked =>
             {
                 this.configuration.AverageIllnessRate = _checked;
                 this.configuration.Save();
@@ -456,7 +467,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.cemetery = itemGroupUiHelper.AddCheckbox(languageResource.Cemetery, this.configuration.Cemetery, _checked =>
+            this.cemetery = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Cemetery), this.configuration.Cemetery, _checked =>
             {
                 this.configuration.Cemetery = _checked;
                 this.configuration.Save();
@@ -468,7 +479,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.cemeteryVehicles = itemGroupUiHelper.AddCheckbox(languageResource.CemeteryVehicles, this.configuration.CemeteryVehicles, _checked =>
+            this.cemeteryVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.CemeteryVehicles), this.configuration.CemeteryVehicles, _checked =>
             {
                 this.configuration.CemeteryVehicles = _checked;
                 this.configuration.Save();
@@ -480,7 +491,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.crematorium = itemGroupUiHelper.AddCheckbox(languageResource.Crematorium, this.configuration.Crematorium, _checked =>
+            this.crematorium = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Crematorium), this.configuration.Crematorium, _checked =>
             {
                 this.configuration.Crematorium = _checked;
                 this.configuration.Save();
@@ -492,7 +503,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.crematoriumVehicles = itemGroupUiHelper.AddCheckbox(languageResource.CrematoriumVehicles, this.configuration.CrematoriumVehicles, _checked =>
+            this.crematoriumVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.CrematoriumVehicles), this.configuration.CrematoriumVehicles, _checked =>
             {
                 this.configuration.CrematoriumVehicles = _checked;
                 this.configuration.Save();
@@ -504,7 +515,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.groundPollution = itemGroupUiHelper.AddCheckbox(languageResource.GroundPollution, this.configuration.GroundPollution, _checked =>
+            this.groundPollution = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.GroundPollution), this.configuration.GroundPollution, _checked =>
             {
                 this.configuration.GroundPollution = _checked;
                 this.configuration.Save();
@@ -516,7 +527,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.drinkingWaterPollution = itemGroupUiHelper.AddCheckbox(languageResource.DrinkingWaterPollution, this.configuration.DrinkingWaterPollution, _checked =>
+            this.drinkingWaterPollution = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.DrinkingWaterPollution), this.configuration.DrinkingWaterPollution, _checked =>
             {
                 this.configuration.DrinkingWaterPollution = _checked;
                 this.configuration.Save();
@@ -528,7 +539,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.noisePollution = itemGroupUiHelper.AddCheckbox(languageResource.NoisePollution, this.configuration.NoisePollution, _checked =>
+            this.noisePollution = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.NoisePollution), this.configuration.NoisePollution, _checked =>
             {
                 this.configuration.NoisePollution = _checked;
                 this.configuration.Save();
@@ -540,7 +551,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.fireHazard = itemGroupUiHelper.AddCheckbox(languageResource.FireHazard, this.configuration.FireHazard, _checked =>
+            this.fireHazard = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.FireHazard), this.configuration.FireHazard, _checked =>
             {
                 this.configuration.FireHazard = _checked;
                 this.configuration.Save();
@@ -552,7 +563,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.fireDepartmentVehicles = itemGroupUiHelper.AddCheckbox(languageResource.FireDepartmentVehicles, this.configuration.FireDepartmentVehicles, _checked =>
+            this.fireDepartmentVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.FireDepartmentVehicles), this.configuration.FireDepartmentVehicles, _checked =>
             {
                 this.configuration.FireDepartmentVehicles = _checked;
                 this.configuration.Save();
@@ -564,7 +575,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.fireHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.FireHelicopters, this.configuration.FireHelicopters, _checked =>
+            this.fireHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.FireHelicopters), this.configuration.FireHelicopters, _checked =>
             {
                 this.configuration.FireHelicopters = _checked;
                 this.configuration.Save();
@@ -576,7 +587,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.crimeRate = itemGroupUiHelper.AddCheckbox(languageResource.CrimeRate, this.configuration.CrimeRate, _checked =>
+            this.crimeRate = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.CrimeRate), this.configuration.CrimeRate, _checked =>
             {
                 this.configuration.CrimeRate = _checked;
                 this.configuration.Save();
@@ -588,7 +599,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.policeHoldingCells = itemGroupUiHelper.AddCheckbox(languageResource.PoliceHoldingCells, this.configuration.PoliceHoldingCells, _checked =>
+            this.policeHoldingCells = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PoliceHoldingCells), this.configuration.PoliceHoldingCells, _checked =>
             {
                 this.configuration.PoliceHoldingCells = _checked;
                 this.configuration.Save();
@@ -600,7 +611,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.policeVehicles = itemGroupUiHelper.AddCheckbox(languageResource.PoliceVehicles, this.configuration.PoliceVehicles, _checked =>
+            this.policeVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PoliceVehicles), this.configuration.PoliceVehicles, _checked =>
             {
                 this.configuration.PoliceVehicles = _checked;
                 this.configuration.Save();
@@ -612,7 +623,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.policeHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.PoliceHelicopters, this.configuration.PoliceHelicopters, _checked =>
+            this.policeHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PoliceHelicopters), this.configuration.PoliceHelicopters, _checked =>
             {
                 this.configuration.PoliceHelicopters = _checked;
                 this.configuration.Save();
@@ -624,7 +635,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.prisonCells = itemGroupUiHelper.AddCheckbox(languageResource.PrisonCells, this.configuration.PrisonCells, _checked =>
+            this.prisonCells = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PrisonCells), this.configuration.PrisonCells, _checked =>
             {
                 this.configuration.PrisonCells = _checked;
                 this.configuration.Save();
@@ -636,7 +647,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.prisonVehicles = itemGroupUiHelper.AddCheckbox(languageResource.PrisonVehicles, this.configuration.PrisonVehicles, _checked =>
+            this.prisonVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PrisonVehicles), this.configuration.PrisonVehicles, _checked =>
             {
                 this.configuration.PrisonVehicles = _checked;
                 this.configuration.Save();
@@ -648,7 +659,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.unemployment = itemGroupUiHelper.AddCheckbox(languageResource.Unemployment, this.configuration.Unemployment, _checked =>
+            this.unemployment = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Unemployment), this.configuration.Unemployment, _checked =>
             {
                 this.configuration.Unemployment = _checked;
                 this.configuration.Save();
@@ -660,7 +671,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.trafficJam = itemGroupUiHelper.AddCheckbox(languageResource.TrafficJam, this.configuration.TrafficJam, _checked =>
+            this.trafficJam = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.TrafficJam), this.configuration.TrafficJam, _checked =>
             {
                 this.configuration.TrafficJam = _checked;
                 this.configuration.Save();
@@ -672,7 +683,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.roadMaintenanceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.RoadMaintenanceVehicles, this.configuration.RoadMaintenanceVehicles, _checked =>
+            this.roadMaintenanceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.RoadMaintenanceVehicles), this.configuration.RoadMaintenanceVehicles, _checked =>
             {
                 this.configuration.RoadMaintenanceVehicles = _checked;
                 this.configuration.Save();
@@ -684,7 +695,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.parkMaintenanceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.ParkMaintenanceVehicles, this.configuration.ParkMaintenanceVehicles, _checked =>
+            this.parkMaintenanceVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.ParkMaintenanceVehicles), this.configuration.ParkMaintenanceVehicles, _checked =>
             {
                 this.configuration.ParkMaintenanceVehicles = _checked;
                 this.configuration.Save();
@@ -696,7 +707,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.cityUnattractiveness = itemGroupUiHelper.AddCheckbox(languageResource.CityUnattractiveness, this.configuration.CityUnattractiveness, _checked =>
+            this.cityUnattractiveness = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.CityUnattractiveness), this.configuration.CityUnattractiveness, _checked =>
             {
                 this.configuration.CityUnattractiveness = _checked;
                 this.configuration.Save();
@@ -708,7 +719,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.snowDump = itemGroupUiHelper.AddCheckbox(languageResource.SnowDump, this.configuration.SnowDump, _checked =>
+            this.snowDump = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.SnowDump), this.configuration.SnowDump, _checked =>
             {
                 this.configuration.SnowDump = _checked;
                 this.configuration.Save();
@@ -720,7 +731,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.snowDumpVehicles = itemGroupUiHelper.AddCheckbox(languageResource.SnowDumpVehicles, this.configuration.SnowDumpVehicles, _checked =>
+            this.snowDumpVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.SnowDumpVehicles), this.configuration.SnowDumpVehicles, _checked =>
             {
                 this.configuration.SnowDumpVehicles = _checked;
                 this.configuration.Save();
@@ -732,7 +743,7 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.taxis = itemGroupUiHelper.AddCheckbox(languageResource.Taxis, this.configuration.Taxis, _checked =>
+            this.taxis = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.Taxis), this.configuration.Taxis, _checked =>
             {
                 this.configuration.Taxis = _checked;
                 this.configuration.Save();
@@ -741,6 +752,54 @@ namespace Stats.Configuration
             this.taxisCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.TaxisCriticalThreshold, value =>
             {
                 this.configuration.TaxisCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
+            this.postVans = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PostVans), this.configuration.PostVans, _checked =>
+            {
+                this.configuration.PostVans = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.postVansCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PostVansCriticalThreshold, value =>
+            {
+                this.configuration.PostVansCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
+            this.postTrucks = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.PostTrucks), this.configuration.PostTrucks, _checked =>
+            {
+                this.configuration.PostTrucks = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.postTrucksCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.PostTrucksCriticalThreshold, value =>
+            {
+                this.configuration.PostTrucksCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
+            this.disasterResponseVehicles = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.DisasterResponseVehicles), this.configuration.DisasterResponseVehicles, _checked =>
+            {
+                this.configuration.DisasterResponseVehicles = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.disasterResponseVehiclesCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.DisasterResponseVehiclesCriticalThreshold, value =>
+            {
+                this.configuration.DisasterResponseVehiclesCriticalThreshold = (int)value;
+                this.configuration.Save();
+            });
+
+            this.disasterResponseHelicopters = itemGroupUiHelper.AddCheckbox(languageResource.GetItemLocalizedString(ItemData.DisasterResponseHelicopters), this.configuration.DisasterResponseHelicopters, _checked =>
+            {
+                this.configuration.DisasterResponseHelicopters = _checked;
+                this.configuration.Save();
+            }) as UICheckBox;
+
+            this.disasterResponseHelicoptersCriticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.configuration.DisasterResponseHelicoptersCriticalThreshold, value =>
+            {
+                this.configuration.DisasterResponseHelicoptersCriticalThreshold = (int)value;
                 this.configuration.Save();
             });
         }
@@ -841,6 +900,14 @@ namespace Stats.Configuration
             this.cityUnattractivenessCriticalThreshold.value = this.configuration.CityUnattractivenessCriticalThreshold;
             this.taxis.isChecked = this.configuration.Taxis;
             this.taxisCriticalThreshold.value = this.configuration.TaxisCriticalThreshold;
+            this.postVans.isChecked = this.configuration.PostVans;
+            this.postVansCriticalThreshold.value = this.configuration.PostVansCriticalThreshold;
+            this.postTrucks.isChecked = this.configuration.PostTrucks;
+            this.postTrucksCriticalThreshold.value = this.configuration.PostTrucksCriticalThreshold;
+            this.disasterResponseVehicles.isChecked = this.configuration.DisasterResponseVehicles;
+            this.disasterResponseVehiclesCriticalThreshold.value = this.configuration.DisasterResponseVehiclesCriticalThreshold;
+            this.disasterResponseHelicopters.isChecked = this.configuration.DisasterResponseHelicopters;
+            this.disasterResponseHelicoptersCriticalThreshold.value = this.configuration.DisasterResponseHelicoptersCriticalThreshold;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
 using Stats.Configuration;
+using Stats.Localization;
 using System;
 using UnityEngine;
 
@@ -10,12 +11,14 @@ namespace Stats.Ui
     {
         private ItemData itemData;
         private ConfigurationModel configuration;
+        private LanguageResourceModel languageResourceModel;
 
         //TODO refactor to localized item instead
-        public void Initialize(ItemData itemData, ConfigurationModel configuration)
+        public void Initialize(ItemData itemData, ConfigurationModel configuration, LanguageResourceModel languageResourceModel)
         {
             this.itemData = itemData ?? throw new ArgumentNullException(nameof(itemData));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            this.languageResourceModel = languageResourceModel ?? throw new ArgumentNullException(nameof(languageResourceModel));
 
             this.width = configuration.ItemWidth;
             this.height = configuration.ItemHeight;
@@ -91,8 +94,10 @@ namespace Stats.Ui
             }
         }
 
-        public void UpdateLocalizedTooltips(string localizedTooltip)
+        public void UpdateLocalizedTooltips()
         {
+            var localizedTooltip = this.languageResourceModel.GetItemLocalizedString(itemData);
+
             this.IconButton.tooltip = localizedTooltip;
             this.PercentButton.tooltip = localizedTooltip;
         }
