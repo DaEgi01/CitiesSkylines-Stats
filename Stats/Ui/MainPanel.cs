@@ -216,8 +216,8 @@ namespace Stats.Ui
 
             if (this.mapHasSnowDumps)
             {
-                this.allItemPanels.Add(this.snowDumpPanel);
-                this.allItemPanels.Add(this.snowDumpVehiclesPanel);
+                itemPanels.Add(this.snowDumpPanel);
+                itemPanels.Add(this.snowDumpVehiclesPanel);
             }
 
             this.allItemPanels = itemPanels
