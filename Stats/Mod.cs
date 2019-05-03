@@ -129,8 +129,8 @@ namespace Stats
 
         //TODO: postvans in use - to be tested, add translations
         //TODO: posttrucks in use - to be tested, add translations
-        //TODO: disaster response vehicles - to be tested (double check overlay on click), add translations
-        //TODO: disaster response helicopters - to be tested
+        //TODO: disaster response vehicles - to be tested, add translations
+        //TODO: disaster response helicopters - to be tested, add translation
         //TODO: mail itself
         //TODO: evacuation buses in use
         //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
