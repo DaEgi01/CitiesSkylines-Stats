@@ -17,6 +17,7 @@ namespace Stats.Ui
         private ConfigurationModel configuration;
         private LanguageResourceModel languageResource;
         private float secondsSinceLastUpdate;
+        private bool layoutDirty = false;
 
         private ItemPanel electricityPanel;
         private ItemPanel heatingPanel;
@@ -223,6 +224,16 @@ namespace Stats.Ui
             this.allItemPanels = itemPanels
                 .OrderBy(x => x.SortOrder)
                 .ToList();
+
+            foreach (var itemPanel in this.allItemPanels)
+            {
+                itemPanel.LayoutPropertyChanged += ItemPanel_LayoutPropertyChanged;
+            }
+        }
+
+        private void ItemPanel_LayoutPropertyChanged()
+        {
+            this.layoutDirty = true;
         }
 
         private ItemPanel CreateUiItemAndAddButtons(ItemData itemData)
@@ -249,78 +260,20 @@ namespace Stats.Ui
             }
         }
 
-        private void UpdateItemsAndLayoutIfVisibilityChanged()
+        private void UpdateLayoutIfDirty()
         {
-            var itemVisibilityChanged = this.UpdateItemsDisplay();
-            if (itemVisibilityChanged)
+            if (this.layoutDirty)
             {
                 this.UpdateLayout();
             }
+
+            this.layoutDirty = false;
         }
 
         private void UpdateLayout()
         {
-            this.UpdateItemsDisplay();
             this.UpdateItemsLayout();
             this.UpdatePanelSize();
-        }
-
-        private bool UpdateItemsDisplay()
-        {
-            var itemVisibilityChanged = false;
-
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.electricityPanel, this.configuration.Electricity, electricityPanel.Percent, this.configuration.ElectricityCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.heatingPanel, this.configuration.Heating, heatingPanel.Percent, this.configuration.HeatingCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.waterPanel, this.configuration.Water, waterPanel.Percent, this.configuration.WaterCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.sewageTreatmentPanel, this.configuration.SewageTreatment, sewageTreatmentPanel.Percent, this.configuration.SewageTreatmentCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.waterReserveTankPanel, this.configuration.WaterReserveTank, waterReserveTankPanel.Percent, this.configuration.WaterReserveTankCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.waterPumpingServiceStoragePanel, this.configuration.WaterPumpingServiceStorage, waterPumpingServiceStoragePanel.Percent, this.configuration.WaterPumpingServiceStorageCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.waterPumpingServiceVehiclesPanel, this.configuration.WaterPumpingServiceVehicles, waterPumpingServiceVehiclesPanel.Percent, this.configuration.WaterPumpingServiceVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.landfillPanel, this.configuration.Landfill, landfillPanel.Percent, this.configuration.LandfillCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.landfillVehiclesPanel, this.configuration.LandfillVehicles, landfillVehiclesPanel.Percent, this.configuration.LandfillVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.garbageProcessingPanel, this.configuration.GarbageProcessing, garbageProcessingPanel.Percent, this.configuration.GarbageProcessingCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.garbageProcessingVehiclesPanel, this.configuration.GarbageProcessingVehicles, garbageProcessingVehiclesPanel.Percent, this.configuration.GarbageProcessingVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.elementarySchoolPanel, this.configuration.ElementarySchool, elementarySchoolPanel.Percent, this.configuration.ElementarySchoolCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.highSchoolPanel, this.configuration.HighSchool, highSchoolPanel.Percent, this.configuration.HighSchoolCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.universityPanel, this.configuration.University, universityPanel.Percent, this.configuration.UniversityCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.averageIllnessRatePanel, this.configuration.AverageIllnessRate, averageIllnessRatePanel.Percent, this.configuration.AverageIllnessRateCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.healthcarePanel, this.configuration.Healthcare, healthcarePanel.Percent, this.configuration.HealthcareCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.healthcareVehiclesPanel, this.configuration.HealthcareVehicles, healthcareVehiclesPanel.Percent, this.configuration.HealthcareVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.medicalHelicoptersPanel, this.configuration.MedicalHelicopters, medicalHelicoptersPanel.Percent, this.configuration.MedicalHelicoptersCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.cemeteryPanel, this.configuration.Cemetery, cemeteryPanel.Percent, this.configuration.CemeteryCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.cemeteryVehiclesPanel, this.configuration.CemeteryVehicles, cemeteryVehiclesPanel.Percent, this.configuration.CemeteryVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.crematoriumPanel, this.configuration.Crematorium, crematoriumPanel.Percent, this.configuration.CrematoriumCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.crematoriumVehiclesPanel, this.configuration.CrematoriumVehicles, crematoriumVehiclesPanel.Percent, this.configuration.CrematoriumVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.groundPollutionPanel, this.configuration.GroundPollution, groundPollutionPanel.Percent, this.configuration.GroundPollutionCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.drinkingWaterPollutionPanel, this.configuration.DrinkingWaterPollution, drinkingWaterPollutionPanel.Percent, this.configuration.DrinkingWaterPollutionCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.noisePollutionPanel, this.configuration.NoisePollution, noisePollutionPanel.Percent, this.configuration.NoisePollutionCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.fireHazardPanel, this.configuration.FireHazard, fireHazardPanel.Percent, this.configuration.FireHazardCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.fireDepartmentVehiclesPanel, this.configuration.FireDepartmentVehicles, fireDepartmentVehiclesPanel.Percent, this.configuration.FireDepartmentVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.fireHelicoptersPanel, this.configuration.FireHelicopters, fireHelicoptersPanel.Percent, this.configuration.FireHelicoptersCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.crimeRatePanel, this.configuration.CrimeRate, crimeRatePanel.Percent, this.configuration.CrimeRateCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.policeHoldingCellsPanel, this.configuration.PoliceHoldingCells, policeHoldingCellsPanel.Percent, this.configuration.PoliceHoldingCellsCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.policeVehiclesPanel, this.configuration.PoliceVehicles, policeVehiclesPanel.Percent, this.configuration.PoliceVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.policeHelicoptersPanel, this.configuration.PoliceHelicopters, policeHelicoptersPanel.Percent, this.configuration.PoliceHelicoptersCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.prisonCellsPanel, this.configuration.PrisonCells, prisonCellsPanel.Percent, this.configuration.PrisonCellsCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.prisonVehiclesPanel, this.configuration.PrisonVehicles, prisonVehiclesPanel.Percent, this.configuration.PrisonVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.unemploymentPanel, this.configuration.Unemployment, unemploymentPanel.Percent, this.configuration.UnemploymentCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.trafficJamPanel, this.configuration.TrafficJam, trafficJamPanel.Percent, this.configuration.TrafficJamCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.roadMaintenanceVehiclesPanel, this.configuration.RoadMaintenanceVehicles, roadMaintenanceVehiclesPanel.Percent, this.configuration.RoadMaintenanceVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.parkMaintenanceVehiclesPanel, this.configuration.ParkMaintenanceVehicles, parkMaintenanceVehiclesPanel.Percent, this.configuration.ParkMaintenanceVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.cityUnattractivenessPanel, this.configuration.CityUnattractiveness, cityUnattractivenessPanel.Percent, this.configuration.CityUnattractivenessCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.taxisPanel, this.configuration.Taxis, taxisPanel.Percent, this.configuration.TaxisCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.postVansPanel, this.configuration.PostVans, postVansPanel.Percent, this.configuration.PostVansCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.postTrucksPanel, this.configuration.PostTrucks, postTrucksPanel.Percent, this.configuration.PostTrucksCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.disasterResponseVehiclesPanel, this.configuration.DisasterResponseVehicles, disasterResponseVehiclesPanel.Percent, this.configuration.DisasterResponseVehiclesCriticalThreshold);
-            itemVisibilityChanged |= this.UpdateItemDisplay(this.disasterResponseHelicoptersPanel, this.configuration.DisasterResponseHelicopters, disasterResponseHelicoptersPanel.Percent, this.configuration.DisasterResponseHelicoptersCriticalThreshold);
-
-            if (this.mapHasSnowDumps)
-            {
-                itemVisibilityChanged |= this.UpdateItemDisplay(this.snowDumpPanel, this.configuration.SnowDump, this.snowDumpPanel.Percent, this.configuration.SnowDumpCriticalThreshold);
-                itemVisibilityChanged |= this.UpdateItemDisplay(this.snowDumpVehiclesPanel, this.configuration.SnowDumpVehicles, this.snowDumpVehiclesPanel.Percent, this.configuration.SnowDumpVehiclesCriticalThreshold);
-            }
-
-            return itemVisibilityChanged;
         }
 
         public override void Update()
@@ -1144,68 +1097,7 @@ namespace Stats.Ui
                 this.disasterResponseHelicoptersPanel.Percent = GetUsagePercent(disasterResponseHelicoptersTotal, disasterResponseHelicoptersInUse);
             }
 
-            this.UpdateItemsAndLayoutIfVisibilityChanged();
-        }
-
-        private bool UpdateItemDisplay(ItemPanel itemPanel, bool enabled, int? percent, int threshold)
-        {
-            var oldItemVisible = itemPanel.isVisible;
-            var newItemVisible = GetItemVisibility(enabled, percent, threshold);
-
-            itemPanel.isVisible = newItemVisible;
-
-            if (newItemVisible)
-            {
-                itemPanel.Percent = percent;
-                itemPanel.PercentButton.text = GetUsagePercentString(percent);
-                itemPanel.PercentButton.textColor = GetItemTextColor(percent, threshold);
-                itemPanel.PercentButton.focusedColor = GetItemTextColor(percent, threshold);
-                itemPanel.PercentButton.hoveredTextColor = GetItemHoveredTextColor(percent, threshold);
-            }
-
-            return oldItemVisible != newItemVisible;
-        }
-
-        private Color32 GetItemTextColor(int? percent, int threshold)
-        {
-            if (!percent.HasValue || percent.Value >= threshold)
-            {
-                return this.configuration.MainPanelAccentColor;
-            }
-
-            return this.configuration.MainPanelForegroundColor;
-        }
-
-        private Color32 GetItemHoveredTextColor(int? percent, int threshold)
-        {
-            if (!percent.HasValue || percent.Value >= threshold)
-            {
-                return this.configuration.MainPanelForegroundColor;
-            }
-
-            return this.configuration.MainPanelAccentColor;
-        }
-
-        private bool GetItemVisibility(bool enabled, int? percent, int threshold)
-        {
-            if (!enabled)
-            {
-                return false;
-            }
-
-            if (percent.HasValue)
-            {
-                if (this.configuration.MainPanelHideItemsBelowThreshold)
-                {
-                    return threshold < percent.Value;
-                }
-
-                return true;
-            }
-            else
-            {
-                return !this.configuration.MainPanelHideItemsNotAvailable;
-            }
+            this.UpdateLayout();
         }
 
         private int? GetAvailabilityPercent(long capacity, long need)
@@ -1228,16 +1120,6 @@ namespace Stats.Ui
                 return 0;
 
             return (int)((usage / (float)capacity) * 100);
-        }
-
-        private string GetUsagePercentString(int? percent)
-        {
-            if (percent.HasValue)
-            {
-                return percent.Value.ToString() + "%";
-            }
-
-            return "-%";
         }
 
         private void UpdateItemsLayout()

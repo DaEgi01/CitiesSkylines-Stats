@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationModel.cs" />
     <Compile Include="ColorExtensions.cs" />
+    <Compile Include="Configuration\ItemConfiguration.cs" />
     <Compile Include="GameEngineService.cs" />
     <Compile Include="ItemData.cs" />
     <Compile Include="ItemDisplayInfo.cs" />
