@@ -585,7 +585,7 @@ namespace Stats.Ui
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(hospitalAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                                int healthcareVehicles = (productionRate * hospitalAI.m_ambulanceCount + 99) / 100;
+                                int healthcareVehicles = (productionRate * hospitalAI.AmbulanceCount + 99) / 100;
                                 int count = 0;
                                 int cargo = 0;
                                 int capacity = 0;
@@ -811,7 +811,7 @@ namespace Stats.Ui
 
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(policeStationAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                                int policeCars = (productionRate * policeStationAi.m_policeCarCount + 99) / 100;
+                                int policeCars = (productionRate * policeStationAi.PoliceCarCount + 99) / 100;
                                 int count = 0;
                                 int cargo = 0;
                                 int capacity = 0;
@@ -821,7 +821,7 @@ namespace Stats.Ui
                                     GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Crime, ref count, ref cargo, ref capacity, ref outside);
 
                                     policeHoldingCellsInUse += cellsInUse;
-                                    policeHoldingCellsTotal += policeStationAi.m_jailCapacity;
+                                    policeHoldingCellsTotal += policeStationAi.JailCapacity;
 
                                     policeVehiclesTotal += policeCars;
                                     policeVehiclesInUse += count;
@@ -830,7 +830,7 @@ namespace Stats.Ui
                                 {
                                     GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.CriminalMove, ref count, ref cargo, ref capacity, ref outside);
 
-                                    prisonCellsTotal += policeStationAi.m_jailCapacity;
+                                    prisonCellsTotal += policeStationAi.JailCapacity;
                                     prisonCellsInUse += cellsInUse;
 
                                     prisonVehiclesTotal += policeCars;
