@@ -77,6 +77,10 @@
       <Value>Kritischer Grenzwert</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>SortOrder</Key>
+      <Value>Sortierreihenfolge</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>Electricity</Key>
       <Value>Stromverbrauch</Value>
     </LocalizedItem>

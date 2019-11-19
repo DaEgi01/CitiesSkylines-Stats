@@ -22,15 +22,15 @@ namespace Stats.Localization
         private string GetExpectedFileFullName(string languageTwoLetterCode)
         {
             var plugin = this.pluginManager.GetPluginsInfo()
-                .Where(x => 
-                    x.name == this.modSystemName 
+                .Where(x =>
+                    x.name == this.modSystemName
                     || x.name == this.workshopId
                 ).FirstOrDefault();
 
             return Path.Combine(
                 plugin.modPath,
                 Path.Combine(
-                    "Localization", 
+                    "Localization",
                     $"language.{languageTwoLetterCode}.xml"
                 )
             );

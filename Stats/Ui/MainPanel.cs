@@ -3,7 +3,6 @@ using ColossalFramework.UI;
 using Stats.Configuration;
 using Stats.Localization;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,62 +10,15 @@ namespace Stats.Ui
 {
     public class MainPanel : UIPanel
     {
-        private UIDragHandle uiDragHandle;
+        private UIDragHandleWithDragState uiDragHandle;
         private string modSystemName;
         private bool mapHasSnowDumps;
         private ConfigurationModel configuration;
         private LanguageResourceModel languageResource;
         private float secondsSinceLastUpdate;
-        private bool layoutDirty = false;
 
-        private ItemPanel electricityPanel;
-        private ItemPanel heatingPanel;
-        private ItemPanel waterPanel;
-        private ItemPanel sewageTreatmentPanel;
-        private ItemPanel waterReserveTankPanel;
-        private ItemPanel waterPumpingServiceStoragePanel;
-        private ItemPanel waterPumpingServiceVehiclesPanel;
-        private ItemPanel landfillPanel;
-        private ItemPanel landfillVehiclesPanel;
-        private ItemPanel garbageProcessingPanel;
-        private ItemPanel garbageProcessingVehiclesPanel;
-        private ItemPanel elementarySchoolPanel;
-        private ItemPanel highSchoolPanel;
-        private ItemPanel universityPanel;
-        private ItemPanel healthcarePanel;
-        private ItemPanel healthcareVehiclesPanel;
-        private ItemPanel medicalHelicoptersPanel;
-        private ItemPanel averageIllnessRatePanel;
-        private ItemPanel cemeteryPanel;
-        private ItemPanel cemeteryVehiclesPanel;
-        private ItemPanel crematoriumPanel;
-        private ItemPanel crematoriumVehiclesPanel;
-        private ItemPanel groundPollutionPanel;
-        private ItemPanel drinkingWaterPollutionPanel;
-        private ItemPanel noisePollutionPanel;
-        private ItemPanel fireHazardPanel;
-        private ItemPanel fireDepartmentVehiclesPanel;
-        private ItemPanel fireHelicoptersPanel;
-        private ItemPanel crimeRatePanel;
-        private ItemPanel policeHoldingCellsPanel;
-        private ItemPanel policeVehiclesPanel;
-        private ItemPanel policeHelicoptersPanel;
-        private ItemPanel prisonCellsPanel;
-        private ItemPanel prisonVehiclesPanel;
-        private ItemPanel unemploymentPanel;
-        private ItemPanel trafficJamPanel;
-        private ItemPanel roadMaintenanceVehiclesPanel;
-        private ItemPanel snowDumpPanel;
-        private ItemPanel snowDumpVehiclesPanel;
-        private ItemPanel parkMaintenanceVehiclesPanel;
-        private ItemPanel cityUnattractivenessPanel;
-        private ItemPanel taxisPanel;
-        private ItemPanel postVansPanel;
-        private ItemPanel postTrucksPanel;
-        private ItemPanel disasterResponseVehiclesPanel;
-        private ItemPanel disasterResponseHelicoptersPanel;
-
-        private List<ItemPanel> allItemPanels;
+        private ItemPanel[] itemPanelsInIndexOrder;
+        private ItemPanel[] itemPanelsInDisplayOrder;
 
         public void Initialize(string modSystemName, bool mapHasSnowDumps, ConfigurationModel configuration, LanguageResourceModel languageResource)
         {
@@ -87,25 +39,29 @@ namespace Stats.Ui
             this.CreateAndAddAllUiItems();
             this.UpdateLocalizedTooltips();
 
-            this.relativePosition = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
+            this.relativePosition = this.configuration.MainPanelPosition;
 
-            this.configuration.LayoutChanged += this.UpdateLayout;
+            this.UpdateLayout();
+
+            this.configuration.LayoutPropertyChanged += this.UpdateLayoutIfDirty;
             this.configuration.PositionChanged += this.UpdatePosition;
             this.languageResource.LanguageChanged += this.UpdateLocalizedTooltips;
+            this.uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
         }
 
         public override void OnDestroy()
         {
-            this.configuration.LayoutChanged -= this.UpdateLayout;
+            this.configuration.LayoutPropertyChanged -= this.UpdateLayoutIfDirty;
             this.configuration.PositionChanged -= this.UpdatePosition;
             this.languageResource.LanguageChanged -= this.UpdateLocalizedTooltips;
+            this.uiDragHandle.eventMouseUp -= UiDragHandle_eventMouseUp;
 
             base.OnDestroy();
         }
 
         private void CreateAndAddDragHandle()
         {
-            var dragHandle = this.AddUIComponent<UIDragHandle>();
+            var dragHandle = this.AddUIComponent<UIDragHandleWithDragState>();
             dragHandle.name = this.modSystemName + "DragHandle";
             dragHandle.relativePosition = Vector2.zero;
             dragHandle.target = this;
@@ -116,130 +72,40 @@ namespace Stats.Ui
 
         private void CreateAndAddAllUiItems()
         {
-            this.electricityPanel = this.CreateUiItemAndAddButtons(ItemData.Electricity);
-            this.heatingPanel = this.CreateUiItemAndAddButtons(ItemData.Heating);
-            this.waterPanel = this.CreateUiItemAndAddButtons(ItemData.Water);
-            this.sewageTreatmentPanel = this.CreateUiItemAndAddButtons(ItemData.SewageTreatment);
-            this.waterReserveTankPanel = this.CreateUiItemAndAddButtons(ItemData.WaterReserveTank);
-            this.waterPumpingServiceStoragePanel = this.CreateUiItemAndAddButtons(ItemData.WaterPumpingServiceStorage);
-            this.waterPumpingServiceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.WaterPumpingServiceVehicles);
-            this.landfillPanel = this.CreateUiItemAndAddButtons(ItemData.Landfill);
-            this.landfillVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.LandfillVehicles);
-            this.garbageProcessingPanel = this.CreateUiItemAndAddButtons(ItemData.GarbageProcessing);
-            this.garbageProcessingVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.GarbageProcessingVehicles);
-            this.elementarySchoolPanel = this.CreateUiItemAndAddButtons(ItemData.ElementarySchool);
-            this.highSchoolPanel = this.CreateUiItemAndAddButtons(ItemData.HighSchool);
-            this.universityPanel = this.CreateUiItemAndAddButtons(ItemData.University);
-            this.healthcarePanel = this.CreateUiItemAndAddButtons(ItemData.Healthcare);
-            this.healthcareVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.HealthcareVehicles);
-            this.medicalHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.MedicalHelicopters);
-            this.averageIllnessRatePanel = this.CreateUiItemAndAddButtons(ItemData.AverageIllnessRate);
-            this.cemeteryPanel = this.CreateUiItemAndAddButtons(ItemData.Cemetery);
-            this.cemeteryVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.CemeteryVehicles);
-            this.crematoriumPanel = this.CreateUiItemAndAddButtons(ItemData.Crematorium);
-            this.crematoriumVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.CrematoriumVehicles);
-            this.groundPollutionPanel = this.CreateUiItemAndAddButtons(ItemData.GroundPollution);
-            this.drinkingWaterPollutionPanel = this.CreateUiItemAndAddButtons(ItemData.DrinkingWaterPollution);
-            this.noisePollutionPanel = this.CreateUiItemAndAddButtons(ItemData.NoisePollution);
-            this.fireHazardPanel = this.CreateUiItemAndAddButtons(ItemData.FireHazard);
-            this.fireDepartmentVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.FireDepartmentVehicles);
-            this.fireHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.FireHelicopters);
-            this.crimeRatePanel = this.CreateUiItemAndAddButtons(ItemData.CrimeRate);
-            this.policeHoldingCellsPanel = this.CreateUiItemAndAddButtons(ItemData.PoliceHoldingCells);
-            this.policeVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.PoliceVehicles);
-            this.policeHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.PoliceHelicopters);
-            this.prisonCellsPanel = this.CreateUiItemAndAddButtons(ItemData.PrisonCells);
-            this.prisonVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.PrisonVehicles);
-            this.unemploymentPanel = this.CreateUiItemAndAddButtons(ItemData.Unemployment);
-            this.trafficJamPanel = this.CreateUiItemAndAddButtons(ItemData.TrafficJam);
-            this.roadMaintenanceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.RoadMaintenanceVehicles);
-            this.parkMaintenanceVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.ParkMaintenanceVehicles);
-            this.cityUnattractivenessPanel = this.CreateUiItemAndAddButtons(ItemData.CityUnattractiveness);
-            this.taxisPanel = this.CreateUiItemAndAddButtons(ItemData.Taxis);
-            this.postVansPanel = this.CreateUiItemAndAddButtons(ItemData.PostVans);
-            this.postTrucksPanel = this.CreateUiItemAndAddButtons(ItemData.PostTrucks);
-            this.disasterResponseVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.DisasterResponseVehicles);
-            this.disasterResponseHelicoptersPanel = this.CreateUiItemAndAddButtons(ItemData.DisasterResponseHelicopters);
+            this.itemPanelsInIndexOrder = Item.AllItems
+                .Select(i => this.configuration.GetConfigurationItem(i))
+                .Select(ci => this.CreateUiItemAndAddButtons(ci))
+                .OrderBy(ci => ci.ConfigurationItem.Item.Index)
+                .ToArray();
 
-            if (mapHasSnowDumps)
+            ValidateIndexes(this.itemPanelsInIndexOrder);
+
+            if (!mapHasSnowDumps)
             {
-                this.snowDumpPanel = this.CreateUiItemAndAddButtons(ItemData.SnowDump);
-                this.snowDumpVehiclesPanel = this.CreateUiItemAndAddButtons(ItemData.SnowDumpVehicles);
+                this.itemPanelsInIndexOrder[Item.SnowDump.Index].isVisible = false;
+                this.itemPanelsInIndexOrder[Item.SnowDumpVehicles.Index].isVisible = false;
             }
 
-            var itemPanels = new List<ItemPanel>
-            {
-                this.electricityPanel,
-                this.heatingPanel,
-                this.waterPanel,
-                this.sewageTreatmentPanel,
-                this.waterReserveTankPanel,
-                this.waterPumpingServiceStoragePanel,
-                this.waterPumpingServiceVehiclesPanel,
-                this.landfillPanel,
-                this.landfillVehiclesPanel,
-                this.garbageProcessingPanel,
-                this.garbageProcessingVehiclesPanel,
-                this.elementarySchoolPanel,
-                this.highSchoolPanel,
-                this.universityPanel,
-                this.healthcarePanel,
-                this.healthcareVehiclesPanel,
-                this.medicalHelicoptersPanel,
-                this.averageIllnessRatePanel,
-                this.cemeteryPanel,
-                this.cemeteryVehiclesPanel,
-                this.crematoriumPanel,
-                this.crematoriumVehiclesPanel,
-                this.groundPollutionPanel,
-                this.drinkingWaterPollutionPanel,
-                this.noisePollutionPanel,
-                this.fireHazardPanel,
-                this.fireDepartmentVehiclesPanel,
-                this.fireHelicoptersPanel,
-                this.crimeRatePanel,
-                this.policeHoldingCellsPanel,
-                this.policeVehiclesPanel,
-                this.policeHelicoptersPanel,
-                this.prisonCellsPanel,
-                this.prisonVehiclesPanel,
-                this.unemploymentPanel,
-                this.trafficJamPanel,
-                this.roadMaintenanceVehiclesPanel,
-                this.parkMaintenanceVehiclesPanel,
-                this.cityUnattractivenessPanel,
-                this.taxisPanel,
-                this.postVansPanel,
-                this.postTrucksPanel,
-                this.disasterResponseVehiclesPanel,
-                this.disasterResponseHelicoptersPanel
-            };
-
-            if (this.mapHasSnowDumps)
-            {
-                itemPanels.Add(this.snowDumpPanel);
-                itemPanels.Add(this.snowDumpVehiclesPanel);
-            }
-
-            this.allItemPanels = itemPanels
-                .OrderBy(x => x.SortOrder)
-                .ToList();
-
-            foreach (var itemPanel in this.allItemPanels)
-            {
-                itemPanel.LayoutPropertyChanged += ItemPanel_LayoutPropertyChanged;
-            }
+            this.itemPanelsInDisplayOrder = this.itemPanelsInIndexOrder
+                .OrderBy(x => x.ConfigurationItem.SortOrder)
+                .ToArray();
         }
 
-        private void ItemPanel_LayoutPropertyChanged()
+        private void ValidateIndexes(ItemPanel[] itemPanel)
         {
-            this.layoutDirty = true;
+            for (int i = 0; i < itemPanel.Length; i++)
+            {
+                if (i != itemPanel[i].ConfigurationItem.Item.Index)
+                {
+                    throw new IndexesMessedUpException(i);
+                }
+            }
         }
 
-        private ItemPanel CreateUiItemAndAddButtons(ItemData itemData)
+        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemModel configurationItem)
         {
             var uiItem = this.CreateAndAddItemPanel();
-            uiItem.Initialize(itemData, this.configuration, this.languageResource);
+            uiItem.Initialize(this.configuration, configurationItem, this.languageResource);
             return uiItem;
         }
 
@@ -254,20 +120,29 @@ namespace Stats.Ui
 
         private void UpdateLocalizedTooltips()
         {
-            for (int i = 0; i < allItemPanels.Count; i++)
+            for (int i = 0; i < itemPanelsInIndexOrder.Length; i++)
             {
-                allItemPanels[i].UpdateLocalizedTooltips();
+                itemPanelsInIndexOrder[i].UpdateLocalizedTooltips();
             }
         }
 
         private void UpdateLayoutIfDirty()
         {
-            if (this.layoutDirty)
+            var anyItemPanelVisibilityChanged = false;
+            for (int i = 0; i < this.itemPanelsInIndexOrder.Length; i++)
+            {
+                var itemPanel = this.itemPanelsInIndexOrder[i];
+                if (itemPanel.ItemVisibility.VisibilityChanged)
+                {
+                    anyItemPanelVisibilityChanged = true;
+                    break;
+                }
+            }
+
+            if (anyItemPanelVisibilityChanged)
             {
                 this.UpdateLayout();
             }
-
-            this.layoutDirty = false;
         }
 
         private void UpdateLayout()
@@ -306,42 +181,42 @@ namespace Stats.Ui
 
             var allDistricts = Singleton<DistrictManager>.instance.m_districts.m_buffer[0];
 
-            if (this.configuration.Electricity)
+            if (this.configuration.GetConfigurationItem(Item.Electricity).Enabled)
             {
                 var electricityCapacity = allDistricts.GetElectricityCapacity();
                 var electricityConsumption = allDistricts.GetElectricityConsumption();
-                this.electricityPanel.Percent = GetUsagePercent(electricityCapacity, electricityConsumption);
+                this.itemPanelsInIndexOrder[Item.Electricity.Index].Percent = GetUsagePercent(electricityCapacity, electricityConsumption);
             }
 
-            if (this.configuration.Heating)
+            if (this.configuration.GetConfigurationItem(Item.Heating).Enabled)
             {
                 var heatingCapacity = allDistricts.GetHeatingCapacity();
                 var heatingConsumption = allDistricts.GetHeatingConsumption();
-                this.heatingPanel.Percent = GetUsagePercent(heatingCapacity, heatingConsumption);
+                this.itemPanelsInIndexOrder[Item.Heating.Index].Percent = GetUsagePercent(heatingCapacity, heatingConsumption);
             }
 
-            if (this.configuration.Water)
+            if (this.configuration.GetConfigurationItem(Item.Water).Enabled)
             {
                 var waterCapacity = allDistricts.GetWaterCapacity();
                 var waterConsumption = allDistricts.GetWaterConsumption();
-                this.waterPanel.Percent = GetUsagePercent(waterCapacity, waterConsumption);
+                this.itemPanelsInIndexOrder[Item.Water.Index].Percent = GetUsagePercent(waterCapacity, waterConsumption);
             }
 
-            if (this.configuration.SewageTreatment)
+            if (this.configuration.GetConfigurationItem(Item.SewageTreatment).Enabled)
             {
                 var sewageCapacity = allDistricts.GetSewageCapacity();
                 var sewageAccumulation = allDistricts.GetSewageAccumulation();
-                this.sewageTreatmentPanel.Percent = GetUsagePercent(sewageCapacity, sewageAccumulation);
+                this.itemPanelsInIndexOrder[Item.SewageTreatment.Index].Percent = GetUsagePercent(sewageCapacity, sewageAccumulation);
             }
 
-            if (this.configuration.WaterReserveTank)
+            if (this.configuration.GetConfigurationItem(Item.WaterReserveTank).Enabled)
             {
                 var waterStorageTotal = allDistricts.GetWaterStorageCapacity();
                 var waterStorageInUse = allDistricts.GetWaterStorageAmount();
-                this.waterReserveTankPanel.Percent = GetAvailabilityPercent(waterStorageTotal, waterStorageInUse);
+                this.itemPanelsInIndexOrder[Item.WaterReserveTank.Index].Percent = GetAvailabilityPercent(waterStorageTotal, waterStorageInUse);
             }
 
-            if (this.configuration.WaterPumpingServiceStorage || this.configuration.WaterPumpingServiceVehicles)
+            if (this.configuration.GetConfigurationItem(Item.WaterPumpingServiceStorage).Enabled || this.configuration.GetConfigurationItem(Item.WaterPumpingServiceVehicles).Enabled)
             {
                 long waterSewageStorageTotal = 0;
                 long waterSewageStorageInUse = 0;
@@ -389,26 +264,26 @@ namespace Stats.Ui
                     pumpingVehiclesInUse += count;
                 }
 
-                this.waterPumpingServiceVehiclesPanel.Percent = GetUsagePercent(pumpingVehiclesTotal, pumpingVehiclesInUse);
-                this.waterPumpingServiceStoragePanel.Percent = GetUsagePercent(waterSewageStorageTotal, waterSewageStorageInUse);
+                this.itemPanelsInIndexOrder[Item.WaterPumpingServiceVehicles.Index].Percent = GetUsagePercent(pumpingVehiclesTotal, pumpingVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.WaterPumpingServiceStorage.Index].Percent = GetUsagePercent(waterSewageStorageTotal, waterSewageStorageInUse);
             }
 
-            if (this.configuration.Landfill)
+            if (this.configuration.GetConfigurationItem(Item.Landfill).Enabled)
             {
                 var garbageCapacity = allDistricts.GetGarbageCapacity();
                 var garbageAmout = allDistricts.GetGarbageAmount();
 
-                this.landfillPanel.Percent = GetUsagePercent(garbageCapacity, garbageAmout);
+                this.itemPanelsInIndexOrder[Item.Landfill.Index].Percent = GetUsagePercent(garbageCapacity, garbageAmout);
             }
 
-            if (this.configuration.GarbageProcessing)
+            if (this.configuration.GetConfigurationItem(Item.GarbageProcessing).Enabled)
             {
                 var incineratorCapacity = allDistricts.GetIncinerationCapacity();
                 var incineratorAccumulation = allDistricts.GetGarbageAccumulation();
-                this.garbageProcessingPanel.Percent = GetUsagePercent(incineratorCapacity, incineratorAccumulation);
+                this.itemPanelsInIndexOrder[Item.GarbageProcessing.Index].Percent = GetUsagePercent(incineratorCapacity, incineratorAccumulation);
             }
 
-            if (this.configuration.LandfillVehicles || this.configuration.GarbageProcessingVehicles)
+            if (this.configuration.GetConfigurationItem(Item.LandfillVehicles).Enabled || this.configuration.GetConfigurationItem(Item.GarbageProcessingVehicles).Enabled)
             {
                 var landfillVehiclesTotal = 0;
                 var landfillVehiclesInUse = 0;
@@ -456,61 +331,68 @@ namespace Stats.Ui
                     }
                 }
 
-                this.landfillVehiclesPanel.Percent = GetUsagePercent(landfillVehiclesTotal, landfillVehiclesInUse);
-                this.garbageProcessingVehiclesPanel.Percent = GetUsagePercent(garbageProcessingVehiclesTotal, garbageProcessingVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.LandfillVehicles.Index].Percent = GetUsagePercent(landfillVehiclesTotal, landfillVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.GarbageProcessingVehicles.Index].Percent = GetUsagePercent(garbageProcessingVehiclesTotal, garbageProcessingVehiclesInUse);
             }
 
-            if (this.configuration.ElementarySchool)
+            if (this.configuration.GetConfigurationItem(Item.ElementarySchool).Enabled)
             {
                 var elementrySchoolCapacity = allDistricts.GetEducation1Capacity();
                 var elementrySchoolUsage = allDistricts.GetEducation1Need();
-                this.elementarySchoolPanel.Percent = GetUsagePercent(elementrySchoolCapacity, elementrySchoolUsage);
+                this.itemPanelsInIndexOrder[Item.ElementarySchool.Index].Percent = GetUsagePercent(elementrySchoolCapacity, elementrySchoolUsage);
             }
 
-            if (this.configuration.HighSchool)
+            if (this.configuration.GetConfigurationItem(Item.HighSchool).Enabled)
             {
                 var highSchoolCapacity = allDistricts.GetEducation2Capacity();
                 var highSchoolUsage = allDistricts.GetEducation2Need();
-                this.highSchoolPanel.Percent = GetUsagePercent(highSchoolCapacity, highSchoolUsage);
+                this.itemPanelsInIndexOrder[Item.HighSchool.Index].Percent = GetUsagePercent(highSchoolCapacity, highSchoolUsage);
             }
 
-            if (this.configuration.University)
+            if (this.configuration.GetConfigurationItem(Item.University).Enabled)
             {
                 var universityCapacity = allDistricts.GetEducation3Capacity();
                 var universityUsage = allDistricts.GetEducation3Need();
-                this.universityPanel.Percent = GetUsagePercent(universityCapacity, universityUsage);
+                this.itemPanelsInIndexOrder[Item.University.Index].Percent = GetUsagePercent(universityCapacity, universityUsage);
             }
 
-            if (this.configuration.Healthcare)
+            if (this.configuration.GetConfigurationItem(Item.Healthcare).Enabled)
             {
                 var healthcareCapacity = allDistricts.GetHealCapacity();
                 var healthcareUsage = allDistricts.GetSickCount();
-                this.healthcarePanel.Percent = GetUsagePercent(healthcareCapacity, healthcareUsage);
+                this.itemPanelsInIndexOrder[Item.Healthcare.Index].Percent = GetUsagePercent(healthcareCapacity, healthcareUsage);
             }
 
-            if (this.configuration.AverageIllnessRate)
+            if (this.configuration.GetConfigurationItem(Item.AverageIllnessRate).Enabled)
             {
-                this.averageIllnessRatePanel.Percent = (int)(100 - (float)allDistricts.m_residentialData.m_finalHealth);
+                if (allDistricts.GetSickCount() == 0)
+                {
+                    this.itemPanelsInIndexOrder[Item.AverageIllnessRate.Index].Percent = null;
+                }
+                else
+                {
+                    this.itemPanelsInIndexOrder[Item.AverageIllnessRate.Index].Percent = (int)(100 - (float)allDistricts.m_residentialData.m_finalHealth);
+                }
             }
 
-            if (this.configuration.Cemetery)
+            if (this.configuration.GetConfigurationItem(Item.Cemetery).Enabled)
             {
                 var deadCapacity = allDistricts.GetDeadCapacity();
                 var deadAmount = allDistricts.GetDeadAmount();
-                this.cemeteryPanel.Percent = GetUsagePercent(deadCapacity, deadAmount);
+                this.itemPanelsInIndexOrder[Item.Cemetery.Index].Percent = GetUsagePercent(deadCapacity, deadAmount);
             }
 
-            if (this.configuration.Crematorium)
+            if (this.configuration.GetConfigurationItem(Item.Crematorium).Enabled)
             {
                 var cremateCapacity = allDistricts.GetCremateCapacity();
                 var deadCount = allDistricts.GetDeadCount();
-                this.crematoriumPanel.Percent = GetUsagePercent(cremateCapacity, deadCount);
+                this.itemPanelsInIndexOrder[Item.Crematorium.Index].Percent = GetUsagePercent(cremateCapacity, deadCount);
             }
 
-            if (this.configuration.HealthcareVehicles
-                || this.configuration.MedicalHelicopters
-                || this.configuration.CemeteryVehicles
-                || this.configuration.CrematoriumVehicles)
+            if (this.configuration.GetConfigurationItem(Item.HealthcareVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.MedicalHelicopters).Enabled
+                || this.configuration.GetConfigurationItem(Item.CemeteryVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.CrematoriumVehicles).Enabled)
             {
                 var healthcareVehiclesTotal = 0;
                 var healthcareVehiclesInUse = 0;
@@ -603,40 +485,40 @@ namespace Stats.Ui
                     }
                 }
 
-                this.healthcareVehiclesPanel.Percent = GetUsagePercent(healthcareVehiclesTotal, healthcareVehiclesInUse);
-                this.medicalHelicoptersPanel.Percent = GetUsagePercent(medicalHelicoptersTotal, medicalHelicoptersInUse);
-                this.cemeteryVehiclesPanel.Percent = GetUsagePercent(cemeteryVehiclesTotal, cemeteryVehiclesInUse);
-                this.crematoriumVehiclesPanel.Percent = GetUsagePercent(crematoriumVehiclesTotal, crematoriumVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.HealthcareVehicles.Index].Percent = GetUsagePercent(healthcareVehiclesTotal, healthcareVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.MedicalHelicopters.Index].Percent = GetUsagePercent(medicalHelicoptersTotal, medicalHelicoptersInUse);
+                this.itemPanelsInIndexOrder[Item.CemeteryVehicles.Index].Percent = GetUsagePercent(cemeteryVehiclesTotal, cemeteryVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.CrematoriumVehicles.Index].Percent = GetUsagePercent(crematoriumVehiclesTotal, crematoriumVehiclesInUse);
             }
 
-            if (this.configuration.TrafficJam)
+            if (this.configuration.GetConfigurationItem(Item.TrafficJam).Enabled)
             {
-                this.trafficJamPanel.Percent = (int)(100 - (float)Singleton<VehicleManager>.instance.m_lastTrafficFlow);
+                this.itemPanelsInIndexOrder[Item.TrafficJam.Index].Percent = (int)(100 - (float)Singleton<VehicleManager>.instance.m_lastTrafficFlow);
             }
 
-            if (this.configuration.GroundPollution)
+            if (this.configuration.GetConfigurationItem(Item.GroundPollution).Enabled)
             {
-                this.groundPollutionPanel.Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].GetGroundPollution();
+                this.itemPanelsInIndexOrder[Item.GroundPollution.Index].Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].GetGroundPollution();
             }
 
-            if (this.configuration.DrinkingWaterPollution)
+            if (this.configuration.GetConfigurationItem(Item.DrinkingWaterPollution).Enabled)
             {
-                this.drinkingWaterPollutionPanel.Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].GetWaterPollution();
+                this.itemPanelsInIndexOrder[Item.DrinkingWaterPollution.Index].Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].GetWaterPollution();
             }
 
-            if (this.configuration.NoisePollution)
+            if (this.configuration.GetConfigurationItem(Item.NoisePollution).Enabled)
             {
                 Singleton<ImmaterialResourceManager>.instance.CheckTotalResource(ImmaterialResourceManager.Resource.NoisePollution, out int noisePollution);
-                this.noisePollutionPanel.Percent = noisePollution;
+                this.itemPanelsInIndexOrder[Item.NoisePollution.Index].Percent = noisePollution;
             }
 
-            if (this.configuration.FireHazard)
+            if (this.configuration.GetConfigurationItem(Item.FireHazard).Enabled)
             {
                 Singleton<ImmaterialResourceManager>.instance.CheckTotalResource(ImmaterialResourceManager.Resource.FireHazard, out int fireHazard);
-                this.fireHazardPanel.Percent = fireHazard;
+                this.itemPanelsInIndexOrder[Item.FireHazard.Index].Percent = fireHazard;
             }
 
-            if (this.configuration.FireDepartmentVehicles || this.configuration.FireHelicopters)
+            if (this.configuration.GetConfigurationItem(Item.FireDepartmentVehicles).Enabled || this.configuration.GetConfigurationItem(Item.FireHelicopters).Enabled)
             {
                 var fireDepartmentVehiclesTotal = 0;
                 var fireDepartmentVehiclesInUse = 0;
@@ -654,7 +536,7 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case FireStationAI fireStationAI when this.configuration.FireDepartmentVehicles:
+                        case FireStationAI fireStationAI when this.configuration.GetConfigurationItem(Item.FireDepartmentVehicles).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(fireStationAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -670,7 +552,7 @@ namespace Stats.Ui
                             }
 
                             break;
-                        case HelicopterDepotAI helicopterDepotAI when this.configuration.FireHelicopters:
+                        case HelicopterDepotAI helicopterDepotAI when this.configuration.GetConfigurationItem(Item.FireHelicopters).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -692,16 +574,20 @@ namespace Stats.Ui
                     }
                 }
 
-                this.fireDepartmentVehiclesPanel.Percent = GetUsagePercent(fireDepartmentVehiclesTotal, fireDepartmentVehiclesInUse);
-                this.fireHelicoptersPanel.Percent = GetUsagePercent(fireHelicoptersTotal, fireHelicoptersInUse);
+                this.itemPanelsInIndexOrder[Item.FireDepartmentVehicles.Index].Percent = GetUsagePercent(fireDepartmentVehiclesTotal, fireDepartmentVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.FireHelicopters.Index].Percent = GetUsagePercent(fireHelicoptersTotal, fireHelicoptersInUse);
             }
 
-            if (this.configuration.CrimeRate)
+            if (this.configuration.GetConfigurationItem(Item.CrimeRate).Enabled)
             {
-                this.crimeRatePanel.Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].m_finalCrimeRate;
+                this.itemPanelsInIndexOrder[Item.CrimeRate.Index].Percent = Singleton<DistrictManager>.instance.m_districts.m_buffer[0].m_finalCrimeRate;
             }
 
-            if (this.configuration.PoliceHoldingCells || this.configuration.PoliceVehicles || this.configuration.PrisonCells || this.configuration.PrisonVehicles || this.configuration.PoliceHelicopters)
+            if (this.configuration.GetConfigurationItem(Item.PoliceHoldingCells).Enabled
+                || this.configuration.GetConfigurationItem(Item.PoliceVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.PrisonCells).Enabled
+                || this.configuration.GetConfigurationItem(Item.PrisonVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled)
             {
                 var policeHoldingCellsTotal = 0;
                 var policeHoldingCellsInUse = 0;
@@ -733,7 +619,7 @@ namespace Stats.Ui
 
                     switch (buildingAi)
                     {
-                        case PoliceStationAI policeStationAi when this.configuration.PoliceHelicopters:
+                        case PoliceStationAI policeStationAi when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled:
                             {
                                 //PoliceStationAI.GetLocalizedStats
                                 var instance = Singleton<CitizenManager>.instance;
@@ -791,7 +677,7 @@ namespace Stats.Ui
                                 }
                             }
                             break;
-                        case HelicopterDepotAI helicopterDepotAI when this.configuration.PoliceHelicopters:
+                        case HelicopterDepotAI helicopterDepotAI when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -811,25 +697,25 @@ namespace Stats.Ui
                             continue;
                     }
 
-                    
+
                 }
 
-                this.policeHoldingCellsPanel.Percent = GetUsagePercent(policeHoldingCellsTotal, policeHoldingCellsInUse);
-                this.policeVehiclesPanel.Percent = GetUsagePercent(policeVehiclesTotal, policeVehiclesInUse);
-                this.policeHelicoptersPanel.Percent = GetUsagePercent(policeHelicoptersTotal, policeHelicoptersInUse);
-                this.prisonCellsPanel.Percent = GetUsagePercent(prisonCellsTotal, prisonCellsInUse);
-                this.prisonVehiclesPanel.Percent = GetUsagePercent(prisonVehiclesTotal, prisonVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.PoliceHoldingCells.Index].Percent = GetUsagePercent(policeHoldingCellsTotal, policeHoldingCellsInUse);
+                this.itemPanelsInIndexOrder[Item.PoliceVehicles.Index].Percent = GetUsagePercent(policeVehiclesTotal, policeVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.PoliceHelicopters.Index].Percent = GetUsagePercent(policeHelicoptersTotal, policeHelicoptersInUse);
+                this.itemPanelsInIndexOrder[Item.PrisonCells.Index].Percent = GetUsagePercent(prisonCellsTotal, prisonCellsInUse);
+                this.itemPanelsInIndexOrder[Item.PrisonVehicles.Index].Percent = GetUsagePercent(prisonVehiclesTotal, prisonVehiclesInUse);
             }
 
-            if (this.configuration.Unemployment)
+            if (this.configuration.GetConfigurationItem(Item.Unemployment).Enabled)
             {
-                this.unemploymentPanel.Percent = allDistricts.GetUnemployment();
+                this.itemPanelsInIndexOrder[Item.Unemployment.Index].Percent = allDistricts.GetUnemployment();
             }
 
             if (
-                this.configuration.RoadMaintenanceVehicles
-                || (this.mapHasSnowDumps && this.configuration.SnowDump)
-                || (this.mapHasSnowDumps && this.configuration.SnowDumpVehicles)
+                this.configuration.GetConfigurationItem(Item.RoadMaintenanceVehicles).Enabled
+                || (this.mapHasSnowDumps && this.configuration.GetConfigurationItem(Item.SnowDump).Enabled)
+                || (this.mapHasSnowDumps && this.configuration.GetConfigurationItem(Item.SnowDumpVehicles).Enabled)
             )
             {
                 var roadMaintenanceVehiclesTotal = 0;
@@ -898,16 +784,16 @@ namespace Stats.Ui
                     }
                 }
 
-                this.roadMaintenanceVehiclesPanel.Percent = GetUsagePercent(roadMaintenanceVehiclesTotal, roadMaintenanceVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.RoadMaintenanceVehicles.Index].Percent = GetUsagePercent(roadMaintenanceVehiclesTotal, roadMaintenanceVehiclesInUse);
 
                 if (this.mapHasSnowDumps)
                 {
-                    this.snowDumpPanel.Percent = GetUsagePercent(snowDumpStorageTotal, snowDumpStorageInUse);
-                    this.snowDumpVehiclesPanel.Percent = GetUsagePercent(snowDumpVehiclesTotal, snowDumpVehiclesInUse);
+                    this.itemPanelsInIndexOrder[Item.SnowDump.Index].Percent = GetUsagePercent(snowDumpStorageTotal, snowDumpStorageInUse);
+                    this.itemPanelsInIndexOrder[Item.SnowDumpVehicles.Index].Percent = GetUsagePercent(snowDumpVehiclesTotal, snowDumpVehiclesInUse);
                 }
             }
 
-            if (this.configuration.ParkMaintenanceVehicles)
+            if (this.configuration.GetConfigurationItem(Item.ParkMaintenanceVehicles).Enabled)
             {
                 var parkMaintenanceVehiclesTotal = 0;
                 var parkMaintenanceVehiclesInUse = 0;
@@ -952,20 +838,20 @@ namespace Stats.Ui
                     }
                 }
 
-                this.parkMaintenanceVehiclesPanel.Percent = GetUsagePercent(parkMaintenanceVehiclesTotal, parkMaintenanceVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.ParkMaintenanceVehicles.Index].Percent = GetUsagePercent(parkMaintenanceVehiclesTotal, parkMaintenanceVehiclesInUse);
             }
 
-            if (this.configuration.CityUnattractiveness)
+            if (this.configuration.GetConfigurationItem(Item.CityUnattractiveness).Enabled)
             {
                 Singleton<ImmaterialResourceManager>.instance.CheckGlobalResource(ImmaterialResourceManager.Resource.Attractiveness, out int cityAttractivenessRaw);
                 Singleton<ImmaterialResourceManager>.instance.CheckTotalResource(ImmaterialResourceManager.Resource.LandValue, out int landValueRaw);
                 var cityAttractivenessAndLandValue = cityAttractivenessRaw + landValueRaw;
                 var cityAttractiveness = 100 * (cityAttractivenessAndLandValue) / Mathf.Max(cityAttractivenessAndLandValue + 200, 200);
 
-                this.cityUnattractivenessPanel.Percent = (100 - cityAttractiveness);
+                this.itemPanelsInIndexOrder[Item.CityUnattractiveness.Index].Percent = (100 - cityAttractiveness);
             }
 
-            if (this.configuration.Taxis || this.configuration.PostVans || this.configuration.PostTrucks)
+            if (this.configuration.GetConfigurationItem(Item.Taxis).Enabled || this.configuration.GetConfigurationItem(Item.PostVans).Enabled || this.configuration.GetConfigurationItem(Item.PostTrucks).Enabled)
             {
                 var taxisTotal = 0;
                 var taxisInUse = 0;
@@ -985,7 +871,7 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case DepotAI depotAi when this.configuration.Taxis
+                        case DepotAI depotAi when this.configuration.GetConfigurationItem(Item.Taxis).Enabled
                             && depotAi.m_transportInfo != null
                             && depotAi.m_maxVehicleCount != 0
                             && depotAi.m_transportInfo.m_transportType == TransportInfo.TransportType.Taxi:
@@ -1001,12 +887,10 @@ namespace Stats.Ui
                                 taxisTotal += (productionRate * depotAi.m_maxVehicleCount + 99) / 100;
                                 taxisInUse += taxiCount;
 
-                                this.taxisPanel.Percent = GetUsagePercent(taxisTotal, taxisInUse);
-
                                 break;
                             }
-                        case PostOfficeAI postOfficeAi when this.configuration.PostVans
-                            || this.configuration.PostTrucks:
+                        case PostOfficeAI postOfficeAi when this.configuration.GetConfigurationItem(Item.PostVans).Enabled
+                            || this.configuration.GetConfigurationItem(Item.PostTrucks).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(postOfficeAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -1024,13 +908,13 @@ namespace Stats.Ui
                                 int num = building.m_customBuffer1 * 1000;
                                 int num2 = building.m_customBuffer2 * 1000;
 
-                                if (this.configuration.PostVans)
+                                if (this.configuration.GetConfigurationItem(Item.PostVans).Enabled)
                                 {
                                     postVansTotal += (productionRate * postOfficeAi.m_postVanCount + 99) / 100;
                                     postVansInUse += ownVanCount;
                                 }
-                                
-                                if (this.configuration.PostTrucks)
+
+                                if (this.configuration.GetConfigurationItem(Item.PostTrucks).Enabled)
                                 {
                                     postTrucksTotal += (productionRate * postOfficeAi.m_postTruckCount + 99) / 100;
                                     postTrucksInUse += ownTruckCount;
@@ -1043,11 +927,12 @@ namespace Stats.Ui
                     }
                 }
 
-                this.postVansPanel.Percent = GetUsagePercent(postVansTotal, postVansInUse);
-                this.postTrucksPanel.Percent = GetUsagePercent(postTrucksTotal, postTrucksInUse);
+                this.itemPanelsInIndexOrder[Item.Taxis.Index].Percent = GetUsagePercent(taxisTotal, taxisInUse);
+                this.itemPanelsInIndexOrder[Item.PostVans.Index].Percent = GetUsagePercent(postVansTotal, postVansInUse);
+                this.itemPanelsInIndexOrder[Item.PostTrucks.Index].Percent = GetUsagePercent(postTrucksTotal, postTrucksInUse);
             }
 
-            if (this.configuration.DisasterResponseVehicles || this.configuration.DisasterResponseHelicopters)
+            if (this.configuration.GetConfigurationItem(Item.DisasterResponseVehicles).Enabled || this.configuration.GetConfigurationItem(Item.DisasterResponseHelicopters).Enabled)
             {
                 var disasterResponseVehiclesTotal = 0;
                 var disasterResponseVehiclesInUse = 0;
@@ -1066,8 +951,8 @@ namespace Stats.Ui
                     {
                         int budget = Singleton<EconomyManager>.instance.GetBudget(disasterResponseBuildingAi.m_info.m_class);
                         int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                        
-                        if (this.configuration.DisasterResponseVehicles)
+
+                        if (this.configuration.GetConfigurationItem(Item.DisasterResponseVehicles).Enabled)
                         {
                             disasterResponseVehiclesTotal += (productionRate * disasterResponseBuildingAi.m_vehicleCount + 99) / 100;
                             int disasterVehicles = 0;
@@ -1079,7 +964,7 @@ namespace Stats.Ui
                             disasterResponseVehiclesInUse += disasterVehicles;
                         }
 
-                        if (this.configuration.DisasterResponseHelicopters)
+                        if (this.configuration.GetConfigurationItem(Item.DisasterResponseHelicopters).Enabled)
                         {
                             disasterResponseHelicoptersTotal += (productionRate * disasterResponseBuildingAi.m_helicopterCount + 99) / 100;
                             int disasterHelicopters = 0;
@@ -1093,8 +978,8 @@ namespace Stats.Ui
                     }
                 }
 
-                this.disasterResponseVehiclesPanel.Percent = GetUsagePercent(disasterResponseVehiclesTotal, disasterResponseVehiclesInUse);
-                this.disasterResponseHelicoptersPanel.Percent = GetUsagePercent(disasterResponseHelicoptersTotal, disasterResponseHelicoptersInUse);
+                this.itemPanelsInIndexOrder[Item.DisasterResponseVehicles.Index].Percent = GetUsagePercent(disasterResponseVehiclesTotal, disasterResponseVehiclesInUse);
+                this.itemPanelsInIndexOrder[Item.DisasterResponseHelicopters.Index].Percent = GetUsagePercent(disasterResponseHelicoptersTotal, disasterResponseHelicoptersInUse);
             }
 
             this.UpdateLayout();
@@ -1127,16 +1012,16 @@ namespace Stats.Ui
             var lastLayoutPosition = Vector2.zero;
             int index = 0;
 
-            for (int i = 0; i < this.allItemPanels.Count; i++)
+            for (int i = 0; i < this.itemPanelsInDisplayOrder.Length; i++)
             {
-                var currentItem = this.allItemPanels[i];
+                var currentItem = this.itemPanelsInDisplayOrder[i];
                 if (!currentItem.isVisible)
                 {
                     continue;
                 }
 
                 var layoutPosition = new Vector2(index % this.configuration.MainPanelColumnCount, index / this.configuration.MainPanelColumnCount);
-                
+
                 currentItem.relativePosition = CalculateRelativePosition(layoutPosition);
                 currentItem.AdjustButtonAndUiItemSize();
 
@@ -1167,10 +1052,11 @@ namespace Stats.Ui
 
         private void UpdatePanelSize()
         {
-            var visibleItemCount = this.allItemPanels.Where(x => x.isVisible).Count();
+            var visibleItemCount = this.itemPanelsInIndexOrder.Where(x => x.isVisible)
+                .Count();
             if (visibleItemCount > 0)
             {
-                this.isVisible = true;    
+                this.isVisible = true;
             }
             else
             {
@@ -1190,7 +1076,12 @@ namespace Stats.Ui
 
         private void UpdatePosition()
         {
-            this.relativePosition = new Vector3(this.configuration.MainPanelPositionX, this.configuration.MainPanelPositionY);
+            if (uiDragHandle.IsDragged)
+            {
+                return;
+            }
+
+            this.relativePosition = this.configuration.MainPanelPosition;
         }
 
         private float CalculatePanelWidth(int visibleItemCount)
@@ -1209,6 +1100,17 @@ namespace Stats.Ui
         {
             var rowCount = Mathf.CeilToInt(visibleItemCount / (float)this.configuration.MainPanelColumnCount);
             return (rowCount + 1) * this.configuration.ItemPadding + rowCount * this.configuration.ItemHeight;
+        }
+
+        private void UiDragHandle_eventMouseUp(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            SaveMainPanelPosition();
+        }
+
+        private void SaveMainPanelPosition()
+        {
+            this.configuration.MainPanelPosition = this.relativePosition;
+            this.configuration.Save();
         }
     }
 }

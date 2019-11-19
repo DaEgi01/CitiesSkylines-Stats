@@ -77,6 +77,10 @@
       <Value>Критический порог</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>SortOrder</Key>
+      <Value>Sort order</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>Electricity</Key>
       <Value>Электричество</Value>
     </LocalizedItem>

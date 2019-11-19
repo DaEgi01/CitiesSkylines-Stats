@@ -88,6 +88,7 @@ namespace Stats
             this.languageResourceService = null;
             this.gameEngineService = null;
 
+            this.configuration.Dispose();
             this.configuration = null;
             this.languageResource.Dispose();
             this.languageResource = null;
@@ -102,16 +103,8 @@ namespace Stats
 
         private void DestroyMainPanel()
         {
-            SaveMainPanelPosition();
             this.mainPanel.Disable();
             GameObject.Destroy(this.mainPanel.gameObject);
-        }
-
-        private void SaveMainPanelPosition()
-        {
-            this.configuration.MainPanelPositionX = this.mainPanel.relativePosition.x;
-            this.configuration.MainPanelPositionY = this.mainPanel.relativePosition.y;
-            this.configuration.Save();
         }
 
         public void OnSettingsUI(UIHelperBase helper)

@@ -60,10 +60,11 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationModel.cs" />
     <Compile Include="ColorExtensions.cs" />
-    <Compile Include="Configuration\ItemConfiguration.cs" />
+    <Compile Include="Configuration\ConfigurationItemModel.cs" />
     <Compile Include="GameEngineService.cs" />
-    <Compile Include="ItemData.cs" />
-    <Compile Include="ItemDisplayInfo.cs" />
+    <Compile Include="IndexesMessedUpException.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemVisibility.cs" />
     <Compile Include="Localization\LanguageResourceModel.cs" />
     <Compile Include="Localization\LanguageResourceDto.cs" />
     <Compile Include="Localization\LanguageResourceItemDto.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Ui\MainPanel.cs" />
     <Compile Include="Configuration\ConfigurationPanel.cs" />
     <Compile Include="Ui\ItemPanel.cs" />
+    <Compile Include="Ui\UIDragHandleWithDragState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Localization\language.de.xml">
