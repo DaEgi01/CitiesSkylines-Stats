@@ -416,11 +416,11 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case HospitalAI hospitalAI:
+                        case HospitalAI hospitalAI when this.configuration.HealthcareVehicles:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(hospitalAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                                int healthcareVehicles = (productionRate * hospitalAI.m_ambulanceCount + 99) / 100;
+                                int healthcareVehicles = (productionRate * hospitalAI.AmbulanceCount + 99) / 100;
                                 int count = 0;
                                 int cargo = 0;
                                 int capacity = 0;
@@ -432,7 +432,7 @@ namespace Stats.Ui
 
                                 break;
                             }
-                        case HelicopterDepotAI helicopterDepotAI:
+                        case HelicopterDepotAI helicopterDepotAI when this.configuration.MedicalHelicopters:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -448,7 +448,7 @@ namespace Stats.Ui
 
                                 break;
                             }
-                        case CemeteryAI cemeteryAI:
+                        case CemeteryAI cemeteryAI when this.configuration.CemeteryVehicles || this.configuration.CrematoriumVehicles:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(cemeteryAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -619,7 +619,10 @@ namespace Stats.Ui
 
                     switch (buildingAi)
                     {
-                        case PoliceStationAI policeStationAi when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled:
+                        case PoliceStationAI policeStationAi when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled
+                            || this.configuration.GetConfigurationItem(Item.PoliceVehicles).Enabled
+                            || this.configuration.GetConfigurationItem(Item.PrisonCells).Enabled
+                            || this.configuration.GetConfigurationItem(Item.PrisonVehicles).Enabled:
                             {
                                 //PoliceStationAI.GetLocalizedStats
                                 var instance = Singleton<CitizenManager>.instance;
@@ -650,7 +653,7 @@ namespace Stats.Ui
 
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(policeStationAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                                int policeCars = (productionRate * policeStationAi.m_policeCarCount + 99) / 100;
+                                int policeCars = (productionRate * policeStationAi.PoliceCarCount + 99) / 100;
                                 int count = 0;
                                 int cargo = 0;
                                 int capacity = 0;
@@ -660,7 +663,7 @@ namespace Stats.Ui
                                     GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Crime, ref count, ref cargo, ref capacity, ref outside);
 
                                     policeHoldingCellsInUse += cellsInUse;
-                                    policeHoldingCellsTotal += policeStationAi.m_jailCapacity;
+                                    policeHoldingCellsTotal += policeStationAi.JailCapacity;
 
                                     policeVehiclesTotal += policeCars;
                                     policeVehiclesInUse += count;
@@ -669,13 +672,14 @@ namespace Stats.Ui
                                 {
                                     GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.CriminalMove, ref count, ref cargo, ref capacity, ref outside);
 
-                                    prisonCellsTotal += policeStationAi.m_jailCapacity;
+                                    prisonCellsTotal += policeStationAi.JailCapacity;
                                     prisonCellsInUse += cellsInUse;
 
                                     prisonVehiclesTotal += policeCars;
                                     prisonVehiclesInUse += count;
                                 }
                             }
+
                             break;
                         case HelicopterDepotAI helicopterDepotAI when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled:
                             {
@@ -696,8 +700,6 @@ namespace Stats.Ui
                         default:
                             continue;
                     }
-
-
                 }
 
                 this.itemPanelsInIndexOrder[Item.PoliceHoldingCells.Index].Percent = GetUsagePercent(policeHoldingCellsTotal, policeHoldingCellsInUse);
@@ -737,7 +739,7 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case MaintenanceDepotAI maintenanceDepotAi:
+                        case MaintenanceDepotAI maintenanceDepotAi when this.configuration.RoadMaintenanceVehicles:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(maintenanceDepotAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -750,10 +752,10 @@ namespace Stats.Ui
 
                                 roadMaintenanceVehiclesTotal += trucks;
                                 roadMaintenanceVehiclesInUse += truckCount;
-
-                                break;
                             }
-                        case SnowDumpAI snowDumpAi when this.mapHasSnowDumps:
+
+                            break;
+                        case SnowDumpAI snowDumpAi when this.mapHasSnowDumps && (this.configuration.SnowDump || this.configuration.SnowDumpVehicles):
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(snowDumpAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -776,9 +778,9 @@ namespace Stats.Ui
 
                                 snowDumpVehiclesTotal += snowTrucks;
                                 snowDumpVehiclesInUse += count;
-
-                                break;
                             }
+
+                            break;
                         default:
                             continue;
                     }
