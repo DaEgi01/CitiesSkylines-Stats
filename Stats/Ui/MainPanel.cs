@@ -216,7 +216,8 @@ namespace Stats.Ui
                 this.itemPanelsInIndexOrder[Item.WaterReserveTank.Index].Percent = GetAvailabilityPercent(waterStorageTotal, waterStorageInUse);
             }
 
-            if (this.configuration.GetConfigurationItem(Item.WaterPumpingServiceStorage).Enabled || this.configuration.GetConfigurationItem(Item.WaterPumpingServiceVehicles).Enabled)
+            if (this.configuration.GetConfigurationItem(Item.WaterPumpingServiceStorage).Enabled 
+                || this.configuration.GetConfigurationItem(Item.WaterPumpingServiceVehicles).Enabled)
             {
                 long waterSewageStorageTotal = 0;
                 long waterSewageStorageInUse = 0;
@@ -283,7 +284,8 @@ namespace Stats.Ui
                 this.itemPanelsInIndexOrder[Item.GarbageProcessing.Index].Percent = GetUsagePercent(incineratorCapacity, incineratorAccumulation);
             }
 
-            if (this.configuration.GetConfigurationItem(Item.LandfillVehicles).Enabled || this.configuration.GetConfigurationItem(Item.GarbageProcessingVehicles).Enabled)
+            if (this.configuration.GetConfigurationItem(Item.LandfillVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.GarbageProcessingVehicles).Enabled)
             {
                 var landfillVehiclesTotal = 0;
                 var landfillVehiclesInUse = 0;
@@ -416,7 +418,8 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case HospitalAI hospitalAI when this.configuration.HealthcareVehicles:
+                        case HospitalAI hospitalAI when
+                            this.configuration.GetConfigurationItem(Item.HealthcareVehicles).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(hospitalAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -432,7 +435,8 @@ namespace Stats.Ui
 
                                 break;
                             }
-                        case HelicopterDepotAI helicopterDepotAI when this.configuration.MedicalHelicopters:
+                        case HelicopterDepotAI helicopterDepotAI when
+                            this.configuration.GetConfigurationItem(Item.MedicalHelicopters).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -448,7 +452,9 @@ namespace Stats.Ui
 
                                 break;
                             }
-                        case CemeteryAI cemeteryAI when this.configuration.CemeteryVehicles || this.configuration.CrematoriumVehicles:
+                        case CemeteryAI cemeteryAI when 
+                            this.configuration.GetConfigurationItem(Item.CemeteryVehicles).Enabled 
+                            || this.configuration.GetConfigurationItem(Item.CrematoriumVehicles).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(cemeteryAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -536,7 +542,8 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case FireStationAI fireStationAI when this.configuration.GetConfigurationItem(Item.FireDepartmentVehicles).Enabled:
+                        case FireStationAI fireStationAI when
+                            this.configuration.GetConfigurationItem(Item.FireDepartmentVehicles).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(fireStationAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -552,7 +559,8 @@ namespace Stats.Ui
                             }
 
                             break;
-                        case HelicopterDepotAI helicopterDepotAI when this.configuration.GetConfigurationItem(Item.FireHelicopters).Enabled:
+                        case HelicopterDepotAI helicopterDepotAI when
+                            this.configuration.GetConfigurationItem(Item.FireHelicopters).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -619,7 +627,8 @@ namespace Stats.Ui
 
                     switch (buildingAi)
                     {
-                        case PoliceStationAI policeStationAi when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled
+                        case PoliceStationAI policeStationAi when
+                            this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled
                             || this.configuration.GetConfigurationItem(Item.PoliceVehicles).Enabled
                             || this.configuration.GetConfigurationItem(Item.PrisonCells).Enabled
                             || this.configuration.GetConfigurationItem(Item.PrisonVehicles).Enabled:
@@ -681,7 +690,8 @@ namespace Stats.Ui
                             }
 
                             break;
-                        case HelicopterDepotAI helicopterDepotAI when this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled:
+                        case HelicopterDepotAI helicopterDepotAI when
+                            this.configuration.GetConfigurationItem(Item.PoliceHelicopters).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(helicopterDepotAI.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -739,7 +749,8 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case MaintenanceDepotAI maintenanceDepotAi when this.configuration.RoadMaintenanceVehicles:
+                        case MaintenanceDepotAI maintenanceDepotAi when 
+                            this.configuration.GetConfigurationItem(Item.RoadMaintenanceVehicles).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(maintenanceDepotAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -755,7 +766,12 @@ namespace Stats.Ui
                             }
 
                             break;
-                        case SnowDumpAI snowDumpAi when this.mapHasSnowDumps && (this.configuration.SnowDump || this.configuration.SnowDumpVehicles):
+                        case SnowDumpAI snowDumpAi when
+                            this.mapHasSnowDumps
+                            && (
+                                this.configuration.GetConfigurationItem(Item.SnowDump).Enabled
+                                || this.configuration.GetConfigurationItem(Item.SnowDumpVehicles).Enabled
+                            ):
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(snowDumpAi.m_info.m_class);
                                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -873,7 +889,8 @@ namespace Stats.Ui
                     var buildingAi = building.Info?.GetAI();
                     switch (buildingAi)
                     {
-                        case DepotAI depotAi when this.configuration.GetConfigurationItem(Item.Taxis).Enabled
+                        case DepotAI depotAi when
+                            this.configuration.GetConfigurationItem(Item.Taxis).Enabled
                             && depotAi.m_transportInfo != null
                             && depotAi.m_maxVehicleCount != 0
                             && depotAi.m_transportInfo.m_transportType == TransportInfo.TransportType.Taxi:
@@ -891,7 +908,8 @@ namespace Stats.Ui
 
                                 break;
                             }
-                        case PostOfficeAI postOfficeAi when this.configuration.GetConfigurationItem(Item.PostVans).Enabled
+                        case PostOfficeAI postOfficeAi when
+                            this.configuration.GetConfigurationItem(Item.PostVans).Enabled
                             || this.configuration.GetConfigurationItem(Item.PostTrucks).Enabled:
                             {
                                 int budget = Singleton<EconomyManager>.instance.GetBudget(postOfficeAi.m_info.m_class);
