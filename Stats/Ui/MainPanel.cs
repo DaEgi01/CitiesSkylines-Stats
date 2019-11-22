@@ -1,9 +1,7 @@
-﻿using ColossalFramework;
-using ColossalFramework.UI;
+﻿using ColossalFramework.UI;
 using Stats.Configuration;
 using Stats.Localization;
 using System;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -22,13 +20,20 @@ namespace Stats.Ui
         private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
 
-        public void Initialize(string modSystemName, bool mapHasSnowDumps, ConfigurationModel configuration, LanguageResourceModel languageResource, GameEngineService gameEngineService)
+        public void Initialize(
+            string modSystemName,
+            bool mapHasSnowDumps,
+            ConfigurationModel configuration,
+            LanguageResourceModel languageResource,
+            GameEngineService gameEngineService)
         {
             this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
             this.mapHasSnowDumps = mapHasSnowDumps;
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             if (this.configuration.MainPanelColumnCount < 1)
+            {
                 throw new ArgumentOutOfRangeException($"'{nameof(this.configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
+            }
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
             this.gameEngineService = gameEngineService;
             this.secondsSinceLastUpdate = this.configuration.MainPanelUpdateEveryXSeconds; //force an immediate update
@@ -224,7 +229,8 @@ namespace Stats.Ui
                     this.gameEngineService.GetCrimePercent();
             }
 
-            if (this.configuration.GetConfigurationItem(Item.DisasterResponseVehicles).Enabled || this.configuration.GetConfigurationItem(Item.DisasterResponseHelicopters).Enabled)
+            if (this.configuration.GetConfigurationItem(Item.DisasterResponseVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.DisasterResponseHelicopters).Enabled)
             {
                 var disasterReponseVehiclesPercent = this.gameEngineService.GetDisasterResponseVehiclesPercent();
 
@@ -252,7 +258,8 @@ namespace Stats.Ui
                     this.gameEngineService.GetElementarySchoolPercent();
             }
 
-            if (this.configuration.GetConfigurationItem(Item.FireDepartmentVehicles).Enabled || this.configuration.GetConfigurationItem(Item.FireHelicopters).Enabled)
+            if (this.configuration.GetConfigurationItem(Item.FireDepartmentVehicles).Enabled
+                || this.configuration.GetConfigurationItem(Item.FireHelicopters).Enabled)
             {
                 var fireDepartmentVehiclesPercent = this.gameEngineService.GetFireDepartmentVehiclesPercent();
 
@@ -335,11 +342,16 @@ namespace Stats.Ui
             {
                 var policeDepartmentVehiclesPercent = this.gameEngineService.GetPoliceDepartmentVehiclesPercent();
 
-                this.itemPanelsInIndexOrder[Item.PoliceHelicopters.Index].Percent = policeDepartmentVehiclesPercent.policeHelicoptersPercent;
-                this.itemPanelsInIndexOrder[Item.PoliceHoldingCells.Index].Percent = policeDepartmentVehiclesPercent.policeHoldingCellsPercent;
-                this.itemPanelsInIndexOrder[Item.PoliceVehicles.Index].Percent = policeDepartmentVehiclesPercent.policeVehiclesPercent;
-                this.itemPanelsInIndexOrder[Item.PrisonCells.Index].Percent = policeDepartmentVehiclesPercent.prisonCellsPercent;
-                this.itemPanelsInIndexOrder[Item.PrisonVehicles.Index].Percent = policeDepartmentVehiclesPercent.prisonVehiclesPercent;
+                this.itemPanelsInIndexOrder[Item.PoliceHelicopters.Index].Percent =
+                    policeDepartmentVehiclesPercent.policeHelicoptersPercent;
+                this.itemPanelsInIndexOrder[Item.PoliceHoldingCells.Index].Percent =
+                    policeDepartmentVehiclesPercent.policeHoldingCellsPercent;
+                this.itemPanelsInIndexOrder[Item.PoliceVehicles.Index].Percent =
+                    policeDepartmentVehiclesPercent.policeVehiclesPercent;
+                this.itemPanelsInIndexOrder[Item.PrisonCells.Index].Percent =
+                    policeDepartmentVehiclesPercent.prisonCellsPercent;
+                this.itemPanelsInIndexOrder[Item.PrisonVehicles.Index].Percent =
+                    policeDepartmentVehiclesPercent.prisonVehiclesPercent;
             }
 
             if (this.configuration.GetConfigurationItem(Item.Taxis).Enabled
@@ -349,17 +361,20 @@ namespace Stats.Ui
             {
                 var postAndTaxiVehiclesPercent = this.gameEngineService.GetPostAndTaxiVehiclesPercent();
 
-                this.itemPanelsInIndexOrder[Item.Taxis.Index].Percent = postAndTaxiVehiclesPercent.taxisPercent;
-                this.itemPanelsInIndexOrder[Item.PostVans.Index].Percent = postAndTaxiVehiclesPercent.postVansPercent;
-                this.itemPanelsInIndexOrder[Item.PostTrucks.Index].Percent = postAndTaxiVehiclesPercent.postTrucksPercent;
+                this.itemPanelsInIndexOrder[Item.Taxis.Index].Percent =
+                    postAndTaxiVehiclesPercent.taxisPercent;
+                this.itemPanelsInIndexOrder[Item.PostVans.Index].Percent =
+                    postAndTaxiVehiclesPercent.postVansPercent;
+                this.itemPanelsInIndexOrder[Item.PostTrucks.Index].Percent =
+                    postAndTaxiVehiclesPercent.postTrucksPercent;
             }
 
             if (this.configuration.GetConfigurationItem(Item.RoadMaintenanceVehicles).Enabled
                 || (this.mapHasSnowDumps && this.configuration.GetConfigurationItem(Item.SnowDump).Enabled)
-                || (this.mapHasSnowDumps && this.configuration.GetConfigurationItem(Item.SnowDumpVehicles).Enabled)
-                )
+                || (this.mapHasSnowDumps && this.configuration.GetConfigurationItem(Item.SnowDumpVehicles).Enabled))
             {
-                var roadMaintenanceAndSnowDumpVehiclesPercent = this.gameEngineService.GetRoadMaintenanceAndSnowDumpVehiclesPercent();
+                var roadMaintenanceAndSnowDumpVehiclesPercent =
+                    this.gameEngineService.GetRoadMaintenanceAndSnowDumpVehiclesPercent();
 
                 this.itemPanelsInIndexOrder[Item.RoadMaintenanceVehicles.Index].Percent =
                     roadMaintenanceAndSnowDumpVehiclesPercent.roadMaintenanceVehiclesPercent;
@@ -399,13 +414,15 @@ namespace Stats.Ui
 
             if (this.configuration.GetConfigurationItem(Item.Water).Enabled)
             {
-                this.itemPanelsInIndexOrder[Item.Water.Index].Percent = this.gameEngineService.GetWaterPercent();
+                this.itemPanelsInIndexOrder[Item.Water.Index].Percent =
+                    this.gameEngineService.GetWaterPercent();
             }
 
             if (this.configuration.GetConfigurationItem(Item.WaterPumpingServiceStorage).Enabled
                 || this.configuration.GetConfigurationItem(Item.WaterPumpingServiceVehicles).Enabled)
             {
-                var waterPumpingServiceVehiclesPercent = this.gameEngineService.GetWaterPumpingServiceVehiclesPercent();
+                var waterPumpingServiceVehiclesPercent =
+                    this.gameEngineService.GetWaterPumpingServiceVehiclesPercent();
 
                 this.itemPanelsInIndexOrder[Item.WaterPumpingServiceVehicles.Index].Percent =
                     waterPumpingServiceVehiclesPercent.waterPumpingServiceVehiclesPercent;
@@ -415,7 +432,8 @@ namespace Stats.Ui
 
             if (this.configuration.GetConfigurationItem(Item.WaterReserveTank).Enabled)
             {
-                this.itemPanelsInIndexOrder[Item.WaterReserveTank.Index].Percent = this.gameEngineService.GetWaterReservePercent();
+                this.itemPanelsInIndexOrder[Item.WaterReserveTank.Index].Percent =
+                    this.gameEngineService.GetWaterReservePercent();
             }
 
             this.UpdateLayout();
@@ -502,11 +520,13 @@ namespace Stats.Ui
         {
             if (visibleItemCount < this.configuration.MainPanelColumnCount)
             {
-                return (visibleItemCount + 1) * this.configuration.ItemPadding + visibleItemCount * this.configuration.ItemWidth;
+                return (visibleItemCount + 1) * this.configuration.ItemPadding
+                    + visibleItemCount * this.configuration.ItemWidth;
             }
             else
             {
-                return (this.configuration.MainPanelColumnCount + 1) * this.configuration.ItemPadding + this.configuration.MainPanelColumnCount * this.configuration.ItemWidth;
+                return (this.configuration.MainPanelColumnCount + 1) * this.configuration.ItemPadding
+                    + this.configuration.MainPanelColumnCount * this.configuration.ItemWidth;
             }
         }
 
