@@ -61,7 +61,15 @@
     <Compile Include="Configuration\ConfigurationModel.cs" />
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="Configuration\ConfigurationItemModel.cs" />
+    <Compile Include="GameEngineServiceReturns\DisasterResponseVehiclesPercent.cs" />
+    <Compile Include="GameEngineServiceReturns\FireDepartmentVehiclesPercent.cs" />
     <Compile Include="GameEngineService.cs" />
+    <Compile Include="GameEngineServiceReturns\GarbageVehiclesPercent.cs" />
+    <Compile Include="GameEngineServiceReturns\HealthCareVehiclesPercent.cs" />
+    <Compile Include="GameEngineServiceReturns\PoliceDepartmentVehiclesPercent.cs" />
+    <Compile Include="GameEngineServiceReturns\PostAndTaxiVehiclesPercent.cs" />
+    <Compile Include="GameEngineServiceReturns\RoadMaintenanceAndSnowDumpVehiclesPercent.cs" />
+    <Compile Include="GameEngineServiceReturns\WaterPumpingServiceVehiclesPercent.cs" />
     <Compile Include="IndexesMessedUpException.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemVisibility.cs" />

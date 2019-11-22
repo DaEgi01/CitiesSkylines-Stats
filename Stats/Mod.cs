@@ -1,4 +1,5 @@
-﻿using ColossalFramework.Globalization;
+﻿using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.IO;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
@@ -68,7 +69,14 @@ namespace Stats
             var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
             this.configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
             this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(this.SystemName, this.WorkshopId, PluginManager.instance);
-            this.gameEngineService = new GameEngineService();
+
+            this.gameEngineService = new GameEngineService(Singleton<DistrictManager>.instance, 
+                Singleton<BuildingManager>.instance,
+                Singleton<EconomyManager>.instance,
+                Singleton<ImmaterialResourceManager>.instance,
+                Singleton<CitizenManager>.instance,
+                Singleton<VehicleManager>.instance
+            );
 
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
                 ? new ConfigurationModel(configurationService, configurationService.Load())
@@ -98,7 +106,7 @@ namespace Stats
         {
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource);
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService);
         }
 
         private void DestroyMainPanel()
