@@ -12,6 +12,8 @@ namespace Stats
         private readonly CitizenManager citizenManager;
         private readonly VehicleManager vehicleManager;
 
+        private readonly District allDistricts;
+
         public GameEngineService(
             DistrictManager districtManager,
             BuildingManager buildingManager,
@@ -26,20 +28,22 @@ namespace Stats
             this.immaterialResourceManager = immaterialResourceManager ?? throw new ArgumentNullException(nameof(immaterialResourceManager));
             this.citizenManager = citizenManager ?? throw new ArgumentNullException(nameof(citizenManager));
             this.vehicleManager = vehicleManager ?? throw new ArgumentNullException(nameof(vehicleManager));
+
+            this.allDistricts = this.allDistricts;
         }
 
         public int? GetAverageIllnessRate()
         {
-            return districtManager.m_districts.m_buffer[0].GetSickCount() == 0
+            return this.allDistricts.GetSickCount() == 0
                 ? null
-                : (int?)(int)(100 - (float)districtManager.m_districts.m_buffer[0].m_residentialData.m_finalHealth);
+                : (int?)(int)(100 - (float)this.allDistricts.m_residentialData.m_finalHealth);
         }
 
         public int? GetCemeteryPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetDeadCapacity(),
-                districtManager.m_districts.m_buffer[0].GetDeadAmount()
+                this.allDistricts.GetDeadCapacity(),
+                this.allDistricts.GetDeadAmount()
             );
         }
 
@@ -156,14 +160,14 @@ namespace Stats
         public int? GetCrematoriumPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetCremateCapacity(),
-                districtManager.m_districts.m_buffer[0].GetDeadCount()
+                this.allDistricts.GetCremateCapacity(),
+                this.allDistricts.GetDeadCount()
             );
         }
 
         public int? GetCrimePercent()
         {
-            return districtManager.m_districts.m_buffer[0].m_finalCrimeRate;
+            return this.allDistricts.m_finalCrimeRate;
         }
 
         public DisasterResponseVehiclesPercent GetDisasterResponseVehiclesPercent()
@@ -211,22 +215,22 @@ namespace Stats
 
         public int? GetDrinkingWaterPollutionPercent()
         {
-            return districtManager.m_districts.m_buffer[0].GetWaterPollution();
+            return this.allDistricts.GetWaterPollution();
         }
 
         public int? GetElectricityPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetElectricityCapacity(),
-                districtManager.m_districts.m_buffer[0].GetElectricityConsumption()
+                this.allDistricts.GetElectricityCapacity(),
+                this.allDistricts.GetElectricityConsumption()
             );
         }
 
         public int? GetElementarySchoolPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetEducation1Capacity(),
-                districtManager.m_districts.m_buffer[0].GetEducation1Need()
+                this.allDistricts.GetEducation1Capacity(),
+                this.allDistricts.GetEducation1Need()
             );
         }
 
@@ -300,8 +304,8 @@ namespace Stats
 
         public int? GetGarbageProcessingPercent()
         {
-            var incineratorCapacity = districtManager.m_districts.m_buffer[0].GetIncinerationCapacity();
-            var incineratorAccumulation = districtManager.m_districts.m_buffer[0].GetGarbageAccumulation();
+            var incineratorCapacity = this.allDistricts.GetIncinerationCapacity();
+            var incineratorAccumulation = this.allDistricts.GetGarbageAccumulation();
 
             return GetUsagePercent(incineratorCapacity, incineratorAccumulation);
         }
@@ -361,36 +365,36 @@ namespace Stats
 
         public int? GetGroundPollutionPercent()
         {
-            return districtManager.m_districts.m_buffer[0].GetGroundPollution();
+            return this.allDistricts.GetGroundPollution();
         }
 
         public int? GetHealthCarePercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetHealCapacity(),
-                districtManager.m_districts.m_buffer[0].GetSickCount()
+                this.allDistricts.GetHealCapacity(),
+                this.allDistricts.GetSickCount()
             );
         }
 
         public int? GetHeatingPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetHeatingCapacity(),
-                districtManager.m_districts.m_buffer[0].GetHeatingConsumption()
+                this.allDistricts.GetHeatingCapacity(),
+                this.allDistricts.GetHeatingConsumption()
             );
         }
 
         public int? GetHighSchoolPercent()
         {
-            var highSchoolCapacity = districtManager.m_districts.m_buffer[0].GetEducation2Capacity();
-            var highSchoolUsage = districtManager.m_districts.m_buffer[0].GetEducation2Need();
+            var highSchoolCapacity = this.allDistricts.GetEducation2Capacity();
+            var highSchoolUsage = this.allDistricts.GetEducation2Need();
             return GetUsagePercent(highSchoolCapacity, highSchoolUsage);
         }
 
         public int? GetLandfillPercent()
         {
-            var garbageCapacity = districtManager.m_districts.m_buffer[0].GetGarbageCapacity();
-            var garbageAmout = districtManager.m_districts.m_buffer[0].GetGarbageAmount();
+            var garbageCapacity = this.allDistricts.GetGarbageCapacity();
+            var garbageAmout = this.allDistricts.GetGarbageAmount();
 
             return GetUsagePercent(garbageCapacity, garbageAmout);
         }
@@ -712,8 +716,8 @@ namespace Stats
         public int? GetSewageTreatmentPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetSewageCapacity(),
-                districtManager.m_districts.m_buffer[0].GetSewageAccumulation()
+                this.allDistricts.GetSewageCapacity(),
+                this.allDistricts.GetSewageAccumulation()
             );
         }
 
@@ -724,22 +728,22 @@ namespace Stats
 
         public int? GetUnemploymentPercent()
         {
-            return districtManager.m_districts.m_buffer[0].GetUnemployment();
+            return this.allDistricts.GetUnemployment();
         }
 
         public int? GetUniversityPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetEducation3Capacity(),
-                districtManager.m_districts.m_buffer[0].GetEducation3Need()
+                this.allDistricts.GetEducation3Capacity(),
+                this.allDistricts.GetEducation3Need()
             );
         }
 
         public int? GetWaterPercent()
         {
             return GetUsagePercent(
-                districtManager.m_districts.m_buffer[0].GetWaterCapacity(),
-                districtManager.m_districts.m_buffer[0].GetWaterConsumption()
+                this.allDistricts.GetWaterCapacity(),
+                this.allDistricts.GetWaterConsumption()
             );
         }
 
@@ -799,8 +803,8 @@ namespace Stats
         public int? GetWaterReservePercent()
         {
             return GetAvailabilityPercent(
-                districtManager.m_districts.m_buffer[0].GetWaterStorageCapacity(),
-                districtManager.m_districts.m_buffer[0].GetWaterStorageAmount()
+                this.allDistricts.GetWaterStorageCapacity(),
+                this.allDistricts.GetWaterStorageAmount()
             );
         }
 
