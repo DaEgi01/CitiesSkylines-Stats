@@ -29,7 +29,7 @@ namespace Stats
             this.citizenManager = citizenManager ?? throw new ArgumentNullException(nameof(citizenManager));
             this.vehicleManager = vehicleManager ?? throw new ArgumentNullException(nameof(vehicleManager));
 
-            this.allDistricts = this.allDistricts;
+            this.allDistricts = districtManager.m_districts.m_buffer[0];
         }
 
         public int? GetAverageIllnessRate()
