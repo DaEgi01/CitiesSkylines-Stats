@@ -13,7 +13,7 @@ namespace Stats.Ui
         private ConfigurationItemModel configurationItem;
         private LanguageResourceModel languageResourceModel;
 
-        //TODO refactor to localized item instead
+        //TODO: refactor to localized item instead
         public void Initialize(ConfigurationModel configuration, ConfigurationItemModel configurationItem, LanguageResourceModel languageResourceModel)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));

@@ -615,7 +615,7 @@ namespace Stats
                             int export = 0;
                             GameMethods.CalculateVehicles(buildingId, ref building, ref unsortedMail, ref sortedMail, ref unsortedCapacity, ref sortedCapacity, ref ownVanCount, ref ownTruckCount, ref import, ref export);
 
-                            //TODO mail and stuff
+                            //TODO: mail and stuff
                             int num = building.m_customBuffer1 * 1000;
                             int num2 = building.m_customBuffer2 * 1000;
 
