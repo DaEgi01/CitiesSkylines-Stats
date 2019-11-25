@@ -178,10 +178,10 @@ namespace Stats
             var disasterResponseHelicoptersTotal = 0;
             var disasterResponseHelicoptersInUse = 0;
 
-            var publicTransportBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.Disaster);
-            for (int i = 0; i < publicTransportBuildingIds.m_size; i++)
+            var disasterBuildingIds = buildingManager.GetServiceBuildings(ItemClass.Service.Disaster);
+            for (int i = 0; i < disasterBuildingIds.m_size; i++)
             {
-                var buildingId = publicTransportBuildingIds[i];
+                var buildingId = disasterBuildingIds[i];
                 var building = buildingManager.m_buildings.m_buffer[buildingId];
                 var buildingAi = building.Info?.GetAI();
                 if (buildingAi is DisasterResponseBuildingAI disasterResponseBuildingAi)
