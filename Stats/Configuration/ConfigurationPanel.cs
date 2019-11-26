@@ -15,7 +15,6 @@ namespace Stats.Configuration
         private readonly LanguageResourceModel languageResource;
         private readonly ConfigurationModel configuration;
 
-        private UISlider updateEveryXSeconds;
         private UISlider columnCountSlider;
         private UISlider itemWidth;
         private UISlider itemHeight;
