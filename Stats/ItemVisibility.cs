@@ -5,14 +5,13 @@ namespace Stats
     [StructLayout(LayoutKind.Auto)]
     public readonly struct ItemVisibilityAndChanged
     {
-        public ItemVisibilityAndChanged(bool visibility, bool visibilityChanged)
+        public readonly bool isVisible;
+        public readonly bool isVisibleChanged;
+
+        public ItemVisibilityAndChanged(bool isVisible, bool isVisibleChanged)
         {
-            IsVisibile = visibility;
-            VisibilityChanged = visibilityChanged;
+            this.isVisible = isVisible;
+            this.isVisibleChanged = isVisibleChanged;
         }
-
-        public bool IsVisibile { get; }
-
-        public bool VisibilityChanged { get; }
     }
 }

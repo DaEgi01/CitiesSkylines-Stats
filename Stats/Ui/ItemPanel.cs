@@ -134,7 +134,7 @@ namespace Stats.Ui
 
         private void UpdateUiFromModel()
         {
-            this.isVisible = this.ItemVisibility.IsVisibile;
+            this.isVisible = this.ItemVisibility.isVisible;
             if (!this.isVisible)
             {
                 return;
