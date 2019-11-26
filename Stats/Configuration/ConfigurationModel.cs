@@ -108,15 +108,6 @@ namespace Stats.Configuration
             }
         }
 
-        public int MainPanelUpdateEveryXSeconds
-        {
-            get => dto.MainPanelUpdateEveryXSeconds;
-            set
-            {
-                dto.MainPanelUpdateEveryXSeconds = value;
-            }
-        }
-
         public bool MainPanelAutoHide
         {
             get => dto.MainPanelAutoHide;

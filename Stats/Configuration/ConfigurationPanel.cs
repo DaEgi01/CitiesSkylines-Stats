@@ -64,12 +64,6 @@ namespace Stats.Configuration
             var mainPanelGroupContentPanel = (mainPanelGroupUiHelper as UIHelper).self as UIPanel;
             mainPanelGroupContentPanel.backgroundSprite = string.Empty;
 
-            this.updateEveryXSeconds = mainPanelGroupUiHelper.AddSliderWithLabel(this.languageResource.UpdateEveryXSeconds, 0, 30, 1, this.configuration.MainPanelUpdateEveryXSeconds, value =>
-            {
-                this.configuration.MainPanelUpdateEveryXSeconds = (int)value;
-                this.configuration.Save();
-            });
-
             this.columnCountSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ColumnCount, 1, 30, 1, this.configuration.MainPanelColumnCount, value =>
             {
                 this.configuration.MainPanelColumnCount = (int)value;
@@ -157,7 +151,6 @@ namespace Stats.Configuration
 
         private void UpdateUiFromModel()
         {
-            this.updateEveryXSeconds.value = this.configuration.MainPanelUpdateEveryXSeconds;
             this.columnCountSlider.value = this.configuration.MainPanelColumnCount;
             this.itemWidth.value = this.configuration.ItemWidth;
             this.itemHeight.value = this.configuration.ItemHeight;
