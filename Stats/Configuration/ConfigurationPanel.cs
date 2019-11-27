@@ -46,7 +46,7 @@ namespace Stats.Configuration
 
             mainGroupUiHelper.AddButton(this.languageResource.Reset, () =>
             {
-                var oldSelectedItemName = this.selectedItem.Item.Name;
+                var oldSelectedItemName = this.selectedItem.ItemData.Name;
                 this.configuration.Reset();
 
                 this.UpdateUiFromModel();
@@ -115,13 +115,13 @@ namespace Stats.Configuration
             var itemGroupContentPanel = (itemGroupUiHelper as UIHelper).self as UIPanel;
             itemGroupContentPanel.backgroundSprite = string.Empty;
 
-            var itemStringArray = Item.AllItems
+            var itemStringArray = ItemData.AllItems
                 .Select(x => this.languageResource.GetItemLocalizedItemString(x))
                 .ToArray();
             var firstSelectedIndex = default(int);
-            this.selectedItem = this.configuration.GetConfigurationItem(Item.AllItems[firstSelectedIndex]);
+            this.selectedItem = this.configuration.GetConfigurationItem(ItemData.AllItems[firstSelectedIndex]);
             this.items = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) => {
-                this.selectedItem = this.configuration.GetConfigurationItem(Item.AllItems[index]);
+                this.selectedItem = this.configuration.GetConfigurationItem(ItemData.AllItems[index]);
                 this.UpdateSelectedItemFromModel();
             }) as UIDropDown;
             var itemsDropdownPanel = this.items.parent as UIPanel;

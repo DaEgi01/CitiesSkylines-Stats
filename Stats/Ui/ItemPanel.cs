@@ -82,15 +82,15 @@ namespace Stats.Ui
             iconButton.height = this.height;
             iconButton.relativePosition = new Vector3(this.width - this.height, 0);
             iconButton.disabledBgSprite = "InfoIconBaseDisabled";
-            iconButton.disabledFgSprite = $"{configurationItem.Item.Icon}Disabled";
+            iconButton.disabledFgSprite = $"{configurationItem.ItemData.Icon}Disabled";
             iconButton.focusedBgSprite = "InfoIconBaseNormal"; //don't use focused state
-            iconButton.focusedFgSprite = $"{configurationItem.Item.Icon}"; //don't use focused state
+            iconButton.focusedFgSprite = $"{configurationItem.ItemData.Icon}"; //don't use focused state
             iconButton.hoveredBgSprite = "InfoIconBaseHovered";
-            iconButton.hoveredFgSprite = $"{configurationItem.Item.Icon}Hovered";
+            iconButton.hoveredFgSprite = $"{configurationItem.ItemData.Icon}Hovered";
             iconButton.pressedBgSprite = "InfoIconBasePressed";
-            iconButton.pressedFgSprite = $"{configurationItem.Item.Icon}Pressed";
+            iconButton.pressedFgSprite = $"{configurationItem.ItemData.Icon}Pressed";
             iconButton.normalBgSprite = "InfoIconBaseNormal";
-            iconButton.normalFgSprite = $"{configurationItem.Item.Icon}";
+            iconButton.normalFgSprite = $"{configurationItem.ItemData.Icon}";
             iconButton.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             iconButton.textScaleMode = UITextScaleMode.ControlSize;
 
@@ -103,19 +103,19 @@ namespace Stats.Ui
         {
             var infoManager = Singleton<InfoManager>.instance;
 
-            if (infoManager.CurrentMode == configurationItem.Item.InfoMode && infoManager.CurrentSubMode == configurationItem.Item.SubInfoMode)
+            if (infoManager.CurrentMode == configurationItem.ItemData.InfoMode && infoManager.CurrentSubMode == configurationItem.ItemData.SubInfoMode)
             {
                 infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
             }
             else
             {
-                infoManager.SetCurrentMode(configurationItem.Item.InfoMode, configurationItem.Item.SubInfoMode);
+                infoManager.SetCurrentMode(configurationItem.ItemData.InfoMode, configurationItem.ItemData.SubInfoMode);
             }
         }
 
         public void UpdateLocalizedTooltips()
         {
-            var localizedTooltip = this.languageResourceModel.GetItemLocalizedItemString(configurationItem.Item);
+            var localizedTooltip = this.languageResourceModel.GetItemLocalizedItemString(configurationItem.ItemData);
 
             this.IconButton.tooltip = localizedTooltip;
             this.PercentButton.tooltip = localizedTooltip;

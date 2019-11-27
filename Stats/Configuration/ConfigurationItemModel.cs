@@ -8,15 +8,15 @@ namespace Stats.Configuration
         private int criticalThreshold;
         private int sortOrder;
 
-        public ConfigurationItemModel(Item item, bool enabled, int criticalThreshold, int sortOrder)
+        public ConfigurationItemModel(ItemData itemData, bool enabled, int criticalThreshold, int sortOrder)
         {
-            Item = item;
+            ItemData = itemData;
             Enabled = enabled;
             CriticalThreshold = criticalThreshold;
             SortOrder = sortOrder;
         }
 
-        public Item Item { get; }
+        public ItemData ItemData { get; }
 
         public bool Enabled
         {
