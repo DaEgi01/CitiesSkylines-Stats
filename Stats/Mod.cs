@@ -6,8 +6,10 @@ using ColossalFramework.UI;
 using ICities;
 using Stats.Configuration;
 using Stats.Localization;
+using Stats.Model;
 using Stats.Ui;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace Stats
@@ -21,6 +23,7 @@ namespace Stats
         private ConfigurationModel configuration;
         private LanguageResourceModel languageResource;
 
+        private Items items;
         private MainPanel mainPanel;
 
         public string SystemName => "Stats";
@@ -88,6 +91,11 @@ namespace Stats
             {
                 this.languageResource = new LanguageResourceModel(this.languageResourceService, LocaleManager.instance);
             }
+
+            var itemModels = ItemData.AllItems
+                .Select(x => new Item(this.configuration, this.configuration.GetConfigurationItem(x)))
+                .ToList();
+            this.items = new Items(itemModels);
         }
 
         private void DestroyDependencies()
@@ -106,7 +114,7 @@ namespace Stats
         {
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService);
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, this.items);
         }
 
         private void DestroyMainPanel()

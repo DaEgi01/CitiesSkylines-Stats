@@ -71,7 +71,7 @@
     <Compile Include="GameEngineServiceReturns\RoadMaintenanceAndSnowDumpVehiclesPercent.cs" />
     <Compile Include="GameEngineServiceReturns\WaterPumpingServiceVehiclesPercent.cs" />
     <Compile Include="IndexesMessedUpException.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="ItemData.cs" />
     <Compile Include="ItemVisibility.cs" />
     <Compile Include="Localization\LanguageResourceModel.cs" />
     <Compile Include="Localization\LanguageResourceDto.cs" />
@@ -79,11 +79,13 @@
     <Compile Include="Localization\LanguageResourceService.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Configuration\ConfigurationDto.cs" />
+    <Compile Include="Model\Items.cs" />
     <Compile Include="ModFullTitle.cs" />
     <Compile Include="GameMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\ConfigurationService.cs" />
     <Compile Include="UIHelperExtensions.cs" />
+    <Compile Include="Model\Item.cs" />
     <Compile Include="Ui\MainPanel.cs" />
     <Compile Include="Configuration\ConfigurationPanel.cs" />
     <Compile Include="Ui\ItemPanel.cs" />

@@ -2,6 +2,7 @@
 using ColossalFramework.UI;
 using Stats.Configuration;
 using Stats.Localization;
+using Stats.Model;
 using System;
 using UnityEngine;
 
@@ -10,14 +11,13 @@ namespace Stats.Ui
     public class ItemPanel : UIPanel
     {
         private ConfigurationModel configuration;
-        private ConfigurationItemModel configurationItem;
         private LanguageResourceModel languageResourceModel;
 
         //TODO: refactor to localized item instead
-        public void Initialize(ConfigurationModel configuration, ConfigurationItemModel configurationItem, LanguageResourceModel languageResourceModel)
+        public void Initialize(ConfigurationModel configuration, Item item, LanguageResourceModel languageResourceModel)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            this.configurationItem = configurationItem ?? throw new ArgumentNullException(nameof(configurationItem));
+            this.Item = item ?? throw new ArgumentNullException(nameof(item));
             this.languageResourceModel = languageResourceModel ?? throw new ArgumentNullException(nameof(languageResourceModel));
 
             this.width = configuration.ItemWidth;
@@ -26,32 +26,21 @@ namespace Stats.Ui
             this.CreateAndAddIconButton();
             this.CreateAndAddPercentButton();
 
-            configurationItem.PropertyChanged += ConfigurationItem_PropertyChanged;
+            item.PercentChanged += this.UpdatePercentAndColors;
+            item.VisibilityChanged += this.UpdateVisibility;
         }
 
         public override void OnDestroy()
         {
-            configurationItem.PropertyChanged -= ConfigurationItem_PropertyChanged;
+            Item.PercentChanged -= this.UpdatePercentAndColors;
+            Item.VisibilityChanged -= this.UpdateVisibility;
 
             base.OnDestroy();
         }
 
-        public ConfigurationItemModel ConfigurationItem => this.configurationItem;
         public UIButton IconButton { get; private set; }
         public UIButton PercentButton { get; private set; }
-        public ItemVisibilityAndChanged ItemVisibility { get; private set; }
-
-        private int? percent;
-
-        public int? Percent
-        {
-            get => this.percent;
-            set
-            {
-                this.percent = value;
-                UpdateItemVisibilityAndValues();
-            }
-        }
+        public Item Item { get; private set; }
 
         private void CreateAndAddPercentButton()
         {
@@ -82,15 +71,15 @@ namespace Stats.Ui
             iconButton.height = this.height;
             iconButton.relativePosition = new Vector3(this.width - this.height, 0);
             iconButton.disabledBgSprite = "InfoIconBaseDisabled";
-            iconButton.disabledFgSprite = $"{configurationItem.ItemData.Icon}Disabled";
+            iconButton.disabledFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}Disabled";
             iconButton.focusedBgSprite = "InfoIconBaseNormal"; //don't use focused state
-            iconButton.focusedFgSprite = $"{configurationItem.ItemData.Icon}"; //don't use focused state
+            iconButton.focusedFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}"; //don't use focused state
             iconButton.hoveredBgSprite = "InfoIconBaseHovered";
-            iconButton.hoveredFgSprite = $"{configurationItem.ItemData.Icon}Hovered";
+            iconButton.hoveredFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}Hovered";
             iconButton.pressedBgSprite = "InfoIconBasePressed";
-            iconButton.pressedFgSprite = $"{configurationItem.ItemData.Icon}Pressed";
+            iconButton.pressedFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}Pressed";
             iconButton.normalBgSprite = "InfoIconBaseNormal";
-            iconButton.normalFgSprite = $"{configurationItem.ItemData.Icon}";
+            iconButton.normalFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}";
             iconButton.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             iconButton.textScaleMode = UITextScaleMode.ControlSize;
 
@@ -103,77 +92,38 @@ namespace Stats.Ui
         {
             var infoManager = Singleton<InfoManager>.instance;
 
-            if (infoManager.CurrentMode == configurationItem.ItemData.InfoMode && infoManager.CurrentSubMode == configurationItem.ItemData.SubInfoMode)
+            if (infoManager.CurrentMode == this.Item.ConfigurationItem.ItemData.InfoMode
+                && infoManager.CurrentSubMode == this.Item.ConfigurationItem.ItemData.SubInfoMode)
             {
                 infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
             }
             else
             {
-                infoManager.SetCurrentMode(configurationItem.ItemData.InfoMode, configurationItem.ItemData.SubInfoMode);
+                infoManager.SetCurrentMode(
+                    this.Item.ConfigurationItem.ItemData.InfoMode,
+                    this.Item.ConfigurationItem.ItemData.SubInfoMode);
             }
         }
 
         public void UpdateLocalizedTooltips()
         {
-            var localizedTooltip = this.languageResourceModel.GetItemLocalizedItemString(configurationItem.ItemData);
+            var localizedTooltip = this.languageResourceModel.GetItemLocalizedItemString(this.Item.ConfigurationItem.ItemData);
 
             this.IconButton.tooltip = localizedTooltip;
             this.PercentButton.tooltip = localizedTooltip;
         }
 
-        private void ConfigurationItem_PropertyChanged()
+        private void UpdateVisibility()
         {
-            UpdateItemVisibilityAndValues();
+            this.isVisible = this.Item.IsVisible;
         }
 
-        private void UpdateItemVisibilityAndValues()
+        private void UpdatePercentAndColors()
         {
-            this.ItemVisibility = this.GetItemVisibilityAndChanged();
-            this.UpdateUiFromModel();
-        }
-
-        private void UpdateUiFromModel()
-        {
-            this.isVisible = this.ItemVisibility.isVisible;
-            if (!this.isVisible)
-            {
-                return;
-            }
-
-            this.PercentButton.text = GetUsagePercentString(this.percent);
-            this.PercentButton.textColor = GetItemTextColor(this.percent, configurationItem.CriticalThreshold);
-            this.PercentButton.focusedColor = GetItemTextColor(this.percent, configurationItem.CriticalThreshold);
-            this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(this.percent, configurationItem.CriticalThreshold);
-        }
-
-        public ItemVisibilityAndChanged GetItemVisibilityAndChanged()
-        {
-            var oldItemVisible = this.isVisible;
-            var newItemVisible = GetItemVisibility(configurationItem.Enabled, this.percent, configurationItem.CriticalThreshold);
-
-            return new ItemVisibilityAndChanged(newItemVisible, oldItemVisible != newItemVisible);
-        }
-
-        private bool GetItemVisibility(bool enabled, int? percent, int threshold)
-        {
-            if (!enabled)
-            {
-                return false;
-            }
-
-            if (percent.HasValue)
-            {
-                if (this.configuration.MainPanelHideItemsBelowThreshold)
-                {
-                    return threshold < percent.Value;
-                }
-
-                return true;
-            }
-            else
-            {
-                return !this.configuration.MainPanelHideItemsNotAvailable;
-            }
+            this.PercentButton.text = GetUsagePercentString(this.Item.Percent);
+            this.PercentButton.textColor = GetItemTextColor(this.Item.Percent, this.Item.ConfigurationItem.CriticalThreshold);
+            this.PercentButton.focusedColor = GetItemTextColor(this.Item.Percent, this.Item.ConfigurationItem.CriticalThreshold);
+            this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(this.Item.Percent, this.Item.ConfigurationItem.CriticalThreshold);
         }
 
         private string GetUsagePercentString(int? percent)
