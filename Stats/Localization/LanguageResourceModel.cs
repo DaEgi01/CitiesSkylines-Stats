@@ -46,7 +46,7 @@ namespace Stats.Localization
         public string CriticalThreshold => localizedStrings["CriticalThreshold"];
         public string SortOrder => localizedStrings["SortOrder"];
 
-        public string GetItemLocalizedItemString(Item item)
+        public string GetItemLocalizedItemString(ItemData item)
         {
             return localizedStrings[item.Name];
         }
