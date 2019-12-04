@@ -6,8 +6,9 @@ namespace Stats.Config
     public class Configuration
     {
         private readonly ConfigurationService<ConfigurationDto> configurationService;
+        private readonly ConfigurationItemData[] configurationItemDatas;
+        
         private ConfigurationDto dto;
-        private ConfigurationItemData[] configurationItemDatas;
 
         public Configuration(ConfigurationService<ConfigurationDto> configurationService, ConfigurationDto dto)
         {
