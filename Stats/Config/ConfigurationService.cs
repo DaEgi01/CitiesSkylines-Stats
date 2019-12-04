@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Stats.Configuration
+namespace Stats.Config
 {
     public class ConfigurationService<T>
     {

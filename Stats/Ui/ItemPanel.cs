@@ -1,6 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
-using Stats.Configuration;
+using Stats.Config;
 using Stats.Localization;
 using Stats.Model;
 using System;
@@ -10,15 +10,15 @@ namespace Stats.Ui
 {
     public class ItemPanel : UIPanel
     {
-        private ConfigurationModel configuration;
-        private LanguageResourceModel languageResourceModel;
+        private Configuration configuration;
+        private LanguageResource languageResource;
 
         //TODO: refactor to localized item instead
-        public void Initialize(ConfigurationModel configuration, Item item, LanguageResourceModel languageResourceModel)
+        public void Initialize(Configuration configuration, Item item, LanguageResource languageResource)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.Item = item ?? throw new ArgumentNullException(nameof(item));
-            this.languageResourceModel = languageResourceModel ?? throw new ArgumentNullException(nameof(languageResourceModel));
+            this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
 
             this.width = configuration.ItemWidth;
             this.height = configuration.ItemHeight;
@@ -71,15 +71,15 @@ namespace Stats.Ui
             iconButton.height = this.height;
             iconButton.relativePosition = new Vector3(this.width - this.height, 0);
             iconButton.disabledBgSprite = "InfoIconBaseDisabled";
-            iconButton.disabledFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}Disabled";
+            iconButton.disabledFgSprite = $"{this.Item.ItemData.Icon}Disabled";
             iconButton.focusedBgSprite = "InfoIconBaseNormal"; //don't use focused state
-            iconButton.focusedFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}"; //don't use focused state
+            iconButton.focusedFgSprite = $"{this.Item.ItemData.Icon}"; //don't use focused state
             iconButton.hoveredBgSprite = "InfoIconBaseHovered";
-            iconButton.hoveredFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}Hovered";
+            iconButton.hoveredFgSprite = $"{this.Item.ItemData.Icon}Hovered";
             iconButton.pressedBgSprite = "InfoIconBasePressed";
-            iconButton.pressedFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}Pressed";
+            iconButton.pressedFgSprite = $"{this.Item.ItemData.Icon}Pressed";
             iconButton.normalBgSprite = "InfoIconBaseNormal";
-            iconButton.normalFgSprite = $"{this.Item.ConfigurationItem.ItemData.Icon}";
+            iconButton.normalFgSprite = $"{this.Item.ItemData.Icon}";
             iconButton.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             iconButton.textScaleMode = UITextScaleMode.ControlSize;
 
@@ -92,22 +92,22 @@ namespace Stats.Ui
         {
             var infoManager = Singleton<InfoManager>.instance;
 
-            if (infoManager.CurrentMode == this.Item.ConfigurationItem.ItemData.InfoMode
-                && infoManager.CurrentSubMode == this.Item.ConfigurationItem.ItemData.SubInfoMode)
+            if (infoManager.CurrentMode == this.Item.ItemData.InfoMode
+                && infoManager.CurrentSubMode == this.Item.ItemData.SubInfoMode)
             {
                 infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
             }
             else
             {
                 infoManager.SetCurrentMode(
-                    this.Item.ConfigurationItem.ItemData.InfoMode,
-                    this.Item.ConfigurationItem.ItemData.SubInfoMode);
+                    this.Item.ItemData.InfoMode,
+                    this.Item.ItemData.SubInfoMode);
             }
         }
 
         public void UpdateLocalizedTooltips()
         {
-            var localizedTooltip = this.languageResourceModel.GetItemLocalizedItemString(this.Item.ConfigurationItem.ItemData);
+            var localizedTooltip = this.languageResource.GetItemLocalizedItemString(this.Item.ItemData);
 
             this.IconButton.tooltip = localizedTooltip;
             this.PercentButton.tooltip = localizedTooltip;
@@ -121,9 +121,9 @@ namespace Stats.Ui
         private void UpdatePercentAndColors()
         {
             this.PercentButton.text = GetUsagePercentString(this.Item.Percent);
-            this.PercentButton.textColor = GetItemTextColor(this.Item.Percent, this.Item.ConfigurationItem.CriticalThreshold);
-            this.PercentButton.focusedColor = GetItemTextColor(this.Item.Percent, this.Item.ConfigurationItem.CriticalThreshold);
-            this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(this.Item.Percent, this.Item.ConfigurationItem.CriticalThreshold);
+            this.PercentButton.textColor = GetItemTextColor(this.Item.Percent, this.Item.CriticalThreshold);
+            this.PercentButton.focusedColor = GetItemTextColor(this.Item.Percent, this.Item.CriticalThreshold);
+            this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(this.Item.Percent, this.Item.CriticalThreshold);
         }
 
         private string GetUsagePercentString(int? percent)

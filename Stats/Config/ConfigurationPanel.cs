@@ -3,8 +3,9 @@ using ColossalFramework.UI;
 using ICities;
 using System;
 using System.Linq;
+using Stats.Model;
 
-namespace Stats.Configuration
+namespace Stats.Config
 {
     public class ConfigurationPanel
     {
@@ -12,30 +13,38 @@ namespace Stats.Configuration
 
         private readonly UIHelperBase uiHelperBase;
         private readonly ModFullTitle modFullTitle;
-        private readonly LanguageResourceModel languageResource;
-        private readonly ConfigurationModel configuration;
+        private readonly LanguageResource languageResource;
+        private readonly Configuration configuration;
 
         private UISlider columnCountSlider;
-        private UISlider itemWidth;
-        private UISlider itemHeight;
-        private UISlider itemPadding;
-        private UISlider itemTextScale;
-        private UICheckBox autoHide;
-        private UICheckBox hideItemsBelowThreshold;
-        private UICheckBox hideItemsNotAvailable;
-        private UIDropDown items;
-        private UICheckBox enabled;
-        private UISlider criticalThreshold;
-        private UITextField sortOrder;
+        private UISlider itemWidthSlider;
+        private UISlider itemHeightSlider;
+        private UISlider itemPaddingSlider;
+        private UISlider itemTextScaleSlider;
+        private UICheckBox autoHideCheckBox;
+        private UICheckBox hideItemsBelowThresholdCheckBox;
+        private UICheckBox hideItemsNotAvailableCheckBox;
+        private UIDropDown itemsDropDown;
+        private UICheckBox enabledCheckBox;
+        private UISlider criticalThresholdSlider;
+        private UITextField sortOrderTextField;
 
-        private ConfigurationItemModel selectedItem;
+        private readonly ItemsInIndexOrder itemsInIndexOrder;
+        private Item selectedItem;
 
-        public ConfigurationPanel(UIHelperBase uiHelperBase, ModFullTitle modFullTitle, ConfigurationModel configuration, LanguageResourceModel languageResource)
+        public ConfigurationPanel(
+            UIHelperBase uiHelperBase,
+            ModFullTitle modFullTitle,
+            Configuration configuration,
+            LanguageResource languageResource,
+            ItemsInIndexOrder itemsInIndexOrder)
         {
             this.uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
             this.modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
+
+            this.itemsInIndexOrder = itemsInIndexOrder;
         }
 
         public void Initialize()
@@ -69,43 +78,43 @@ namespace Stats.Configuration
                 this.configuration.Save();
             });
 
-            this.itemWidth = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemWidth, 10, 100, 1, this.configuration.ItemWidth, value =>
+            this.itemWidthSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemWidth, 10, 100, 1, this.configuration.ItemWidth, value =>
             {
                 this.configuration.ItemWidth = value;
                 this.configuration.Save();
             });
 
-            this.itemHeight = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemHeight, 10, 100, 1, this.configuration.ItemHeight, value =>
+            this.itemHeightSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemHeight, 10, 100, 1, this.configuration.ItemHeight, value =>
             {
                 this.configuration.ItemHeight = value;
                 this.configuration.Save();
             });
 
-            this.itemPadding = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemPadding, 0, 30, 1, this.configuration.ItemPadding, value =>
+            this.itemPaddingSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemPadding, 0, 30, 1, this.configuration.ItemPadding, value =>
             {
                 this.configuration.ItemPadding = value;
                 this.configuration.Save();
             });
 
-            this.itemTextScale = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemTextScale, 0, 4, 0.1f, this.configuration.ItemTextScale, value =>
+            this.itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemTextScale, 0, 4, 0.1f, this.configuration.ItemTextScale, value =>
             {
                 this.configuration.ItemTextScale = value;
                 this.configuration.Save();
             });
 
-            this.autoHide = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.AutoHide, this.configuration.MainPanelAutoHide, _checked =>
+            this.autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.AutoHide, this.configuration.MainPanelAutoHide, _checked =>
             {
                 this.configuration.MainPanelAutoHide = _checked;
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.hideItemsBelowThreshold = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsBelowThreshold, this.configuration.MainPanelHideItemsBelowThreshold, _checked =>
+            this.hideItemsBelowThresholdCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsBelowThreshold, this.configuration.MainPanelHideItemsBelowThreshold, _checked =>
             {
                 this.configuration.MainPanelHideItemsBelowThreshold = _checked;
                 this.configuration.Save();
             }) as UICheckBox;
 
-            this.hideItemsNotAvailable = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsNotAvailable, this.configuration.MainPanelHideItemsNotAvailable, _checked =>
+            this.hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsNotAvailable, this.configuration.MainPanelHideItemsNotAvailable, _checked =>
             {
                 this.configuration.MainPanelHideItemsNotAvailable = _checked;
                 this.configuration.Save();
@@ -119,54 +128,54 @@ namespace Stats.Configuration
                 .Select(x => this.languageResource.GetItemLocalizedItemString(x))
                 .ToArray();
             var firstSelectedIndex = default(int);
-            this.selectedItem = this.configuration.GetConfigurationItem(ItemData.AllItems[firstSelectedIndex]);
-            this.items = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) => {
-                this.selectedItem = this.configuration.GetConfigurationItem(ItemData.AllItems[index]);
+            this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[firstSelectedIndex]);
+            this.itemsDropDown = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) => {
+                this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[index]);
                 this.UpdateSelectedItemFromModel();
             }) as UIDropDown;
-            var itemsDropdownPanel = this.items.parent as UIPanel;
+            var itemsDropdownPanel = this.itemsDropDown.parent as UIPanel;
             itemsDropdownPanel.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
 
-            this.enabled = itemGroupUiHelper.AddCheckbox(languageResource.Enabled, this.selectedItem.Enabled, _checked =>
+            this.enabledCheckBox = itemGroupUiHelper.AddCheckbox(languageResource.Enabled, this.selectedItem.Enabled, _checked =>
             {
                 this.selectedItem.Enabled = _checked;
                 this.configuration.Save();
             }) as UICheckBox;
             itemGroupUiHelper.AddSpace(space);
 
-            this.criticalThreshold = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.selectedItem.CriticalThreshold, value =>
+            this.criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.selectedItem.CriticalThreshold, value =>
             {
                 this.selectedItem.CriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
-            this.sortOrder = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, this.selectedItem.SortOrder.ToString(), v =>
+            this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, this.selectedItem.SortOrder.ToString(), v =>
             {
                 this.selectedItem.SortOrder = int.Parse(v);
                 this.configuration.Save();
             }) as UITextField;
-            this.sortOrder.numericalOnly = true;
+            this.sortOrderTextField.numericalOnly = true;
         }
 
         private void UpdateUiFromModel()
         {
             this.columnCountSlider.value = this.configuration.MainPanelColumnCount;
-            this.itemWidth.value = this.configuration.ItemWidth;
-            this.itemHeight.value = this.configuration.ItemHeight;
-            this.itemPadding.value = this.configuration.ItemPadding;
-            this.itemTextScale.value = this.configuration.ItemTextScale;
-            this.autoHide.isChecked = this.configuration.MainPanelAutoHide;
-            this.hideItemsBelowThreshold.isChecked = this.configuration.MainPanelHideItemsBelowThreshold;
-            this.hideItemsNotAvailable.isChecked = this.configuration.MainPanelHideItemsNotAvailable;
+            this.itemWidthSlider.value = this.configuration.ItemWidth;
+            this.itemHeightSlider.value = this.configuration.ItemHeight;
+            this.itemPaddingSlider.value = this.configuration.ItemPadding;
+            this.itemTextScaleSlider.value = this.configuration.ItemTextScale;
+            this.autoHideCheckBox.isChecked = this.configuration.MainPanelAutoHide;
+            this.hideItemsBelowThresholdCheckBox.isChecked = this.configuration.MainPanelHideItemsBelowThreshold;
+            this.hideItemsNotAvailableCheckBox.isChecked = this.configuration.MainPanelHideItemsNotAvailable;
 
             this.UpdateSelectedItemFromModel();
         }
 
         private void UpdateSelectedItemFromModel()
         {
-            this.enabled.isChecked = this.selectedItem.Enabled;
-            this.criticalThreshold.value = this.selectedItem.CriticalThreshold;
-            this.sortOrder.text = this.selectedItem.SortOrder.ToString();
+            this.enabledCheckBox.isChecked = this.selectedItem.Enabled;
+            this.criticalThresholdSlider.value = this.selectedItem.CriticalThreshold;
+            this.sortOrderTextField.text = this.selectedItem.SortOrder.ToString();
         }
     }
 }

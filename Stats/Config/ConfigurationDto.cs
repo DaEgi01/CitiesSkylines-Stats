@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Stats.Configuration
+namespace Stats.Config
 {
     [XmlRoot("Configuration")]
     public class ConfigurationDto

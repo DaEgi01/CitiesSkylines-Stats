@@ -4,7 +4,7 @@ using ColossalFramework.IO;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
-using Stats.Configuration;
+using Stats.Config;
 using Stats.Localization;
 using Stats.Model;
 using Stats.Ui;
@@ -20,10 +20,10 @@ namespace Stats
         private LanguageResourceService<LanguageResourceDto> languageResourceService;
         private GameEngineService gameEngineService;
 
-        private ConfigurationModel configuration;
-        private LanguageResourceModel languageResource;
+        private Config.Configuration configuration;
+        private LanguageResource languageResource;
 
-        private Items items;
+        private ItemsInIndexOrder itemsInIndexOrder;
         private MainPanel mainPanel;
 
         public string SystemName => "Stats";
@@ -73,7 +73,7 @@ namespace Stats
             this.configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
             this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(this.SystemName, this.WorkshopId, PluginManager.instance);
 
-            this.gameEngineService = new GameEngineService(Singleton<DistrictManager>.instance, 
+            this.gameEngineService = new GameEngineService(Singleton<DistrictManager>.instance,
                 Singleton<BuildingManager>.instance,
                 Singleton<EconomyManager>.instance,
                 Singleton<ImmaterialResourceManager>.instance,
@@ -82,20 +82,32 @@ namespace Stats
             );
 
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
-                ? new ConfigurationModel(configurationService, configurationService.Load())
-                : new ConfigurationModel(configurationService, new ConfigurationDto());
+                ? new Config.Configuration(configurationService, configurationService.Load())
+                : new Config.Configuration(configurationService, new ConfigurationDto());
 
             //do not instantiate LocaleManager here.
             //LocaleManager.instance must be called later than during OnEnabled() at the first game start or will causes bugs
             if (LocaleManager.exists)
             {
-                this.languageResource = new LanguageResourceModel(this.languageResourceService, LocaleManager.instance);
+                this.languageResource = new LanguageResource(this.languageResourceService, LocaleManager.instance);
             }
 
-            var itemModels = ItemData.AllItems
-                .Select(x => new Item(this.configuration, this.configuration.GetConfigurationItem(x)))
-                .ToList();
-            this.items = new Items(itemModels);
+            this.itemsInIndexOrder = new ItemsInIndexOrder(
+                ItemData.AllItems
+                    .Select(x =>
+                    {
+                        var configurationItemData = this.configuration.GetConfigurationItemData(x);
+                        return new Item(
+                            this.configuration,
+                            x,
+                            configurationItemData.enabled,
+                            configurationItemData.criticalThreshold,
+                            configurationItemData.sortOrder
+                        );
+                    })
+                    .OrderBy(x => x.ItemData.Index)
+                    .ToArray()
+                );
         }
 
         private void DestroyDependencies()
@@ -104,7 +116,6 @@ namespace Stats
             this.languageResourceService = null;
             this.gameEngineService = null;
 
-            this.configuration.Dispose();
             this.configuration = null;
             this.languageResource.Dispose();
             this.languageResource = null;
@@ -114,7 +125,7 @@ namespace Stats
         {
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, this.items);
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, this.itemsInIndexOrder);
         }
 
         private void DestroyMainPanel()
@@ -128,12 +139,17 @@ namespace Stats
             //Workaround for game start only, because here we can access LocaleManager.instance without issues.
             if (this.languageResource == null)
             {
-                this.languageResource = new LanguageResourceModel(this.languageResourceService, LocaleManager.instance);
+                this.languageResource = new LanguageResource(this.languageResourceService, LocaleManager.instance);
             }
 
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            var configurationPanel = new ConfigurationPanel(helper, modFullTitle, this.configuration, this.languageResource);
-            configurationPanel.Initialize();
+            new ConfigurationPanel(
+                helper,
+                modFullTitle,
+                configuration,
+                languageResource,
+                itemsInIndexOrder
+            ).Initialize();
         }
 
         //TODO: postvans in use - to be tested, add translations

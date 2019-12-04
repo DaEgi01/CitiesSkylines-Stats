@@ -1,24 +1,76 @@
-﻿using Stats.Configuration;
+﻿using Stats.Config;
 using System;
 
 namespace Stats.Model
 {
     public class Item
     {
-        private readonly ConfigurationModel configurationModel;
-        private readonly ConfigurationItemModel configurationItem;
-
+        private readonly Configuration configuration;
+        private readonly ItemData itemData;
+        
+        private bool enabled;
+        private int criticalThreshold;
+        private int sortOrder;
         private int? percent;
+        private bool isVisible;
 
-        public Item(ConfigurationModel configurationModel, ConfigurationItemModel configurationItem)
+        public Item(Configuration configuration, ItemData itemData, bool enabled, int criticalThreshold, int sortOrder)
         {
-            this.configurationModel = configurationModel ?? throw new ArgumentNullException(nameof(configurationModel));
-            this.configurationItem = configurationItem ?? throw new ArgumentNullException(nameof(configurationItem));
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
-            this.configurationItem.PropertyChanged += ConfigurationItem_PropertyChanged;
+            this.itemData = itemData;
+
+            this.enabled = enabled;
+            this.criticalThreshold = criticalThreshold;
+            this.sortOrder = sortOrder;
         }
 
-        public ConfigurationItemModel ConfigurationItem => this.configurationItem;
+        public ItemData ItemData => itemData;
+
+        public bool Enabled
+        {
+            get => enabled;
+            set
+            {
+                if (enabled == value)
+                {
+                    return;
+                }
+
+                enabled = value;
+                this.UpdateVisibilityAndRaiseOnVisibilityChanged();
+            }
+        }
+
+        public int CriticalThreshold
+        {
+            get => criticalThreshold;
+            set
+            {
+                if (criticalThreshold == value)
+                {
+                    return;
+                }
+
+                criticalThreshold = value;
+                UpdateVisibilityAndRaiseOnVisibilityChanged();
+            }
+        }
+
+        public int SortOrder
+        {
+            get => sortOrder;
+            set
+            {
+                if (sortOrder == value)
+                {
+                    return;
+                }
+
+                sortOrder = value;
+                OnSortOrderChanged();
+            }
+        }
 
         public int? Percent
         {
@@ -30,24 +82,29 @@ namespace Stats.Model
                     return;
                 }
 
-                var oldVisibility = this.IsVisible;
-
                 percent = value;
-                this.OnPercentChanged();
-
-                if (oldVisibility != this.IsVisible)
-                {
-                    this.OnVisibilityChanged();
-                }
+                UpdateVisibilityAndRaiseOnVisibilityChanged();
+                OnPercentChanged();
             }
         }
 
-        public bool IsVisible => GetItemVisibility(
-            this.configurationItem.Enabled,
-            this.percent,
-            this.configurationItem.CriticalThreshold,
-            this.configurationModel.MainPanelHideItemsBelowThreshold,
-            this.configurationModel.MainPanelHideItemsNotAvailable);
+        public bool IsVisible => isVisible;
+
+        private void UpdateVisibilityAndRaiseOnVisibilityChanged()
+        {
+            var oldVisibility = isVisible;
+            isVisible = GetItemVisibility(
+                enabled,
+                percent,
+                criticalThreshold,
+                configuration.MainPanelHideItemsBelowThreshold,
+                configuration.MainPanelHideItemsNotAvailable);
+
+            if (oldVisibility != isVisible)
+            {
+                OnVisibilityChanged();
+            }
+        }
 
         private bool GetItemVisibility(bool enabled, int? percent, int threshold, bool hideItemsBelowThreshold, bool hideItemsNotAvailable)
         {
@@ -70,25 +127,26 @@ namespace Stats.Model
                 return !hideItemsNotAvailable;
             }
         }
-        
+
         public event Action PercentChanged;
 
         private void OnPercentChanged()
         {
-            this.PercentChanged?.Invoke();
+            PercentChanged?.Invoke();
         }
 
         public event Action VisibilityChanged;
 
         private void OnVisibilityChanged()
         {
-            this.VisibilityChanged?.Invoke();
+            VisibilityChanged?.Invoke();
         }
 
-        //TODO could be optimized
-        private void ConfigurationItem_PropertyChanged()
+        public event Action SortOrderChanged;
+
+        private void OnSortOrderChanged()
         {
-            this.OnVisibilityChanged();
+            SortOrderChanged?.Invoke();
         }
     }
 }

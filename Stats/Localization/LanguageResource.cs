@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace Stats.Localization
 {
-    public class LanguageResourceModel : IDisposable
+    public class LanguageResource : IDisposable
     {
         private readonly LanguageResourceService<LanguageResourceDto> languageResourceService;
 
         private Dictionary<string, string> localizedStrings;
 
-        public LanguageResourceModel(LanguageResourceService<LanguageResourceDto> languageResourceService, LocaleManager localeManager)
+        public LanguageResource(LanguageResourceService<LanguageResourceDto> languageResourceService, LocaleManager localeManager)
         {
             this.languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
 
