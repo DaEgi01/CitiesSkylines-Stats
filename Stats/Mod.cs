@@ -20,7 +20,7 @@ namespace Stats
         private LanguageResourceService<LanguageResourceDto> languageResourceService;
         private GameEngineService gameEngineService;
 
-        private Config.Configuration configuration;
+        private Configuration configuration;
         private LanguageResource languageResource;
 
         private ItemsInIndexOrder itemsInIndexOrder;
@@ -82,8 +82,8 @@ namespace Stats
             );
 
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
-                ? new Config.Configuration(configurationService, configurationService.Load())
-                : new Config.Configuration(configurationService, new ConfigurationDto());
+                ? new Configuration(configurationService, configurationService.Load())
+                : new Configuration(configurationService, new ConfigurationDto());
 
             //do not instantiate LocaleManager here.
             //LocaleManager.instance must be called later than during OnEnabled() at the first game start or will causes bugs

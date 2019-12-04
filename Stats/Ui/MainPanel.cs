@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.UI;
+using Stats.Config;
 using Stats.Localization;
 using Stats.Model;
 using System;
@@ -13,7 +14,7 @@ namespace Stats.Ui
         private UIDragHandleWithDragState uiDragHandle;
         private string modSystemName;
         private bool mapHasSnowDumps;
-        private Config.Configuration configuration;
+        private Configuration configuration;
         private LanguageResource languageResource;
         private GameEngineService gameEngineService;
 
@@ -23,7 +24,7 @@ namespace Stats.Ui
         public void Initialize(
             string modSystemName,
             bool mapHasSnowDumps,
-            Config.Configuration configuration,
+            Configuration configuration,
             LanguageResource languageResource,
             GameEngineService gameEngineService,
             ItemsInIndexOrder items)
