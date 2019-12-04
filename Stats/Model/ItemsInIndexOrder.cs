@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Stats.Model
 {
-    public class ItemsInIndexOrder : IOrderedEnumerable<Item>
+    public class ItemsInIndexOrder
     {
-        private readonly Item[] itemsInIndexOrder;
+        private readonly Item[] items;
 
         public ItemsInIndexOrder(Item[] items)
         {
@@ -16,11 +16,13 @@ namespace Stats.Model
                 throw new ArgumentNullException(nameof(items));
             }
 
-            itemsInIndexOrder = items.OrderBy(x => x.ItemData.Index)
+            this.items = items.OrderBy(x => x.ItemData.Index)
                 .ToArray();
 
-            ValidateIndexes(itemsInIndexOrder);
+            ValidateIndexes(this.items);
         }
+
+        public Item[] Items => items;
 
         private void ValidateIndexes(Item[] items)
         {
@@ -35,24 +37,7 @@ namespace Stats.Model
 
         public Item GetItem(ItemData itemData)
         {
-            return itemsInIndexOrder[itemData.Index];
-        }
-
-        public IOrderedEnumerable<Item> CreateOrderedEnumerable<TKey>(Func<Item, TKey> keySelector, IComparer<TKey> comparer, bool descending)
-        {
-            return descending
-                ? itemsInIndexOrder.OrderByDescending(keySelector, comparer)
-                : itemsInIndexOrder.OrderBy(keySelector, comparer);
-        }
-
-        public IEnumerator<Item> GetEnumerator()
-        {
-            return (IEnumerator<Item>)itemsInIndexOrder.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return itemsInIndexOrder.GetEnumerator();
+            return items[itemData.Index];
         }
     }
 }

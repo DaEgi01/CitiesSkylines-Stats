@@ -83,7 +83,8 @@ namespace Stats.Ui
 
         private void CreateAndAddAllUiItems(ItemsInIndexOrder itemsInIndexOrder)
         {
-            this.itemPanelsInIndexOrder = itemsInIndexOrder.Select(i => this.CreateUiItemAndAddButtons(i))
+            this.itemPanelsInIndexOrder = itemsInIndexOrder.Items
+                .Select(i => this.CreateUiItemAndAddButtons(i))
                 .OrderBy(x => x.Item.ItemData.Index)
                 .ToArray();
 
