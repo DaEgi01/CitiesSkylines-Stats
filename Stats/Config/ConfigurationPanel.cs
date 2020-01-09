@@ -125,7 +125,7 @@ namespace Stats.Config
             itemGroupContentPanel.backgroundSprite = string.Empty;
 
             var itemStringArray = ItemData.AllItems
-                .Select(x => this.languageResource.GetItemLocalizedItemString(x))
+                .Select(itemData => this.languageResource.GetItemLocalizedItemString(itemData))
                 .ToArray();
             var firstSelectedIndex = default(int);
             this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[firstSelectedIndex]);
