@@ -25,7 +25,8 @@ namespace Stats.Localization
                 .Where(x =>
                     x.name == this.modSystemName
                     || x.name == this.workshopId
-                ).FirstOrDefault();
+                )
+                .FirstOrDefault();
 
             return Path.Combine(
                 plugin.modPath,
@@ -38,16 +39,15 @@ namespace Stats.Localization
 
         public T Load(string languageTwoLetterCode)
         {
-            var fileFullName = this.GetExpectedFileFullName(languageTwoLetterCode);
-
-            if (!File.Exists(fileFullName))
+            if (languageTwoLetterCode is null)
             {
-                fileFullName = this.GetExpectedFileFullName("en");
+                throw new ArgumentNullException(nameof(languageTwoLetterCode));
             }
 
+            var fileFullName = this.GetExpectedFileFullName(languageTwoLetterCode);
             if (!File.Exists(fileFullName))
             {
-                throw new Exception("Localization file and english fallback file not found.");
+                return default;
             }
 
             var serializer = new XmlSerializer(typeof(T));

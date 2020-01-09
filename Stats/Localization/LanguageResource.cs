@@ -8,17 +8,39 @@ namespace Stats.Localization
     public class LanguageResource : IDisposable
     {
         private readonly LanguageResourceService<LanguageResourceDto> languageResourceService;
+        private readonly LocaleManager localeManager;
+        private readonly string fallbackLanguageTwoLetterCode;
 
         private Dictionary<string, string> localizedStrings;
 
-        public LanguageResource(LanguageResourceService<LanguageResourceDto> languageResourceService, LocaleManager localeManager)
+        private LanguageResource(
+            LanguageResourceService<LanguageResourceDto> languageResourceService,
+            LocaleManager localeManager,
+            Dictionary<string, string> localizedStrings,
+            string fallbackLanguageTwoLetterCode)
         {
             this.languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
-
-            var languageResourceDto = languageResourceService.Load(localeManager.language);
-            this.localizedStrings = languageResourceDto.LocalizedItems.ToDictionary(x => x.Key, x => x.Value);
-
+            this.localeManager = localeManager ?? throw new ArgumentNullException(nameof(localeManager));
+            this.fallbackLanguageTwoLetterCode = fallbackLanguageTwoLetterCode ?? throw new ArgumentNullException(nameof(fallbackLanguageTwoLetterCode));
+            this.localizedStrings = localizedStrings ?? throw new ArgumentNullException(nameof(localizedStrings));
             LocaleManager.eventLocaleChanged += LocaleManager_eventLocaleChanged;
+        }
+
+        public static LanguageResource Create(
+            LanguageResourceService<LanguageResourceDto> languageResourceService,
+            LocaleManager localeManager,
+            string initialLanguageTwoLetterCode,
+            string fallbackLanguageTwoLetterCode)
+        {
+            var localizedStrings = LoadLanguageOrFallbackLanguage(
+                languageResourceService,
+                initialLanguageTwoLetterCode,
+                fallbackLanguageTwoLetterCode);
+
+            return new LanguageResource(languageResourceService,
+                localeManager,
+                localizedStrings,
+                fallbackLanguageTwoLetterCode);
         }
 
         public void Dispose()
@@ -51,15 +73,28 @@ namespace Stats.Localization
             return localizedStrings[item.Name];
         }
 
-        private void LocaleManager_eventLocaleChanged()
+        private static Dictionary<string, string> LoadLanguageOrFallbackLanguage(
+            LanguageResourceService<LanguageResourceDto> languageResourceService,
+            string languageTwoLetterCode,
+            string fallbackLanguageTwoLetterCode)
         {
-            var languageResourceDto = this.languageResourceService.Load(LocaleManager.instance.language);
-            this.UpdateFromDto(languageResourceDto);
+            var languageResourceDto = languageResourceService.Load(languageTwoLetterCode)
+                ?? languageResourceService.Load(fallbackLanguageTwoLetterCode);
+
+            if (languageResourceDto == null)
+            {
+                throw new Exception($"Could not load the LanguageResourceDto for the {nameof(languageTwoLetterCode)} '{languageTwoLetterCode}', nor for the {nameof(fallbackLanguageTwoLetterCode)} '{fallbackLanguageTwoLetterCode}'.");
+            }
+
+            return languageResourceDto.LocalizedItems.ToDictionary(x => x.Key, x => x.Value);
         }
 
-        private void UpdateFromDto(LanguageResourceDto dto)
+        private void LocaleManager_eventLocaleChanged()
         {
-            this.localizedStrings = dto.LocalizedItems.ToDictionary(x => x.Key, x => x.Value);
+            this.localizedStrings = LoadLanguageOrFallbackLanguage(this.languageResourceService,
+                this.localeManager.language,
+                this.fallbackLanguageTwoLetterCode);
+
             this.OnLanguageChanged();
         }
 
