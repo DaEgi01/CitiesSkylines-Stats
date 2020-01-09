@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace Stats.Config
@@ -7,7 +8,8 @@ namespace Stats.Config
     {
         public ConfigurationService(string configurationFileFullName)
         {
-            this.ConfigurationFileFullName = configurationFileFullName;
+            this.ConfigurationFileFullName = configurationFileFullName 
+                ?? throw new ArgumentNullException(nameof(configurationFileFullName));
         }
 
         public string ConfigurationFileFullName { get; }
