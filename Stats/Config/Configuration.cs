@@ -193,9 +193,9 @@ namespace Stats.Config
             }
         }
 
-        public ConfigurationItemData GetConfigurationItemData(ItemData item)
+        public ConfigurationItemData GetConfigurationItemData(ItemData itemData)
         {
-            return this.configurationItemDatas[item.Index];
+            return this.configurationItemDatas[itemData.Index];
         }
 
         public void Save()

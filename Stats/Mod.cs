@@ -94,12 +94,12 @@ namespace Stats
 
             this.itemsInIndexOrder = new ItemsInIndexOrder(
                 ItemData.AllItems
-                    .Select(x =>
+                    .Select(itemData =>
                     {
-                        var configurationItemData = this.configuration.GetConfigurationItemData(x);
+                        var configurationItemData = this.configuration.GetConfigurationItemData(itemData);
                         return new Item(
                             this.configuration,
-                            x,
+                            itemData,
                             configurationItemData.enabled,
                             configurationItemData.criticalThreshold,
                             configurationItemData.sortOrder
