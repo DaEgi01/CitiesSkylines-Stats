@@ -1,5 +1,8 @@
-﻿namespace Stats.Config
+﻿using System.Runtime.InteropServices;
+
+namespace Stats.Config
 {
+    [StructLayout(LayoutKind.Auto)]
     public readonly struct ConfigurationItemData
     {
         public readonly ItemData itemData;
