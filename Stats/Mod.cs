@@ -16,6 +16,8 @@ namespace Stats
 {
     public class Mod : LoadingExtensionBase, IUserMod
     {
+        private readonly string localizationFallbackLanguageCode = "de";
+
         private ConfigurationService<ConfigurationDto> configurationService;
         private LanguageResourceService<LanguageResourceDto> languageResourceService;
         private GameEngineService gameEngineService;
@@ -89,7 +91,7 @@ namespace Stats
             //LocaleManager.instance must be called later than during OnEnabled() at the first game start or will causes bugs
             if (LocaleManager.exists)
             {
-                this.languageResource = new LanguageResource(this.languageResourceService, LocaleManager.instance);
+                this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
             }
 
             this.itemsInIndexOrder = new ItemsInIndexOrder(
@@ -137,7 +139,7 @@ namespace Stats
             //Workaround for game start only, because here we can access LocaleManager.instance without issues.
             if (this.languageResource == null)
             {
-                this.languageResource = new LanguageResource(this.languageResourceService, LocaleManager.instance);
+                this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
             }
 
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
