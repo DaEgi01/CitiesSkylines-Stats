@@ -11,13 +11,13 @@ namespace Stats.Model
         private bool enabled;
         private int criticalThreshold;
         private int sortOrder;
-        private int? percent;
-        private bool isVisible;
+
+        private int? percent = null;
+        private bool isVisible = false;
 
         public Item(Configuration configuration, ItemData itemData, bool enabled, int criticalThreshold, int sortOrder)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-
             this.itemData = itemData;
 
             this.enabled = enabled;
