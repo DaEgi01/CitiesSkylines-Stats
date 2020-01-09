@@ -105,8 +105,6 @@ namespace Stats
                             configurationItemData.sortOrder
                         );
                     })
-                    .OrderBy(x => x.ItemData.Index)
-                    .ToArray()
                 );
         }
 

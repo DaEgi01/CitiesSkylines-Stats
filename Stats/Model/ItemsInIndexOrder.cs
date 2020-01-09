@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +8,7 @@ namespace Stats.Model
     {
         private readonly Item[] items;
 
-        public ItemsInIndexOrder(Item[] items)
+        public ItemsInIndexOrder(IEnumerable<Item> items)
         {
             if (items is null)
             {
