@@ -845,7 +845,7 @@ namespace Stats
             if (usage == 0)
                 return 0;
 
-            return (int)((usage / (float)capacity) * 100);
+            return (int)(usage / (float)capacity * 100f);
         }
     }
 }
