@@ -8,6 +8,7 @@ using Stats.Config;
 using Stats.Localization;
 using Stats.Model;
 using Stats.Ui;
+using System;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -94,6 +95,9 @@ namespace Stats
                 this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
             }
 
+            Func<bool> getHideItemsBelowThreshold = () => this.configuration.MainPanelHideItemsBelowThreshold;
+            Func<bool> getHideItemsNotAvailable = () => this.configuration.MainPanelHideItemsNotAvailable;
+
             this.itemsInIndexOrder = new ItemsInIndexOrder(
                 ItemData.AllItems
                     .Select(itemData =>
@@ -101,8 +105,8 @@ namespace Stats
                         var configurationItemData = this.configuration.GetConfigurationItemData(itemData);
                         return new Item(
                             itemData,
-                            () => this.configuration.MainPanelHideItemsBelowThreshold,
-                            () => this.configuration.MainPanelHideItemsNotAvailable,
+                            getHideItemsBelowThreshold,
+                            getHideItemsNotAvailable,
                             configurationItemData.enabled,
                             configurationItemData.criticalThreshold,
                             configurationItemData.sortOrder
