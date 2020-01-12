@@ -100,8 +100,9 @@ namespace Stats
                     {
                         var configurationItemData = this.configuration.GetConfigurationItemData(itemData);
                         return new Item(
-                            this.configuration,
                             itemData,
+                            () => this.configuration.MainPanelHideItemsBelowThreshold,
+                            () => this.configuration.MainPanelHideItemsNotAvailable,
                             configurationItemData.enabled,
                             configurationItemData.criticalThreshold,
                             configurationItemData.sortOrder

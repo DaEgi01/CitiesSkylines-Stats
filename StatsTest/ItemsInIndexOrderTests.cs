@@ -11,17 +11,14 @@ namespace StatsTest
 {
     public class ItemsInIndexOrderTests
     {
+        private readonly Func<bool> alwaysReturnFalse = () => false;
+
         [Fact]
         public void ItemsInIndexOrder_Constructor_Should_Not_ThrowIndexesMessedUpException_When_IndexesAlign()
         {
-            var fix = new Fixture();
-
-            var moqConfigService = new Mock<ConfigurationService<ConfigurationDto>>(fix.Create<string>());
-            var moqConfigDto = new Mock<ConfigurationDto>();
-            var moqConfig = new Mock<Configuration>(moqConfigService.Object, moqConfigDto.Object);
             var items = new[] {
-                new Item(moqConfig.Object, ItemData.AverageIllnessRate, true, 10, 10),
-                new Item(moqConfig.Object, ItemData.Cemetery, true, 10, 10),
+                new Item(ItemData.AverageIllnessRate, alwaysReturnFalse, alwaysReturnFalse, true, 10, 10),
+                new Item(ItemData.Cemetery, alwaysReturnFalse, alwaysReturnFalse, true, 10, 10),
             };
 
             Action sut = () => new ItemsInIndexOrder(items);
@@ -39,8 +36,8 @@ namespace StatsTest
             var moqConfigDto = new Mock<ConfigurationDto>();
             var moqConfig = new Mock<Configuration>(moqConfigService.Object, moqConfigDto.Object);
             var items = new[] {
-                new Item(moqConfig.Object, ItemData.Cemetery, true, 10, 10),
-                new Item(moqConfig.Object, ItemData.AverageIllnessRate, true, 10, 10),
+                new Item(ItemData.Cemetery, alwaysReturnFalse, alwaysReturnFalse,  true, 10, 10),
+                new Item(ItemData.AverageIllnessRate, alwaysReturnFalse, alwaysReturnFalse, true, 10, 10),
             };
 
             Action sut = () => new ItemsInIndexOrder(items);
@@ -58,8 +55,8 @@ namespace StatsTest
             var moqConfigDto = new Mock<ConfigurationDto>();
             var moqConfig = new Mock<Configuration>(moqConfigService.Object, moqConfigDto.Object);
             var items = new[] {
-                new Item(moqConfig.Object, ItemData.AverageIllnessRate, true, 10, 10),
-                new Item(moqConfig.Object, ItemData.CityUnattractiveness, true, 10, 10),
+                new Item(ItemData.AverageIllnessRate, alwaysReturnFalse, alwaysReturnFalse, true, 10, 10),
+                new Item(ItemData.CityUnattractiveness, alwaysReturnFalse, alwaysReturnFalse, true, 10, 10),
             };
 
             Action sut = () => new ItemsInIndexOrder(items);

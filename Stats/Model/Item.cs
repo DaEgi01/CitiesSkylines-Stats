@@ -1,13 +1,13 @@
-﻿using Stats.Config;
-using System;
+﻿using System;
 
 namespace Stats.Model
 {
     public class Item
     {
-        private readonly Configuration configuration;
         private readonly ItemData itemData;
-        
+        private readonly Func<bool> hideItemsBelowTreshold;
+        private readonly Func<bool> hideItemsNotAvailable;
+
         private bool enabled;
         private int criticalThreshold;
         private int sortOrder;
@@ -15,9 +15,10 @@ namespace Stats.Model
         private int? percent = null;
         private bool isVisible = false;
 
-        public Item(Configuration configuration, ItemData itemData, bool enabled, int criticalThreshold, int sortOrder)
+        public Item(ItemData itemData, Func<bool> hideItemsBelowTreshold, Func<bool> hideItemsNotAvailable, bool enabled, int criticalThreshold, int sortOrder)
         {
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            this.hideItemsBelowTreshold = hideItemsBelowTreshold;
+            this.hideItemsNotAvailable = hideItemsNotAvailable;
             this.itemData = itemData;
 
             this.enabled = enabled;
@@ -97,8 +98,8 @@ namespace Stats.Model
                 enabled,
                 percent,
                 criticalThreshold,
-                configuration.MainPanelHideItemsBelowThreshold,
-                configuration.MainPanelHideItemsNotAvailable);
+                hideItemsBelowTreshold(),
+                hideItemsNotAvailable());
 
             if (oldVisibility != isVisible)
             {
