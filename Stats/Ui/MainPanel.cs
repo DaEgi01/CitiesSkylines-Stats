@@ -464,7 +464,10 @@ namespace Stats.Ui
                     continue;
                 }
 
-                var layoutPosition = new Vector2(index % this.configuration.MainPanelColumnCount, index / this.configuration.MainPanelColumnCount);
+                var layoutPosition = new Vector2(
+                    index % this.configuration.MainPanelColumnCount,
+                    index / this.configuration.MainPanelColumnCount
+                );
 
                 currentItem.relativePosition = CalculateRelativePosition(layoutPosition);
                 currentItem.AdjustButtonAndUiItemSize();
@@ -488,16 +491,17 @@ namespace Stats.Ui
 
         private Vector3 CalculateRelativePosition(Vector2 layoutPosition)
         {
-            var posX = (layoutPosition.x + 1) * this.configuration.ItemPadding + layoutPosition.x * this.configuration.ItemWidth;
-            var posY = (layoutPosition.y + 1) * this.configuration.ItemPadding + layoutPosition.y * this.configuration.ItemHeight;
+            var posX = (layoutPosition.x + 1) * this.configuration.ItemPadding
+                + layoutPosition.x * this.configuration.ItemWidth;
+            var posY = (layoutPosition.y + 1) * this.configuration.ItemPadding
+                + layoutPosition.y * this.configuration.ItemHeight;
 
             return new Vector3(posX, posY);
         }
 
         private void UpdatePanelSize()
         {
-            var visibleItemCount = this.itemPanelsInIndexOrder.Where(x => x.isVisible)
-                .Count();
+            var visibleItemCount = GetVisibleItemsCount(this.itemPanelsInIndexOrder);
             if (visibleItemCount > 0)
             {
                 this.isVisible = true;
@@ -516,6 +520,19 @@ namespace Stats.Ui
 
             this.uiDragHandle.width = newWidth;
             this.uiDragHandle.height = newHeight;
+        }
+
+        private int GetVisibleItemsCount(ItemPanel[] itemPanels)
+        {
+            var result = 0;
+            for (int i = 0; i < itemPanels.Length; i++)
+            {
+                if (itemPanels[i].isVisible)
+                {
+                    result += 1;
+                }
+            }
+            return result;
         }
 
         private void UpdatePosition()
