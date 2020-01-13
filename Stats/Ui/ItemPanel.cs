@@ -23,10 +23,11 @@ namespace Stats.Ui
             this.width = configuration.ItemWidth;
             this.height = configuration.ItemHeight;
 
-            this.isVisible = item.IsVisible;
-
             this.CreateAndAddIconButton();
             this.CreateAndAddPercentButton();
+
+            this.UpdatePercentAndColors();
+            this.UpdateVisibility();
 
             item.PercentChanged += this.UpdatePercentAndColors;
             item.VisibilityChanged += this.UpdateVisibility;
