@@ -85,7 +85,6 @@ namespace Stats.Ui
         {
             this.itemPanelsInIndexOrder = itemsInIndexOrder.Items
                 .Select(i => this.CreateUiItemAndAddButtons(i))
-                .OrderBy(x => x.Item.ItemData.Index)
                 .ToArray();
 
             ValidateIndexes(this.itemPanelsInIndexOrder);
