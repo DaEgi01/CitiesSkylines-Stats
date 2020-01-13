@@ -1,9 +1,5 @@
-﻿using AutoFixture;
-using FluentAssertions;
-using Moq;
-using Stats;
+﻿using FluentAssertions;
 using Stats.Model;
-using System;
 using Xunit;
 
 namespace StatsTest
@@ -11,38 +7,105 @@ namespace StatsTest
     public class ItemVisibilityTests
     {
         [Theory]
-        [InlineData(false, )]
-        public void GetItemVisibility_Should_ReturnFalse_When_Disabled(bool enabled, bool hideItemsNotAvailable, bool hideItemsBelowThreshold, int threshold, int percent)
+        [InlineData(false, false, false, 50, null)]
+        [InlineData(false, false, false, 50, 10)]
+        [InlineData(false, false, false, 50, 100)]
+        [InlineData(false, false, true, 50, null)]
+        [InlineData(false, false, true, 50, 10)]
+        [InlineData(false, false, true, 50, 100)]
+        [InlineData(false, true, false, 50, null)]
+        [InlineData(false, true, false, 50, 10)]
+        [InlineData(false, true, false, 50, 100)]
+        [InlineData(false, true, true, 50, null)]
+        [InlineData(false, true, true, 50, 10)]
+        [InlineData(false, true, true, 50, 100)]
+        public void GetItemVisibility_Should_BeFalse_When_Disabled(
+            bool enabled,
+            bool hideItemsNotAvailable,
+            bool hideItemsBelowThreshold,
+            int threshold,
+            int? percent)
         {
-            var result = Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent);
-            result.Should().BeFalse();
-
-            var fixture = new Fixture();
-
-            var item = new Item(ItemData.AverageIllnessRate, alwaysReturnFalse, alwaysReturnFalse, true, fixture.Create<int>(), fixture.Create<int>());
-            item.Percent = 100;
-
-            item.IsVisible.Should().BeTrue();
+            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+                .Should()
+                .BeFalse();
         }
 
-        [Fact]
-        public void Item_Should_AlwaysBeInvisible_When_Disabled()
+        [Theory]
+        [InlineData(true, true, false, 50, null)]
+        [InlineData(true, true, true, 50, null)]
+        public void GetItemVisibility_Should_BeFalse_When_EnabledHideItemsNotAvailableAndPercentNull(
+            bool enabled,
+            bool hideItemsNotAvailable,
+            bool hideItemsBelowThreshold,
+            int threshold,
+            int? percent)
         {
-            var fixture = new Fixture();
-
-            var item = new Item(ItemData.AverageIllnessRate, alwaysReturnFalse, alwaysReturnFalse, false, fixture.Create<int>(), fixture.Create<int>());
-
-            item.IsVisible.Should().BeFalse();
+            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+                .Should()
+                .BeFalse();
         }
 
-        [Fact]
-        public void Item_Should_BeVisible_When_Enabled()
+        [Theory]
+        [InlineData(true, false, true, 50, 10)]
+        [InlineData(true, true, true, 50, 10)]
+        public void GetItemVisibility_Should_BeFalse_When_EnabledHideItemsBelowThresholdTrueAndPercentBelowThreshhold(
+            bool enabled,
+            bool hideItemsNotAvailable,
+            bool hideItemsBelowThreshold,
+            int threshold,
+            int? percent)
         {
-            var fixture = new Fixture();
+            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+                .Should()
+                .BeFalse();
+        }
 
-            var item = new Item(ItemData.AverageIllnessRate, alwaysReturnFalse, alwaysReturnFalse, false, fixture.Create<int>(), fixture.Create<int>());
+        [Theory]
+        [InlineData(true, false, true, 50, null)]
+        [InlineData(true, false, false, 50, null)]
+        public void GetItemVisibility_Should_BeTrue_When_EnabledHideItemsNotAvailableFalseAndPercentNull(
+            bool enabled,
+            bool hideItemsNotAvailable,
+            bool hideItemsBelowThreshold,
+            int threshold,
+            int? percent)
+        {
+            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+                .Should()
+                .BeTrue();
+        }
 
-            item.IsVisible.Should().BeFalse();
+        [Theory]
+        [InlineData(true, false, false, 50, 10)]
+        [InlineData(true, true, false, 50, 10)]
+        public void GetItemVisibility_Should_BeTrue_When_EnabledHideItemsBelowThresholdFalseAndPercentBelowThreshold(
+            bool enabled,
+            bool hideItemsNotAvailable,
+            bool hideItemsBelowThreshold,
+            int threshold,
+            int? percent)
+        {
+            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+                .Should()
+                .BeTrue();
+        }
+
+        [Theory]
+        [InlineData(true, false, false, 50, 100)]
+        [InlineData(true, true, false, 50, 100)]
+        [InlineData(true, false, true, 50, 100)]
+        [InlineData(true, true, true, 50, 100)]
+        public void GetItemVisibility_Should_BeTrue_When_EnabledAndPercentAboveThreshold(
+            bool enabled,
+            bool hideItemsNotAvailable,
+            bool hideItemsBelowThreshold,
+            int threshold,
+            int? percent)
+        {
+            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+                .Should()
+                .BeTrue();
         }
     }
 }
