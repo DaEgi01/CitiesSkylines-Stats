@@ -46,11 +46,10 @@ namespace Stats.Ui
 
             this.CreateAndAddDragHandle();
             this.CreateAndAddAllUiItems(items);
-            this.UpdateLocalizedTooltips();
-
-            this.relativePosition = this.configuration.MainPanelPosition;
 
             this.UpdateLayout();
+            this.relativePosition = this.configuration.MainPanelPosition;
+            this.UpdateLocalizedTooltips();
 
             this.configuration.LayoutPropertyChanged += this.UpdateLayout;
             this.configuration.PositionChanged += this.UpdatePosition;
