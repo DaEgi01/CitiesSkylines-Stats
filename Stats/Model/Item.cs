@@ -96,10 +96,11 @@ namespace Stats.Model
             var oldVisibility = isVisible;
             isVisible = GetItemVisibility(
                 enabled,
-                percent,
-                criticalThreshold,
+                hideItemsNotAvailable(),
                 hideItemsBelowTreshold(),
-                hideItemsNotAvailable());
+                criticalThreshold,
+                percent
+            );
 
             if (oldVisibility != isVisible)
             {
@@ -107,7 +108,7 @@ namespace Stats.Model
             }
         }
 
-        private bool GetItemVisibility(bool enabled, int? percent, int threshold, bool hideItemsBelowThreshold, bool hideItemsNotAvailable)
+        public static bool GetItemVisibility(bool enabled, bool hideItemsNotAvailable, bool hideItemsBelowThreshold, int threshold, int? percent)
         {
             if (!enabled)
             {
