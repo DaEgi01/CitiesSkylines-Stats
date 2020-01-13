@@ -130,32 +130,23 @@ namespace Stats.Ui
 
         private string GetUsagePercentString(int? percent)
         {
-            if (percent.HasValue)
-            {
-                return percent.Value.ToString() + "%";
-            }
-
-            return "-%";
+            return percent.HasValue
+                ? percent.Value.ToString() + "%"
+                : "-%";
         }
 
         private Color32 GetItemTextColor(int? percent, int threshold)
         {
-            if (!percent.HasValue || percent.Value >= threshold)
-            {
-                return this.configuration.MainPanelAccentColor;
-            }
-
-            return this.configuration.MainPanelForegroundColor;
+            return !percent.HasValue || percent.Value >= threshold
+                ? this.configuration.MainPanelAccentColor
+                : this.configuration.MainPanelForegroundColor;
         }
 
         private Color32 GetItemHoveredTextColor(int? percent, int threshold)
         {
-            if (!percent.HasValue || percent.Value >= threshold)
-            {
-                return this.configuration.MainPanelForegroundColor;
-            }
-
-            return this.configuration.MainPanelAccentColor;
+            return !percent.HasValue || percent.Value >= threshold
+                ? this.configuration.MainPanelForegroundColor
+                : this.configuration.MainPanelAccentColor;
         }
 
         public void AdjustButtonAndUiItemSize()
