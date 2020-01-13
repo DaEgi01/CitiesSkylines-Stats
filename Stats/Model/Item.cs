@@ -39,7 +39,7 @@ namespace Stats.Model
                 }
 
                 enabled = value;
-                this.UpdateVisibilityAndRaiseOnVisibilityChanged();
+                UpdateVisibilityAndRaiseOnVisibilityChanged();
             }
         }
 
