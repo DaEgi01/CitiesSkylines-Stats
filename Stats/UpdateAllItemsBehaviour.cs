@@ -1,5 +1,4 @@
-﻿using ICities;
-using Stats.Config;
+﻿using Stats.Config;
 using Stats.Model;
 using System;
 using System.Collections;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace Stats
 {
-    public class UpdateAllItems : MonoBehaviour
+    public class UpdateAllItemsBehaviour : MonoBehaviour
     {
         private Configuration configuration;
         private ItemsInIndexOrder itemsInIndexOrder;
