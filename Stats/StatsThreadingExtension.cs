@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Stats
 {
-    public class StatsThreadingExtension : MonoBehaviour
+    public class UpdateAllItems : MonoBehaviour
     {
         private Configuration configuration;
         private ItemsInIndexOrder itemsInIndexOrder;
@@ -67,21 +67,31 @@ namespace Stats
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.CemeteryVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.CrematoriumVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.HealthcareVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.MedicalHelicopters).enabled)
+            if (this.configuration.GetConfigurationItemData(ItemData.CemeteryVehicles).enabled)
             {
-                var healthCareVehiclesPercent = this.gameEngineService.GetHealthCareVehiclesPercent();
-
                 this.itemsInIndexOrder.Items[ItemData.CemeteryVehicles.Index].Percent =
-                    healthCareVehiclesPercent.cemeteryVehiclesPercent;
+                    this.gameEngineService.GetCemeteryVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.CrematoriumVehicles).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.CrematoriumVehicles.Index].Percent =
-                    healthCareVehiclesPercent.crematoriumVehiclesPercent;
+                    this.gameEngineService.GetCrematoriumVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.HealthcareVehicles).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.HealthcareVehicles.Index].Percent =
-                    healthCareVehiclesPercent.healthCareVehiclesPercent;
+                    this.gameEngineService.GetHealthCareVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.MedicalHelicopters).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.MedicalHelicopters.Index].Percent =
-                    healthCareVehiclesPercent.medicalHelicoptersPercent;
+                    this.gameEngineService.GetMedicalHelicoptersPercent();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -106,15 +116,17 @@ namespace Stats
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.DisasterResponseVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.DisasterResponseHelicopters).enabled)
+            if (this.configuration.GetConfigurationItemData(ItemData.DisasterResponseVehicles).enabled)
             {
-                var disasterReponseVehiclesPercent = this.gameEngineService.GetDisasterResponseVehiclesPercent();
-
                 this.itemsInIndexOrder.Items[ItemData.DisasterResponseVehicles.Index].Percent =
-                    disasterReponseVehiclesPercent.disasterResponseVehicles;
+                    this.gameEngineService.GetDisasterResponseVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.DisasterResponseHelicopters).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.DisasterResponseHelicopters.Index].Percent =
-                    disasterReponseVehiclesPercent.disasterResponseHelicopters;
+                    this.gameEngineService.GetDisasterResponseHelicoptersPercent();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -139,15 +151,17 @@ namespace Stats
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.FireDepartmentVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.FireHelicopters).enabled)
+            if (this.configuration.GetConfigurationItemData(ItemData.FireDepartmentVehicles).enabled)
             {
-                var fireDepartmentVehiclesPercent = this.gameEngineService.GetFireDepartmentVehiclesPercent();
-
                 this.itemsInIndexOrder.Items[ItemData.FireDepartmentVehicles.Index].Percent =
-                    fireDepartmentVehiclesPercent.fireDepartmentVehiclesPercent;
+                    this.gameEngineService.GetFireDepartmentVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.FireHelicopters).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.FireHelicopters.Index].Percent =
-                    fireDepartmentVehiclesPercent.fireHelicoptersPercent;
+                    this.gameEngineService.GetFireHelicoptersPercent();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -165,15 +179,17 @@ namespace Stats
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.GarbageProcessingVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.LandfillVehicles).enabled)
+            if (this.configuration.GetConfigurationItemData(ItemData.GarbageProcessingVehicles).enabled)
             {
-                var garbageVehiclesPercent = this.gameEngineService.GetGarbageVehiclesPercent();
-
                 this.itemsInIndexOrder.Items[ItemData.GarbageProcessingVehicles.Index].Percent =
-                    garbageVehiclesPercent.garbageProcessingVehicles;
+                    this.gameEngineService.GetGarbageProcessingPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.LandfillVehicles).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.LandfillVehicles.Index].Percent =
-                    garbageVehiclesPercent.landfillVehicles;
+                    this.gameEngineService.GetLandfillVehiclesPercent();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -226,60 +242,80 @@ namespace Stats
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.PoliceHoldingCells).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.PoliceVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.PrisonCells).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.PrisonVehicles).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.PoliceHelicopters).enabled)
+            if (this.configuration.GetConfigurationItemData(ItemData.PoliceHoldingCells).enabled)
             {
-                var policeDepartmentVehiclesPercent = this.gameEngineService.GetPoliceDepartmentVehiclesPercent();
-
-                this.itemsInIndexOrder.Items[ItemData.PoliceHelicopters.Index].Percent =
-                    policeDepartmentVehiclesPercent.policeHelicoptersPercent;
                 this.itemsInIndexOrder.Items[ItemData.PoliceHoldingCells.Index].Percent =
-                    policeDepartmentVehiclesPercent.policeHoldingCellsPercent;
+                    this.gameEngineService.GetPoliceHoldingCellsPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.PoliceVehicles).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.PoliceVehicles.Index].Percent =
-                    policeDepartmentVehiclesPercent.policeVehiclesPercent;
+                    this.gameEngineService.GetPoliceVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.PrisonCells).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.PrisonCells.Index].Percent =
-                    policeDepartmentVehiclesPercent.prisonCellsPercent;
+                    this.gameEngineService.GetPrisonCellsPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.PrisonVehicles).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.PrisonVehicles.Index].Percent =
-                    policeDepartmentVehiclesPercent.prisonVehiclesPercent;
+                    this.gameEngineService.GetPrisonVehiclesPercent();
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.Taxis).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.PostVans).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.PostTrucks).enabled
-                )
+            if (this.configuration.GetConfigurationItemData(ItemData.PoliceHelicopters).enabled)
             {
-                var postAndTaxiVehiclesPercent = this.gameEngineService.GetPostAndTaxiVehiclesPercent();
+                this.itemsInIndexOrder.Items[ItemData.PoliceHelicopters.Index].Percent =
+                    this.gameEngineService.GetPoliceHelicoptersPercent();
+                yield return new WaitForEndOfFrame();
+            }
 
+            if (this.configuration.GetConfigurationItemData(ItemData.Taxis).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.Taxis.Index].Percent =
-                    postAndTaxiVehiclesPercent.taxisPercent;
-                this.itemsInIndexOrder.Items[ItemData.PostVans.Index].Percent =
-                    postAndTaxiVehiclesPercent.postVansPercent;
-                this.itemsInIndexOrder.Items[ItemData.PostTrucks.Index].Percent =
-                    postAndTaxiVehiclesPercent.postTrucksPercent;
+                    this.gameEngineService.GetTaxisPercent();
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.RoadMaintenanceVehicles).enabled
-                || (this.mapHasSnowDumps && this.configuration.GetConfigurationItemData(ItemData.SnowDump).enabled)
-                || (this.mapHasSnowDumps && this.configuration.GetConfigurationItemData(ItemData.SnowDumpVehicles).enabled))
+            if (this.configuration.GetConfigurationItemData(ItemData.PostVans).enabled)
             {
-                var roadMaintenanceAndSnowDumpVehiclesPercent =
-                    this.gameEngineService.GetRoadMaintenanceAndSnowDumpVehiclesPercent();
+                this.itemsInIndexOrder.Items[ItemData.PostVans.Index].Percent =
+                    this.gameEngineService.GetPostVansPercent();
+                yield return new WaitForEndOfFrame();
+            }
 
+            if (this.configuration.GetConfigurationItemData(ItemData.PostTrucks).enabled)
+            {
+                this.itemsInIndexOrder.Items[ItemData.PostTrucks.Index].Percent =
+                    this.gameEngineService.GetPostTrucksPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.RoadMaintenanceVehicles).enabled)
+            {
                 this.itemsInIndexOrder.Items[ItemData.RoadMaintenanceVehicles.Index].Percent =
-                    roadMaintenanceAndSnowDumpVehiclesPercent.roadMaintenanceVehiclesPercent;
+                    this.gameEngineService.GetRoadMaintenanceVehiclesPercent();
+                yield return new WaitForEndOfFrame();
+            }
 
-                if (this.mapHasSnowDumps)
-                {
-                    this.itemsInIndexOrder.Items[ItemData.SnowDump.Index].Percent =
-                        roadMaintenanceAndSnowDumpVehiclesPercent.snowDumpPercent;
-                    this.itemsInIndexOrder.Items[ItemData.SnowDumpVehicles.Index].Percent =
-                        roadMaintenanceAndSnowDumpVehiclesPercent.snowDumpVehiclesPercent;
-                }
+            if (this.configuration.GetConfigurationItemData(ItemData.SnowDump).enabled && mapHasSnowDumps)
+            {
+                this.itemsInIndexOrder.Items[ItemData.SnowDump.Index].Percent =
+                    this.gameEngineService.GetSnowDumpPercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.SnowDumpVehicles).enabled && mapHasSnowDumps)
+            {
+                this.itemsInIndexOrder.Items[ItemData.SnowDumpVehicles.Index].Percent =
+                    this.gameEngineService.GetSnowDumpVehiclesPercent();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -318,16 +354,17 @@ namespace Stats
                 yield return new WaitForEndOfFrame();
             }
 
-            if (this.configuration.GetConfigurationItemData(ItemData.WaterPumpingServiceStorage).enabled
-                || this.configuration.GetConfigurationItemData(ItemData.WaterPumpingServiceVehicles).enabled)
+            if (this.configuration.GetConfigurationItemData(ItemData.WaterPumpingServiceStorage).enabled)
             {
-                var waterPumpingServiceVehiclesPercent =
-                    this.gameEngineService.GetWaterPumpingServiceVehiclesPercent();
-
-                this.itemsInIndexOrder.Items[ItemData.WaterPumpingServiceVehicles.Index].Percent =
-                    waterPumpingServiceVehiclesPercent.waterPumpingServiceVehiclesPercent;
                 this.itemsInIndexOrder.Items[ItemData.WaterPumpingServiceStorage.Index].Percent =
-                    waterPumpingServiceVehiclesPercent.waterPumpingServiceStoragePercent;
+                    this.gameEngineService.GetWaterPumpingServiceStoragePercent();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (this.configuration.GetConfigurationItemData(ItemData.WaterPumpingServiceVehicles).enabled)
+            {
+                this.itemsInIndexOrder.Items[ItemData.WaterPumpingServiceVehicles.Index].Percent =
+                    this.gameEngineService.GetWaterPumpingServiceVehiclesPercent();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -340,34 +377,6 @@ namespace Stats
 
             //wait at least one frame, even if all Items are off.
             yield return new WaitForEndOfFrame();
-        }
-
-        public void OnAfterSimulationFrame()
-        {
-        }
-
-        public void OnAfterSimulationTick()
-        {
-        }
-
-        public void OnBeforeSimulationFrame()
-        {
-        }
-
-        public void OnBeforeSimulationTick()
-        {
-        }
-
-        public void OnCreated(IThreading threading)
-        {
-        }
-
-        public void OnReleased()
-        {
-        }
-
-        public void OnUpdate(float realTimeDelta, float simulationTimeDelta)
-        {
         }
     }
 }
