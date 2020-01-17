@@ -91,18 +91,10 @@ namespace Stats.Localization
 
         private void LocaleManager_eventLocaleChanged()
         {
-            this.localizedStrings = LoadLanguageOrFallbackLanguage(this.languageResourceService,
+            this.localizedStrings = LoadLanguageOrFallbackLanguage(
+                this.languageResourceService,
                 this.localeManager.language,
                 this.fallbackLanguageTwoLetterCode);
-
-            this.OnLanguageChanged();
-        }
-
-        public event Action LanguageChanged;
-
-        private void OnLanguageChanged()
-        {
-            this.LanguageChanged?.Invoke();
         }
     }
 }

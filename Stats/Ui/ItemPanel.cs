@@ -28,17 +28,6 @@ namespace Stats.Ui
 
             this.UpdatePercentAndColors();
             this.UpdateVisibility();
-
-            item.PercentChanged += this.UpdatePercentAndColors;
-            item.VisibilityChanged += this.UpdateVisibility;
-        }
-
-        public override void OnDestroy()
-        {
-            Item.PercentChanged -= this.UpdatePercentAndColors;
-            Item.VisibilityChanged -= this.UpdateVisibility;
-
-            base.OnDestroy();
         }
 
         public UIButton IconButton { get; private set; }
@@ -108,14 +97,6 @@ namespace Stats.Ui
             }
         }
 
-        public void UpdateLocalizedTooltips()
-        {
-            var localizedTooltip = this.languageResource.GetItemLocalizedItemString(this.Item.ItemData);
-
-            this.IconButton.tooltip = localizedTooltip;
-            this.PercentButton.tooltip = localizedTooltip;
-        }
-
         private void UpdateVisibility()
         {
             this.isVisible = this.Item.IsVisible;
@@ -162,6 +143,16 @@ namespace Stats.Ui
             this.PercentButton.width = this.width - this.height;
             this.PercentButton.height = this.height;
             this.PercentButton.textScale = this.configuration.ItemTextScale;
+        }
+
+        protected override void OnLocalize()
+        {
+            base.OnLocalize();
+
+            var localizedTooltip = this.languageResource.GetLocalizedItemString(this.Item.ItemData);
+
+            this.IconButton.tooltip = localizedTooltip;
+            this.PercentButton.tooltip = localizedTooltip;
         }
     }
 }

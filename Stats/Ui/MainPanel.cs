@@ -49,21 +49,12 @@ namespace Stats.Ui
 
             this.UpdateLayout();
             this.relativePosition = this.configuration.MainPanelPosition;
-            this.UpdateLocalizedTooltips();
 
-            this.configuration.LayoutPropertyChanged += this.UpdateLayout;
-            this.configuration.PositionChanged += this.UpdatePosition;
-            this.languageResource.LanguageChanged += this.UpdateLocalizedTooltips;
             this.uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
-
-            this.StartCoroutine(KeepUpdatingUICoroutine());
         }
 
         public override void OnDestroy()
         {
-            this.configuration.LayoutPropertyChanged -= this.UpdateLayout;
-            this.configuration.PositionChanged -= this.UpdatePosition;
-            this.languageResource.LanguageChanged -= this.UpdateLocalizedTooltips;
             this.uiDragHandle.eventMouseUp -= UiDragHandle_eventMouseUp;
 
             base.OnDestroy();
@@ -124,14 +115,6 @@ namespace Stats.Ui
             itemPanel.height = this.configuration.ItemHeight;
             itemPanel.zOrder = zOrder;
             return itemPanel;
-        }
-
-        private void UpdateLocalizedTooltips()
-        {
-            for (int i = 0; i < itemPanelsInIndexOrder.Length; i++)
-            {
-                itemPanelsInIndexOrder[i].UpdateLocalizedTooltips();
-            }
         }
 
         private void UpdateLayout()
@@ -275,6 +258,16 @@ namespace Stats.Ui
         {
             this.configuration.MainPanelPosition = this.relativePosition;
             this.configuration.Save();
+        }
+
+        protected override void OnLocalize()
+        {
+            base.OnLocalize();
+
+            for (int i = 0; i < itemPanelsInIndexOrder.Length; i++)
+            {
+                itemPanelsInIndexOrder[i].Localize();
+            }
         }
     }
 }

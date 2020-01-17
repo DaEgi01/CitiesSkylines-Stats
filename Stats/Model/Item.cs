@@ -31,46 +31,19 @@ namespace Stats.Model
         public bool Enabled
         {
             get => enabled;
-            set
-            {
-                if (enabled == value)
-                {
-                    return;
-                }
-
-                enabled = value;
-                UpdateVisibilityAndRaiseOnVisibilityChanged();
-            }
+            set => enabled = value;
         }
 
         public int CriticalThreshold
         {
             get => criticalThreshold;
-            set
-            {
-                if (criticalThreshold == value)
-                {
-                    return;
-                }
-
-                criticalThreshold = value;
-                UpdateVisibilityAndRaiseOnVisibilityChanged();
-            }
+            set => criticalThreshold = value;
         }
 
         public int SortOrder
         {
             get => sortOrder;
-            set
-            {
-                if (sortOrder == value)
-                {
-                    return;
-                }
-
-                sortOrder = value;
-                OnSortOrderChanged();
-            }
+            set => sortOrder = value;
         }
 
         public int? Percent
@@ -78,20 +51,14 @@ namespace Stats.Model
             get => percent;
             set
             {
-                if (percent == value)
-                {
-                    return;
-                }
-
                 percent = value;
-                UpdateVisibilityAndRaiseOnVisibilityChanged();
-                OnPercentChanged();
+                this.UpdateVisibility();
             }
         }
 
         public bool IsVisible => isVisible;
 
-        private void UpdateVisibilityAndRaiseOnVisibilityChanged()
+        private void UpdateVisibility()
         {
             var oldVisibility = isVisible;
             isVisible = GetItemVisibility(
@@ -101,11 +68,6 @@ namespace Stats.Model
                 criticalThreshold,
                 percent
             );
-
-            if (oldVisibility != isVisible)
-            {
-                OnVisibilityChanged();
-            }
         }
 
         public static bool GetItemVisibility(bool enabled, bool hideItemsNotAvailable, bool hideItemsBelowThreshold, int threshold, int? percent)
@@ -128,27 +90,6 @@ namespace Stats.Model
             {
                 return !hideItemsNotAvailable;
             }
-        }
-
-        public event Action PercentChanged;
-
-        private void OnPercentChanged()
-        {
-            PercentChanged?.Invoke();
-        }
-
-        public event Action VisibilityChanged;
-
-        private void OnVisibilityChanged()
-        {
-            VisibilityChanged?.Invoke();
-        }
-
-        public event Action SortOrderChanged;
-
-        private void OnSortOrderChanged()
-        {
-            SortOrderChanged?.Invoke();
         }
     }
 }

@@ -83,7 +83,6 @@ namespace Stats.Config
             {
                 dto.MainPanelPositionX = value.x;
                 dto.MainPanelPositionY = value.y;
-                this.OnPositionChanged();
             }
         }
 
@@ -102,7 +101,6 @@ namespace Stats.Config
             set
             {
                 dto.MainPanelHideItemsBelowThreshold = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -112,7 +110,6 @@ namespace Stats.Config
             set
             {
                 dto.MainPanelHideItemsNotAvailable = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -122,7 +119,6 @@ namespace Stats.Config
             set
             {
                 dto.MainPanelColumnCount = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -159,7 +155,6 @@ namespace Stats.Config
             set
             {
                 dto.ItemWidth = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -169,7 +164,6 @@ namespace Stats.Config
             set
             {
                 dto.ItemHeight = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -179,7 +173,6 @@ namespace Stats.Config
             set
             {
                 dto.ItemPadding = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -189,7 +182,6 @@ namespace Stats.Config
             set
             {
                 dto.ItemTextScale = value;
-                this.OnLayoutPropertyChanged();
             }
         }
 
@@ -208,8 +200,6 @@ namespace Stats.Config
         {
             dto = new ConfigurationDto();
             UpdateConfigurationItems();
-            this.OnPositionChanged();
-            this.OnLayoutPropertyChanged();
             this.Save();
         }
 
@@ -217,7 +207,6 @@ namespace Stats.Config
         {
             dto.MainPanelPositionX = 0f;
             dto.MainPanelPositionY = 0f;
-            this.OnPositionChanged();
             this.Save();
         }
 
@@ -887,20 +876,6 @@ namespace Stats.Config
                     throw new Exception("Unknown configItem.Item type");
                 }
             }
-        }
-
-        public event Action LayoutPropertyChanged;
-
-        private void OnLayoutPropertyChanged()
-        {
-            LayoutPropertyChanged?.Invoke();
-        }
-
-        public event Action PositionChanged;
-
-        private void OnPositionChanged()
-        {
-            PositionChanged?.Invoke();
         }
     }
 }
