@@ -47,6 +47,83 @@ namespace Stats.Config
             this.itemsInIndexOrder = itemsInIndexOrder;
         }
 
+        public UISlider ColumnCountSlider
+        {
+            get => columnCountSlider;
+            set => columnCountSlider = value;
+        }
+
+        public UISlider ItemWidthSlider
+        {
+            get => itemWidthSlider;
+            set => itemWidthSlider = value;
+        }
+
+        public UISlider ItemHeightSlider
+        {
+            get => itemHeightSlider;
+            set => itemHeightSlider = value;
+        }
+
+        public UISlider ItemPaddingSlider
+        {
+            get => itemPaddingSlider;
+            set => itemPaddingSlider = value;
+        }
+
+        public UISlider ItemTextScaleSlider
+        {
+            get => itemTextScaleSlider;
+            set => itemTextScaleSlider = value;
+        }
+
+        public UICheckBox AutoHideCheckBox
+        {
+            get => autoHideCheckBox;
+            set => autoHideCheckBox = value;
+        }
+
+        public UICheckBox HideItemsBelowThresholdCheckBox
+        {
+            get => hideItemsBelowThresholdCheckBox;
+            set => hideItemsBelowThresholdCheckBox = value;
+        }
+
+        public UICheckBox HideItemsNotAvailableCheckBox
+        {
+            get => hideItemsNotAvailableCheckBox;
+            set => hideItemsNotAvailableCheckBox = value;
+        }
+
+        public UIDropDown ItemsDropDown
+        {
+            get => itemsDropDown;
+            set => itemsDropDown = value;
+        }
+
+        public UICheckBox EnabledCheckBox
+        {
+            get => enabledCheckBox;
+            set => enabledCheckBox = value;
+        }
+
+        public UISlider CriticalThresholdSlider
+        {
+            get => criticalThresholdSlider;
+            set => criticalThresholdSlider = value;
+        }
+
+        public UITextField SortOrderTextField
+        {
+            get => sortOrderTextField;
+            set => sortOrderTextField = value;
+        }
+
+        public Item GetItem(ItemData itemData)
+        {
+            return itemsInIndexOrder.Items[itemData.Index];
+        }
+
         public void Initialize()
         {
             var mainGroupUiHelper = this.uiHelperBase.AddGroup(this.modFullTitle);
@@ -125,11 +202,12 @@ namespace Stats.Config
             itemGroupContentPanel.backgroundSprite = string.Empty;
 
             var itemStringArray = ItemData.AllItems
-                .Select(itemData => this.languageResource.GetItemLocalizedItemString(itemData))
+                .Select(itemData => this.languageResource.GetLocalizedItemString(itemData))
                 .ToArray();
             var firstSelectedIndex = default(int);
             this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[firstSelectedIndex]);
-            this.itemsDropDown = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) => {
+            this.itemsDropDown = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) =>
+            {
                 this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[index]);
                 this.UpdateSelectedItemFromModel();
             }) as UIDropDown;
