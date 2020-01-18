@@ -3,7 +3,6 @@ using Stats.Config;
 using Stats.Localization;
 using Stats.Model;
 using System;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -16,7 +15,6 @@ namespace Stats.Ui
         private bool mapHasSnowDumps;
         private Configuration configuration;
         private LanguageResource languageResource;
-        private GameEngineService gameEngineService;
 
         private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
@@ -28,7 +26,6 @@ namespace Stats.Ui
             bool mapHasSnowDumps,
             Configuration configuration,
             LanguageResource languageResource,
-            GameEngineService gameEngineService,
             ItemsInIndexOrder items)
         {
             this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
@@ -39,7 +36,6 @@ namespace Stats.Ui
                 throw new ArgumentOutOfRangeException($"'{nameof(this.configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
-            this.gameEngineService = gameEngineService;
 
             this.color = configuration.MainPanelBackgroundColor;
             this.name = modSystemName + "MainPanel";

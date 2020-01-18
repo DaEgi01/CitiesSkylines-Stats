@@ -133,7 +133,7 @@ namespace Stats
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
             this.mainPanel.gameObject.SetActive(false);
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, this.itemsInIndexOrder);
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.itemsInIndexOrder);
             var updateAllItemsBehaviour = this.mainPanel.gameObject.AddComponent<UpdateAllItemsBehaviour>();
             updateAllItemsBehaviour.Initialize(this.configuration, this.itemsInIndexOrder, this.gameEngineService, this.mainPanel, this.gameEngineService.CheckIfMapHasSnowDumps());
             this.mainPanel.gameObject.SetActive(true);
