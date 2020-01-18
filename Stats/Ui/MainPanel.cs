@@ -184,15 +184,13 @@ namespace Stats.Ui
         private void UpdatePanelSize()
         {
             var visibleItemCount = GetVisibleItemsCount(this.itemPanelsInIndexOrder);
-            if (visibleItemCount > 0)
-            {
-                this.isVisible = true;
-            }
-            else
+            if (visibleItemCount == 0)
             {
                 this.isVisible = false;
                 return;
             }
+
+            this.isVisible = true;
 
             var newWidth = this.CalculatePanelWidth(visibleItemCount);
             var newHeight = this.CalculatePanelHeight(visibleItemCount);
