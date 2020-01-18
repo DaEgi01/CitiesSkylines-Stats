@@ -7,6 +7,7 @@ namespace Stats.Model
         private readonly ItemData itemData;
         private readonly Func<bool> hideItemsBelowTreshold;
         private readonly Func<bool> hideItemsNotAvailable;
+        private readonly Func<int?> getPercent;
 
         private bool enabled;
         private int criticalThreshold;
@@ -15,11 +16,20 @@ namespace Stats.Model
         private int? percent = null;
         private bool isVisible = false;
 
-        public Item(ItemData itemData, Func<bool> hideItemsBelowTreshold, Func<bool> hideItemsNotAvailable, bool enabled, int criticalThreshold, int sortOrder)
+        public Item(
+            ItemData itemData,
+            Func<bool> hideItemsBelowTreshold,
+            Func<bool> hideItemsNotAvailable,
+            Func<int?> getPercent,
+            bool enabled,
+            int criticalThreshold,
+            int sortOrder
+            )
         {
+            this.itemData = itemData;
             this.hideItemsBelowTreshold = hideItemsBelowTreshold;
             this.hideItemsNotAvailable = hideItemsNotAvailable;
-            this.itemData = itemData;
+            this.getPercent = getPercent;
 
             this.enabled = enabled;
             this.criticalThreshold = criticalThreshold;
@@ -31,13 +41,21 @@ namespace Stats.Model
         public bool Enabled
         {
             get => enabled;
-            set => enabled = value;
+            set
+            {
+                enabled = value;
+                UpdateVisibility();
+            }
         }
 
         public int CriticalThreshold
         {
             get => criticalThreshold;
-            set => criticalThreshold = value;
+            set
+            {
+                criticalThreshold = value;
+                UpdateVisibility();
+            }
         }
 
         public int SortOrder
@@ -49,14 +67,15 @@ namespace Stats.Model
         public int? Percent
         {
             get => percent;
-            set
-            {
-                percent = value;
-                this.UpdateVisibility();
-            }
         }
 
         public bool IsVisible => isVisible;
+
+        public void UpdatePercentFromGame()
+        {
+            this.percent = this.getPercent();
+            this.UpdateVisibility();
+        }
 
         private void UpdateVisibility()
         {

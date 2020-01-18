@@ -21,6 +21,8 @@ namespace Stats.Ui
         private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
 
+        public ItemPanel[] ItemPanelsInIndexOrder => itemPanelsInIndexOrder;
+
         public void Initialize(
             string modSystemName,
             bool mapHasSnowDumps,
@@ -117,7 +119,7 @@ namespace Stats.Ui
             return itemPanel;
         }
 
-        private void UpdateLayout()
+        public void UpdateLayout()
         {
             this.UpdateItemsLayout();
             this.UpdatePanelSize();

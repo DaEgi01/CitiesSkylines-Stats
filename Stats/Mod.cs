@@ -103,10 +103,12 @@ namespace Stats
                     .Select(itemData =>
                     {
                         var configurationItemData = this.configuration.GetConfigurationItemData(itemData);
+                        var getPercentFunc = this.gameEngineService.GetPercentFunc(itemData);
                         return new Item(
                             itemData,
                             getHideItemsBelowThreshold,
                             getHideItemsNotAvailable,
+                            getPercentFunc,
                             configurationItemData.enabled,
                             configurationItemData.criticalThreshold,
                             configurationItemData.sortOrder
@@ -130,7 +132,11 @@ namespace Stats
         {
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
+            this.mainPanel.gameObject.SetActive(false);
             this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, this.itemsInIndexOrder);
+            var updateAllItemsBehaviour = this.mainPanel.gameObject.AddComponent<UpdateAllItemsBehaviour>();
+            updateAllItemsBehaviour.Initialize(this.configuration, this.itemsInIndexOrder, this.gameEngineService, this.mainPanel, this.gameEngineService.CheckIfMapHasSnowDumps());
+            this.mainPanel.gameObject.SetActive(true);
         }
 
         private void DestroyMainPanel()
