@@ -2,7 +2,6 @@
 using ColossalFramework.UI;
 using Stats.Config;
 using Stats.Localization;
-using Stats.Model;
 using System;
 using UnityEngine;
 
@@ -12,13 +11,16 @@ namespace Stats.Ui
     {
         private Configuration configuration;
         private LanguageResource languageResource;
+        private ItemData itemData;
+        private Func<int?> getPercentFromGame;
 
         //TODO: refactor to localized item instead
-        public void Initialize(Configuration configuration, Item item, LanguageResource languageResource)
+        public void Initialize(Configuration configuration, LanguageResource languageResource, ItemData itemData, Func<int?> getPercentFromGame)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            this.Item = item ?? throw new ArgumentNullException(nameof(item));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
+            this.itemData = itemData;
+            this.getPercentFromGame = getPercentFromGame ?? throw new ArgumentNullException(nameof(getPercentFromGame));
 
             this.width = configuration.ItemWidth;
             this.height = configuration.ItemHeight;
@@ -26,13 +28,12 @@ namespace Stats.Ui
             this.CreateAndAddIconButton();
             this.CreateAndAddPercentButton();
 
-            this.UpdatePercentAndColors();
-            this.UpdateVisibility();
+            this.isVisible = this.configuration.GetConfigurationItemData(itemData).Enabled;
         }
 
+        public ItemData ItemData => itemData;
         public UIButton IconButton { get; private set; }
         public UIButton PercentButton { get; private set; }
-        public Item Item { get; private set; }
 
         private void CreateAndAddPercentButton()
         {
@@ -63,15 +64,15 @@ namespace Stats.Ui
             iconButton.height = this.height;
             iconButton.relativePosition = new Vector3(this.width - this.height, 0);
             iconButton.disabledBgSprite = "InfoIconBaseDisabled";
-            iconButton.disabledFgSprite = $"{this.Item.ItemData.Icon}Disabled";
+            iconButton.disabledFgSprite = $"{this.itemData.Icon}Disabled";
             iconButton.focusedBgSprite = "InfoIconBaseNormal"; //don't use focused state
-            iconButton.focusedFgSprite = $"{this.Item.ItemData.Icon}"; //don't use focused state
+            iconButton.focusedFgSprite = $"{this.itemData.Icon}"; //don't use focused state
             iconButton.hoveredBgSprite = "InfoIconBaseHovered";
-            iconButton.hoveredFgSprite = $"{this.Item.ItemData.Icon}Hovered";
+            iconButton.hoveredFgSprite = $"{this.itemData.Icon}Hovered";
             iconButton.pressedBgSprite = "InfoIconBasePressed";
-            iconButton.pressedFgSprite = $"{this.Item.ItemData.Icon}Pressed";
+            iconButton.pressedFgSprite = $"{this.itemData.Icon}Pressed";
             iconButton.normalBgSprite = "InfoIconBaseNormal";
-            iconButton.normalFgSprite = $"{this.Item.ItemData.Icon}";
+            iconButton.normalFgSprite = $"{this.itemData.Icon}";
             iconButton.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             iconButton.textScaleMode = UITextScaleMode.ControlSize;
 
@@ -84,30 +85,39 @@ namespace Stats.Ui
         {
             var infoManager = Singleton<InfoManager>.instance;
 
-            if (infoManager.CurrentMode == this.Item.ItemData.InfoMode
-                && infoManager.CurrentSubMode == this.Item.ItemData.SubInfoMode)
+            if (infoManager.CurrentMode == this.itemData.InfoMode
+                && infoManager.CurrentSubMode == this.itemData.SubInfoMode)
             {
                 infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
             }
             else
             {
                 infoManager.SetCurrentMode(
-                    this.Item.ItemData.InfoMode,
-                    this.Item.ItemData.SubInfoMode);
+                    this.itemData.InfoMode,
+                    this.itemData.SubInfoMode);
             }
         }
 
-        private void UpdateVisibility()
+        /// <summary>
+        /// Update the visibility of a panel.
+        /// </summary>
+        /// <returns>True if visibility changed.</returns>
+        public bool UpdatePercentVisibilityAndColor()
         {
-            this.isVisible = this.Item.IsVisible;
-        }
+            var configurationItemData = this.configuration.GetConfigurationItemData(itemData);
+            var percent = this.getPercentFromGame();
+            var oldVisiblity = this.isVisible;
+            this.isVisible = ItemHelper.GetItemVisibility(configurationItemData.Enabled, this.configuration.MainPanelHideItemsNotAvailable, this.configuration.MainPanelHideItemsBelowThreshold, configurationItemData.CriticalThreshold, percent);
 
-        private void UpdatePercentAndColors()
-        {
-            this.PercentButton.text = GetUsagePercentString(this.Item.Percent);
-            this.PercentButton.textColor = GetItemTextColor(this.Item.Percent, this.Item.CriticalThreshold);
-            this.PercentButton.focusedColor = GetItemTextColor(this.Item.Percent, this.Item.CriticalThreshold);
-            this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(this.Item.Percent, this.Item.CriticalThreshold);
+            if (this.isVisible)
+            {
+                this.PercentButton.text = GetUsagePercentString(percent);
+                this.PercentButton.textColor = GetItemTextColor(percent, configurationItemData.CriticalThreshold);
+                this.PercentButton.focusedColor = GetItemTextColor(percent, configurationItemData.CriticalThreshold);
+                this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(percent, configurationItemData.CriticalThreshold);
+            }
+
+            return oldVisiblity != this.isVisible;
         }
 
         private string GetUsagePercentString(int? percent)
@@ -149,7 +159,7 @@ namespace Stats.Ui
         {
             base.OnLocalize();
 
-            var localizedTooltip = this.languageResource.GetLocalizedItemString(this.Item.ItemData);
+            var localizedTooltip = this.languageResource.GetLocalizedItemString(this.itemData);
 
             this.IconButton.tooltip = localizedTooltip;
             this.PercentButton.tooltip = localizedTooltip;

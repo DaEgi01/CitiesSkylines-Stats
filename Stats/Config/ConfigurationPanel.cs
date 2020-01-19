@@ -3,7 +3,6 @@ using ColossalFramework.UI;
 using ICities;
 using System;
 using System.Linq;
-using Stats.Model;
 
 namespace Stats.Config
 {
@@ -29,22 +28,18 @@ namespace Stats.Config
         private UISlider criticalThresholdSlider;
         private UITextField sortOrderTextField;
 
-        private readonly ItemsInIndexOrder itemsInIndexOrder;
-        private Item selectedItem;
+        private ItemData selectedItem;
 
         public ConfigurationPanel(
             UIHelperBase uiHelperBase,
             ModFullTitle modFullTitle,
             Configuration configuration,
-            LanguageResource languageResource,
-            ItemsInIndexOrder itemsInIndexOrder)
+            LanguageResource languageResource)
         {
             this.uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
             this.modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
-
-            this.itemsInIndexOrder = itemsInIndexOrder;
         }
 
         public UISlider ColumnCountSlider
@@ -119,11 +114,6 @@ namespace Stats.Config
             set => sortOrderTextField = value;
         }
 
-        public Item GetItem(ItemData itemData)
-        {
-            return itemsInIndexOrder.Items[itemData.Index];
-        }
-
         public void Initialize()
         {
             var mainGroupUiHelper = this.uiHelperBase.AddGroup(this.modFullTitle);
@@ -132,7 +122,7 @@ namespace Stats.Config
 
             mainGroupUiHelper.AddButton(this.languageResource.Reset, () =>
             {
-                var oldSelectedItemName = this.selectedItem.ItemData.Name;
+                var oldSelectedItemName = this.selectedItem.Name;
                 this.configuration.Reset();
 
                 this.UpdateUiFromModel();
@@ -205,31 +195,36 @@ namespace Stats.Config
                 .Select(itemData => this.languageResource.GetLocalizedItemString(itemData))
                 .ToArray();
             var firstSelectedIndex = default(int);
-            this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[firstSelectedIndex]);
+            this.selectedItem = ItemData.AllItems[firstSelectedIndex];
             this.itemsDropDown = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) =>
             {
-                this.selectedItem = itemsInIndexOrder.GetItem(ItemData.AllItems[index]);
+                this.selectedItem = ItemData.AllItems[index];
                 this.UpdateSelectedItemFromModel();
             }) as UIDropDown;
             var itemsDropdownPanel = this.itemsDropDown.parent as UIPanel;
             itemsDropdownPanel.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
 
-            this.enabledCheckBox = itemGroupUiHelper.AddCheckbox(languageResource.Enabled, this.selectedItem.Enabled, _checked =>
+            var initialConfigurationItemData = configuration.GetConfigurationItemData(selectedItem);
+
+            this.enabledCheckBox = itemGroupUiHelper.AddCheckbox(languageResource.Enabled, initialConfigurationItemData.Enabled, _checked =>
             {
-                this.selectedItem.Enabled = _checked;
+                var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
+                configurationItemData.Enabled = _checked;
                 this.configuration.Save();
             }) as UICheckBox;
             itemGroupUiHelper.AddSpace(space);
 
-            this.criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, this.selectedItem.CriticalThreshold, value =>
+            this.criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, initialConfigurationItemData.CriticalThreshold, value =>
             {
-                this.selectedItem.CriticalThreshold = (int)value;
+                var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
+                configurationItemData.CriticalThreshold = (int)value;
                 this.configuration.Save();
             });
 
-            this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, this.selectedItem.SortOrder.ToString(), v =>
+            this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), v =>
             {
-                this.selectedItem.SortOrder = int.Parse(v);
+                var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
+                configurationItemData.SortOrder = int.Parse(v);
                 this.configuration.Save();
             }) as UITextField;
             this.sortOrderTextField.numericalOnly = true;
@@ -251,9 +246,10 @@ namespace Stats.Config
 
         private void UpdateSelectedItemFromModel()
         {
-            this.enabledCheckBox.isChecked = this.selectedItem.Enabled;
-            this.criticalThresholdSlider.value = this.selectedItem.CriticalThreshold;
-            this.sortOrderTextField.text = this.selectedItem.SortOrder.ToString();
+            var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
+            this.enabledCheckBox.isChecked = configurationItemData.Enabled;
+            this.criticalThresholdSlider.value = configurationItemData.CriticalThreshold;
+            this.sortOrderTextField.text = configurationItemData.SortOrder.ToString();
         }
     }
 }

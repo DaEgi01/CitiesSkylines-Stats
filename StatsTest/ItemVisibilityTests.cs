@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Stats.Model;
+using Stats.Ui;
 using Xunit;
 
 namespace StatsTest
@@ -26,7 +26,7 @@ namespace StatsTest
             int threshold,
             int? percent)
         {
-            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+            ItemHelper.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
                 .Should()
                 .BeFalse();
         }
@@ -41,7 +41,7 @@ namespace StatsTest
             int threshold,
             int? percent)
         {
-            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+            ItemHelper.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
                 .Should()
                 .BeFalse();
         }
@@ -56,7 +56,7 @@ namespace StatsTest
             int threshold,
             int? percent)
         {
-            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+            ItemHelper.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
                 .Should()
                 .BeFalse();
         }
@@ -71,7 +71,7 @@ namespace StatsTest
             int threshold,
             int? percent)
         {
-            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+            ItemHelper.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
                 .Should()
                 .BeTrue();
         }
@@ -86,7 +86,7 @@ namespace StatsTest
             int threshold,
             int? percent)
         {
-            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+            ItemHelper.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
                 .Should()
                 .BeTrue();
         }
@@ -103,7 +103,7 @@ namespace StatsTest
             int threshold,
             int? percent)
         {
-            Item.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
+            ItemHelper.GetItemVisibility(enabled, hideItemsNotAvailable, hideItemsBelowThreshold, threshold, percent)
                 .Should()
                 .BeTrue();
         }

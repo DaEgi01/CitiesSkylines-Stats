@@ -1,8 +1,8 @@
 ﻿using ColossalFramework.UI;
 using Stats.Config;
 using Stats.Localization;
-using Stats.Model;
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -15,18 +15,17 @@ namespace Stats.Ui
         private bool mapHasSnowDumps;
         private Configuration configuration;
         private LanguageResource languageResource;
+        private GameEngineService gameEngineService;
 
         private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
-
-        public ItemPanel[] ItemPanelsInIndexOrder => itemPanelsInIndexOrder;
 
         public void Initialize(
             string modSystemName,
             bool mapHasSnowDumps,
             Configuration configuration,
             LanguageResource languageResource,
-            ItemsInIndexOrder items)
+            GameEngineService gameEngineService)
         {
             this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
             this.mapHasSnowDumps = mapHasSnowDumps;
@@ -36,6 +35,7 @@ namespace Stats.Ui
                 throw new ArgumentOutOfRangeException($"'{nameof(this.configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
+            this.gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
 
             this.color = configuration.MainPanelBackgroundColor;
             this.name = modSystemName + "MainPanel";
@@ -43,12 +43,15 @@ namespace Stats.Ui
             this.isInteractive = false;
 
             this.CreateAndAddDragHandle();
-            this.CreateAndAddAllUiItems(items);
+            this.CreateAndAddAllUiItems();
 
             this.UpdateLayout();
             this.relativePosition = this.configuration.MainPanelPosition;
 
             this.uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
+
+            StartCoroutine(KeepUpdatingUICoroutine());
+
         }
 
         public override void OnDestroy()
@@ -69,10 +72,10 @@ namespace Stats.Ui
             this.uiDragHandle = dragHandle;
         }
 
-        private void CreateAndAddAllUiItems(ItemsInIndexOrder itemsInIndexOrder)
+        private void CreateAndAddAllUiItems()
         {
-            this.itemPanelsInIndexOrder = itemsInIndexOrder.Items
-                .Select(i => this.CreateUiItemAndAddButtons(i))
+            this.itemPanelsInIndexOrder = ItemData.AllItems
+                .Select(i => this.CreateUiItemAndAddButtons(i, this.gameEngineService.GetPercentFunc(i)))
                 .ToArray();
 
             ValidateIndexes(this.itemPanelsInIndexOrder);
@@ -84,7 +87,7 @@ namespace Stats.Ui
             }
 
             this.itemPanelsInDisplayOrder = this.itemPanelsInIndexOrder
-                .OrderBy(x => x.Item.SortOrder)
+                .OrderBy(x => this.configuration.GetConfigurationItemData(x.ItemData).SortOrder)
                 .ToArray();
         }
 
@@ -92,18 +95,18 @@ namespace Stats.Ui
         {
             for (int i = 0; i < itemPanel.Length; i++)
             {
-                if (i != itemPanel[i].Item.ItemData.Index)
+                if (i != itemPanel[i].ItemData.Index)
                 {
                     throw new IndexesMessedUpException(i);
                 }
             }
         }
 
-        private ItemPanel CreateUiItemAndAddButtons(Item item)
+        private ItemPanel CreateUiItemAndAddButtons(ItemData itemData, Func<int?> getPercentFromGame)
         {
-            var uiItem = this.CreateAndAddItemPanel();
-            uiItem.Initialize(this.configuration, item, this.languageResource);
-            return uiItem;
+            var itemPanel = this.CreateAndAddItemPanel();
+            itemPanel.Initialize(this.configuration, this.languageResource, itemData, getPercentFromGame);
+            return itemPanel;
         }
 
         private ItemPanel CreateAndAddItemPanel()
@@ -205,7 +208,7 @@ namespace Stats.Ui
         private int GetVisibleItemsCount(ItemPanel[] itemPanels)
         {
             var result = 0;
-            for (int i = 0; i < itemPanels.Length; i++)
+            for (var i = 0; i < itemPanels.Length; i++)
             {
                 if (itemPanels[i].isVisible)
                 {
@@ -264,6 +267,35 @@ namespace Stats.Ui
             {
                 itemPanelsInIndexOrder[i].Localize();
             }
+        }
+
+        private IEnumerator KeepUpdatingUICoroutine()
+        {
+            while (true)
+            {
+                yield return StartCoroutine(UpdateUICoroutine());
+            }
+        }
+
+        private IEnumerator UpdateUICoroutine()
+        {
+            for (int i = 0; i < this.itemPanelsInIndexOrder.Length; i++)
+            {
+                var itemPanel = this.itemPanelsInIndexOrder[i];
+                if (this.configuration.GetConfigurationItemData(itemPanel.ItemData).Enabled)
+                {
+                    var visibilityChanged = itemPanel.UpdatePercentVisibilityAndColor();
+                    if (visibilityChanged)
+                    {
+                        UpdateLayout();
+                    }
+
+                    yield return new WaitForEndOfFrame();
+                }
+            }
+
+            //wait at least one frame, even if all Items are off.
+            yield return new WaitForEndOfFrame();
         }
     }
 }

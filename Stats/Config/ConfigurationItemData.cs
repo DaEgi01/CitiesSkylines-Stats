@@ -1,21 +1,18 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Stats.Config
+﻿namespace Stats.Config
 {
-    [StructLayout(LayoutKind.Auto)]
-    public readonly struct ConfigurationItemData
+    public class ConfigurationItemData
     {
-        public readonly ItemData itemData;
-        public readonly bool enabled;
-        public readonly int criticalThreshold;
-        public readonly int sortOrder;
-
         public ConfigurationItemData(ItemData itemData, bool enabled, int criticalThreshold, int sortOrder)
         {
-            this.itemData = itemData;
-            this.enabled = enabled;
-            this.criticalThreshold = criticalThreshold;
-            this.sortOrder = sortOrder;
+            ItemData = itemData;
+            Enabled = enabled;
+            CriticalThreshold = criticalThreshold;
+            SortOrder = sortOrder;
         }
+
+        public ItemData ItemData { get; }
+        public bool Enabled { get; set; }
+        public int CriticalThreshold { get; set; }
+        public int SortOrder { get; set; }
     }
 }
