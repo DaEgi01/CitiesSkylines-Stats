@@ -103,7 +103,7 @@ namespace Stats.Ui
         /// Update the visibility of a panel.
         /// </summary>
         /// <returns>True if visibility changed.</returns>
-        public bool UpdatePercentVisibilityAndColor()
+        public ItemVisibilityAndChanged UpdatePercentVisibilityAndColor()
         {
             var percent = this.getPercentFromGame();
             var oldVisiblity = this.isVisible;
@@ -117,7 +117,7 @@ namespace Stats.Ui
                 this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(percent, configurationItemData.CriticalThreshold);
             }
 
-            return oldVisiblity != this.isVisible;
+            return new ItemVisibilityAndChanged(this.isVisible, oldVisiblity != this.isVisible);
         }
 
         private string GetUsagePercentString(int? percent)

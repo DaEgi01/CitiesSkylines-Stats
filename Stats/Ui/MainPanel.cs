@@ -298,8 +298,8 @@ namespace Stats.Ui
                     continue;
                 }
 
-                var visibilityChanged = itemPanel.UpdatePercentVisibilityAndColor();
-                if (visibilityChanged)
+                var itemVisibilityAndChanged = itemPanel.UpdatePercentVisibilityAndColor();
+                if (itemVisibilityAndChanged.isVisibleChanged)
                 {
                     UpdateItemsLayoutAndSize();
                 }

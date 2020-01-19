@@ -781,8 +781,6 @@ namespace Stats
                     num = nextUnit;
                 }
 
-                int budget = economyManager.GetBudget(policeStationAI.m_info.m_class);
-                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -923,9 +921,6 @@ namespace Stats
                     num = nextUnit;
                 }
 
-                int budget = economyManager.GetBudget(policeStationAI.m_info.m_class);
-                int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int policeCars = (productionRate * policeStationAI.PoliceCarCount + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
