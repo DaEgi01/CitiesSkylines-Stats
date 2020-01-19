@@ -10,16 +10,16 @@ namespace Stats.Ui
     public class ItemPanel : UIPanel
     {
         private Configuration configuration;
+        private ConfigurationItemData configurationItemData;
         private LanguageResource languageResource;
-        private ItemData itemData;
         private Func<int?> getPercentFromGame;
 
         //TODO: refactor to localized item instead
-        public void Initialize(Configuration configuration, LanguageResource languageResource, ItemData itemData, Func<int?> getPercentFromGame)
+        public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            this.configurationItemData = configurationItemData ?? throw new ArgumentNullException(nameof(configurationItemData));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
-            this.itemData = itemData;
             this.getPercentFromGame = getPercentFromGame ?? throw new ArgumentNullException(nameof(getPercentFromGame));
 
             this.width = configuration.ItemWidth;
@@ -28,10 +28,11 @@ namespace Stats.Ui
             this.CreateAndAddIconButton();
             this.CreateAndAddPercentButton();
 
-            this.isVisible = this.configuration.GetConfigurationItemData(itemData).Enabled;
+            this.isVisible = this.configurationItemData.Enabled;
         }
 
-        public ItemData ItemData => itemData;
+        public ConfigurationItemData ConfigurationItemData => this.configurationItemData;
+
         public UIButton IconButton { get; private set; }
         public UIButton PercentButton { get; private set; }
 
@@ -64,15 +65,15 @@ namespace Stats.Ui
             iconButton.height = this.height;
             iconButton.relativePosition = new Vector3(this.width - this.height, 0);
             iconButton.disabledBgSprite = "InfoIconBaseDisabled";
-            iconButton.disabledFgSprite = $"{this.itemData.Icon}Disabled";
+            iconButton.disabledFgSprite = $"{this.configurationItemData.ItemData.Icon}Disabled";
             iconButton.focusedBgSprite = "InfoIconBaseNormal"; //don't use focused state
-            iconButton.focusedFgSprite = $"{this.itemData.Icon}"; //don't use focused state
+            iconButton.focusedFgSprite = $"{this.configurationItemData.ItemData.Icon}"; //don't use focused state
             iconButton.hoveredBgSprite = "InfoIconBaseHovered";
-            iconButton.hoveredFgSprite = $"{this.itemData.Icon}Hovered";
+            iconButton.hoveredFgSprite = $"{this.configurationItemData.ItemData.Icon}Hovered";
             iconButton.pressedBgSprite = "InfoIconBasePressed";
-            iconButton.pressedFgSprite = $"{this.itemData.Icon}Pressed";
+            iconButton.pressedFgSprite = $"{this.configurationItemData.ItemData.Icon}Pressed";
             iconButton.normalBgSprite = "InfoIconBaseNormal";
-            iconButton.normalFgSprite = $"{this.itemData.Icon}";
+            iconButton.normalFgSprite = $"{this.configurationItemData.ItemData.Icon}";
             iconButton.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             iconButton.textScaleMode = UITextScaleMode.ControlSize;
 
@@ -85,16 +86,16 @@ namespace Stats.Ui
         {
             var infoManager = Singleton<InfoManager>.instance;
 
-            if (infoManager.CurrentMode == this.itemData.InfoMode
-                && infoManager.CurrentSubMode == this.itemData.SubInfoMode)
+            if (infoManager.CurrentMode == this.configurationItemData.ItemData.InfoMode
+                && infoManager.CurrentSubMode == this.configurationItemData.ItemData.SubInfoMode)
             {
                 infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
             }
             else
             {
                 infoManager.SetCurrentMode(
-                    this.itemData.InfoMode,
-                    this.itemData.SubInfoMode);
+                    this.configurationItemData.ItemData.InfoMode,
+                    this.configurationItemData.ItemData.SubInfoMode);
             }
         }
 
@@ -104,7 +105,6 @@ namespace Stats.Ui
         /// <returns>True if visibility changed.</returns>
         public bool UpdatePercentVisibilityAndColor()
         {
-            var configurationItemData = this.configuration.GetConfigurationItemData(itemData);
             var percent = this.getPercentFromGame();
             var oldVisiblity = this.isVisible;
             this.isVisible = ItemHelper.GetItemVisibility(configurationItemData.Enabled, this.configuration.MainPanelHideItemsNotAvailable, this.configuration.MainPanelHideItemsBelowThreshold, configurationItemData.CriticalThreshold, percent);
@@ -159,7 +159,7 @@ namespace Stats.Ui
         {
             base.OnLocalize();
 
-            var localizedTooltip = this.languageResource.GetLocalizedItemString(this.itemData);
+            var localizedTooltip = this.languageResource.GetLocalizedItemString(this.configurationItemData.ItemData);
 
             this.IconButton.tooltip = localizedTooltip;
             this.PercentButton.tooltip = localizedTooltip;

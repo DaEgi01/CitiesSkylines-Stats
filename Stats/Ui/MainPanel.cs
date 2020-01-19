@@ -75,7 +75,7 @@ namespace Stats.Ui
         private void CreateAndAddAllUiItems()
         {
             this.itemPanelsInIndexOrder = ItemData.AllItems
-                .Select(i => this.CreateUiItemAndAddButtons(i, this.gameEngineService.GetPercentFunc(i)))
+                .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i)))
                 .ToArray();
 
             ValidateIndexes(this.itemPanelsInIndexOrder);
@@ -87,7 +87,7 @@ namespace Stats.Ui
             }
 
             this.itemPanelsInDisplayOrder = this.itemPanelsInIndexOrder
-                .OrderBy(x => this.configuration.GetConfigurationItemData(x.ItemData).SortOrder)
+                .OrderBy(x => x.ConfigurationItemData.SortOrder)
                 .ToArray();
         }
 
@@ -95,17 +95,17 @@ namespace Stats.Ui
         {
             for (int i = 0; i < itemPanel.Length; i++)
             {
-                if (i != itemPanel[i].ItemData.Index)
+                if (i != itemPanel[i].ConfigurationItemData.ItemData.Index)
                 {
                     throw new IndexesMessedUpException(i);
                 }
             }
         }
 
-        private ItemPanel CreateUiItemAndAddButtons(ItemData itemData, Func<int?> getPercentFromGame)
+        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame)
         {
             var itemPanel = this.CreateAndAddItemPanel();
-            itemPanel.Initialize(this.configuration, this.languageResource, itemData, getPercentFromGame);
+            itemPanel.Initialize(this.configuration, configurationItemData, this.languageResource, getPercentFromGame);
             return itemPanel;
         }
 
@@ -282,16 +282,18 @@ namespace Stats.Ui
             for (int i = 0; i < this.itemPanelsInIndexOrder.Length; i++)
             {
                 var itemPanel = this.itemPanelsInIndexOrder[i];
-                if (this.configuration.GetConfigurationItemData(itemPanel.ItemData).Enabled)
+                if (!itemPanel.ConfigurationItemData.Enabled)
                 {
-                    var visibilityChanged = itemPanel.UpdatePercentVisibilityAndColor();
-                    if (visibilityChanged)
-                    {
-                        UpdateLayout();
-                    }
-
-                    yield return new WaitForEndOfFrame();
+                    continue;
                 }
+
+                var visibilityChanged = itemPanel.UpdatePercentVisibilityAndColor();
+                if (visibilityChanged)
+                {
+                    UpdateLayout();
+                }
+
+                yield return new WaitForEndOfFrame();
             }
 
             //wait at least one frame, even if all Items are off.
