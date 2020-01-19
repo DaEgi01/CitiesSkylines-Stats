@@ -139,7 +139,7 @@ namespace Stats.Config
             var mainPanelGroupContentPanel = (mainPanelGroupUiHelper as UIHelper).self as UIPanel;
             mainPanelGroupContentPanel.backgroundSprite = string.Empty;
 
-            this.columnCountSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ColumnCount, 1, 30, 1, this.configuration.MainPanelColumnCount, value =>
+            this.columnCountSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ColumnCount, 1, ItemData.AllItems.Count, 1, this.configuration.MainPanelColumnCount, value =>
             {
                 this.configuration.MainPanelColumnCount = (int)value;
                 this.configuration.Save();
