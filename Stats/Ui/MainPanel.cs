@@ -20,6 +20,8 @@ namespace Stats.Ui
         private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
 
+        public ItemPanel[] ItemPanelsInIndexOrder => itemPanelsInIndexOrder;
+
         public void Initialize(
             string modSystemName,
             bool mapHasSnowDumps,
@@ -45,7 +47,7 @@ namespace Stats.Ui
             this.CreateAndAddDragHandle();
             this.CreateAndAddAllUiItems();
 
-            this.UpdateLayout();
+            this.UpdateItemsLayoutAndSize();
             this.relativePosition = this.configuration.MainPanelPosition;
 
             this.uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
@@ -118,7 +120,16 @@ namespace Stats.Ui
             return itemPanel;
         }
 
-        public void UpdateLayout()
+        public void UpdateSortOrder()
+        {
+            this.itemPanelsInDisplayOrder = this.itemPanelsInIndexOrder
+                .OrderBy(x => x.ConfigurationItemData.SortOrder)
+                .ToArray();
+
+            this.UpdateItemsLayout();
+        }
+
+        public void UpdateItemsLayoutAndSize()
         {
             this.UpdateItemsLayout();
             this.UpdatePanelSize();
@@ -218,7 +229,7 @@ namespace Stats.Ui
             return result;
         }
 
-        private void UpdatePosition()
+        public void UpdatePosition()
         {
             if (uiDragHandle.IsDragged)
             {
@@ -290,7 +301,7 @@ namespace Stats.Ui
                 var visibilityChanged = itemPanel.UpdatePercentVisibilityAndColor();
                 if (visibilityChanged)
                 {
-                    UpdateLayout();
+                    UpdateItemsLayoutAndSize();
                 }
 
                 yield return new WaitForEndOfFrame();

@@ -25,6 +25,7 @@ namespace Stats
         private LanguageResource languageResource;
 
         private MainPanel mainPanel;
+        private ConfigurationPanel configurationPanel;
 
         public string SystemName => "Stats";
         public string Name => "Stats";
@@ -129,12 +130,17 @@ namespace Stats
             }
 
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            new ConfigurationPanel(
+            this.configurationPanel = new ConfigurationPanel(
                 helper,
                 modFullTitle,
                 configuration,
                 languageResource
-            ).Initialize();
+            );
+            this.configurationPanel.Initialize();
+            if (this.mainPanel != null)
+            {
+                this.configurationPanel.MainPanel = this.mainPanel;
+            }
         }
 
         //TODO: postvans in use - to be tested, add translations

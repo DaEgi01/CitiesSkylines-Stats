@@ -65,6 +65,8 @@ namespace Stats.Config
             ValidateIndexes(this.configurationItemDatas);
         }
 
+        public ConfigurationItemData[] ConfigurationItems => configurationItemDatas;
+
         private void ValidateIndexes(ConfigurationItemData[] configurationItems)
         {
             for (int i = 0; i < configurationItems.Length; i++)

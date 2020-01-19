@@ -3,6 +3,7 @@ using ColossalFramework.UI;
 using ICities;
 using System;
 using System.Linq;
+using Stats.Ui;
 
 namespace Stats.Config
 {
@@ -41,6 +42,8 @@ namespace Stats.Config
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
         }
+
+        public MainPanel MainPanel { get; set; }
 
         public UISlider ColumnCountSlider
         {
@@ -124,13 +127,22 @@ namespace Stats.Config
             {
                 var oldSelectedItemName = this.selectedItem.Name;
                 this.configuration.Reset();
-
                 this.UpdateUiFromModel();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdatePosition();
+                }
             });
 
             mainGroupUiHelper.AddButton(this.languageResource.ResetPosition, () =>
             {
                 this.configuration.ResetPosition();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdatePosition();
+                }
             });
 
             mainGroupUiHelper.AddSpace(space);
@@ -143,30 +155,55 @@ namespace Stats.Config
             {
                 this.configuration.MainPanelColumnCount = (int)value;
                 this.configuration.Save();
+                
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             });
 
             this.itemWidthSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemWidth, 10, 100, 1, this.configuration.ItemWidth, value =>
             {
                 this.configuration.ItemWidth = value;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             });
 
             this.itemHeightSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemHeight, 10, 100, 1, this.configuration.ItemHeight, value =>
             {
                 this.configuration.ItemHeight = value;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             });
 
             this.itemPaddingSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemPadding, 0, 30, 1, this.configuration.ItemPadding, value =>
             {
                 this.configuration.ItemPadding = value;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             });
 
             this.itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemTextScale, 0, 4, 0.1f, this.configuration.ItemTextScale, value =>
             {
                 this.configuration.ItemTextScale = value;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             });
 
             this.autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.AutoHide, this.configuration.MainPanelAutoHide, _checked =>
@@ -179,12 +216,32 @@ namespace Stats.Config
             {
                 this.configuration.MainPanelHideItemsBelowThreshold = _checked;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    foreach (var itemPanel in MainPanel.ItemPanelsInIndexOrder)
+                    {
+                        itemPanel.UpdatePercentVisibilityAndColor();
+                    }
+
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             }) as UICheckBox;
 
             this.hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsNotAvailable, this.configuration.MainPanelHideItemsNotAvailable, _checked =>
             {
                 this.configuration.MainPanelHideItemsNotAvailable = _checked;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    foreach (var itemPanel in MainPanel.ItemPanelsInIndexOrder)
+                    {
+                        itemPanel.UpdatePercentVisibilityAndColor();
+                    }
+
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             }) as UICheckBox;
 
             var itemGroupUiHelper = mainGroupUiHelper.AddGroup(this.languageResource.Items);
@@ -211,6 +268,13 @@ namespace Stats.Config
                 var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
                 configurationItemData.Enabled = _checked;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    var itemPanel = MainPanel.ItemPanelsInIndexOrder[selectedItem.Index];
+                    itemPanel.UpdatePercentVisibilityAndColor();
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             }) as UICheckBox;
             itemGroupUiHelper.AddSpace(space);
 
@@ -219,13 +283,25 @@ namespace Stats.Config
                 var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
                 configurationItemData.CriticalThreshold = (int)value;
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    var itemPanel = MainPanel.ItemPanelsInIndexOrder[selectedItem.Index];
+                    itemPanel.UpdatePercentVisibilityAndColor();
+                    this.MainPanel.UpdateItemsLayoutAndSize();
+                }
             });
 
-            this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), v =>
+            this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), (v) => {}, v =>
             {
                 var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
                 configurationItemData.SortOrder = int.Parse(v);
                 this.configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    this.MainPanel.UpdateSortOrder();
+                }
             }) as UITextField;
             this.sortOrderTextField.numericalOnly = true;
         }
