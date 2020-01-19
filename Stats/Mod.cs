@@ -92,9 +92,6 @@ namespace Stats
             {
                 this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
             }
-
-            Func<bool> getHideItemsBelowThreshold = () => this.configuration.MainPanelHideItemsBelowThreshold;
-            Func<bool> getHideItemsNotAvailable = () => this.configuration.MainPanelHideItemsNotAvailable;
         }
 
         private void DestroyDependencies()
