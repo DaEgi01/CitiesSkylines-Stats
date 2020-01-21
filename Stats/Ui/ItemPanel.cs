@@ -1,5 +1,4 @@
-﻿using ColossalFramework;
-using ColossalFramework.UI;
+﻿using ColossalFramework.UI;
 using Stats.Config;
 using Stats.Localization;
 using System;
@@ -13,14 +12,16 @@ namespace Stats.Ui
         private ConfigurationItemData configurationItemData;
         private LanguageResource languageResource;
         private Func<int?> getPercentFromGame;
+        private InfoManager infoManager;
 
         //TODO: refactor to localized item instead
-        public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame)
+        public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.configurationItemData = configurationItemData ?? throw new ArgumentNullException(nameof(configurationItemData));
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
             this.getPercentFromGame = getPercentFromGame ?? throw new ArgumentNullException(nameof(getPercentFromGame));
+            this.infoManager = infoManager ?? throw new ArgumentNullException(nameof(infoManager));
 
             this.width = configuration.ItemWidth;
             this.height = configuration.ItemHeight;
@@ -84,8 +85,6 @@ namespace Stats.Ui
 
         private void ButtonClicked(UIComponent component, UIMouseEventParameter eventParam)
         {
-            var infoManager = Singleton<InfoManager>.instance;
-
             if (infoManager.CurrentMode == this.configurationItemData.ItemData.InfoMode
                 && infoManager.CurrentSubMode == this.configurationItemData.ItemData.SubInfoMode)
             {

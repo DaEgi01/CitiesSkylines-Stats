@@ -109,7 +109,7 @@ namespace Stats
         {
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService);
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, Singleton<InfoManager>.instance);
         }
 
         private void DestroyMainPanel()

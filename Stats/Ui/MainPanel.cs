@@ -16,6 +16,7 @@ namespace Stats.Ui
         private Configuration configuration;
         private LanguageResource languageResource;
         private GameEngineService gameEngineService;
+        private InfoManager infoManager;
 
         private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
@@ -27,7 +28,8 @@ namespace Stats.Ui
             bool mapHasSnowDumps,
             Configuration configuration,
             LanguageResource languageResource,
-            GameEngineService gameEngineService)
+            GameEngineService gameEngineService,
+            InfoManager infoManager)
         {
             this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
             this.mapHasSnowDumps = mapHasSnowDumps;
@@ -38,6 +40,7 @@ namespace Stats.Ui
             }
             this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
             this.gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
+            this.infoManager = infoManager;
 
             this.color = configuration.MainPanelBackgroundColor;
             this.name = modSystemName + "MainPanel";
@@ -77,7 +80,7 @@ namespace Stats.Ui
         private void CreateAndAddAllUiItems()
         {
             this.itemPanelsInIndexOrder = ItemData.AllItems
-                .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i)))
+                .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i), infoManager))
                 .ToArray();
 
             ValidateIndexes(this.itemPanelsInIndexOrder);
@@ -104,10 +107,10 @@ namespace Stats.Ui
             }
         }
 
-        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame)
+        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
             var itemPanel = this.CreateAndAddItemPanel();
-            itemPanel.Initialize(this.configuration, configurationItemData, this.languageResource, getPercentFromGame);
+            itemPanel.Initialize(this.configuration, configurationItemData, this.languageResource, getPercentFromGame, infoManager);
             return itemPanel;
         }
 
