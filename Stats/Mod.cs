@@ -7,7 +7,6 @@ using ICities;
 using Stats.Config;
 using Stats.Localization;
 using Stats.Ui;
-using System;
 using System.IO;
 using UnityEngine;
 
@@ -74,20 +73,20 @@ namespace Stats
             this.configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
             this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(this.SystemName, this.WorkshopId, PluginManager.instance);
 
-            this.gameEngineService = new GameEngineService(Singleton<DistrictManager>.instance,
-                Singleton<BuildingManager>.instance,
-                Singleton<EconomyManager>.instance,
-                Singleton<ImmaterialResourceManager>.instance,
-                Singleton<CitizenManager>.instance,
-                Singleton<VehicleManager>.instance
+            this.gameEngineService = new GameEngineService(DistrictManager.instance,
+                BuildingManager.instance,
+                EconomyManager.instance,
+                ImmaterialResourceManager.instance,
+                CitizenManager.instance,
+                VehicleManager.instance
             );
 
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
                 ? new Configuration(configurationService, configurationService.Load())
                 : new Configuration(configurationService, new ConfigurationDto());
 
-            //do not instantiate LocaleManager here.
-            //LocaleManager.instance must be called later than during OnEnabled() at the first game start or will causes bugs
+            //do not instantiate LocaleManager in LoadingExtensionBase.OnEnabled().
+            //LocaleManager.instance must be called later at the first game start or will causes bugs.
             if (LocaleManager.exists)
             {
                 this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
@@ -109,7 +108,7 @@ namespace Stats
         {
             var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, Singleton<InfoManager>.instance);
+            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, InfoManager.instance);
         }
 
         private void DestroyMainPanel()
