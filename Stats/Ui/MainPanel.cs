@@ -271,12 +271,23 @@ namespace Stats.Ui
 
         private IEnumerator UpdateUICoroutine()
         {
-            var enabledItemsCount = this.configuration.GetEnabledItemsCount();
-            var totalTimeToUpdate = this.configuration.MainPanelUpdateEveryXSeconds;
+            var waitTimeIfNothingIsTodo = 1.0f;
 
-            var itemUpdateInterval = enabledItemsCount == 0
-                ? 0.1f
-                : totalTimeToUpdate / (float)enabledItemsCount;
+            var enabledItemsCount = this.configuration.GetEnabledItemsCount();
+            if (enabledItemsCount == 0)
+            {
+                yield return new WaitForSecondsRealtime(waitTimeIfNothingIsTodo);
+                yield break;
+            }
+
+            var totalTimeToUpdate = this.configuration.MainPanelUpdateEveryXSeconds;
+            if (totalTimeToUpdate == 0)
+            {
+                yield return new WaitForSecondsRealtime(waitTimeIfNothingIsTodo);
+                yield break;
+            }
+
+            var itemUpdateInterval = totalTimeToUpdate / (float)enabledItemsCount;
 
             for (int i = 0; i < this.itemPanelsInDisplayOrder.Length; i++)
             {
@@ -294,9 +305,6 @@ namespace Stats.Ui
                 
                 yield return new WaitForSecondsRealtime(itemUpdateInterval);
             }
-
-            //wait at least one frame, even if all Items are off.
-            yield return new WaitForSecondsRealtime(itemUpdateInterval);
         }
     }
 }
