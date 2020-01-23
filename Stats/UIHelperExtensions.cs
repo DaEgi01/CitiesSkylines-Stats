@@ -8,8 +8,8 @@ namespace Stats
     {
         public static UISlider AddSliderWithLabel(this UIHelperBase uIHelper, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)
         {
-            float spaceBetweenLabelAndSlider = 8f;
-            float marginBottom = 16f;
+            var spaceBetweenLabelAndSlider = 8f;
+            var marginBottom = 16f;
 
             var sliderControl = uIHelper.AddSlider(text, min, max, step, defaultValue, value => { }) as UISlider;
             var rootPanel = sliderControl.parent as UIPanel;
@@ -30,7 +30,8 @@ namespace Stats
 
             rootPanel.height = label.height + spaceBetweenLabelAndSlider + slider.height + marginBottom;
 
-            sliderControl.eventValueChanged += (comp, value) => {
+            sliderControl.eventValueChanged += (comp, value) =>
+            {
                 valueLabel.text = value.ToString();
                 eventCallback(value);
             };

@@ -1,5 +1,4 @@
-﻿using ColossalFramework.Globalization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,11 +6,11 @@ namespace Stats.Localization
 {
     public class LanguageResource
     {
-        private readonly LanguageResourceService<LanguageResourceDto> languageResourceService;
-        private readonly string fallbackLanguageTwoLetterCode;
+        private readonly LanguageResourceService<LanguageResourceDto> _languageResourceService;
+        private readonly string _fallbackLanguageTwoLetterCode;
 
-        private string currentLanguage;
-        private Dictionary<string, string> localizedStrings;
+        private string _currentLanguage;
+        private Dictionary<string, string> _localizedStrings;
 
         private LanguageResource(
             LanguageResourceService<LanguageResourceDto> languageResourceService,
@@ -19,13 +18,13 @@ namespace Stats.Localization
             Dictionary<string, string> localizedStrings,
             string fallbackLanguageTwoLetterCode)
         {
-            this.currentLanguage = currentLanguage ?? throw new ArgumentNullException(nameof(currentLanguage));
-            this.languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
-            this.localizedStrings = localizedStrings ?? throw new ArgumentNullException(nameof(localizedStrings));
-            this.fallbackLanguageTwoLetterCode = fallbackLanguageTwoLetterCode ?? throw new ArgumentNullException(nameof(fallbackLanguageTwoLetterCode));
+            _currentLanguage = currentLanguage ?? throw new ArgumentNullException(nameof(currentLanguage));
+            _languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
+            _localizedStrings = localizedStrings ?? throw new ArgumentNullException(nameof(localizedStrings));
+            _fallbackLanguageTwoLetterCode = fallbackLanguageTwoLetterCode ?? throw new ArgumentNullException(nameof(fallbackLanguageTwoLetterCode));
         }
 
-        public string CurrentLanguage => currentLanguage;
+        public string CurrentLanguage => _currentLanguage;
 
         public static LanguageResource Create(
             LanguageResourceService<LanguageResourceDto> languageResourceService,
@@ -46,41 +45,41 @@ namespace Stats.Localization
             );
         }
 
-        public string Reset => localizedStrings["Reset"];
-        public string ResetPosition => localizedStrings["ResetPosition"];
-        public string UpdateEveryXSeconds => localizedStrings["UpdateEveryXSeconds"];
-        public string AutoHide => localizedStrings["AutoHide"];
-        public string HideItemsBelowThreshold => localizedStrings["HideItemsBelowThreshold"];
-        public string HideItemsNotAvailable => localizedStrings["HideItemsNotAvailable"];
-        public string BackgroundColor => localizedStrings["BackgroundColor"];
-        public string ForegroundColor => localizedStrings["ForegroundColor"];
-        public string AccentColor => localizedStrings["AccentColor"];
-        public string MainWindow => localizedStrings["MainWindow"];
-        public string ColumnCount => localizedStrings["ColumnCount"];
-        public string ItemWidth => localizedStrings["ItemWidth"];
-        public string ItemHeight => localizedStrings["ItemHeight"];
-        public string ItemPadding => localizedStrings["ItemPadding"];
-        public string ItemTextScale => localizedStrings["ItemTextScale"];
-        public string Items => localizedStrings["Items"];
-        public string Enabled => localizedStrings["Enabled"];
-        public string CriticalThreshold => localizedStrings["CriticalThreshold"];
-        public string SortOrder => localizedStrings["SortOrder"];
+        public string Reset => _localizedStrings["Reset"];
+        public string ResetPosition => _localizedStrings["ResetPosition"];
+        public string UpdateEveryXSeconds => _localizedStrings["UpdateEveryXSeconds"];
+        public string AutoHide => _localizedStrings["AutoHide"];
+        public string HideItemsBelowThreshold => _localizedStrings["HideItemsBelowThreshold"];
+        public string HideItemsNotAvailable => _localizedStrings["HideItemsNotAvailable"];
+        public string BackgroundColor => _localizedStrings["BackgroundColor"];
+        public string ForegroundColor => _localizedStrings["ForegroundColor"];
+        public string AccentColor => _localizedStrings["AccentColor"];
+        public string MainWindow => _localizedStrings["MainWindow"];
+        public string ColumnCount => _localizedStrings["ColumnCount"];
+        public string ItemWidth => _localizedStrings["ItemWidth"];
+        public string ItemHeight => _localizedStrings["ItemHeight"];
+        public string ItemPadding => _localizedStrings["ItemPadding"];
+        public string ItemTextScale => _localizedStrings["ItemTextScale"];
+        public string Items => _localizedStrings["Items"];
+        public string Enabled => _localizedStrings["Enabled"];
+        public string CriticalThreshold => _localizedStrings["CriticalThreshold"];
+        public string SortOrder => _localizedStrings["SortOrder"];
 
         public string GetLocalizedItemString(ItemData item)
         {
-            return localizedStrings[item.Name];
+            return _localizedStrings[item.Name];
         }
 
         public void LoadLanguage(string languageTwoLetterCode)
         {
             var result = LoadLanguageOrFallbackLanguage(
-                this.languageResourceService,
+                _languageResourceService,
                 languageTwoLetterCode,
-                this.fallbackLanguageTwoLetterCode
+                _fallbackLanguageTwoLetterCode
             );
 
-            this.currentLanguage = result.Language;
-            this.localizedStrings = result.LocalizedStrings;
+            _currentLanguage = result.Language;
+            _localizedStrings = result.LocalizedStrings;
         }
 
         private static LoadLanguageResult LoadLanguageOrFallbackLanguage(

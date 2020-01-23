@@ -10,16 +10,16 @@ namespace Stats.Ui
 {
     public class MainPanel : UIPanel
     {
-        private UIDragHandleWithDragState uiDragHandle;
-        private string modSystemName;
-        private Configuration configuration;
-        private LanguageResource languageResource;
-        private GameEngineService gameEngineService;
-        private InfoManager infoManager;
+        private UIDragHandleWithDragState _uiDragHandle;
+        private string _modSystemName;
+        private Configuration _configuration;
+        private LanguageResource _languageResource;
+        private GameEngineService _gameEngineService;
+        private InfoManager _infoManager;
 
-        private ItemPanel[] itemPanelsInDisplayOrder;
+        private ItemPanel[] _itemPanelsInDisplayOrder;
 
-        public ItemPanel[] ItemPanelsInDisplayOrder => itemPanelsInDisplayOrder;
+        public ItemPanel[] ItemPanelsInDisplayOrder => _itemPanelsInDisplayOrder;
 
         public void Initialize(
             string modSystemName,
@@ -28,105 +28,104 @@ namespace Stats.Ui
             GameEngineService gameEngineService,
             InfoManager infoManager)
         {
-            this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            if (this.configuration.MainPanelColumnCount < 1)
+            _modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            if (_configuration.MainPanelColumnCount < 1)
             {
-                throw new ArgumentOutOfRangeException($"'{nameof(this.configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
+                throw new ArgumentOutOfRangeException($"'{nameof(_configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
-            this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
-            this.gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
-            this.infoManager = infoManager;
+            _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
+            _gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
+            _infoManager = infoManager;
 
-            this.color = configuration.MainPanelBackgroundColor;
-            this.name = modSystemName + "MainPanel";
-            this.backgroundSprite = "GenericPanelLight";
-            this.isInteractive = false;
+            color = configuration.MainPanelBackgroundColor;
+            name = modSystemName + "MainPanel";
+            backgroundSprite = "GenericPanelLight";
+            isInteractive = false;
 
-            this.CreateAndAddDragHandle();
-            this.CreateAndAddAllUiItems();
+            CreateAndAddDragHandle();
+            CreateAndAddAllUiItems();
 
-            this.UpdateItemsLayoutAndSize();
-            this.relativePosition = this.configuration.MainPanelPosition;
+            UpdateItemsLayoutAndSize();
+            relativePosition = _configuration.MainPanelPosition;
 
-            this.uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
+            _uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
 
             StartCoroutine(KeepUpdatingUICoroutine());
-
         }
 
         public override void OnDestroy()
         {
-            this.uiDragHandle.eventMouseUp -= UiDragHandle_eventMouseUp;
+            _uiDragHandle.eventMouseUp -= UiDragHandle_eventMouseUp;
 
             base.OnDestroy();
         }
 
         private void CreateAndAddDragHandle()
         {
-            var dragHandle = this.AddUIComponent<UIDragHandleWithDragState>();
-            dragHandle.name = this.modSystemName + "DragHandle";
+            var dragHandle = AddUIComponent<UIDragHandleWithDragState>();
+            dragHandle.name = _modSystemName + "DragHandle";
             dragHandle.relativePosition = Vector2.zero;
             dragHandle.target = this;
             dragHandle.constrainToScreen = true;
             dragHandle.SendToBack();
-            this.uiDragHandle = dragHandle;
+            _uiDragHandle = dragHandle;
         }
 
         private void CreateAndAddAllUiItems()
         {
-            this.itemPanelsInDisplayOrder = this.gameEngineService.MapHasSnowDumps
+            _itemPanelsInDisplayOrder = _gameEngineService.MapHasSnowDumps
                 ? ItemData.AllItems
-                    .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i), infoManager))
+                    .Select(i => CreateUiItemAndAddButtons(_configuration.GetConfigurationItemData(i), _gameEngineService.GetPercentFunc(i), _infoManager))
                     .OrderBy(x => x.ConfigurationItemData.SortOrder)
                     .ToArray()
                 : ItemData.AllItems
                     .Where(i => i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles)
-                    .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i), infoManager))
+                    .Select(i => CreateUiItemAndAddButtons(_configuration.GetConfigurationItemData(i), _gameEngineService.GetPercentFunc(i), _infoManager))
                     .OrderBy(x => x.ConfigurationItemData.SortOrder)
                     .ToArray();
         }
 
         private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
-            var itemPanel = this.CreateAndAddItemPanel();
-            itemPanel.Initialize(this.configuration, configurationItemData, this.languageResource, getPercentFromGame, infoManager);
+            var itemPanel = CreateAndAddItemPanel();
+            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, getPercentFromGame, infoManager);
             return itemPanel;
         }
 
         private ItemPanel CreateAndAddItemPanel()
         {
-            var itemPanel = this.AddUIComponent<ItemPanel>();
-            itemPanel.width = this.configuration.ItemWidth;
-            itemPanel.height = this.configuration.ItemHeight;
+            var itemPanel = AddUIComponent<ItemPanel>();
+            itemPanel.width = _configuration.ItemWidth;
+            itemPanel.height = _configuration.ItemHeight;
             itemPanel.zOrder = zOrder;
             return itemPanel;
         }
 
         public void UpdateSortOrder()
         {
-            this.itemPanelsInDisplayOrder = this.itemPanelsInDisplayOrder
+            _itemPanelsInDisplayOrder = _itemPanelsInDisplayOrder
                 .OrderBy(x => x.ConfigurationItemData.SortOrder)
                 .ToArray();
 
-            this.UpdateItemsLayout();
+            UpdateItemsLayout();
         }
 
         public void UpdateItemsLayoutAndSize()
         {
-            this.UpdateItemsLayout();
-            this.UpdatePanelSize();
+            UpdateItemsLayout();
+            UpdatePanelSize();
         }
 
         public override void Update()
         {
-            if (this.configuration.MainPanelAutoHide && !this.containsMouse)
+            if (_configuration.MainPanelAutoHide && !containsMouse)
             {
-                this.opacity = 0;
+                opacity = 0;
             }
             else
             {
-                this.opacity = 1;
+                opacity = 1;
             }
         }
 
@@ -135,17 +134,17 @@ namespace Stats.Ui
             var lastLayoutPosition = Vector2.zero;
             int index = 0;
 
-            for (int i = 0; i < this.itemPanelsInDisplayOrder.Length; i++)
+            for (int i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
             {
-                var currentItem = this.itemPanelsInDisplayOrder[i];
+                var currentItem = _itemPanelsInDisplayOrder[i];
                 if (!currentItem.isVisible)
                 {
                     continue;
                 }
 
                 var layoutPosition = new Vector2(
-                    index % this.configuration.MainPanelColumnCount,
-                    index / this.configuration.MainPanelColumnCount
+                    index % _configuration.MainPanelColumnCount,
+                    index / _configuration.MainPanelColumnCount
                 );
 
                 currentItem.relativePosition = CalculateRelativePosition(layoutPosition);
@@ -158,7 +157,7 @@ namespace Stats.Ui
 
         private Vector2 CalculateNextLayoutPosition(Vector2 position)
         {
-            if (position.x < this.configuration.MainPanelColumnCount - 1)
+            if (position.x < _configuration.MainPanelColumnCount - 1)
             {
                 return new Vector2(position.x + 1, position.y);
             }
@@ -170,33 +169,33 @@ namespace Stats.Ui
 
         private Vector3 CalculateRelativePosition(Vector2 layoutPosition)
         {
-            var posX = (layoutPosition.x + 1) * this.configuration.ItemPadding
-                + layoutPosition.x * this.configuration.ItemWidth;
-            var posY = (layoutPosition.y + 1) * this.configuration.ItemPadding
-                + layoutPosition.y * this.configuration.ItemHeight;
+            var posX = (layoutPosition.x + 1) * _configuration.ItemPadding
+                + layoutPosition.x * _configuration.ItemWidth;
+            var posY = (layoutPosition.y + 1) * _configuration.ItemPadding
+                + layoutPosition.y * _configuration.ItemHeight;
 
             return new Vector3(posX, posY);
         }
 
         private void UpdatePanelSize()
         {
-            var visibleItemCount = GetVisibleItemsCount(this.itemPanelsInDisplayOrder);
+            var visibleItemCount = GetVisibleItemsCount(_itemPanelsInDisplayOrder);
             if (visibleItemCount == 0)
             {
-                this.isVisible = false;
+                isVisible = false;
                 return;
             }
 
-            this.isVisible = true;
+            isVisible = true;
 
-            var newWidth = this.CalculatePanelWidth(visibleItemCount);
-            var newHeight = this.CalculatePanelHeight(visibleItemCount);
+            var newWidth = CalculatePanelWidth(visibleItemCount);
+            var newHeight = CalculatePanelHeight(visibleItemCount);
 
-            this.width = newWidth;
-            this.height = newHeight;
+            width = newWidth;
+            height = newHeight;
 
-            this.uiDragHandle.width = newWidth;
-            this.uiDragHandle.height = newHeight;
+            _uiDragHandle.width = newWidth;
+            _uiDragHandle.height = newHeight;
         }
 
         private int GetVisibleItemsCount(ItemPanel[] itemPanels)
@@ -214,40 +213,40 @@ namespace Stats.Ui
 
         public void UpdatePosition()
         {
-            if (uiDragHandle.IsDragged)
+            if (_uiDragHandle.IsDragged)
             {
                 return;
             }
 
-            this.relativePosition = this.configuration.MainPanelPosition;
+            relativePosition = _configuration.MainPanelPosition;
         }
 
         public void UpdateLocalization()
         {
-            for (int i = 0; i < itemPanelsInDisplayOrder.Length; i++)
+            for (int i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
             {
-                itemPanelsInDisplayOrder[i].UpdateLocalization();
+                _itemPanelsInDisplayOrder[i].UpdateLocalization();
             }
         }
 
         private float CalculatePanelWidth(int visibleItemCount)
         {
-            if (visibleItemCount < this.configuration.MainPanelColumnCount)
+            if (visibleItemCount < _configuration.MainPanelColumnCount)
             {
-                return (visibleItemCount + 1) * this.configuration.ItemPadding
-                    + visibleItemCount * this.configuration.ItemWidth;
+                return (visibleItemCount + 1) * _configuration.ItemPadding
+                    + visibleItemCount * _configuration.ItemWidth;
             }
             else
             {
-                return (this.configuration.MainPanelColumnCount + 1) * this.configuration.ItemPadding
-                    + this.configuration.MainPanelColumnCount * this.configuration.ItemWidth;
+                return (_configuration.MainPanelColumnCount + 1) * _configuration.ItemPadding
+                    + _configuration.MainPanelColumnCount * _configuration.ItemWidth;
             }
         }
 
         private float CalculatePanelHeight(int visibleItemCount)
         {
-            var rowCount = Mathf.CeilToInt(visibleItemCount / (float)this.configuration.MainPanelColumnCount);
-            return (rowCount + 1) * this.configuration.ItemPadding + rowCount * this.configuration.ItemHeight;
+            var rowCount = Mathf.CeilToInt(visibleItemCount / (float)_configuration.MainPanelColumnCount);
+            return (rowCount + 1) * _configuration.ItemPadding + rowCount * _configuration.ItemHeight;
         }
 
         private void UiDragHandle_eventMouseUp(UIComponent component, UIMouseEventParameter eventParam)
@@ -257,8 +256,8 @@ namespace Stats.Ui
 
         private void SaveMainPanelPosition()
         {
-            this.configuration.MainPanelPosition = this.relativePosition;
-            this.configuration.Save();
+            _configuration.MainPanelPosition = relativePosition;
+            _configuration.Save();
         }
 
         private IEnumerator KeepUpdatingUICoroutine()
@@ -273,14 +272,14 @@ namespace Stats.Ui
         {
             var waitTimeIfNothingIsTodo = 1.0f;
 
-            var enabledItemsCount = this.configuration.GetEnabledItemsCount();
+            var enabledItemsCount = _configuration.GetEnabledItemsCount();
             if (enabledItemsCount == 0)
             {
                 yield return new WaitForSecondsRealtime(waitTimeIfNothingIsTodo);
                 yield break;
             }
 
-            var totalTimeToUpdate = this.configuration.MainPanelUpdateEveryXSeconds;
+            var totalTimeToUpdate = _configuration.MainPanelUpdateEveryXSeconds;
             if (totalTimeToUpdate == 0)
             {
                 yield return new WaitForSecondsRealtime(waitTimeIfNothingIsTodo);
@@ -289,9 +288,9 @@ namespace Stats.Ui
 
             var itemUpdateInterval = totalTimeToUpdate / (float)enabledItemsCount;
 
-            for (int i = 0; i < this.itemPanelsInDisplayOrder.Length; i++)
+            for (int i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
             {
-                var itemPanel = this.itemPanelsInDisplayOrder[i];
+                var itemPanel = _itemPanelsInDisplayOrder[i];
                 if (!itemPanel.ConfigurationItemData.Enabled)
                 {
                     continue;
@@ -302,7 +301,7 @@ namespace Stats.Ui
                 {
                     UpdateItemsLayoutAndSize();
                 }
-                
+
                 yield return new WaitForSecondsRealtime(itemUpdateInterval);
             }
         }

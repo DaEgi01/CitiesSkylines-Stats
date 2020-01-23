@@ -1,36 +1,36 @@
-﻿using Stats.Localization;
-using ColossalFramework.UI;
+﻿using ColossalFramework.UI;
 using ICities;
+using Stats.Localization;
+using Stats.Ui;
 using System;
 using System.Linq;
-using Stats.Ui;
 
 namespace Stats.Config
 {
     public class ConfigurationPanel
     {
-        private readonly int space = 16;
+        private readonly int _space = 16;
 
-        private readonly UIHelperBase uiHelperBase;
-        private readonly ModFullTitle modFullTitle;
-        private readonly LanguageResource languageResource;
-        private readonly Configuration configuration;
+        private readonly UIHelperBase _uiHelperBase;
+        private readonly ModFullTitle _modFullTitle;
+        private readonly LanguageResource _languageResource;
+        private readonly Configuration _configuration;
 
-        private UISlider updateEveryXSeconds;
-        private UISlider columnCountSlider;
-        private UISlider itemWidthSlider;
-        private UISlider itemHeightSlider;
-        private UISlider itemPaddingSlider;
-        private UISlider itemTextScaleSlider;
-        private UICheckBox autoHideCheckBox;
-        private UICheckBox hideItemsBelowThresholdCheckBox;
-        private UICheckBox hideItemsNotAvailableCheckBox;
-        private UIDropDown itemsDropDown;
-        private UICheckBox enabledCheckBox;
-        private UISlider criticalThresholdSlider;
-        private UITextField sortOrderTextField;
+        private UISlider _updateEveryXSeconds;
+        private UISlider _columnCountSlider;
+        private UISlider _itemWidthSlider;
+        private UISlider _itemHeightSlider;
+        private UISlider _itemPaddingSlider;
+        private UISlider _itemTextScaleSlider;
+        private UICheckBox _autoHideCheckBox;
+        private UICheckBox _hideItemsBelowThresholdCheckBox;
+        private UICheckBox _hideItemsNotAvailableCheckBox;
+        private UIDropDown _itemsDropDown;
+        private UICheckBox _enabledCheckBox;
+        private UISlider _criticalThresholdSlider;
+        private UITextField _sortOrderTextField;
 
-        private ItemData selectedItem;
+        private ItemData _selectedItem;
 
         public ConfigurationPanel(
             UIHelperBase uiHelperBase,
@@ -38,119 +38,119 @@ namespace Stats.Config
             Configuration configuration,
             LanguageResource languageResource)
         {
-            this.uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
-            this.modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            this.languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
+            _uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
+            _modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
         }
 
         public MainPanel MainPanel { get; set; }
 
         public void Initialize()
         {
-            var mainGroupUiHelper = this.uiHelperBase.AddGroup(this.modFullTitle);
+            var mainGroupUiHelper = _uiHelperBase.AddGroup(_modFullTitle);
             var mainGroupContentPanel = (mainGroupUiHelper as UIHelper).self as UIPanel;
             mainGroupContentPanel.backgroundSprite = string.Empty;
 
-            mainGroupUiHelper.AddButton(this.languageResource.Reset, () =>
+            mainGroupUiHelper.AddButton(_languageResource.Reset, () =>
             {
-                var oldSelectedItemName = this.selectedItem.Name;
-                this.configuration.Reset();
-                this.UpdateUiFromModel();
+                var oldSelectedItemName = _selectedItem.Name;
+                _configuration.Reset();
+                UpdateUiFromModel();
 
                 if (MainPanel != null)
                 {
-                    this.MainPanel.UpdatePosition();
+                    MainPanel.UpdatePosition();
                 }
             });
 
-            mainGroupUiHelper.AddButton(this.languageResource.ResetPosition, () =>
+            mainGroupUiHelper.AddButton(_languageResource.ResetPosition, () =>
             {
-                this.configuration.ResetPosition();
+                _configuration.ResetPosition();
 
                 if (MainPanel != null)
                 {
-                    this.MainPanel.UpdatePosition();
+                    MainPanel.UpdatePosition();
                 }
             });
 
-            mainGroupUiHelper.AddSpace(space);
+            mainGroupUiHelper.AddSpace(_space);
 
-            var mainPanelGroupUiHelper = mainGroupUiHelper.AddGroup(languageResource.MainWindow);
+            var mainPanelGroupUiHelper = mainGroupUiHelper.AddGroup(_languageResource.MainWindow);
             var mainPanelGroupContentPanel = (mainPanelGroupUiHelper as UIHelper).self as UIPanel;
             mainPanelGroupContentPanel.backgroundSprite = string.Empty;
 
-            this.updateEveryXSeconds = mainPanelGroupUiHelper.AddSliderWithLabel(this.languageResource.UpdateEveryXSeconds, 0, 30, 1, this.configuration.MainPanelUpdateEveryXSeconds, value =>
+            _updateEveryXSeconds = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.UpdateEveryXSeconds, 0, 30, 1, _configuration.MainPanelUpdateEveryXSeconds, value =>
             {
-                this.configuration.MainPanelUpdateEveryXSeconds = (int)value;
-                this.configuration.Save();
+                _configuration.MainPanelUpdateEveryXSeconds = (int)value;
+                _configuration.Save();
             });
 
-            this.columnCountSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ColumnCount, 1, ItemData.AllItems.Count, 1, this.configuration.MainPanelColumnCount, value =>
+            _columnCountSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ColumnCount, 1, ItemData.AllItems.Count, 1, _configuration.MainPanelColumnCount, value =>
             {
-                this.configuration.MainPanelColumnCount = (int)value;
-                this.configuration.Save();
-                
-                if (MainPanel != null)
-                {
-                    this.MainPanel.UpdateItemsLayoutAndSize();
-                }
-            });
-
-            this.itemWidthSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemWidth, 10, 100, 1, this.configuration.ItemWidth, value =>
-            {
-                this.configuration.ItemWidth = value;
-                this.configuration.Save();
+                _configuration.MainPanelColumnCount = (int)value;
+                _configuration.Save();
 
                 if (MainPanel != null)
                 {
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemsLayoutAndSize();
                 }
             });
 
-            this.itemHeightSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemHeight, 10, 100, 1, this.configuration.ItemHeight, value =>
+            _itemWidthSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemWidth, 10, 100, 1, _configuration.ItemWidth, value =>
             {
-                this.configuration.ItemHeight = value;
-                this.configuration.Save();
+                _configuration.ItemWidth = value;
+                _configuration.Save();
 
                 if (MainPanel != null)
                 {
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemsLayoutAndSize();
                 }
             });
 
-            this.itemPaddingSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemPadding, 0, 30, 1, this.configuration.ItemPadding, value =>
+            _itemHeightSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemHeight, 10, 100, 1, _configuration.ItemHeight, value =>
             {
-                this.configuration.ItemPadding = value;
-                this.configuration.Save();
+                _configuration.ItemHeight = value;
+                _configuration.Save();
 
                 if (MainPanel != null)
                 {
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemsLayoutAndSize();
                 }
             });
 
-            this.itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ItemTextScale, 0, 4, 0.1f, this.configuration.ItemTextScale, value =>
+            _itemPaddingSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemPadding, 0, 30, 1, _configuration.ItemPadding, value =>
             {
-                this.configuration.ItemTextScale = value;
-                this.configuration.Save();
+                _configuration.ItemPadding = value;
+                _configuration.Save();
 
                 if (MainPanel != null)
                 {
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemsLayoutAndSize();
                 }
             });
 
-            this.autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.AutoHide, this.configuration.MainPanelAutoHide, _checked =>
+            _itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemTextScale, 0, 4, 0.1f, _configuration.ItemTextScale, value =>
             {
-                this.configuration.MainPanelAutoHide = _checked;
-                this.configuration.Save();
+                _configuration.ItemTextScale = value;
+                _configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    MainPanel.UpdateItemsLayoutAndSize();
+                }
+            });
+
+            _autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.AutoHide, _configuration.MainPanelAutoHide, _checked =>
+            {
+                _configuration.MainPanelAutoHide = _checked;
+                _configuration.Save();
             }) as UICheckBox;
 
-            this.hideItemsBelowThresholdCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsBelowThreshold, this.configuration.MainPanelHideItemsBelowThreshold, _checked =>
+            _hideItemsBelowThresholdCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsBelowThreshold, _configuration.MainPanelHideItemsBelowThreshold, _checked =>
             {
-                this.configuration.MainPanelHideItemsBelowThreshold = _checked;
-                this.configuration.Save();
+                _configuration.MainPanelHideItemsBelowThreshold = _checked;
+                _configuration.Save();
 
                 if (MainPanel != null)
                 {
@@ -159,14 +159,14 @@ namespace Stats.Config
                         itemPanel.UpdatePercentVisibilityAndColor();
                     }
 
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemsLayoutAndSize();
                 }
             }) as UICheckBox;
 
-            this.hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(this.languageResource.HideItemsNotAvailable, this.configuration.MainPanelHideItemsNotAvailable, _checked =>
+            _hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsNotAvailable, _configuration.MainPanelHideItemsNotAvailable, _checked =>
             {
-                this.configuration.MainPanelHideItemsNotAvailable = _checked;
-                this.configuration.Save();
+                _configuration.MainPanelHideItemsNotAvailable = _checked;
+                _configuration.Save();
 
                 if (MainPanel != null)
                 {
@@ -175,34 +175,34 @@ namespace Stats.Config
                         itemPanel.UpdatePercentVisibilityAndColor();
                     }
 
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemsLayoutAndSize();
                 }
             }) as UICheckBox;
 
-            var itemGroupUiHelper = mainGroupUiHelper.AddGroup(this.languageResource.Items);
+            var itemGroupUiHelper = mainGroupUiHelper.AddGroup(_languageResource.Items);
             var itemGroupContentPanel = (itemGroupUiHelper as UIHelper).self as UIPanel;
             itemGroupContentPanel.backgroundSprite = string.Empty;
 
             var itemStringArray = ItemData.AllItems
-                .Select(itemData => this.languageResource.GetLocalizedItemString(itemData))
+                .Select(itemData => _languageResource.GetLocalizedItemString(itemData))
                 .ToArray();
             var firstSelectedIndex = default(int);
-            this.selectedItem = ItemData.AllItems[firstSelectedIndex];
-            this.itemsDropDown = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) =>
+            _selectedItem = ItemData.AllItems[firstSelectedIndex];
+            _itemsDropDown = itemGroupUiHelper.AddDropdown(" ", itemStringArray, firstSelectedIndex, (index) =>
             {
-                this.selectedItem = ItemData.AllItems[index];
-                this.UpdateSelectedItemFromModel();
+                _selectedItem = ItemData.AllItems[index];
+                UpdateSelectedItemFromModel();
             }) as UIDropDown;
-            var itemsDropdownPanel = this.itemsDropDown.parent as UIPanel;
+            var itemsDropdownPanel = _itemsDropDown.parent as UIPanel;
             itemsDropdownPanel.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
 
-            var initialConfigurationItemData = configuration.GetConfigurationItemData(selectedItem);
+            var initialConfigurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
 
-            this.enabledCheckBox = itemGroupUiHelper.AddCheckbox(languageResource.Enabled, initialConfigurationItemData.Enabled, _checked =>
+            _enabledCheckBox = itemGroupUiHelper.AddCheckbox(_languageResource.Enabled, initialConfigurationItemData.Enabled, _checked =>
             {
-                var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
+                var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
                 configurationItemData.Enabled = _checked;
-                this.configuration.Save();
+                _configuration.Save();
 
                 if (MainPanel == null)
                 {
@@ -210,7 +210,7 @@ namespace Stats.Config
                 }
 
                 var itemPanel = MainPanel.ItemPanelsInDisplayOrder
-                    .Where(x => x.ConfigurationItemData.ItemData == selectedItem)
+                    .Where(x => x.ConfigurationItemData.ItemData == _selectedItem)
                     .FirstOrDefault();
 
                 if (itemPanel == null)
@@ -219,15 +219,15 @@ namespace Stats.Config
                 }
 
                 itemPanel.UpdatePercentVisibilityAndColor();
-                this.MainPanel.UpdateItemsLayoutAndSize();
+                MainPanel.UpdateItemsLayoutAndSize();
             }) as UICheckBox;
-            itemGroupUiHelper.AddSpace(space);
+            itemGroupUiHelper.AddSpace(_space);
 
-            this.criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(languageResource.CriticalThreshold, 0, 100, 1, initialConfigurationItemData.CriticalThreshold, value =>
+            _criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(_languageResource.CriticalThreshold, 0, 100, 1, initialConfigurationItemData.CriticalThreshold, value =>
             {
-                var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
+                var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
                 configurationItemData.CriticalThreshold = (int)value;
-                this.configuration.Save();
+                _configuration.Save();
 
                 if (MainPanel == null)
                 {
@@ -235,7 +235,7 @@ namespace Stats.Config
                 }
 
                 var itemPanel = MainPanel.ItemPanelsInDisplayOrder
-                    .Where(x => x.ConfigurationItemData.ItemData == selectedItem)
+                    .Where(x => x.ConfigurationItemData.ItemData == _selectedItem)
                     .FirstOrDefault();
 
                 if (itemPanel == null)
@@ -244,44 +244,44 @@ namespace Stats.Config
                 }
 
                 itemPanel.UpdatePercentVisibilityAndColor();
-                this.MainPanel.UpdateItemsLayoutAndSize();
+                MainPanel.UpdateItemsLayoutAndSize();
             });
 
-            this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), (v) => {}, v =>
-            {
-                var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
-                configurationItemData.SortOrder = int.Parse(v);
-                this.configuration.Save();
+            _sortOrderTextField = itemGroupUiHelper.AddTextfield(_languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), (v) => { }, v =>
+             {
+                 var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
+                 configurationItemData.SortOrder = int.Parse(v);
+                 _configuration.Save();
 
-                if (MainPanel != null)
-                {
-                    this.MainPanel.UpdateSortOrder();
-                }
-            }) as UITextField;
-            this.sortOrderTextField.numericalOnly = true;
+                 if (MainPanel != null)
+                 {
+                     MainPanel.UpdateSortOrder();
+                 }
+             }) as UITextField;
+            _sortOrderTextField.numericalOnly = true;
         }
 
         private void UpdateUiFromModel()
         {
-            this.updateEveryXSeconds.value = this.configuration.MainPanelUpdateEveryXSeconds;
-            this.columnCountSlider.value = this.configuration.MainPanelColumnCount;
-            this.itemWidthSlider.value = this.configuration.ItemWidth;
-            this.itemHeightSlider.value = this.configuration.ItemHeight;
-            this.itemPaddingSlider.value = this.configuration.ItemPadding;
-            this.itemTextScaleSlider.value = this.configuration.ItemTextScale;
-            this.autoHideCheckBox.isChecked = this.configuration.MainPanelAutoHide;
-            this.hideItemsBelowThresholdCheckBox.isChecked = this.configuration.MainPanelHideItemsBelowThreshold;
-            this.hideItemsNotAvailableCheckBox.isChecked = this.configuration.MainPanelHideItemsNotAvailable;
+            _updateEveryXSeconds.value = _configuration.MainPanelUpdateEveryXSeconds;
+            _columnCountSlider.value = _configuration.MainPanelColumnCount;
+            _itemWidthSlider.value = _configuration.ItemWidth;
+            _itemHeightSlider.value = _configuration.ItemHeight;
+            _itemPaddingSlider.value = _configuration.ItemPadding;
+            _itemTextScaleSlider.value = _configuration.ItemTextScale;
+            _autoHideCheckBox.isChecked = _configuration.MainPanelAutoHide;
+            _hideItemsBelowThresholdCheckBox.isChecked = _configuration.MainPanelHideItemsBelowThreshold;
+            _hideItemsNotAvailableCheckBox.isChecked = _configuration.MainPanelHideItemsNotAvailable;
 
-            this.UpdateSelectedItemFromModel();
+            UpdateSelectedItemFromModel();
         }
 
         private void UpdateSelectedItemFromModel()
         {
-            var configurationItemData = configuration.GetConfigurationItemData(selectedItem);
-            this.enabledCheckBox.isChecked = configurationItemData.Enabled;
-            this.criticalThresholdSlider.value = configurationItemData.CriticalThreshold;
-            this.sortOrderTextField.text = configurationItemData.SortOrder.ToString();
+            var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
+            _enabledCheckBox.isChecked = configurationItemData.Enabled;
+            _criticalThresholdSlider.value = configurationItemData.CriticalThreshold;
+            _sortOrderTextField.text = configurationItemData.SortOrder.ToString();
         }
     }
 }

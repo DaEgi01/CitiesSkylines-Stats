@@ -14,16 +14,16 @@ namespace Stats
 {
     public class Mod : LoadingExtensionBase, IUserMod
     {
-        private readonly string fallbackLanguageTwoLetterCode = "en";
+        private readonly string _fallbackLanguageTwoLetterCode = "en";
 
-        private LanguageResourceService<LanguageResourceDto> languageResourceService;
-        private LanguageResource languageResource;
+        private LanguageResourceService<LanguageResourceDto> _languageResourceService;
+        private LanguageResource _languageResource;
 
-        private ConfigurationService<ConfigurationDto> configurationService;
-        private Configuration configuration;
-        private ConfigurationPanel configurationPanel;
+        private ConfigurationService<ConfigurationDto> _configurationService;
+        private Configuration _configuration;
+        private ConfigurationPanel _configurationPanel;
 
-        private MainPanel mainPanel;
+        private MainPanel _mainPanel;
 
         public string SystemName => "Stats";
         public string Name => "Stats";
@@ -33,11 +33,11 @@ namespace Stats
 
         public void OnEnabled()
         {
-            this.InitializeDependencies();
+            InitializeDependencies();
 
             if (LoadingManager.exists && LoadingManager.instance.m_loadingComplete)
             {
-                this.InitializeMainPanel();
+                InitializeMainPanel();
             }
         }
 
@@ -45,10 +45,10 @@ namespace Stats
         {
             if (LoadingManager.exists && LoadingManager.instance.m_loadingComplete)
             {
-                this.DestroyMainPanel();
+                DestroyMainPanel();
             }
 
-            this.DestroyDependencies();
+            DestroyDependencies();
         }
 
         public override void OnLevelLoaded(LoadMode mode)
@@ -58,32 +58,32 @@ namespace Stats
                 return;
             }
 
-            this.InitializeMainPanel();
+            InitializeMainPanel();
         }
 
         public override void OnLevelUnloading()
         {
-            this.DestroyMainPanel();
+            DestroyMainPanel();
         }
 
         private void InitializeDependencies()
         {
             var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
-            this.configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
-            this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(
-                this.SystemName,
-                this.WorkshopId,
+            _configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
+            _languageResourceService = new LanguageResourceService<LanguageResourceDto>(
+                SystemName,
+                WorkshopId,
                 PluginManager.instance
             );
 
-            this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
-                ? new Configuration(configurationService, configurationService.Load())
-                : new Configuration(configurationService, new ConfigurationDto());
+            _configuration = File.Exists(_configurationService.ConfigurationFileFullName)
+                ? new Configuration(_configurationService, _configurationService.Load())
+                : new Configuration(_configurationService, new ConfigurationDto());
 
             var playerLanguage = new SavedString(Settings.localeID, Settings.gameSettingsFile, DefaultSettings.localeID);
             LocaleManager.defaultLanguage = playerLanguage; //necessary because LocaleManager.Constructor will use that value lol.
             LocaleManager.Ensure();
-            this.languageResource = LanguageResource.Create(this.languageResourceService, playerLanguage, fallbackLanguageTwoLetterCode);
+            _languageResource = LanguageResource.Create(_languageResourceService, playerLanguage, _fallbackLanguageTwoLetterCode);
 
             LocaleManager.eventUIComponentLocaleChanged += LocaleManager_eventUIComponentLocaleChanged;
         }
@@ -92,20 +92,20 @@ namespace Stats
         {
             LocaleManager.eventUIComponentLocaleChanged -= LocaleManager_eventUIComponentLocaleChanged;
 
-            this.configurationService = null;
-            this.languageResourceService = null;
+            _configurationService = null;
+            _languageResourceService = null;
 
-            this.configuration = null;
-            this.languageResource = null;
+            _configuration = null;
+            _languageResource = null;
 
-            this.configurationPanel = null;
+            _configurationPanel = null;
         }
 
         private void LocaleManager_eventUIComponentLocaleChanged()
         {
             var languageTwoLetterCode = LocaleManager.instance.language;
-            this.languageResource.LoadLanguage(languageTwoLetterCode);
-            this.mainPanel?.UpdateLocalization();
+            _languageResource.LoadLanguage(languageTwoLetterCode);
+            _mainPanel?.UpdateLocalization();
         }
 
         private void InitializeMainPanel()
@@ -119,39 +119,39 @@ namespace Stats
                 VehicleManager.instance
             );
 
-            this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, this.configuration, this.languageResource, gameEngineService, InfoManager.instance);
-            if (this.configurationPanel != null)
+            _mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
+            _mainPanel.Initialize(SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
+            if (_configurationPanel != null)
             {
-                this.configurationPanel.MainPanel = this.mainPanel;
+                _configurationPanel.MainPanel = _mainPanel;
             }
         }
 
         private void DestroyMainPanel()
         {
-            if (this.configurationPanel != null)
+            if (_configurationPanel != null)
             {
-                this.configurationPanel.MainPanel = null;
+                _configurationPanel.MainPanel = null;
             }
-            GameObject.Destroy(this.mainPanel.gameObject);
-            this.mainPanel = null;
+            GameObject.Destroy(_mainPanel.gameObject);
+            _mainPanel = null;
         }
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            var modFullTitle = new ModFullTitle(this.Name, this.Version);
+            var modFullTitle = new ModFullTitle(Name, Version);
 
-            this.configurationPanel = new ConfigurationPanel(
+            _configurationPanel = new ConfigurationPanel(
                 helper,
                 modFullTitle,
-                configuration,
-                languageResource
+                _configuration,
+                _languageResource
             );
 
-            this.configurationPanel.Initialize();
-            if (this.mainPanel != null)
+            _configurationPanel.Initialize();
+            if (_mainPanel != null)
             {
-                this.configurationPanel.MainPanel = this.mainPanel;
+                _configurationPanel.MainPanel = _mainPanel;
             }
         }
 

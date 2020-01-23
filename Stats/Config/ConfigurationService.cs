@@ -8,7 +8,7 @@ namespace Stats.Config
     {
         public ConfigurationService(string configurationFileFullName)
         {
-            this.ConfigurationFileFullName = configurationFileFullName 
+            ConfigurationFileFullName = configurationFileFullName
                 ?? throw new ArgumentNullException(nameof(configurationFileFullName));
         }
 
