@@ -91,18 +91,17 @@ namespace Stats
                 : new Configuration(configurationService, new ConfigurationDto());
 
             var playerLanguage = new SavedString(Settings.localeID, Settings.gameSettingsFile, DefaultSettings.localeID);
-
-            Debug.Log("Initialize Dependencies Lang: " + playerLanguage);
-
             LocaleManager.defaultLanguage = playerLanguage; //necessary because LocaleManager.Constructor will use that value lol.
             LocaleManager.Ensure();
             this.languageResource = LanguageResource.Create(this.languageResourceService, playerLanguage, fallbackLanguageTwoLetterCode);
 
-            LocaleManager.eventLocaleChanged += LocaleManager_eventLocaleChanged;
+            LocaleManager.eventUIComponentLocaleChanged += LocaleManager_eventUIComponentLocaleChanged;
         }
 
         private void DestroyDependencies()
         {
+            LocaleManager.eventUIComponentLocaleChanged -= LocaleManager_eventUIComponentLocaleChanged;
+
             this.configurationService = null;
             this.languageResourceService = null;
             this.gameEngineService = null;
@@ -110,19 +109,14 @@ namespace Stats
             this.configuration = null;
             this.languageResource = null;
 
-            LocaleManager.eventLocaleChanged -= LocaleManager_eventLocaleChanged;
+            this.configurationPanel = null;
         }
 
-        private void LocaleManager_eventLocaleChanged()
+        private void LocaleManager_eventUIComponentLocaleChanged()
         {
-            Debug.Log("LocaleManager_eventLocaleChanged called");
-
             var languageTwoLetterCode = LocaleManager.instance.language;
-
-            Debug.Log("Language:" + languageTwoLetterCode);
-
             this.languageResource.LoadLanguage(languageTwoLetterCode);
-            this.mainPanel.UpdateLocalization();
+            this.mainPanel?.UpdateLocalization();
         }
 
         private void InitializeMainPanel()
@@ -140,13 +134,9 @@ namespace Stats
 
         public void OnSettingsUI(UIHelperBase helper)
         {
+            Debug.Log("OnSettingsUI called");
+
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            //bad workaround for the fact that OnSettingsUI is triggered before
-            //eventLocaleChanged is triggered on language change.
-            if (languageResource.CurrentLanguage != LocaleManager.instance.language)
-            {
-                languageResource.LoadLanguage(LocaleManager.instance.language);
-            }
             
             this.configurationPanel = new ConfigurationPanel(
                 helper,
