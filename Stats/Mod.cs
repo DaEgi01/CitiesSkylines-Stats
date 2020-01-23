@@ -121,10 +121,18 @@ namespace Stats
 
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
             this.mainPanel.Initialize(this.SystemName, this.configuration, this.languageResource, gameEngineService, InfoManager.instance);
+            if (this.configurationPanel != null)
+            {
+                this.configurationPanel.MainPanel = this.mainPanel;
+            }
         }
 
         private void DestroyMainPanel()
         {
+            if (this.configurationPanel != null)
+            {
+                this.configurationPanel.MainPanel = null;
+            }
             GameObject.Destroy(this.mainPanel.gameObject);
             this.mainPanel = null;
         }
