@@ -65,6 +65,7 @@
     <Compile Include="Localization\LanguageResourceDto.cs" />
     <Compile Include="Localization\LanguageResourceItemDto.cs" />
     <Compile Include="Localization\LanguageResourceService.cs" />
+    <Compile Include="Localization\LoadLanguageResult.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Config\ConfigurationDto.cs" />
     <Compile Include="ModFullTitle.cs" />

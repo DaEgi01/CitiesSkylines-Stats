@@ -242,6 +242,14 @@ namespace Stats.Ui
             this.relativePosition = this.configuration.MainPanelPosition;
         }
 
+        public void UpdateLocalization()
+        {
+            for (int i = 0; i < itemPanelsInIndexOrder.Length; i++)
+            {
+                itemPanelsInIndexOrder[i].UpdateLocalization();
+            }
+        }
+
         private float CalculatePanelWidth(int visibleItemCount)
         {
             if (visibleItemCount < this.configuration.MainPanelColumnCount)
@@ -271,16 +279,6 @@ namespace Stats.Ui
         {
             this.configuration.MainPanelPosition = this.relativePosition;
             this.configuration.Save();
-        }
-
-        protected override void OnLocalize()
-        {
-            base.OnLocalize();
-
-            for (int i = 0; i < itemPanelsInIndexOrder.Length; i++)
-            {
-                itemPanelsInIndexOrder[i].Localize();
-            }
         }
 
         private IEnumerator KeepUpdatingUICoroutine()

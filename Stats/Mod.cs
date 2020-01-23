@@ -14,7 +14,7 @@ namespace Stats
 {
     public class Mod : LoadingExtensionBase, IUserMod
     {
-        private readonly string localizationFallbackLanguageCode = "de";
+        private readonly string fallbackLanguageTwoLetterCode = "en";
 
         private ConfigurationService<ConfigurationDto> configurationService;
         private LanguageResourceService<LanguageResourceDto> languageResourceService;
@@ -71,9 +71,14 @@ namespace Stats
         {
             var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
             this.configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
-            this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(this.SystemName, this.WorkshopId, PluginManager.instance);
+            this.languageResourceService = new LanguageResourceService<LanguageResourceDto>(
+                this.SystemName,
+                this.WorkshopId,
+                PluginManager.instance
+            );
 
-            this.gameEngineService = new GameEngineService(DistrictManager.instance,
+            this.gameEngineService = new GameEngineService(
+                DistrictManager.instance,
                 BuildingManager.instance,
                 EconomyManager.instance,
                 ImmaterialResourceManager.instance,
@@ -85,12 +90,15 @@ namespace Stats
                 ? new Configuration(configurationService, configurationService.Load())
                 : new Configuration(configurationService, new ConfigurationDto());
 
-            //do not instantiate LocaleManager in LoadingExtensionBase.OnEnabled().
-            //LocaleManager.instance must be called later at the first game start or will causes bugs.
-            if (LocaleManager.exists)
-            {
-                this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
-            }
+            var playerLanguage = new SavedString(Settings.localeID, Settings.gameSettingsFile, DefaultSettings.localeID);
+
+            Debug.Log("Initialize Dependencies Lang: " + playerLanguage);
+
+            LocaleManager.defaultLanguage = playerLanguage; //necessary because LocaleManager.Constructor will use that value lol.
+            LocaleManager.Ensure();
+            this.languageResource = LanguageResource.Create(this.languageResourceService, playerLanguage, fallbackLanguageTwoLetterCode);
+
+            LocaleManager.eventLocaleChanged += LocaleManager_eventLocaleChanged;
         }
 
         private void DestroyDependencies()
@@ -100,8 +108,21 @@ namespace Stats
             this.gameEngineService = null;
 
             this.configuration = null;
-            this.languageResource.Dispose();
             this.languageResource = null;
+
+            LocaleManager.eventLocaleChanged -= LocaleManager_eventLocaleChanged;
+        }
+
+        private void LocaleManager_eventLocaleChanged()
+        {
+            Debug.Log("LocaleManager_eventLocaleChanged called");
+
+            var languageTwoLetterCode = LocaleManager.instance.language;
+
+            Debug.Log("Language:" + languageTwoLetterCode);
+
+            this.languageResource.LoadLanguage(languageTwoLetterCode);
+            this.mainPanel.UpdateLocalization();
         }
 
         private void InitializeMainPanel()
@@ -113,25 +134,27 @@ namespace Stats
 
         private void DestroyMainPanel()
         {
-            this.mainPanel.Disable();
             GameObject.Destroy(this.mainPanel.gameObject);
+            this.mainPanel = null;
         }
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            //Workaround for game start only, because here we can access LocaleManager.instance without issues.
-            if (this.languageResource == null)
-            {
-                this.languageResource = LanguageResource.Create(this.languageResourceService, LocaleManager.instance, LocaleManager.instance.language, localizationFallbackLanguageCode);
-            }
-
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
+            //bad workaround for the fact that OnSettingsUI is triggered before
+            //eventLocaleChanged is triggered on language change.
+            if (languageResource.CurrentLanguage != LocaleManager.instance.language)
+            {
+                languageResource.LoadLanguage(LocaleManager.instance.language);
+            }
+            
             this.configurationPanel = new ConfigurationPanel(
                 helper,
                 modFullTitle,
                 configuration,
                 languageResource
             );
+
             this.configurationPanel.Initialize();
             if (this.mainPanel != null)
             {

@@ -14,6 +14,11 @@ namespace Stats.Ui
         private Func<int?> getPercentFromGame;
         private InfoManager infoManager;
 
+        private UIButton iconButton;
+        private UIButton percentButton;
+
+        public ConfigurationItemData ConfigurationItemData => this.configurationItemData;
+
         //TODO: refactor to localized item instead
         public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
@@ -26,16 +31,12 @@ namespace Stats.Ui
             this.width = configuration.ItemWidth;
             this.height = configuration.ItemHeight;
 
+            this.isVisible = this.configurationItemData.Enabled;
+
             this.CreateAndAddIconButton();
             this.CreateAndAddPercentButton();
-
-            this.isVisible = this.configurationItemData.Enabled;
+            this.UpdateLocalization();
         }
-
-        public ConfigurationItemData ConfigurationItemData => this.configurationItemData;
-
-        public UIButton IconButton { get; private set; }
-        public UIButton PercentButton { get; private set; }
 
         private void CreateAndAddPercentButton()
         {
@@ -54,7 +55,7 @@ namespace Stats.Ui
 
             percentButton.eventClicked += ButtonClicked;
 
-            this.PercentButton = percentButton;
+            this.percentButton = percentButton;
         }
 
         private void CreateAndAddIconButton()
@@ -80,7 +81,7 @@ namespace Stats.Ui
 
             iconButton.eventClicked += ButtonClicked;
 
-            this.IconButton = iconButton;
+            this.iconButton = iconButton;
         }
 
         private void ButtonClicked(UIComponent component, UIMouseEventParameter eventParam)
@@ -88,13 +89,17 @@ namespace Stats.Ui
             if (infoManager.CurrentMode == this.configurationItemData.ItemData.InfoMode
                 && infoManager.CurrentSubMode == this.configurationItemData.ItemData.SubInfoMode)
             {
-                infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
+                infoManager.SetCurrentMode(
+                    InfoManager.InfoMode.None,
+                    InfoManager.SubInfoMode.Default
+                );
             }
             else
             {
                 infoManager.SetCurrentMode(
                     this.configurationItemData.ItemData.InfoMode,
-                    this.configurationItemData.ItemData.SubInfoMode);
+                    this.configurationItemData.ItemData.SubInfoMode
+                );
             }
         }
 
@@ -110,10 +115,10 @@ namespace Stats.Ui
 
             if (this.isVisible)
             {
-                this.PercentButton.text = GetUsagePercentString(percent);
-                this.PercentButton.textColor = GetItemTextColor(percent, configurationItemData.CriticalThreshold);
-                this.PercentButton.focusedColor = GetItemTextColor(percent, configurationItemData.CriticalThreshold);
-                this.PercentButton.hoveredTextColor = GetItemHoveredTextColor(percent, configurationItemData.CriticalThreshold);
+                this.percentButton.text = GetUsagePercentString(percent);
+                this.percentButton.textColor = GetItemTextColor(percent, configurationItemData.CriticalThreshold);
+                this.percentButton.focusedColor = GetItemTextColor(percent, configurationItemData.CriticalThreshold);
+                this.percentButton.hoveredTextColor = GetItemHoveredTextColor(percent, configurationItemData.CriticalThreshold);
             }
 
             return new ItemVisibilityAndChanged(this.isVisible, oldVisiblity != this.isVisible);
@@ -145,23 +150,20 @@ namespace Stats.Ui
             this.width = this.configuration.ItemWidth;
             this.height = this.configuration.ItemHeight;
 
-            this.IconButton.width = this.height;
-            this.IconButton.height = this.height;
-            this.IconButton.relativePosition = new Vector3(this.width - this.height, 0);
+            this.iconButton.width = this.height;
+            this.iconButton.height = this.height;
+            this.iconButton.relativePosition = new Vector3(this.width - this.height, 0);
 
-            this.PercentButton.width = this.width - this.height;
-            this.PercentButton.height = this.height;
-            this.PercentButton.textScale = this.configuration.ItemTextScale;
+            this.percentButton.width = this.width - this.height;
+            this.percentButton.height = this.height;
+            this.percentButton.textScale = this.configuration.ItemTextScale;
         }
 
-        protected override void OnLocalize()
+        public void UpdateLocalization()
         {
-            base.OnLocalize();
-
             var localizedTooltip = this.languageResource.GetLocalizedItemString(this.configurationItemData.ItemData);
-
-            this.IconButton.tooltip = localizedTooltip;
-            this.PercentButton.tooltip = localizedTooltip;
+            this.iconButton.tooltip = localizedTooltip;
+            this.percentButton.tooltip = localizedTooltip;
         }
     }
 }
