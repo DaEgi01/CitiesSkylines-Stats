@@ -132,7 +132,7 @@ namespace Stats
         public void OnSettingsUI(UIHelperBase helper)
         {
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
-            
+
             this.configurationPanel = new ConfigurationPanel(
                 helper,
                 modFullTitle,
@@ -162,6 +162,7 @@ namespace Stats
         //TODO: move itempanel logic out of mainpanel
         //TODO: unselect main menu if another service is selected but does not fit the click on the item
         //TODO: performance (for example GetBudget can be done once)
+        //TODO: performance create only the ItemPanels that are enabled
         //TODO: refactoring
         //TODO: icons
         //TODO: values per building type
