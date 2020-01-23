@@ -13,6 +13,7 @@ namespace Stats
         private readonly VehicleManager vehicleManager;
 
         private readonly District allDistricts;
+        private readonly bool mapHasSnowDumps;
 
         public GameEngineService(
             DistrictManager districtManager,
@@ -30,7 +31,10 @@ namespace Stats
             this.vehicleManager = vehicleManager ?? throw new ArgumentNullException(nameof(vehicleManager));
 
             this.allDistricts = districtManager.m_districts.m_buffer[0];
+            this.mapHasSnowDumps = this.CheckIfMapHasSnowDumps();
         }
+
+        public bool MapHasSnowDumps => mapHasSnowDumps;
 
         public Func<int?> GetPercentFunc(ItemData itemData)
         {
@@ -1138,6 +1142,11 @@ namespace Stats
 
         public int? GetSnowDumpPercent()
         {
+            if (!mapHasSnowDumps)
+            {
+                return null;
+            }
+
             var snowDumpStorageTotal = 0;
             var snowDumpStorageInUse = 0;
 
@@ -1175,6 +1184,11 @@ namespace Stats
 
         public int? GetSnowDumpVehiclesPercent()
         {
+            if (!mapHasSnowDumps)
+            {
+                return null;
+            }
+
             var snowDumpVehiclesTotal = 0;
             var snowDumpVehiclesInUse = 0;
 

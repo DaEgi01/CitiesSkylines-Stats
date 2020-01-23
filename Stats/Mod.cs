@@ -16,15 +16,14 @@ namespace Stats
     {
         private readonly string fallbackLanguageTwoLetterCode = "en";
 
-        private ConfigurationService<ConfigurationDto> configurationService;
         private LanguageResourceService<LanguageResourceDto> languageResourceService;
-        private GameEngineService gameEngineService;
-
-        private Configuration configuration;
         private LanguageResource languageResource;
 
-        private MainPanel mainPanel;
+        private ConfigurationService<ConfigurationDto> configurationService;
+        private Configuration configuration;
         private ConfigurationPanel configurationPanel;
+
+        private MainPanel mainPanel;
 
         public string SystemName => "Stats";
         public string Name => "Stats";
@@ -77,15 +76,6 @@ namespace Stats
                 PluginManager.instance
             );
 
-            this.gameEngineService = new GameEngineService(
-                DistrictManager.instance,
-                BuildingManager.instance,
-                EconomyManager.instance,
-                ImmaterialResourceManager.instance,
-                CitizenManager.instance,
-                VehicleManager.instance
-            );
-
             this.configuration = File.Exists(configurationService.ConfigurationFileFullName)
                 ? new Configuration(configurationService, configurationService.Load())
                 : new Configuration(configurationService, new ConfigurationDto());
@@ -104,7 +94,6 @@ namespace Stats
 
             this.configurationService = null;
             this.languageResourceService = null;
-            this.gameEngineService = null;
 
             this.configuration = null;
             this.languageResource = null;
@@ -121,9 +110,17 @@ namespace Stats
 
         private void InitializeMainPanel()
         {
-            var mapHasSnowDumps = this.gameEngineService.CheckIfMapHasSnowDumps();
+            var gameEngineService = new GameEngineService(
+                DistrictManager.instance,
+                BuildingManager.instance,
+                EconomyManager.instance,
+                ImmaterialResourceManager.instance,
+                CitizenManager.instance,
+                VehicleManager.instance
+            );
+
             this.mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            this.mainPanel.Initialize(this.SystemName, mapHasSnowDumps, this.configuration, this.languageResource, this.gameEngineService, InfoManager.instance);
+            this.mainPanel.Initialize(this.SystemName, this.configuration, this.languageResource, gameEngineService, InfoManager.instance);
         }
 
         private void DestroyMainPanel()

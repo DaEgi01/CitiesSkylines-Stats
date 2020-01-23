@@ -12,27 +12,23 @@ namespace Stats.Ui
     {
         private UIDragHandleWithDragState uiDragHandle;
         private string modSystemName;
-        private bool mapHasSnowDumps;
         private Configuration configuration;
         private LanguageResource languageResource;
         private GameEngineService gameEngineService;
         private InfoManager infoManager;
 
-        private ItemPanel[] itemPanelsInIndexOrder;
         private ItemPanel[] itemPanelsInDisplayOrder;
 
-        public ItemPanel[] ItemPanelsInIndexOrder => itemPanelsInIndexOrder;
+        public ItemPanel[] ItemPanelsInDisplayOrder => itemPanelsInDisplayOrder;
 
         public void Initialize(
             string modSystemName,
-            bool mapHasSnowDumps,
             Configuration configuration,
             LanguageResource languageResource,
             GameEngineService gameEngineService,
             InfoManager infoManager)
         {
             this.modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
-            this.mapHasSnowDumps = mapHasSnowDumps;
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             if (this.configuration.MainPanelColumnCount < 1)
             {
@@ -79,21 +75,16 @@ namespace Stats.Ui
 
         private void CreateAndAddAllUiItems()
         {
-            this.itemPanelsInIndexOrder = ItemData.AllItems
-                .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i), infoManager))
-                .ToArray();
-
-            ValidateIndexes(this.itemPanelsInIndexOrder);
-
-            if (!mapHasSnowDumps)
-            {
-                this.itemPanelsInIndexOrder[ItemData.SnowDump.Index].isVisible = false;
-                this.itemPanelsInIndexOrder[ItemData.SnowDumpVehicles.Index].isVisible = false;
-            }
-
-            this.itemPanelsInDisplayOrder = this.itemPanelsInIndexOrder
-                .OrderBy(x => x.ConfigurationItemData.SortOrder)
-                .ToArray();
+            this.itemPanelsInDisplayOrder = this.gameEngineService.MapHasSnowDumps
+                ? ItemData.AllItems
+                    .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i), infoManager))
+                    .OrderBy(x => x.ConfigurationItemData.SortOrder)
+                    .ToArray()
+                : ItemData.AllItems
+                    .Where(i => i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles)
+                    .Select(i => this.CreateUiItemAndAddButtons(this.configuration.GetConfigurationItemData(i), this.gameEngineService.GetPercentFunc(i), infoManager))
+                    .OrderBy(x => x.ConfigurationItemData.SortOrder)
+                    .ToArray();
         }
 
         private void ValidateIndexes(ItemPanel[] itemPanel)
@@ -125,7 +116,7 @@ namespace Stats.Ui
 
         public void UpdateSortOrder()
         {
-            this.itemPanelsInDisplayOrder = this.itemPanelsInIndexOrder
+            this.itemPanelsInDisplayOrder = this.itemPanelsInDisplayOrder
                 .OrderBy(x => x.ConfigurationItemData.SortOrder)
                 .ToArray();
 
@@ -200,7 +191,7 @@ namespace Stats.Ui
 
         private void UpdatePanelSize()
         {
-            var visibleItemCount = GetVisibleItemsCount(this.itemPanelsInIndexOrder);
+            var visibleItemCount = GetVisibleItemsCount(this.itemPanelsInDisplayOrder);
             if (visibleItemCount == 0)
             {
                 this.isVisible = false;
@@ -244,9 +235,9 @@ namespace Stats.Ui
 
         public void UpdateLocalization()
         {
-            for (int i = 0; i < itemPanelsInIndexOrder.Length; i++)
+            for (int i = 0; i < itemPanelsInDisplayOrder.Length; i++)
             {
-                itemPanelsInIndexOrder[i].UpdateLocalization();
+                itemPanelsInDisplayOrder[i].UpdateLocalization();
             }
         }
 
@@ -291,9 +282,16 @@ namespace Stats.Ui
 
         private IEnumerator UpdateUICoroutine()
         {
-            for (int i = 0; i < this.itemPanelsInIndexOrder.Length; i++)
+            var enabledItemsCount = this.configuration.GetEnabledItemsCount();
+            var totalTimeToUpdate = this.configuration.MainPanelUpdateEveryXSeconds;
+
+            var itemUpdateInterval = enabledItemsCount == 0
+                ? 0.1f
+                : totalTimeToUpdate / (float)enabledItemsCount;
+
+            for (int i = 0; i < this.itemPanelsInDisplayOrder.Length; i++)
             {
-                var itemPanel = this.itemPanelsInIndexOrder[i];
+                var itemPanel = this.itemPanelsInDisplayOrder[i];
                 if (!itemPanel.ConfigurationItemData.Enabled)
                 {
                     continue;
@@ -304,12 +302,12 @@ namespace Stats.Ui
                 {
                     UpdateItemsLayoutAndSize();
                 }
-
-                yield return new WaitForEndOfFrame();
+                
+                yield return new WaitForSecondsRealtime(itemUpdateInterval);
             }
 
             //wait at least one frame, even if all Items are off.
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSecondsRealtime(itemUpdateInterval);
         }
     }
 }

@@ -86,6 +86,15 @@ namespace Stats.Config
             }
         }
 
+        public int MainPanelUpdateEveryXSeconds
+        {
+            get => dto.MainPanelUpdateEveryXSeconds;
+            set
+            {
+                dto.MainPanelUpdateEveryXSeconds = value;
+            }
+        }
+
         public bool MainPanelAutoHide
         {
             get => dto.MainPanelAutoHide;
@@ -188,6 +197,19 @@ namespace Stats.Config
         public ConfigurationItemData GetConfigurationItemData(ItemData itemData)
         {
             return this.configurationItemDatas[itemData.Index];
+        }
+
+        public int GetEnabledItemsCount()
+        {
+            var result = 0;
+            for (int i = 0; i < this.configurationItemDatas.Length; i++)
+            {
+                if (this.configurationItemDatas[i].Enabled)
+                {
+                    result += 1;
+                }
+            }
+            return result;
         }
 
         public void Save()

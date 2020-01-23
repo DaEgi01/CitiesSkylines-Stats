@@ -16,6 +16,7 @@ namespace Stats.Config
         private readonly LanguageResource languageResource;
         private readonly Configuration configuration;
 
+        private UISlider updateEveryXSeconds;
         private UISlider columnCountSlider;
         private UISlider itemWidthSlider;
         private UISlider itemHeightSlider;
@@ -78,6 +79,12 @@ namespace Stats.Config
             var mainPanelGroupUiHelper = mainGroupUiHelper.AddGroup(languageResource.MainWindow);
             var mainPanelGroupContentPanel = (mainPanelGroupUiHelper as UIHelper).self as UIPanel;
             mainPanelGroupContentPanel.backgroundSprite = string.Empty;
+
+            this.updateEveryXSeconds = mainPanelGroupUiHelper.AddSliderWithLabel(this.languageResource.UpdateEveryXSeconds, 0, 30, 1, this.configuration.MainPanelUpdateEveryXSeconds, value =>
+            {
+                this.configuration.MainPanelUpdateEveryXSeconds = (int)value;
+                this.configuration.Save();
+            });
 
             this.columnCountSlider = mainPanelGroupUiHelper.AddSliderWithLabel(languageResource.ColumnCount, 1, ItemData.AllItems.Count, 1, this.configuration.MainPanelColumnCount, value =>
             {
@@ -147,7 +154,7 @@ namespace Stats.Config
 
                 if (MainPanel != null)
                 {
-                    foreach (var itemPanel in MainPanel.ItemPanelsInIndexOrder)
+                    foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
                     {
                         itemPanel.UpdatePercentVisibilityAndColor();
                     }
@@ -163,7 +170,7 @@ namespace Stats.Config
 
                 if (MainPanel != null)
                 {
-                    foreach (var itemPanel in MainPanel.ItemPanelsInIndexOrder)
+                    foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
                     {
                         itemPanel.UpdatePercentVisibilityAndColor();
                     }
@@ -197,12 +204,22 @@ namespace Stats.Config
                 configurationItemData.Enabled = _checked;
                 this.configuration.Save();
 
-                if (MainPanel != null)
+                if (MainPanel == null)
                 {
-                    var itemPanel = MainPanel.ItemPanelsInIndexOrder[selectedItem.Index];
-                    itemPanel.UpdatePercentVisibilityAndColor();
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    return;
                 }
+
+                var itemPanel = MainPanel.ItemPanelsInDisplayOrder
+                    .Where(x => x.ConfigurationItemData.ItemData == selectedItem)
+                    .FirstOrDefault();
+
+                if (itemPanel == null)
+                {
+                    return;
+                }
+
+                itemPanel.UpdatePercentVisibilityAndColor();
+                this.MainPanel.UpdateItemsLayoutAndSize();
             }) as UICheckBox;
             itemGroupUiHelper.AddSpace(space);
 
@@ -212,12 +229,22 @@ namespace Stats.Config
                 configurationItemData.CriticalThreshold = (int)value;
                 this.configuration.Save();
 
-                if (MainPanel != null)
+                if (MainPanel == null)
                 {
-                    var itemPanel = MainPanel.ItemPanelsInIndexOrder[selectedItem.Index];
-                    itemPanel.UpdatePercentVisibilityAndColor();
-                    this.MainPanel.UpdateItemsLayoutAndSize();
+                    return;
                 }
+
+                var itemPanel = MainPanel.ItemPanelsInDisplayOrder
+                    .Where(x => x.ConfigurationItemData.ItemData == selectedItem)
+                    .FirstOrDefault();
+
+                if (itemPanel == null)
+                {
+                    return;
+                }
+
+                itemPanel.UpdatePercentVisibilityAndColor();
+                this.MainPanel.UpdateItemsLayoutAndSize();
             });
 
             this.sortOrderTextField = itemGroupUiHelper.AddTextfield(languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), (v) => {}, v =>
@@ -236,6 +263,7 @@ namespace Stats.Config
 
         private void UpdateUiFromModel()
         {
+            this.updateEveryXSeconds.value = this.configuration.MainPanelUpdateEveryXSeconds;
             this.columnCountSlider.value = this.configuration.MainPanelColumnCount;
             this.itemWidthSlider.value = this.configuration.ItemWidth;
             this.itemHeightSlider.value = this.configuration.ItemHeight;
