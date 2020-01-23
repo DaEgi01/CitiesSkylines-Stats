@@ -87,17 +87,6 @@ namespace Stats.Ui
                     .ToArray();
         }
 
-        private void ValidateIndexes(ItemPanel[] itemPanel)
-        {
-            for (int i = 0; i < itemPanel.Length; i++)
-            {
-                if (i != itemPanel[i].ConfigurationItemData.ItemData.Index)
-                {
-                    throw new IndexesMessedUpException(i);
-                }
-            }
-        }
-
         private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
             var itemPanel = this.CreateAndAddItemPanel();
