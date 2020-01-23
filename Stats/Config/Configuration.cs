@@ -523,375 +523,287 @@ namespace Stats.Config
         {
             foreach (var configurationItemData in this.configurationItemDatas)
             {
-                ref var configItemRef = ref configurationItemDatas[ItemData.AverageIllnessRate.Index];
-                
                 if (configurationItemData.ItemData == ItemData.AverageIllnessRate)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.AverageIllnessRate,
-                        dto.AverageIllnessRateCriticalThreshold,
-                        dto.AverageIllnessRateSortOrder);
+                    configurationItemData.Enabled = dto.AverageIllnessRate;
+                    configurationItemData.CriticalThreshold = dto.AverageIllnessRateCriticalThreshold;
+                    configurationItemData.SortOrder = dto.AverageIllnessRateSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Cemetery)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Cemetery,
-                        dto.CemeteryCriticalThreshold,
-                        dto.CemeterySortOrder);
+                    configurationItemData.Enabled = dto.Cemetery;
+                    configurationItemData.CriticalThreshold = dto.CemeteryCriticalThreshold;
+                    configurationItemData.SortOrder = dto.CemeterySortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.CemeteryVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.CemeteryVehicles,
-                        dto.CemeteryVehiclesCriticalThreshold,
-                        dto.CemeteryVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.CemeteryVehicles;
+                    configurationItemData.CriticalThreshold = dto.CemeteryVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.CemeteryVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.CityUnattractiveness)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.CityUnattractiveness,
-                        dto.CityUnattractivenessCriticalThreshold,
-                        dto.CityUnattractivenessSortOrder);
+                    configurationItemData.Enabled = dto.CityUnattractiveness;
+                    configurationItemData.CriticalThreshold = dto.CityUnattractivenessCriticalThreshold;
+                    configurationItemData.SortOrder = dto.CityUnattractivenessSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Crematorium)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Crematorium,
-                        dto.CrematoriumCriticalThreshold,
-                        dto.CrematoriumSortOrder);
+                    configurationItemData.Enabled = dto.Crematorium;
+                    configurationItemData.CriticalThreshold = dto.CrematoriumCriticalThreshold;
+                    configurationItemData.SortOrder = dto.CrematoriumSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.CrematoriumVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.CrematoriumVehicles,
-                        dto.CrematoriumVehiclesCriticalThreshold,
-                        dto.CrematoriumVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.CrematoriumVehicles;
+                    configurationItemData.CriticalThreshold = dto.CrematoriumVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.CrematoriumVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.CrimeRate)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.CrimeRate,
-                        dto.CrimeRateCriticalThreshold,
-                        dto.CrimeRateSortOrder);
+                    configurationItemData.Enabled = dto.CrimeRate;
+                    configurationItemData.CriticalThreshold = dto.CrimeRateCriticalThreshold;
+                    configurationItemData.SortOrder = dto.CrimeRateSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.DisasterResponseHelicopters)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.DisasterResponseHelicopters,
-                        dto.DisasterResponseHelicoptersCriticalThreshold,
-                        dto.DisasterResponseHelicoptersSortOrder);
+                    configurationItemData.Enabled = dto.DisasterResponseHelicopters;
+                    configurationItemData.CriticalThreshold = dto.DisasterResponseHelicoptersCriticalThreshold;
+                    configurationItemData.SortOrder = dto.DisasterResponseHelicoptersSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.DisasterResponseVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.DisasterResponseVehicles,
-                        dto.DisasterResponseVehiclesCriticalThreshold,
-                        dto.DisasterResponseVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.DisasterResponseVehicles;
+                    configurationItemData.CriticalThreshold = dto.DisasterResponseVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.DisasterResponseVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.DrinkingWaterPollution)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.DrinkingWaterPollution,
-                        dto.DrinkingWaterPollutionCriticalThreshold,
-                        dto.DrinkingWaterPollutionSortOrder);
+                    configurationItemData.Enabled = dto.DrinkingWaterPollution;
+                    configurationItemData.CriticalThreshold = dto.DrinkingWaterPollutionCriticalThreshold;
+                    configurationItemData.SortOrder = dto.DrinkingWaterPollutionSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Electricity)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Electricity,
-                        dto.ElectricityCriticalThreshold,
-                        dto.ElectricitySortOrder);
+                    configurationItemData.Enabled = dto.Electricity;
+                    configurationItemData.CriticalThreshold = dto.ElectricityCriticalThreshold;
+                    configurationItemData.SortOrder = dto.ElectricitySortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.ElementarySchool)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.ElementarySchool,
-                        dto.ElementarySchoolCriticalThreshold,
-                        dto.ElementarySchoolSortOrder);
+                    configurationItemData.Enabled = dto.ElementarySchool;
+                    configurationItemData.CriticalThreshold = dto.ElementarySchoolCriticalThreshold;
+                    configurationItemData.SortOrder = dto.ElementarySchoolSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.FireDepartmentVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.FireDepartmentVehicles,
-                        dto.FireDepartmentVehiclesCriticalThreshold,
-                        dto.FireDepartmentVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.FireDepartmentVehicles;
+                    configurationItemData.CriticalThreshold = dto.FireDepartmentVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.FireDepartmentVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.FireHazard)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.FireHazard,
-                        dto.FireHazardCriticalThreshold,
-                        dto.FireHazardSortOrder);
+                    configurationItemData.Enabled = dto.FireHazard;
+                    configurationItemData.CriticalThreshold = dto.FireHazardCriticalThreshold;
+                    configurationItemData.SortOrder = dto.FireHazardSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.FireHelicopters)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.FireHelicopters,
-                        dto.FireHelicoptersCriticalThreshold,
-                        dto.FireHelicoptersSortOrder);
+                    configurationItemData.Enabled = dto.FireHelicopters;
+                    configurationItemData.CriticalThreshold = dto.FireHelicoptersCriticalThreshold;
+                    configurationItemData.SortOrder = dto.FireHelicoptersSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.GarbageProcessing)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.GarbageProcessing,
-                        dto.GarbageProcessingCriticalThreshold,
-                        dto.GarbageProcessingSortOrder);
+                    configurationItemData.Enabled = dto.GarbageProcessing;
+                    configurationItemData.CriticalThreshold = dto.GarbageProcessingCriticalThreshold;
+                    configurationItemData.SortOrder = dto.GarbageProcessingSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.GarbageProcessingVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.GarbageProcessingVehicles,
-                        dto.GarbageProcessingVehiclesCriticalThreshold,
-                        dto.GarbageProcessingVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.GarbageProcessingVehicles;
+                    configurationItemData.CriticalThreshold = dto.GarbageProcessingVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.GarbageProcessingVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.GroundPollution)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.GroundPollution,
-                        dto.GroundPollutionCriticalThreshold,
-                        dto.GroundPollutionSortOrder);
+                    configurationItemData.Enabled = dto.GroundPollution;
+                    configurationItemData.CriticalThreshold = dto.GroundPollutionCriticalThreshold;
+                    configurationItemData.SortOrder = dto.GroundPollutionSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Healthcare)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Healthcare,
-                        dto.HealthcareCriticalThreshold,
-                        dto.HealthcareSortOrder);
+                    configurationItemData.Enabled = dto.Healthcare;
+                    configurationItemData.CriticalThreshold = dto.HealthcareCriticalThreshold;
+                    configurationItemData.SortOrder = dto.HealthcareSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.HealthcareVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.HealthcareVehicles,
-                        dto.HealthcareVehiclesCriticalThreshold,
-                        dto.HealthcareVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.HealthcareVehicles;
+                    configurationItemData.CriticalThreshold = dto.HealthcareVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.HealthcareVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Heating)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Heating,
-                        dto.HeatingCriticalThreshold,
-                        dto.HeatingSortOrder);
+                    configurationItemData.Enabled = dto.Heating;
+                    configurationItemData.CriticalThreshold = dto.HeatingCriticalThreshold;
+                    configurationItemData.SortOrder = dto.HeatingSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.HighSchool)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.HighSchool,
-                        dto.HighSchoolCriticalThreshold,
-                        dto.HighSchoolSortOrder);
+                    configurationItemData.Enabled = dto.HighSchool;
+                    configurationItemData.CriticalThreshold = dto.HighSchoolCriticalThreshold;
+                    configurationItemData.SortOrder = dto.HighSchoolSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Landfill)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Landfill,
-                        dto.LandfillCriticalThreshold,
-                        dto.LandfillSortOrder);
+                    configurationItemData.Enabled = dto.Landfill;
+                    configurationItemData.CriticalThreshold = dto.LandfillCriticalThreshold;
+                    configurationItemData.SortOrder = dto.LandfillSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.LandfillVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.LandfillVehicles,
-                        dto.LandfillVehiclesCriticalThreshold,
-                        dto.LandfillVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.LandfillVehicles;
+                    configurationItemData.CriticalThreshold = dto.LandfillVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.LandfillVehiclesSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.Library)
+                {
+                    configurationItemData.Enabled = dto.Library;
+                    configurationItemData.CriticalThreshold = dto.LibraryCriticalThreshold;
+                    configurationItemData.SortOrder = dto.LibrarySortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.MedicalHelicopters)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.MedicalHelicopters,
-                        dto.MedicalHelicoptersCriticalThreshold,
-                        dto.MedicalHelicoptersSortOrder);
+                    configurationItemData.Enabled = dto.MedicalHelicopters;
+                    configurationItemData.CriticalThreshold = dto.MedicalHelicoptersCriticalThreshold;
+                    configurationItemData.SortOrder = dto.MedicalHelicoptersSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.NoisePollution)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.NoisePollution,
-                        dto.NoisePollutionCriticalThreshold,
-                        dto.NoisePollutionSortOrder);
+                    configurationItemData.Enabled = dto.NoisePollution;
+                    configurationItemData.CriticalThreshold = dto.NoisePollutionCriticalThreshold;
+                    configurationItemData.SortOrder = dto.NoisePollutionSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.ParkMaintenanceVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.ParkMaintenanceVehicles,
-                        dto.ParkMaintenanceVehiclesCriticalThreshold,
-                        dto.ParkMaintenanceVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.ParkMaintenanceVehicles;
+                    configurationItemData.CriticalThreshold = dto.ParkMaintenanceVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.ParkMaintenanceVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PoliceHelicopters)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PoliceHelicopters,
-                        dto.PoliceHelicoptersCriticalThreshold,
-                        dto.PoliceHelicoptersSortOrder);
+                    configurationItemData.Enabled = dto.PoliceHelicopters;
+                    configurationItemData.CriticalThreshold = dto.PoliceHelicoptersCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PoliceHelicoptersSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PoliceHoldingCells)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PoliceHoldingCells,
-                        dto.PoliceHoldingCellsCriticalThreshold,
-                        dto.PoliceHoldingCellsSortOrder);
+                    configurationItemData.Enabled = dto.PoliceHoldingCells;
+                    configurationItemData.CriticalThreshold = dto.PoliceHoldingCellsCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PoliceHoldingCellsSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PoliceVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PoliceVehicles,
-                        dto.PoliceVehiclesCriticalThreshold,
-                        dto.PoliceVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.PoliceVehicles;
+                    configurationItemData.CriticalThreshold = dto.PoliceVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PoliceVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PostTrucks)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PostTrucks,
-                        dto.PostTrucksCriticalThreshold,
-                        dto.PostTrucksSortOrder);
+                    configurationItemData.Enabled = dto.PostTrucks;
+                    configurationItemData.CriticalThreshold = dto.PostTrucksCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PostTrucksSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PostVans)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PostVans,
-                        dto.PostVansCriticalThreshold,
-                        dto.PostVansSortOrder);
+                    configurationItemData.Enabled = dto.PostVans;
+                    configurationItemData.CriticalThreshold = dto.PostVansCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PostVansSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PrisonCells)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PrisonCells,
-                        dto.PrisonCellsCriticalThreshold,
-                        dto.PrisonCellsSortOrder);
+                    configurationItemData.Enabled = dto.PrisonCells;
+                    configurationItemData.CriticalThreshold = dto.PrisonCellsCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PrisonCellsSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.PrisonVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.PrisonVehicles,
-                        dto.PrisonVehiclesCriticalThreshold,
-                        dto.PrisonVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.PrisonVehicles;
+                    configurationItemData.CriticalThreshold = dto.PrisonVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.PrisonVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.RoadMaintenanceVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.RoadMaintenanceVehicles,
-                        dto.RoadMaintenanceVehiclesCriticalThreshold,
-                        dto.RoadMaintenanceVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.RoadMaintenanceVehicles;
+                    configurationItemData.CriticalThreshold = dto.RoadMaintenanceVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.RoadMaintenanceVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.SewageTreatment)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.SewageTreatment,
-                        dto.SewageTreatmentCriticalThreshold,
-                        dto.SewageTreatmentSortOrder);
+                    configurationItemData.Enabled = dto.SewageTreatment;
+                    configurationItemData.CriticalThreshold = dto.SewageTreatmentCriticalThreshold;
+                    configurationItemData.SortOrder = dto.SewageTreatmentSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.SnowDump)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.SnowDump,
-                        dto.SnowDumpCriticalThreshold,
-                        dto.SnowDumpSortOrder);
+                    configurationItemData.Enabled = dto.SnowDump;
+                    configurationItemData.CriticalThreshold = dto.SnowDumpCriticalThreshold;
+                    configurationItemData.SortOrder = dto.SnowDumpSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.SnowDumpVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.SnowDumpVehicles,
-                        dto.SnowDumpVehiclesCriticalThreshold,
-                        dto.SnowDumpVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.SnowDumpVehicles;
+                    configurationItemData.CriticalThreshold = dto.SnowDumpVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.SnowDumpVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Taxis)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Taxis,
-                        dto.TaxisCriticalThreshold,
-                        dto.TaxisSortOrder);
+                    configurationItemData.Enabled = dto.Taxis;
+                    configurationItemData.CriticalThreshold = dto.TaxisCriticalThreshold;
+                    configurationItemData.SortOrder = dto.TaxisSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.TrafficJam)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.TrafficJam,
-                        dto.TrafficJamCriticalThreshold,
-                        dto.TrafficJamSortOrder);
+                    configurationItemData.Enabled = dto.TrafficJam;
+                    configurationItemData.CriticalThreshold = dto.TrafficJamCriticalThreshold;
+                    configurationItemData.SortOrder = dto.TrafficJamSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Unemployment)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Unemployment,
-                        dto.UnemploymentCriticalThreshold,
-                        dto.UnemploymentSortOrder);
+                    configurationItemData.Enabled = dto.Unemployment;
+                    configurationItemData.CriticalThreshold = dto.UnemploymentCriticalThreshold;
+                    configurationItemData.SortOrder = dto.UnemploymentSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.University)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.University,
-                        dto.UniversityCriticalThreshold,
-                        dto.UniversitySortOrder);
+                    configurationItemData.Enabled = dto.University;
+                    configurationItemData.CriticalThreshold = dto.UniversityCriticalThreshold;
+                    configurationItemData.SortOrder = dto.UniversitySortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Water)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.Water,
-                        dto.WaterCriticalThreshold,
-                        dto.WaterSortOrder);
+                    configurationItemData.Enabled = dto.Water;
+                    configurationItemData.CriticalThreshold = dto.WaterCriticalThreshold;
+                    configurationItemData.SortOrder = dto.WaterSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.WaterPumpingServiceStorage)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.WaterPumpingServiceStorage,
-                        dto.WaterPumpingServiceStorageCriticalThreshold,
-                        dto.WaterPumpingServiceStorageSortOrder);
+                    configurationItemData.Enabled = dto.WaterPumpingServiceStorage;
+                    configurationItemData.CriticalThreshold = dto.WaterPumpingServiceStorageCriticalThreshold;
+                    configurationItemData.SortOrder = dto.WaterPumpingServiceStorageSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.WaterPumpingServiceVehicles)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.WaterPumpingServiceVehicles,
-                        dto.WaterPumpingServiceVehiclesCriticalThreshold,
-                        dto.WaterPumpingServiceVehiclesSortOrder);
+                    configurationItemData.Enabled = dto.WaterPumpingServiceVehicles;
+                    configurationItemData.CriticalThreshold = dto.WaterPumpingServiceVehiclesCriticalThreshold;
+                    configurationItemData.SortOrder = dto.WaterPumpingServiceVehiclesSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.WaterReserveTank)
                 {
-                    configItemRef = new ConfigurationItemData(
-                        configItemRef.ItemData,
-                        dto.WaterReserveTank,
-                        dto.WaterReserveTankCriticalThreshold,
-                        dto.WaterReserveTankSortOrder);
+                    configurationItemData.Enabled = dto.WaterReserveTank;
+                    configurationItemData.CriticalThreshold = dto.WaterReserveTankCriticalThreshold;
+                    configurationItemData.SortOrder = dto.WaterReserveTankSortOrder;
                 }
                 else
                 {
