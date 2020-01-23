@@ -152,7 +152,7 @@ namespace Stats
             }
             else if (itemData == ItemData.PoliceVehicles)
             {
-                return GetPrisonVehiclesPercent;
+                return GetPoliceVehiclesPercent;
             }
             else if (itemData == ItemData.PostTrucks)
             {
