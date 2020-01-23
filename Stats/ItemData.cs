@@ -55,6 +55,7 @@ namespace Stats
                 HighSchool,
                 Landfill,
                 LandfillVehicles,
+                Library,
                 MedicalHelicopters,
                 NoisePollution,
                 ParkMaintenanceVehicles,
@@ -119,28 +120,29 @@ namespace Stats
         public static readonly ItemData HighSchool = new ItemData(21, "HighSchool", "InfoIconEducation", InfoManager.InfoMode.Education, InfoManager.SubInfoMode.HighSchool);
         public static readonly ItemData Landfill = new ItemData(22, "Landfill", "InfoIconGarbage", InfoManager.InfoMode.Garbage, InfoManager.SubInfoMode.Default);
         public static readonly ItemData LandfillVehicles = new ItemData(23, "LandfillVehicles", "InfoIconGarbage", InfoManager.InfoMode.Garbage, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData MedicalHelicopters = new ItemData(24, "MedicalHelicopters", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.HealthCare);
-        public static readonly ItemData NoisePollution = new ItemData(25, "NoisePollution", "InfoIconNoisePollution", InfoManager.InfoMode.NoisePollution, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData ParkMaintenanceVehicles = new ItemData(26, "ParkMaintenanceVehicles", "InfoIconParkMaintenance", InfoManager.InfoMode.ParkMaintenance, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PoliceHelicopters = new ItemData(27, "PoliceHelicopters", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PoliceHoldingCells = new ItemData(28, "PoliceHoldingCells", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PoliceVehicles = new ItemData(29, "PoliceVehicles", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PostTrucks = new ItemData(30, "PostTrucks", "InfoIconPost", InfoManager.InfoMode.Post, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PostVans = new ItemData(31, "PostVans", "InfoIconPost", InfoManager.InfoMode.Post, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PrisonCells = new ItemData(32, "PrisonCells", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData PrisonVehicles = new ItemData(33, "PrisonVehicles", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData RoadMaintenanceVehicles = new ItemData(34, "RoadMaintenanceVehicles", "InfoIconMaintenance", InfoManager.InfoMode.Maintenance, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData SewageTreatment = new ItemData(35, "SewageTreatment", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData SnowDump = new ItemData(36, "SnowDump", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData SnowDumpVehicles = new ItemData(37, "SnowDumpVehicles", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData Taxis = new ItemData(38, "Taxis", "SubBarPublicTransportTaxi", InfoManager.InfoMode.Transport, InfoManager.SubInfoMode.NormalTransport);
-        public static readonly ItemData TrafficJam = new ItemData(39, "TrafficJam", "InfoIconTrafficCongestion", InfoManager.InfoMode.Traffic, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData Unemployment = new ItemData(40, "Unemployment", "InfoIconPopulation", InfoManager.InfoMode.Density, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData University = new ItemData(41, "University", "InfoIconEducation", InfoManager.InfoMode.Education, InfoManager.SubInfoMode.University);
-        public static readonly ItemData Water = new ItemData(42, "Water", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData WaterPumpingServiceStorage = new ItemData(43, "WaterPumpingServiceStorage", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData WaterPumpingServiceVehicles = new ItemData(44, "WaterPumpingServiceVehicles", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData WaterReserveTank = new ItemData(45, "WaterReserveTank", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData Library = new ItemData(24, "Library", "InfoIconEducation", InfoManager.InfoMode.Education, InfoManager.SubInfoMode.LibraryEducation);
+        public static readonly ItemData MedicalHelicopters = new ItemData(25, "MedicalHelicopters", "InfoIconHealth", InfoManager.InfoMode.Health, InfoManager.SubInfoMode.HealthCare);
+        public static readonly ItemData NoisePollution = new ItemData(26, "NoisePollution", "InfoIconNoisePollution", InfoManager.InfoMode.NoisePollution, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData ParkMaintenanceVehicles = new ItemData(27, "ParkMaintenanceVehicles", "InfoIconParkMaintenance", InfoManager.InfoMode.ParkMaintenance, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PoliceHelicopters = new ItemData(28, "PoliceHelicopters", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PoliceHoldingCells = new ItemData(29, "PoliceHoldingCells", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PoliceVehicles = new ItemData(30, "PoliceVehicles", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PostTrucks = new ItemData(31, "PostTrucks", "InfoIconPost", InfoManager.InfoMode.Post, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PostVans = new ItemData(32, "PostVans", "InfoIconPost", InfoManager.InfoMode.Post, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PrisonCells = new ItemData(33, "PrisonCells", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData PrisonVehicles = new ItemData(34, "PrisonVehicles", "InfoIconCrime", InfoManager.InfoMode.CrimeRate, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData RoadMaintenanceVehicles = new ItemData(35, "RoadMaintenanceVehicles", "InfoIconMaintenance", InfoManager.InfoMode.Maintenance, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData SewageTreatment = new ItemData(36, "SewageTreatment", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData SnowDump = new ItemData(37, "SnowDump", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData SnowDumpVehicles = new ItemData(38, "SnowDumpVehicles", "InfoIconSnow", InfoManager.InfoMode.Snow, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData Taxis = new ItemData(39, "Taxis", "SubBarPublicTransportTaxi", InfoManager.InfoMode.Transport, InfoManager.SubInfoMode.NormalTransport);
+        public static readonly ItemData TrafficJam = new ItemData(40, "TrafficJam", "InfoIconTrafficCongestion", InfoManager.InfoMode.Traffic, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData Unemployment = new ItemData(41, "Unemployment", "InfoIconPopulation", InfoManager.InfoMode.Density, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData University = new ItemData(42, "University", "InfoIconEducation", InfoManager.InfoMode.Education, InfoManager.SubInfoMode.University);
+        public static readonly ItemData Water = new ItemData(43, "Water", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData WaterPumpingServiceStorage = new ItemData(44, "WaterPumpingServiceStorage", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData WaterPumpingServiceVehicles = new ItemData(45, "WaterPumpingServiceVehicles", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData WaterReserveTank = new ItemData(46, "WaterReserveTank", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
 
         public static ReadOnlyCollection<ItemData> AllItems { get; }
 

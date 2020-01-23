@@ -77,6 +77,10 @@ namespace Stats.Config
         public int UniversityCriticalThreshold { get; set; } = 80;
         public int UniversitySortOrder { get; set; } = 14000;
 
+        public bool Library { get; set; } = true;
+        public int LibraryCriticalThreshold { get; set; } = 80;
+        public int LibrarySortOrder { get; set; } = 14500;
+
         public bool Healthcare { get; set; } = true;
         public int HealthcareCriticalThreshold { get; set; } = 80;
         public int HealthcareSortOrder { get; set; } = 15000;

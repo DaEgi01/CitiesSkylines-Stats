@@ -39,6 +39,7 @@ namespace Stats.Config
                 new ConfigurationItemData(ItemData.HighSchool, dto.HighSchool, dto.HighSchoolCriticalThreshold, dto.HighSchoolSortOrder),
                 new ConfigurationItemData(ItemData.Landfill, dto.Landfill, dto.LandfillCriticalThreshold, dto.LandfillSortOrder),
                 new ConfigurationItemData(ItemData.LandfillVehicles, dto.LandfillVehicles, dto.LandfillVehiclesCriticalThreshold, dto.LandfillVehiclesSortOrder),
+                new ConfigurationItemData(ItemData.Library, dto.Library, dto.LibraryCriticalThreshold, dto.LibrarySortOrder),
                 new ConfigurationItemData(ItemData.MedicalHelicopters, dto.MedicalHelicopters, dto.MedicalHelicoptersCriticalThreshold, dto.MedicalHelicoptersSortOrder),
                 new ConfigurationItemData(ItemData.NoisePollution, dto.NoisePollution, dto.NoisePollutionCriticalThreshold, dto.NoisePollutionSortOrder),
                 new ConfigurationItemData(ItemData.ParkMaintenanceVehicles, dto.ParkMaintenanceVehicles, dto.ParkMaintenanceVehiclesCriticalThreshold, dto.ParkMaintenanceVehiclesSortOrder),
@@ -379,6 +380,12 @@ namespace Stats.Config
                     dto.LandfillVehicles = configurationItem.Enabled;
                     dto.LandfillVehiclesCriticalThreshold = configurationItem.CriticalThreshold;
                     dto.LandfillVehiclesSortOrder = configurationItem.SortOrder;
+                }
+                else if (configurationItem.ItemData == ItemData.Library)
+                {
+                    dto.Library = configurationItem.Enabled;
+                    dto.LibraryCriticalThreshold= configurationItem.CriticalThreshold;
+                    dto.LibrarySortOrder = configurationItem.SortOrder;
                 }
                 else if (configurationItem.ItemData == ItemData.MedicalHelicopters)
                 {

@@ -117,6 +117,10 @@
       <Value>Mülldeponiefahrzeuge in Gebrauch</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>Library</Key>
+      <Value>Bibliothekauslastung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>GarbageProcessing</Key>
       <Value>Müllverarbeitungsauslastung</Value>
     </LocalizedItem>

@@ -117,6 +117,10 @@
       <Value>Landfill garbage trucks in use</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>Library</Key>
+      <Value>Library usage</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>GarbageProcessing</Key>
       <Value>Garbage processing usage</Value>
     </LocalizedItem>

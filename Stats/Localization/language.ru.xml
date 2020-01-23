@@ -117,6 +117,10 @@
       <Value>Мусоровозы со свалок</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>Library</Key>
+      <Value>Library usage</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>GarbageProcessing</Key>
       <Value>Переработка мусора</Value>
     </LocalizedItem>

@@ -134,6 +134,10 @@ namespace Stats
             {
                 return GetLandfillVehiclesPercent;
             }
+            else if (itemData == ItemData.Library)
+            {
+                return GetLibraryPercent;
+            }
             else if (itemData == ItemData.MedicalHelicopters)
             {
                 return GetMedicalHelicoptersPercent;
@@ -655,6 +659,14 @@ namespace Stats
             }
 
             return GetUsagePercent(landfillVehiclesTotal, landfillVehiclesInUse);
+        }
+
+        public int? GetLibraryPercent()
+        {
+            return GetUsagePercent(
+                this.allDistricts.GetLibraryCapacity(),
+                this.allDistricts.GetLibraryVisitorCount()
+            );
         }
 
         public int? GetGroundPollutionPercent()
