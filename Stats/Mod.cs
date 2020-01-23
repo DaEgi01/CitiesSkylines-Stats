@@ -134,8 +134,6 @@ namespace Stats
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            Debug.Log("OnSettingsUI called");
-
             var modFullTitle = new ModFullTitle(this.Name, this.Version);
             
             this.configurationPanel = new ConfigurationPanel(
