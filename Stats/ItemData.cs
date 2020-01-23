@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 
 namespace Stats
 {
-    [StructLayout(LayoutKind.Auto)]
-    public readonly struct ItemData : IEquatable<ItemData>
+    public class ItemData : IEquatable<ItemData>
     {
         /// <param name="index">Used as index in an array.</param>
         /// <param name="name">Must be a unique string.</param>
