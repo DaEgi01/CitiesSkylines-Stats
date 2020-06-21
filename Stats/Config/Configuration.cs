@@ -16,6 +16,8 @@ namespace Stats.Config
             _dto = dto ?? throw new ArgumentNullException(nameof(dto));
             _configurationItemDatas = new[] {
                 new ConfigurationItemData(ItemData.AverageIllnessRate, dto.AverageIllnessRate, dto.AverageIllnessRateCriticalThreshold, dto.AverageIllnessRateSortOrder),
+                new ConfigurationItemData(ItemData.AverageChildrenIllnessRate, dto.AverageChildrenIllnessRate, dto.AverageChildrenIllnessRateCriticalThreshold, dto.AverageChildrenIllnessRateSortOrder),
+                new ConfigurationItemData(ItemData.AverageElderlyIllnessRate, dto.AverageElderlyIllnessRate, dto.AverageElderlyIllnessRateCriticalThreshold, dto.AverageElderlyIllnessRateSortOrder),
                 new ConfigurationItemData(ItemData.Cemetery, dto.Cemetery, dto.CemeteryCriticalThreshold, dto.CemeterySortOrder),
                 new ConfigurationItemData(ItemData.CemeteryVehicles, dto.CemeteryVehicles, dto.CemeteryVehiclesCriticalThreshold, dto.CemeteryVehiclesSortOrder),
                 new ConfigurationItemData(ItemData.CityUnattractiveness, dto.CityUnattractiveness, dto.CityUnattractivenessCriticalThreshold, dto.CityUnattractivenessSortOrder),
@@ -246,6 +248,18 @@ namespace Stats.Config
                     _dto.AverageIllnessRate = configurationItem.Enabled;
                     _dto.AverageIllnessRateCriticalThreshold = configurationItem.CriticalThreshold;
                     _dto.AverageIllnessRateSortOrder = configurationItem.SortOrder;
+                }
+                else if (configurationItem.ItemData == ItemData.AverageChildrenIllnessRate)
+                {
+                    _dto.AverageChildrenIllnessRate = configurationItem.Enabled;
+                    _dto.AverageChildrenIllnessRateCriticalThreshold = configurationItem.CriticalThreshold;
+                    _dto.AverageChildrenIllnessRateSortOrder = configurationItem.SortOrder;
+                }
+                else if (configurationItem.ItemData == ItemData.AverageElderlyIllnessRate)
+                {
+                    _dto.AverageElderlyIllnessRate = configurationItem.Enabled;
+                    _dto.AverageElderlyIllnessRateCriticalThreshold = configurationItem.CriticalThreshold;
+                    _dto.AverageElderlyIllnessRateSortOrder = configurationItem.SortOrder;
                 }
                 else if (configurationItem.ItemData == ItemData.Cemetery)
                 {
@@ -563,6 +577,18 @@ namespace Stats.Config
                     configurationItemData.Enabled = _dto.AverageIllnessRate;
                     configurationItemData.CriticalThreshold = _dto.AverageIllnessRateCriticalThreshold;
                     configurationItemData.SortOrder = _dto.AverageIllnessRateSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.AverageChildrenIllnessRate)
+                {
+                    configurationItemData.Enabled = _dto.AverageChildrenIllnessRate;
+                    configurationItemData.CriticalThreshold = _dto.AverageChildrenIllnessRateCriticalThreshold;
+                    configurationItemData.SortOrder = _dto.AverageChildrenIllnessRateSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.AverageElderlyIllnessRate)
+                {
+                    configurationItemData.Enabled = _dto.AverageElderlyIllnessRate;
+                    configurationItemData.CriticalThreshold = _dto.AverageElderlyIllnessRateCriticalThreshold;
+                    configurationItemData.SortOrder = _dto.AverageElderlyIllnessRateSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.Cemetery)
                 {

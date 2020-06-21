@@ -113,6 +113,14 @@ namespace Stats.Config
         public int AverageIllnessRateCriticalThreshold { get; set; } = 20;
         public int AverageIllnessRateSortOrder { get; set; } = 17000;
 
+        public bool AverageChildrenIllnessRate { get; set; } = true;
+        public int AverageChildrenIllnessRateCriticalThreshold { get; set; } = 20;
+        public int AverageChildrenIllnessRateSortOrder { get; set; } = 17100;
+
+        public bool AverageElderlyIllnessRate { get; set; } = true;
+        public int AverageElderlyIllnessRateCriticalThreshold { get; set; } = 20;
+        public int AverageElderlyIllnessRateSortOrder { get; set; } = 17200;
+
         public bool Cemetery { get; set; } = true;
         public int CemeteryCriticalThreshold { get; set; } = 80;
         public int CemeterySortOrder { get; set; } = 18000;

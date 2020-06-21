@@ -173,6 +173,14 @@
       <Value>Заболеваемость</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>AverageChildrenIllnessRate</Key>
+      <Value>Average children illness rate</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageElderlyIllnessRate</Key>
+      <Value>Average elderly illness rate</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>Cemetery</Key>
       <Value>Кладбища</Value>
     </LocalizedItem>

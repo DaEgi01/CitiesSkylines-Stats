@@ -40,6 +40,14 @@ namespace Stats
             {
                 return GetAverageIllnessRate;
             }
+            else if (itemData == ItemData.AverageChildrenIllnessRate)
+            {
+                return GetAverageChildrenIllnessRate;
+            }
+            else if (itemData == ItemData.AverageElderlyIllnessRate)
+            {
+                return GetAverageElderlyIllnessRate;
+            }
             else if (itemData == ItemData.Cemetery)
             {
                 return GetCemeteryPercent;
@@ -249,8 +257,29 @@ namespace Stats
         public int? GetAverageIllnessRate()
         {
             return _districtManager.m_districts.m_buffer[0].GetSickCount() == 0
-                ? null
-                : (int?)(int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_residentialData.m_finalHealth);
+                ? (int?)null
+                : (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_residentialData.m_finalHealth);
+        }
+
+        public int? GetAverageChildrenIllnessRate()
+        {
+            var childrenAndTeensCount = _districtManager.m_districts.m_buffer[0].m_childData.m_finalCount
+                + _districtManager.m_districts.m_buffer[0].m_teenData.m_finalCount;
+            var sickChildrenAndTeensCount = _districtManager.m_districts.m_buffer[0].m_childHealthData.m_finalCount;
+
+            return childrenAndTeensCount == 0
+                ? (int?)null
+                : (int)(100 - (float)sickChildrenAndTeensCount / childrenAndTeensCount);
+        }
+
+        public int? GetAverageElderlyIllnessRate()
+        {
+            var elderlyCount = _districtManager.m_districts.m_buffer[0].m_seniorData.m_finalCount;
+            var sickElderlyCount = _districtManager.m_districts.m_buffer[0].m_seniorHealthData.m_finalCount;
+
+            return elderlyCount == 0
+                ? (int?)null
+                : (int)(100 - (float)sickElderlyCount / elderlyCount);
         }
 
         public int? GetCemeteryPercent()

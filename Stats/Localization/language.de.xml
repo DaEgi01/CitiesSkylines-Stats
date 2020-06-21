@@ -173,6 +173,14 @@
       <Value>Krankheitsquote</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>AverageChildrenIllnessRate</Key>
+      <Value>Krankheitsquote bei Kindern</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageElderlyIllnessRate</Key>
+      <Value>Krankheitsquote bei Senioren</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>Cemetery</Key>
       <Value>Friedhofauslastung</Value>
     </LocalizedItem>
