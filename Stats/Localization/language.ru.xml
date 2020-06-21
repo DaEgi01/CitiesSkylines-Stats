@@ -141,6 +141,22 @@
       <Value>Университеты</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>UnhappinessCommercial</Key>
+      <Value>Commercial unhappiness</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessIndustrial</Key>
+      <Value>Industrial unhappiness</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessOffice</Key>
+      <Value>Office unhappiness</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessResidential</Key>
+      <Value>Residential unhappiness</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>Healthcare</Key>
       <Value>Больницы</Value>
     </LocalizedItem>

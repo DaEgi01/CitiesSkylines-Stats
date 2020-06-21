@@ -204,6 +204,22 @@ namespace Stats
             {
                 return GetUnemploymentPercent;
             }
+            else if (itemData == ItemData.UnhappinessCommercial)
+            {
+                return GetUnhappinessCommercialPercent;
+            }
+            else if (itemData == ItemData.UnhappinessIndustrial)
+            {
+                return GetUnhappinessIndustrialPercent;
+            }
+            else if (itemData == ItemData.UnhappinessOffice)
+            {
+                return GetUnhappinessOfficePercent;
+            }
+            else if (itemData == ItemData.UnhappinessResidential)
+            {
+                return GetUnhappinessResidentialPercent;
+            }
             else if (itemData == ItemData.University)
             {
                 return GetUniversityPercent;
@@ -1253,6 +1269,26 @@ namespace Stats
         public int? GetUnemploymentPercent()
         {
             return _districtManager.m_districts.m_buffer[0].GetUnemployment();
+        }
+
+        public int? GetUnhappinessCommercialPercent()
+        {
+            return (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_commercialData.m_finalHappiness);
+        }
+
+        public int? GetUnhappinessIndustrialPercent()
+        {
+            return (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_industrialData.m_finalHappiness);
+        }
+
+        public int? GetUnhappinessOfficePercent()
+        {
+            return (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_officeData.m_finalHappiness);
+        }
+
+        public int? GetUnhappinessResidentialPercent()
+        {
+            return (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_residentialData.m_finalHappiness);
         }
 
         public int? GetUniversityPercent()

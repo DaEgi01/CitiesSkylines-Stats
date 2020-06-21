@@ -141,6 +141,22 @@
       <Value>Universitätsauslastung</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>UnhappinessCommercial</Key>
+      <Value>Unzufriedenheit der Ladenbetreiber</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessIndustrial</Key>
+      <Value>Unzufriedenheit der Industrie</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessOffice</Key>
+      <Value>Unzufriedenheit der Büroarbeiter</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessResidential</Key>
+      <Value>Unzufriedenheit der Einwohner</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>Healthcare</Key>
       <Value>Krankenhausauslastung</Value>
     </LocalizedItem>

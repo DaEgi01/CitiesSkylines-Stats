@@ -57,6 +57,10 @@ namespace Stats.Config
                 new ConfigurationItemData(ItemData.Taxis, dto.Taxis, dto.TaxisCriticalThreshold, dto.TaxisSortOrder),
                 new ConfigurationItemData(ItemData.TrafficJam, dto.TrafficJam, dto.TrafficJamCriticalThreshold, dto.TrafficJamSortOrder),
                 new ConfigurationItemData(ItemData.Unemployment, dto.Unemployment, dto.UnemploymentCriticalThreshold, dto.UnemploymentSortOrder),
+                new ConfigurationItemData(ItemData.UnhappinessCommercial, dto.UnhappinessCommercial, dto.UnhappinessCommercialCriticalThreshold, dto.UnhappinessCommercialSortOrder),
+                new ConfigurationItemData(ItemData.UnhappinessIndustrial, dto.UnhappinessIndustrial, dto.UnhappinessIndustrialCriticalThreshold, dto.UnhappinessIndustrialSortOrder),
+                new ConfigurationItemData(ItemData.UnhappinessOffice, dto.UnhappinessOffice, dto.UnhappinessOfficeCriticalThreshold, dto.UnhappinessOfficeSortOrder),
+                new ConfigurationItemData(ItemData.UnhappinessResidential, dto.UnhappinessResidential, dto.UnhappinessResidentialCriticalThreshold, dto.UnhappinessResidentialSortOrder),
                 new ConfigurationItemData(ItemData.University, dto.University, dto.UniversityCriticalThreshold, dto.UniversitySortOrder),
                 new ConfigurationItemData(ItemData.Water, dto.Water, dto.WaterCriticalThreshold, dto.WaterSortOrder),
                 new ConfigurationItemData(ItemData.WaterPumpingServiceStorage, dto.WaterPumpingServiceStorage, dto.WaterPumpingServiceStorageCriticalThreshold, dto.WaterPumpingServiceStorageSortOrder),
@@ -489,6 +493,30 @@ namespace Stats.Config
                     _dto.UnemploymentCriticalThreshold = configurationItem.CriticalThreshold;
                     _dto.UnemploymentSortOrder = configurationItem.SortOrder;
                 }
+                else if (configurationItem.ItemData == ItemData.UnhappinessCommercial)
+                {
+                    _dto.UnhappinessCommercial = configurationItem.Enabled;
+                    _dto.UnhappinessCommercialCriticalThreshold = configurationItem.CriticalThreshold;
+                    _dto.UnhappinessCommercialSortOrder = configurationItem.SortOrder;
+                }
+                else if (configurationItem.ItemData == ItemData.UnhappinessIndustrial)
+                {
+                    _dto.UnhappinessIndustrial = configurationItem.Enabled;
+                    _dto.UnhappinessIndustrialCriticalThreshold = configurationItem.CriticalThreshold;
+                    _dto.UnhappinessIndustrialSortOrder = configurationItem.SortOrder;
+                }
+                else if (configurationItem.ItemData == ItemData.UnhappinessOffice)
+                {
+                    _dto.UnhappinessOffice = configurationItem.Enabled;
+                    _dto.UnhappinessOfficeCriticalThreshold = configurationItem.CriticalThreshold;
+                    _dto.UnhappinessOfficeSortOrder = configurationItem.SortOrder;
+                }
+                else if (configurationItem.ItemData == ItemData.UnhappinessResidential)
+                {
+                    _dto.UnhappinessResidential = configurationItem.Enabled;
+                    _dto.UnhappinessResidentialCriticalThreshold = configurationItem.CriticalThreshold;
+                    _dto.UnhappinessResidentialSortOrder = configurationItem.SortOrder;
+                }
                 else if (configurationItem.ItemData == ItemData.University)
                 {
                     _dto.University = configurationItem.Enabled;
@@ -781,6 +809,30 @@ namespace Stats.Config
                     configurationItemData.Enabled = _dto.Unemployment;
                     configurationItemData.CriticalThreshold = _dto.UnemploymentCriticalThreshold;
                     configurationItemData.SortOrder = _dto.UnemploymentSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.UnhappinessCommercial)
+                {
+                    configurationItemData.Enabled = _dto.UnhappinessCommercial;
+                    configurationItemData.CriticalThreshold = _dto.UnhappinessCommercialCriticalThreshold;
+                    configurationItemData.SortOrder = _dto.UnhappinessCommercialSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.UnhappinessIndustrial)
+                {
+                    configurationItemData.Enabled = _dto.UnhappinessIndustrial;
+                    configurationItemData.CriticalThreshold = _dto.UnhappinessIndustrialCriticalThreshold;
+                    configurationItemData.SortOrder = _dto.UnhappinessIndustrialSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.UnhappinessOffice)
+                {
+                    configurationItemData.Enabled = _dto.UnhappinessOffice;
+                    configurationItemData.CriticalThreshold = _dto.UnhappinessOfficeCriticalThreshold;
+                    configurationItemData.SortOrder = _dto.UnhappinessOfficeSortOrder;
+                }
+                else if (configurationItemData.ItemData == ItemData.UnhappinessResidential)
+                {
+                    configurationItemData.Enabled = _dto.UnhappinessResidential;
+                    configurationItemData.CriticalThreshold = _dto.UnhappinessResidentialCriticalThreshold;
+                    configurationItemData.SortOrder = _dto.UnhappinessResidentialSortOrder;
                 }
                 else if (configurationItemData.ItemData == ItemData.University)
                 {

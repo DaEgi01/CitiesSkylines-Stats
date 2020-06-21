@@ -73,6 +73,10 @@ namespace Stats
                 Taxis,
                 TrafficJam,
                 Unemployment,
+                UnhappinessCommercial,
+                UnhappinessIndustrial,
+                UnhappinessOffice,
+                UnhappinessResidential,
                 University,
                 Water,
                 WaterPumpingServiceStorage,
@@ -138,11 +142,15 @@ namespace Stats
         public static readonly ItemData Taxis = new ItemData(39, "Taxis", "SubBarPublicTransportTaxi", InfoManager.InfoMode.Transport, InfoManager.SubInfoMode.NormalTransport);
         public static readonly ItemData TrafficJam = new ItemData(40, "TrafficJam", "InfoIconTrafficCongestion", InfoManager.InfoMode.Traffic, InfoManager.SubInfoMode.Default);
         public static readonly ItemData Unemployment = new ItemData(41, "Unemployment", "InfoIconPopulation", InfoManager.InfoMode.Density, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData University = new ItemData(42, "University", "InfoIconEducation", InfoManager.InfoMode.Education, InfoManager.SubInfoMode.University);
-        public static readonly ItemData Water = new ItemData(43, "Water", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData WaterPumpingServiceStorage = new ItemData(44, "WaterPumpingServiceStorage", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData WaterPumpingServiceVehicles = new ItemData(45, "WaterPumpingServiceVehicles", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
-        public static readonly ItemData WaterReserveTank = new ItemData(46, "WaterReserveTank", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData UnhappinessCommercial = new ItemData(42, "UnhappinessCommercial", "InfoIconHappiness", InfoManager.InfoMode.Happiness, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData UnhappinessIndustrial = new ItemData(43, "UnhappinessIndustrial", "InfoIconHappiness", InfoManager.InfoMode.Happiness, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData UnhappinessOffice = new ItemData(44, "UnhappinessOffice", "InfoIconHappiness", InfoManager.InfoMode.Happiness, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData UnhappinessResidential = new ItemData(45, "UnhappinessResidential", "InfoIconHappiness", InfoManager.InfoMode.Happiness, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData University = new ItemData(46, "University", "InfoIconEducation", InfoManager.InfoMode.Education, InfoManager.SubInfoMode.University);
+        public static readonly ItemData Water = new ItemData(47, "Water", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData WaterPumpingServiceStorage = new ItemData(48, "WaterPumpingServiceStorage", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData WaterPumpingServiceVehicles = new ItemData(49, "WaterPumpingServiceVehicles", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
+        public static readonly ItemData WaterReserveTank = new ItemData(50, "WaterReserveTank", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
 
         public static ReadOnlyCollection<ItemData> AllItems { get; }
 

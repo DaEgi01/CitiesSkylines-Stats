@@ -81,6 +81,22 @@ namespace Stats.Config
         public int LibraryCriticalThreshold { get; set; } = 80;
         public int LibrarySortOrder { get; set; } = 14500;
 
+        public bool UnhappinessResidential { get; set; } = true;
+        public int UnhappinessResidentialCriticalThreshold { get; set; } = 20;
+        public int UnhappinessResidentialSortOrder { get; set; } = 14750;
+
+        public bool UnhappinessCommercial { get; set; } = true;
+        public int UnhappinessCommercialCriticalThreshold { get; set; } = 20;
+        public int UnhappinessCommercialSortOrder { get; set; } = 14760;
+
+        public bool UnhappinessOffice { get; set; } = true;
+        public int UnhappinessOfficeCriticalThreshold { get; set; } = 20;
+        public int UnhappinessOfficeSortOrder { get; set; } = 14770;
+
+        public bool UnhappinessIndustrial { get; set; } = true;
+        public int UnhappinessIndustrialCriticalThreshold { get; set; } = 20;
+        public int UnhappinessIndustrialSortOrder { get; set; } = 14780;
+
         public bool Healthcare { get; set; } = true;
         public int HealthcareCriticalThreshold { get; set; } = 80;
         public int HealthcareSortOrder { get; set; } = 15000;
