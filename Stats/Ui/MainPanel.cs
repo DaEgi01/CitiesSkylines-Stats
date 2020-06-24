@@ -74,16 +74,15 @@ namespace Stats.Ui
 
         private void CreateAndAddAllUiItems()
         {
-            _itemPanelsInDisplayOrder = _gameEngineService.MapHasSnowDumps
-                ? ItemData.AllItems
-                    .Select(i => CreateUiItemAndAddButtons(_configuration.GetConfigurationItemData(i), _gameEngineService.GetPercentFunc(i), _infoManager))
-                    .OrderBy(x => x.ConfigurationItemData.SortOrder)
-                    .ToArray()
-                : ItemData.AllItems
-                    .Where(i => i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles)
-                    .Select(i => CreateUiItemAndAddButtons(_configuration.GetConfigurationItemData(i), _gameEngineService.GetPercentFunc(i), _infoManager))
-                    .OrderBy(x => x.ConfigurationItemData.SortOrder)
-                    .ToArray();
+            _itemPanelsInDisplayOrder = ItemData.AllItems
+                .Where(i => _gameEngineService.MapHasSnowDumps || (i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles))
+                .Select(i => CreateUiItemAndAddButtons(
+                    _configuration.GetConfigurationItemData(i),
+                    _gameEngineService.GetPercentFunc(i),
+                    _infoManager)
+                )
+                .OrderBy(x => x.ConfigurationItemData.SortOrder)
+                .ToArray();
         }
 
         private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
