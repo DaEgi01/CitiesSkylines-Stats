@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Stats
 {
-    public class ItemData : IEquatable<ItemData>
+    public class ItemData
     {
         /// <param name="index">Used as index in an array.</param>
         /// <param name="name">Must be a unique string.</param>
@@ -157,30 +157,5 @@ namespace Stats
         public static readonly ItemData WaterReserveTank = new ItemData(52, "WaterReserveTank", "InfoIconWater", InfoManager.InfoMode.Water, InfoManager.SubInfoMode.Default);
 
         public static ReadOnlyCollection<ItemData> AllItems { get; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is ItemData item && Equals(item);
-        }
-
-        public bool Equals(ItemData other)
-        {
-            return Index == other.Index;
-        }
-
-        public override int GetHashCode()
-        {
-            return 2108858624 + Index.GetHashCode();
-        }
-
-        public static bool operator ==(ItemData left, ItemData right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(ItemData left, ItemData right)
-        {
-            return !(left == right);
-        }
     }
 }
