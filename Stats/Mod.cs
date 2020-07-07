@@ -155,19 +155,13 @@ namespace Stats
             }
         }
 
-        //TODO: postvans in use - to be tested, add translations
-        //TODO: posttrucks in use - to be tested, add translations
-        //TODO: disaster response vehicles - to be tested, add translations
-        //TODO: disaster response helicopters - to be tested, add translation
+        //TODO: add missing translations
         //TODO: mail itself
         //TODO: evacuation buses in use
         //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
         //TODO: rework healthcare: split sick citizen from hospital beds
-        //TODO: split item configuration from main panel 
         //TODO: color picker
-        //TODO: add happiness values
         //TODO: maybe natural resources used
-        //TODO: move itempanel logic out of mainpanel
         //TODO: unselect main menu if another service is selected but does not fit the click on the item
         //TODO: performance (for example GetBudget can be done once)
         //TODO: performance create only the ItemPanels that are enabled
