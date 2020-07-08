@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 
 namespace Stats
 {
@@ -11,7 +13,20 @@ namespace Stats
 
         public ModInfo(string systemName, string displayName, string version, ulong workshopId)
         {
-            _systemName = systemName ?? throw new ArgumentException(nameof(systemName));
+            if (systemName is null)
+            {
+                throw new ArgumentNullException(nameof(systemName));
+            }
+
+            var systemNameCharArray = systemName.ToCharArray();
+            var systemNameHasInvalidPathChars = Path.GetInvalidPathChars()
+                .Any(c => systemNameCharArray.Contains(c));
+            if (systemNameHasInvalidPathChars)
+            {
+                throw new ArgumentException("Please only use valid path characters.", nameof(systemName));
+            }
+
+            _systemName = systemName;
             _displayName = displayName ?? throw new ArgumentNullException(nameof(displayName));
             _version = version ?? throw new ArgumentNullException(nameof(version));
             _workshopId = workshopId;
