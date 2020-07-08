@@ -8,14 +8,12 @@ namespace Stats.Localization
 {
     public class LanguageResourceService<T>
     {
-        private readonly string _modSystemName;
-        private readonly string _workshopId;
+        private readonly ModInfo _modInfo;
         private readonly PluginManager _pluginManager;
 
-        public LanguageResourceService(string modSystemName, string workshopId, PluginManager pluginManager)
+        public LanguageResourceService(ModInfo modInfo, PluginManager pluginManager)
         {
-            _modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
-            _workshopId = workshopId ?? throw new ArgumentNullException(nameof(workshopId));
+            _modInfo = modInfo ?? throw new ArgumentNullException(nameof(modInfo));
             _pluginManager = pluginManager ?? throw new ArgumentNullException(nameof(pluginManager));
         }
 
@@ -23,8 +21,8 @@ namespace Stats.Localization
         {
             var plugin = _pluginManager.GetPluginsInfo()
                 .Where(x =>
-                    x.name == _modSystemName
-                    || x.name == _workshopId
+                    x.name == _modInfo.SystemName
+                    || x.name == _modInfo.Version.ToString()
                 )
                 .FirstOrDefault();
 

@@ -12,7 +12,7 @@ namespace Stats.Config
         private readonly int _space = 16;
 
         private readonly UIHelperBase _uiHelperBase;
-        private readonly ModFullTitle _modFullTitle;
+        private readonly ModInfo _modInfo;
         private readonly LanguageResource _languageResource;
         private readonly Configuration _configuration;
 
@@ -34,12 +34,12 @@ namespace Stats.Config
 
         public ConfigurationPanel(
             UIHelperBase uiHelperBase,
-            ModFullTitle modFullTitle,
+            ModInfo modInfo,
             Configuration configuration,
             LanguageResource languageResource)
         {
             _uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
-            _modFullTitle = modFullTitle ?? throw new ArgumentNullException(nameof(modFullTitle));
+            _modInfo = modInfo ?? throw new ArgumentNullException(nameof(modInfo));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
         }
@@ -48,7 +48,7 @@ namespace Stats.Config
 
         public void Initialize()
         {
-            var mainGroupUiHelper = _uiHelperBase.AddGroup(_modFullTitle);
+            var mainGroupUiHelper = _uiHelperBase.AddGroup(_modInfo.GetDisplayNameWithVersion());
             var mainGroupContentPanel = (mainGroupUiHelper as UIHelper).self as UIPanel;
             mainGroupContentPanel.backgroundSprite = string.Empty;
 

@@ -68,7 +68,7 @@
     <Compile Include="Localization\LoadLanguageResult.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Config\ConfigurationDto.cs" />
-    <Compile Include="ModFullTitle.cs" />
+    <Compile Include="ModInfo.cs" />
     <Compile Include="GameMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\ConfigurationService.cs" />
