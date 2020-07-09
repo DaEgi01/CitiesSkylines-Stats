@@ -1,4 +1,5 @@
-﻿using ColossalFramework.Plugins;
+﻿using ColossalFramework.PlatformServices;
+using ColossalFramework.Plugins;
 using System;
 using System.IO;
 using System.Linq;
@@ -19,10 +20,11 @@ namespace Stats.Localization
 
         private string GetExpectedFileFullName(string languageTwoLetterCode)
         {
+            var publishedFileId = new PublishedFileId(_modInfo.WorkshopId);
             var plugin = _pluginManager.GetPluginsInfo()
                 .Where(x =>
-                    x.name == _modInfo.SystemName
-                    || x.name == _modInfo.Version.ToString()
+                    x.name == _modInfo.DisplayName
+                    || x.publishedFileID == publishedFileId
                 )
                 .FirstOrDefault();
 
