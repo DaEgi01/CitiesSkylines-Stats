@@ -10,7 +10,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>ResetPosition</Key>
-      <Value>Reset Position</Value>
+      <Value>Восстановить расположение</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UpdateEveryXSeconds</Key>
@@ -78,7 +78,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>SortOrder</Key>
-      <Value>Sort order</Value>
+      <Value>Порядок сортировки</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Electricity</Key>
@@ -118,7 +118,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>Library</Key>
-      <Value>Library usage</Value>
+      <Value>Библиотеки</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>GarbageProcessing</Key>
@@ -142,19 +142,19 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessCommercial</Key>
-      <Value>Commercial unhappiness</Value>
+      <Value>Необеспеченная коммерция</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessIndustrial</Key>
-      <Value>Industrial unhappiness</Value>
+      <Value>Необеспеченная промышленность</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessOffice</Key>
-      <Value>Office unhappiness</Value>
+      <Value>Необеспеченные офисы</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessResidential</Key>
-      <Value>Residential unhappiness</Value>
+      <Value>Необеспеченные жилые здания</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Healthcare</Key>
@@ -166,7 +166,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>MedicalHelicopters</Key>
-      <Value>Medical helicopters in use</Value>
+      <Value>Медицинские вертолёты</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>AverageIllnessRate</Key>
@@ -174,11 +174,11 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>AverageChildrenIllnessRate</Key>
-      <Value>Average children illness rate</Value>
+      <Value>Заболеваемость детей</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>AverageElderlyIllnessRate</Key>
-      <Value>Average elderly illness rate</Value>
+      <Value>Заболеваемость пожилых людей</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Cemetery</Key>
@@ -222,7 +222,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>FireHelicopters</Key>
-      <Value>Fire helicopters in use</Value>
+      <Value>Пожарные вертолёты</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>CrimeRate</Key>
@@ -238,7 +238,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>PoliceHelicopters</Key>
-      <Value>Police helicopters in use</Value>
+      <Value>Полицейские вертолёты</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>PrisonCells</Key>
@@ -274,23 +274,23 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>Taxis</Key>
-      <Value>Таксис</Value>
+      <Value>Такси</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>PostVans</Key>
-      <Value>Post vans in use</Value>
+      <Value>Почтовые фургоны</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>PostTrucks</Key>
-      <Value>Post trucks in use</Value>
+      <Value>Почтовые грузовики</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>DisasterResponseVehicles</Key>
-      <Value>Disaster response vehicles in use</Value>
+      <Value>Спасательный транспорт</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>DisasterResponseHelicopters</Key>
-      <Value>Disaster response helicopters in use</Value>
+      <Value>Спасательные вертолёты</Value>
     </LocalizedItem>
   </LocalizedItems>
 </LanguageResource>
