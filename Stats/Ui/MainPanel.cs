@@ -114,6 +114,7 @@ namespace Stats.Ui
         {
             UpdateItemsLayout();
             UpdatePanelSize();
+            ClampToScreen();
         }
 
         public override void Update()
