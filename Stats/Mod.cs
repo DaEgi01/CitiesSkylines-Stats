@@ -5,6 +5,7 @@ using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
 using Stats.Config;
+using Stats.Icons;
 using Stats.Localization;
 using Stats.Ui;
 using System.IO;
@@ -23,6 +24,8 @@ namespace Stats
         private ConfigurationService<ConfigurationDto> _configurationService;
         private Configuration _configuration;
         private ConfigurationPanel _configurationPanel;
+
+        private IconSetService _iconSetService;
 
         private MainPanel _mainPanel;
 
@@ -72,6 +75,7 @@ namespace Stats
                 _modInfo,
                 PluginManager.instance
             );
+            _iconSetService = new IconSetService();
 
             _configuration = File.Exists(_configurationService.ConfigurationFileFullName)
                 ? new Configuration(_configurationService, _configurationService.Load())
@@ -91,6 +95,7 @@ namespace Stats
 
             _configurationService = null;
             _languageResourceService = null;
+            _iconSetService = null;
 
             _configuration = null;
             _languageResource = null;

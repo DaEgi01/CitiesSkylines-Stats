@@ -58,6 +58,8 @@
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="GameEngineService.cs" />
+    <Compile Include="Icons\IconSet.cs" />
+    <Compile Include="Icons\IconSetService.cs" />
     <Compile Include="IndexesMessedUpException.cs" />
     <Compile Include="ItemData.cs" />
     <Compile Include="ItemVisibility.cs" />
@@ -93,6 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons\Sets\Egi - Test\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
