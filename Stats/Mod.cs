@@ -14,6 +14,7 @@ namespace Stats
 {
     public class Mod : LoadingExtensionBase, IUserMod
     {
+        private readonly ModInfo _modInfo = new ModInfo("Stats", "Stats", "1.3.1", 1410077595);
         private readonly string _fallbackLanguageTwoLetterCode = "en";
 
         private LanguageResourceService<LanguageResourceDto> _languageResourceService;
@@ -25,11 +26,8 @@ namespace Stats
 
         private MainPanel _mainPanel;
 
-        public string SystemName => "Stats";
-        public string Name => "Stats";
+        public string Name => _modInfo.DisplayName;
         public string Description => "Adds a configurable panel to display all vital city stats at a glance.";
-        public string Version => "1.3.1";
-        public string WorkshopId => "1410077595";
 
         public void OnEnabled()
         {
@@ -68,11 +66,10 @@ namespace Stats
 
         private void InitializeDependencies()
         {
-            var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, SystemName + ".xml");
+            var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, _modInfo.SystemName + ".xml");
             _configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
             _languageResourceService = new LanguageResourceService<LanguageResourceDto>(
-                SystemName,
-                WorkshopId,
+                _modInfo,
                 PluginManager.instance
             );
 
@@ -120,7 +117,7 @@ namespace Stats
             );
 
             _mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            _mainPanel.Initialize(SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
+            _mainPanel.Initialize(_modInfo.SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
             if (_configurationPanel != null)
             {
                 _configurationPanel.MainPanel = _mainPanel;
@@ -139,11 +136,9 @@ namespace Stats
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            var modFullTitle = new ModFullTitle(Name, Version);
-
             _configurationPanel = new ConfigurationPanel(
                 helper,
-                modFullTitle,
+                _modInfo,
                 _configuration,
                 _languageResource
             );
@@ -155,19 +150,13 @@ namespace Stats
             }
         }
 
-        //TODO: postvans in use - to be tested, add translations
-        //TODO: posttrucks in use - to be tested, add translations
-        //TODO: disaster response vehicles - to be tested, add translations
-        //TODO: disaster response helicopters - to be tested, add translation
+        //TODO: add missing translations
         //TODO: mail itself
         //TODO: evacuation buses in use
         //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
         //TODO: rework healthcare: split sick citizen from hospital beds
-        //TODO: split item configuration from main panel 
         //TODO: color picker
-        //TODO: add happiness values
         //TODO: maybe natural resources used
-        //TODO: move itempanel logic out of mainpanel
         //TODO: unselect main menu if another service is selected but does not fit the click on the item
         //TODO: performance (for example GetBudget can be done once)
         //TODO: performance create only the ItemPanels that are enabled

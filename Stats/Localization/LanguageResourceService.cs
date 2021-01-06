@@ -1,4 +1,5 @@
-﻿using ColossalFramework.Plugins;
+﻿using ColossalFramework.PlatformServices;
+using ColossalFramework.Plugins;
 using System;
 using System.IO;
 using System.Linq;
@@ -8,23 +9,22 @@ namespace Stats.Localization
 {
     public class LanguageResourceService<T>
     {
-        private readonly string _modSystemName;
-        private readonly string _workshopId;
+        private readonly ModInfo _modInfo;
         private readonly PluginManager _pluginManager;
 
-        public LanguageResourceService(string modSystemName, string workshopId, PluginManager pluginManager)
+        public LanguageResourceService(ModInfo modInfo, PluginManager pluginManager)
         {
-            _modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
-            _workshopId = workshopId ?? throw new ArgumentNullException(nameof(workshopId));
+            _modInfo = modInfo ?? throw new ArgumentNullException(nameof(modInfo));
             _pluginManager = pluginManager ?? throw new ArgumentNullException(nameof(pluginManager));
         }
 
         private string GetExpectedFileFullName(string languageTwoLetterCode)
         {
+            var publishedFileId = new PublishedFileId(_modInfo.WorkshopId);
             var plugin = _pluginManager.GetPluginsInfo()
                 .Where(x =>
-                    x.name == _modSystemName
-                    || x.name == _workshopId
+                    x.name == _modInfo.DisplayName
+                    || x.publishedFileID == publishedFileId
                 )
                 .FirstOrDefault();
 
