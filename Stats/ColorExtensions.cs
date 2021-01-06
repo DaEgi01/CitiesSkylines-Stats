@@ -5,6 +5,9 @@ namespace Stats
 {
     public static class ColorExtensions
     {
+        private const string serializationSeparator = ",";
+        private static readonly string[] serializationSeparators = new[] { serializationSeparator };
+
         public static Color32 GetColor32(this string colorString)
         {
             if (colorString == null)
@@ -12,7 +15,7 @@ namespace Stats
                 throw new ArgumentNullException(nameof(colorString));
             }
 
-            var colorStringComponents = colorString.Split(',');
+            var colorStringComponents = colorString.Split(serializationSeparators, StringSplitOptions.None);
 
             var red = byte.Parse(colorStringComponents[0]);
             var green = byte.Parse(colorStringComponents[1]);
@@ -25,11 +28,11 @@ namespace Stats
         public static string GetColorString(this Color32 color)
         {
             return color.r.ToString()
-                + ","
+                + serializationSeparator
                 + color.g.ToString()
-                + ","
+                + serializationSeparator
                 + color.b.ToString()
-                + ","
+                + serializationSeparator
                 + color.a.ToString();
         }
     }
