@@ -19,7 +19,7 @@ namespace Stats.Config
         public float ItemPadding { get; set; } = 8f;
         public float ItemIconSize { get; set; } = 20f;
         public float ItemTextScale { get; set; } = 0.8f;
-        public string ItemTextPosition { get; set; } = Stats.ItemTextPosition.Right.Name;
+        public string ItemTextPosition { get; set; } = Stats.ItemTextPosition.Left.Name;
 
         public bool Electricity { get; set; } = true;
         public int ElectricityCriticalThreshold { get; set; } = 80;
