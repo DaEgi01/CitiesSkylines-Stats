@@ -318,6 +318,7 @@ namespace Stats.Ui
                 _percentButton.text = GetUsagePercentString(percent);
                 _percentButton.textColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
                 _percentButton.focusedColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
+                _percentButton.focusedTextColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
                 _percentButton.hoveredTextColor = GetItemHoveredTextColor(percent, _configurationItemData.CriticalThreshold);
             }
 
