@@ -1,4 +1,5 @@
 ﻿using ColossalFramework;
+using ColossalFramework.UI;
 using System;
 using UnityEngine;
 
@@ -197,6 +198,45 @@ namespace Stats
             }
             while (++num2 <= 16384);
             CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+        }
+
+        //UIDynamicFont.MeasureText rewritten as a public static method (public instance method) with some adjustments.
+        public static Vector2 MeasureText(UIDynamicFont uiDynamicFont, string text, float textScale, FontStyle style)
+        {
+            var desiredFontSize = Mathf.CeilToInt(uiDynamicFont.size * textScale);
+
+            float desiredWidth = CalculateOptimalWidth(uiDynamicFont, text, desiredFontSize, style);
+            int desiredHeight = CalculateOptimalHeight(desiredFontSize);
+
+            return new Vector2(desiredWidth, desiredHeight);
+        }
+
+        private static float CalculateOptimalWidth(UIDynamicFont uiDynamicFont, string text, int fontSize, FontStyle style)
+        {
+            uiDynamicFont.RequestCharacters(text, fontSize, style);
+
+            float result = 0f;
+            for (int i = 0; i < text.Length; i++)
+            {
+                uiDynamicFont.baseFont.GetCharacterInfo(text[i], out CharacterInfo characterInfo, fontSize, style);
+                float num3 = Mathf.Ceil(characterInfo.maxX);
+                if (text[i] == ' ')
+                {
+                    num3 = Mathf.Ceil(characterInfo.advance);
+                }
+                else if (text[i] == '\t')
+                {
+                    num3 += uiDynamicFont.size * 4;
+                }
+                result += num3;
+            }
+
+            return result;
+        }
+
+        private static int CalculateOptimalHeight(int fontSize)
+        {
+            return fontSize + Mathf.CeilToInt(1f / 4f * fontSize - 21f / 4f);
         }
     }
 }

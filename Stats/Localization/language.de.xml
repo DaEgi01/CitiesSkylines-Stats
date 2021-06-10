@@ -49,20 +49,20 @@
       <Value>Spaltenzahl</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>ItemWidth</Key>
-      <Value>Wertbreite</Value>
-    </LocalizedItem>
-    <LocalizedItem>
-      <Key>ItemHeight</Key>
-      <Value>Werthöhe</Value>
-    </LocalizedItem>
-    <LocalizedItem>
-      <Key>ItemPadding</Key>
-      <Value>Wertabstand</Value>
+      <Key>ItemIconSize</Key>
+      <Value>Werticongröße</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>ItemTextScale</Key>
-      <Value>Werttext Skalierung</Value>
+      <Value>Werttextskalierung</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemPadding</Key>
+      <Value>Werteabstand</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextPosition</Key>
+      <Value>Werttextposition</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Items</Key>
@@ -166,7 +166,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>MedicalHelicopters</Key>
-      <Value>Rettungshubgeschrauber in Gebrauch</Value>
+      <Value>Rettungshubschrauber in Gebrauch</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>AverageIllnessRate</Key>

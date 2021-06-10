@@ -49,12 +49,8 @@
       <Value>Количество столбцов</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>ItemWidth</Key>
-      <Value>Ширина инфопанели</Value>
-    </LocalizedItem>
-    <LocalizedItem>
-      <Key>ItemHeight</Key>
-      <Value>Высота инфопанели</Value>
+      <Key>ItemIconSize</Key>
+      <Value>Item icon size</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>ItemPadding</Key>
@@ -63,6 +59,10 @@
     <LocalizedItem>
       <Key>ItemTextScale</Key>
       <Value>Размер текста инфопанели</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextPosition</Key>
+      <Value>Item text position</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Items</Key>

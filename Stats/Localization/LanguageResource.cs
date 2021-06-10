@@ -56,10 +56,10 @@ namespace Stats.Localization
         public string AccentColor => _localizedStrings["AccentColor"];
         public string MainWindow => _localizedStrings["MainWindow"];
         public string ColumnCount => _localizedStrings["ColumnCount"];
-        public string ItemWidth => _localizedStrings["ItemWidth"];
-        public string ItemHeight => _localizedStrings["ItemHeight"];
         public string ItemPadding => _localizedStrings["ItemPadding"];
+        public string ItemIconSize => _localizedStrings["ItemIconSize"];
         public string ItemTextScale => _localizedStrings["ItemTextScale"];
+        public string ItemTextPosition => _localizedStrings["ItemTextPosition"];
         public string Items => _localizedStrings["Items"];
         public string Enabled => _localizedStrings["Enabled"];
         public string CriticalThreshold => _localizedStrings["CriticalThreshold"];

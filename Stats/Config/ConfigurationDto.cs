@@ -16,10 +16,10 @@ namespace Stats.Config
         public string MainPanelForegroundColor { get; set; } = "255, 255, 255, 255";
         public string MainPanelAccentColor { get; set; } = "230, 65, 65, 255";
 
-        public float ItemWidth { get; set; } = 60f;
-        public float ItemHeight { get; set; } = 20f;
         public float ItemPadding { get; set; } = 8f;
+        public float ItemIconSize { get; set; } = 20f;
         public float ItemTextScale { get; set; } = 0.8f;
+        public string ItemTextPosition { get; set; } = Stats.ItemTextPosition.Right.Name;
 
         public bool Electricity { get; set; } = true;
         public int ElectricityCriticalThreshold { get; set; } = 80;

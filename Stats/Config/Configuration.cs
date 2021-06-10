@@ -22,7 +22,7 @@ namespace Stats.Config
             }
 
             _configurationService = configurationService;
-            
+
             _configurationItemDatas = ItemData
                 .AllItems
                 .Select(i => new ConfigurationItemData(i, default, default, default))
@@ -43,10 +43,10 @@ namespace Stats.Config
         public Color32 MainPanelBackgroundColor { get; set; }
         public Color32 MainPanelForegroundColor { get; set; }
         public Color32 MainPanelAccentColor { get; set; }
-        public float ItemWidth { get; set; }
-        public float ItemHeight { get; set; }
         public float ItemPadding { get; set; }
+        public float ItemIconSize { get; set; }
         public float ItemTextScale { get; set; }
+        public ItemTextPosition ItemTextPosition { get; set; }
 
         public ConfigurationItemData GetConfigurationItemData(ItemData itemData)
         {
@@ -99,10 +99,10 @@ namespace Stats.Config
                 MainPanelBackgroundColor = MainPanelBackgroundColor.GetColorString(),
                 MainPanelForegroundColor = MainPanelForegroundColor.GetColorString(),
                 MainPanelAccentColor = MainPanelAccentColor.GetColorString(),
-                ItemWidth = ItemWidth,
-                ItemHeight = ItemHeight,
+                ItemIconSize = ItemIconSize,
                 ItemPadding = ItemPadding,
                 ItemTextScale = ItemTextScale,
+                ItemTextPosition = ItemTextPosition.Name,
                 AverageIllnessRate = GetConfigurationItemData(ItemData.AverageIllnessRate).Enabled,
                 AverageIllnessRateCriticalThreshold = GetConfigurationItemData(ItemData.AverageIllnessRate).CriticalThreshold,
                 AverageIllnessRateSortOrder = GetConfigurationItemData(ItemData.AverageIllnessRate).SortOrder,
@@ -265,7 +265,6 @@ namespace Stats.Config
             };
         }
 
-
         private void ApplyDto(ConfigurationDto dto)
         {
             MainPanelPosition = new Vector2(dto.MainPanelPositionX, dto.MainPanelPositionY);
@@ -277,10 +276,10 @@ namespace Stats.Config
             MainPanelBackgroundColor = dto.MainPanelBackgroundColor.GetColor32();
             MainPanelForegroundColor = dto.MainPanelForegroundColor.GetColor32();
             MainPanelAccentColor = dto.MainPanelAccentColor.GetColor32();
-            ItemWidth = dto.ItemWidth;
-            ItemHeight = dto.ItemHeight;
-            ItemPadding = dto.ItemPadding;
+            ItemIconSize = dto.ItemIconSize;
             ItemTextScale = dto.ItemTextScale;
+            ItemPadding = dto.ItemPadding;
+            ItemTextPosition = ItemTextPosition.Parse(dto.ItemTextPosition);
 
             ApplyItem(ItemData.AverageIllnessRate, dto.AverageIllnessRate, dto.AverageIllnessRateCriticalThreshold, dto.AverageIllnessRateSortOrder);
             ApplyItem(ItemData.AverageChildrenIllnessRate, dto.AverageChildrenIllnessRate, dto.AverageChildrenIllnessRateCriticalThreshold, dto.AverageChildrenIllnessRateSortOrder);

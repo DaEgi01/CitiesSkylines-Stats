@@ -18,10 +18,10 @@ namespace Stats.Config
 
         private UISlider _updateEveryXSeconds;
         private UISlider _columnCountSlider;
-        private UISlider _itemWidthSlider;
-        private UISlider _itemHeightSlider;
-        private UISlider _itemPaddingSlider;
+        private UISlider _itemIconSizeSlider;
         private UISlider _itemTextScaleSlider;
+        private UISlider _itemPaddingSlider;
+        private UIDropDown _itemTextPositionDropDown;
         private UICheckBox _autoHideCheckBox;
         private UICheckBox _hideItemsBelowThresholdCheckBox;
         private UICheckBox _hideItemsNotAvailableCheckBox;
@@ -60,6 +60,8 @@ namespace Stats.Config
 
                 if (MainPanel != null)
                 {
+                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                     MainPanel.UpdatePosition();
                 }
             });
@@ -93,29 +95,7 @@ namespace Stats.Config
 
                 if (MainPanel != null)
                 {
-                    MainPanel.UpdateItemsLayoutAndSize();
-                }
-            });
-
-            _itemWidthSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemWidth, 10, 100, 1, _configuration.ItemWidth, value =>
-            {
-                _configuration.ItemWidth = value;
-                _configuration.Save();
-
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdateItemsLayoutAndSize();
-                }
-            });
-
-            _itemHeightSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemHeight, 10, 100, 1, _configuration.ItemHeight, value =>
-            {
-                _configuration.ItemHeight = value;
-                _configuration.Save();
-
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
             });
 
@@ -126,20 +106,67 @@ namespace Stats.Config
 
                 if (MainPanel != null)
                 {
-                    MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
             });
 
-            _itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemTextScale, 0, 4, 0.1f, _configuration.ItemTextScale, value =>
+            _itemIconSizeSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemIconSize, 10, 100, 1, _configuration.ItemIconSize, value =>
+            {
+                _configuration.ItemIconSize = value;
+                _configuration.Save();
+
+                if (MainPanel != null)
+                {
+                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                }
+            });
+
+            _itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemTextScale, 0.4f, 4, 0.1f, _configuration.ItemTextScale, value =>
             {
                 _configuration.ItemTextScale = value;
                 _configuration.Save();
 
                 if (MainPanel != null)
                 {
-                    MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
             });
+
+            _itemTextPositionDropDown = mainPanelGroupUiHelper.AddDropdown(
+                _languageResource.ItemTextPosition,
+                ItemTextPosition.All.OrderBy(x => x.Index).Select(x => x.Name).ToArray(),
+                _configuration.ItemTextPosition.Index,
+                value =>
+                {
+                    var previousItemTextPosition = _configuration.ItemTextPosition;
+
+                    _configuration.ItemTextPosition = ItemTextPosition.All.ElementAt(value);
+                    _configuration.Save();
+
+                    if (MainPanel != null)
+                    {
+                        var shouldCreatePercentButtons = previousItemTextPosition == ItemTextPosition.None
+                            && _configuration.ItemTextPosition != ItemTextPosition.None;
+                        if (shouldCreatePercentButtons)
+                        {
+                            MainPanel.CreateItemPercentButtons();
+                        }
+
+                        var shouldDestroyPercentButtons = previousItemTextPosition != ItemTextPosition.None
+                            && _configuration.ItemTextPosition == ItemTextPosition.None;
+                        if (shouldDestroyPercentButtons)
+                        {
+                            MainPanel.DestroyItemPercentButtons();
+                        }
+
+                        MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                        MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                    }
+                }
+            ) as UIDropDown;
 
             _autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.AutoHide, _configuration.MainPanelAutoHide, _checked =>
             {
@@ -159,7 +186,7 @@ namespace Stats.Config
                         itemPanel.UpdatePercentVisibilityAndColor();
                     }
 
-                    MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
             }) as UICheckBox;
 
@@ -175,7 +202,7 @@ namespace Stats.Config
                         itemPanel.UpdatePercentVisibilityAndColor();
                     }
 
-                    MainPanel.UpdateItemsLayoutAndSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
             }) as UICheckBox;
 
@@ -219,7 +246,7 @@ namespace Stats.Config
                 }
 
                 itemPanel.UpdatePercentVisibilityAndColor();
-                MainPanel.UpdateItemsLayoutAndSize();
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             }) as UICheckBox;
             itemGroupUiHelper.AddSpace(_space);
 
@@ -244,7 +271,7 @@ namespace Stats.Config
                 }
 
                 itemPanel.UpdatePercentVisibilityAndColor();
-                MainPanel.UpdateItemsLayoutAndSize();
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
             _sortOrderTextField = itemGroupUiHelper.AddTextfield(_languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), (v) => { }, v =>
@@ -265,10 +292,10 @@ namespace Stats.Config
         {
             _updateEveryXSeconds.value = _configuration.MainPanelUpdateEveryXSeconds;
             _columnCountSlider.value = _configuration.MainPanelColumnCount;
-            _itemWidthSlider.value = _configuration.ItemWidth;
-            _itemHeightSlider.value = _configuration.ItemHeight;
             _itemPaddingSlider.value = _configuration.ItemPadding;
+            _itemIconSizeSlider.value = _configuration.ItemIconSize;
             _itemTextScaleSlider.value = _configuration.ItemTextScale;
+            _itemTextPositionDropDown.selectedIndex = _configuration.ItemTextPosition.Index;
             _autoHideCheckBox.isChecked = _configuration.MainPanelAutoHide;
             _hideItemsBelowThresholdCheckBox.isChecked = _configuration.MainPanelHideItemsBelowThreshold;
             _hideItemsNotAvailableCheckBox.isChecked = _configuration.MainPanelHideItemsNotAvailable;

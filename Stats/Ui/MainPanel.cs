@@ -46,8 +46,9 @@ namespace Stats.Ui
             CreateAndAddDragHandle();
             CreateAndAddAllUiItems();
 
-            UpdateItemsLayoutAndSize();
-            relativePosition = _configuration.MainPanelPosition;
+            UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+            UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+            UpdatePosition();
 
             _uiDragHandle.eventMouseUp += UiDragHandle_eventMouseUp;
 
@@ -95,10 +96,35 @@ namespace Stats.Ui
         private ItemPanel CreateAndAddItemPanel()
         {
             var itemPanel = AddUIComponent<ItemPanel>();
-            itemPanel.width = _configuration.ItemWidth;
-            itemPanel.height = _configuration.ItemHeight;
             itemPanel.zOrder = zOrder;
             return itemPanel;
+        }
+
+        public void CreateItemPercentButtons()
+        {
+            for (var i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
+            {
+                var itemPanel = _itemPanelsInDisplayOrder[i];
+                itemPanel.CreateAndAddPercentButton();
+            }
+        }
+
+        public void DestroyItemPercentButtons()
+        {
+            for (var i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
+            {
+                var itemPanel = _itemPanelsInDisplayOrder[i];
+                itemPanel.DestroyPercentButton();
+            }
+        }
+
+        public void UpdateItemPanelButtonSizesAndLayoutAndPanelSize()
+        {
+            for (var i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
+            {
+                var itemPanel = _itemPanelsInDisplayOrder[i];
+                itemPanel.UpdateButtonSizesAndLayoutAndPanelSize();
+            }
         }
 
         public void UpdateSortOrder()
@@ -107,12 +133,12 @@ namespace Stats.Ui
                 .OrderBy(x => x.ConfigurationItemData.SortOrder)
                 .ToArray();
 
-            UpdateItemsLayout();
+            UpdatePanelLayout();
         }
 
-        public void UpdateItemsLayoutAndSize()
+        public void UpdatePanelLayoutAndPanelSizeAndClampToScreen()
         {
-            UpdateItemsLayout();
+            UpdatePanelLayout();
             UpdatePanelSize();
             ClampToScreen();
         }
@@ -129,7 +155,7 @@ namespace Stats.Ui
             }
         }
 
-        private void UpdateItemsLayout()
+        public void UpdatePanelLayout()
         {
             var lastLayoutPosition = Vector2.zero;
             int index = 0;
@@ -148,7 +174,6 @@ namespace Stats.Ui
                 );
 
                 currentItem.relativePosition = CalculateRelativePosition(layoutPosition);
-                currentItem.AdjustButtonAndUiItemSize();
 
                 lastLayoutPosition = CalculateNextLayoutPosition(lastLayoutPosition);
                 index++;
@@ -170,14 +195,14 @@ namespace Stats.Ui
         private Vector3 CalculateRelativePosition(Vector2 layoutPosition)
         {
             var posX = (layoutPosition.x + 1) * _configuration.ItemPadding
-                + layoutPosition.x * _configuration.ItemWidth;
+                + layoutPosition.x * _itemPanelsInDisplayOrder[0].width;
             var posY = (layoutPosition.y + 1) * _configuration.ItemPadding
-                + layoutPosition.y * _configuration.ItemHeight;
+                + layoutPosition.y * _itemPanelsInDisplayOrder[0].height;
 
             return new Vector3(posX, posY);
         }
 
-        private void UpdatePanelSize()
+        public void UpdatePanelSize()
         {
             var visibleItemCount = GetVisibleItemsCount(_itemPanelsInDisplayOrder);
             if (visibleItemCount == 0)
@@ -231,22 +256,32 @@ namespace Stats.Ui
 
         private float CalculatePanelWidth(int visibleItemCount)
         {
+            if (visibleItemCount <= 0)
+            {
+                return 0f;
+            }
+
             if (visibleItemCount < _configuration.MainPanelColumnCount)
             {
                 return (visibleItemCount + 1) * _configuration.ItemPadding
-                    + visibleItemCount * _configuration.ItemWidth;
+                    + visibleItemCount * _itemPanelsInDisplayOrder[0].width;
             }
             else
             {
                 return (_configuration.MainPanelColumnCount + 1) * _configuration.ItemPadding
-                    + _configuration.MainPanelColumnCount * _configuration.ItemWidth;
+                    + _configuration.MainPanelColumnCount * _itemPanelsInDisplayOrder[0].width;
             }
         }
 
         private float CalculatePanelHeight(int visibleItemCount)
         {
+            if (visibleItemCount <= 0)
+            {
+                return 0f;
+            }
+
             var rowCount = Mathf.CeilToInt(visibleItemCount / (float)_configuration.MainPanelColumnCount);
-            return (rowCount + 1) * _configuration.ItemPadding + rowCount * _configuration.ItemHeight;
+            return (rowCount + 1) * _configuration.ItemPadding + rowCount * _itemPanelsInDisplayOrder[0].height;
         }
 
         private void UiDragHandle_eventMouseUp(UIComponent component, UIMouseEventParameter eventParam)
@@ -299,7 +334,7 @@ namespace Stats.Ui
                 var itemVisibilityAndChanged = itemPanel.UpdatePercentVisibilityAndColor();
                 if (itemVisibilityAndChanged.isVisibleChanged)
                 {
-                    UpdateItemsLayoutAndSize();
+                    UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
 
                 yield return new WaitForSecondsRealtime(itemUpdateInterval);
