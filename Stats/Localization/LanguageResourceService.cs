@@ -37,7 +37,7 @@ namespace Stats.Localization
             );
         }
 
-        public T Load(string languageTwoLetterCode)
+        public T? Load(string languageTwoLetterCode)
         {
             if (languageTwoLetterCode is null)
             {

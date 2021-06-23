@@ -16,21 +16,21 @@ namespace Stats.Config
         private readonly LanguageResource _languageResource;
         private readonly Configuration _configuration;
 
-        private UISlider _updateEveryXSeconds;
-        private UISlider _columnCountSlider;
-        private UISlider _itemIconSizeSlider;
-        private UISlider _itemTextScaleSlider;
-        private UISlider _itemPaddingSlider;
-        private UIDropDown _itemTextPositionDropDown;
-        private UICheckBox _autoHideCheckBox;
-        private UICheckBox _hideItemsBelowThresholdCheckBox;
-        private UICheckBox _hideItemsNotAvailableCheckBox;
-        private UIDropDown _itemsDropDown;
-        private UICheckBox _enabledCheckBox;
-        private UISlider _criticalThresholdSlider;
-        private UITextField _sortOrderTextField;
+        private UISlider? _updateEveryXSeconds;
+        private UISlider? _columnCountSlider;
+        private UISlider? _itemIconSizeSlider;
+        private UISlider? _itemTextScaleSlider;
+        private UISlider? _itemPaddingSlider;
+        private UIDropDown? _itemTextPositionDropDown;
+        private UICheckBox? _autoHideCheckBox;
+        private UICheckBox? _hideItemsBelowThresholdCheckBox;
+        private UICheckBox? _hideItemsNotAvailableCheckBox;
+        private UIDropDown? _itemsDropDown;
+        private UICheckBox? _enabledCheckBox;
+        private UISlider? _criticalThresholdSlider;
+        private UITextField? _sortOrderTextField;
 
-        private ItemData _selectedItem;
+        private ItemData? _selectedItem;
 
         public ConfigurationPanel(
             UIHelperBase uiHelperBase,
@@ -44,42 +44,45 @@ namespace Stats.Config
             _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
         }
 
-        public MainPanel MainPanel { get; set; }
+        public MainPanel? MainPanel { get; set; }
 
         public void Initialize()
         {
             var mainGroupUiHelper = _uiHelperBase.AddGroup(_modInfo.GetDisplayNameWithVersion());
-            var mainGroupContentPanel = (mainGroupUiHelper as UIHelper).self as UIPanel;
+            var mainGroupContentPanel = (mainGroupUiHelper as UIHelper)?.self as UIPanel;
+            if (mainGroupContentPanel is null)
+                throw new IsNullException(nameof(mainGroupContentPanel));
+
             mainGroupContentPanel.backgroundSprite = string.Empty;
 
             mainGroupUiHelper.AddButton(_languageResource.Reset, () =>
             {
-                var oldSelectedItemName = _selectedItem.Name;
+                string? oldSelectedItemName = _selectedItem?.Name;
                 _configuration.Reset();
                 UpdateUiFromModel();
 
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
-                    MainPanel.UpdatePosition();
-                }
+                if (MainPanel is null)
+                    return;
+
+                MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                MainPanel.UpdatePosition();
             });
 
             mainGroupUiHelper.AddButton(_languageResource.ResetPosition, () =>
             {
                 _configuration.ResetPosition();
 
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdatePosition();
-                }
+                MainPanel?.UpdatePosition();
             });
 
             mainGroupUiHelper.AddSpace(_space);
 
             var mainPanelGroupUiHelper = mainGroupUiHelper.AddGroup(_languageResource.MainWindow);
-            var mainPanelGroupContentPanel = (mainPanelGroupUiHelper as UIHelper).self as UIPanel;
+            var mainPanelGroupContentPanel = (mainPanelGroupUiHelper as UIHelper)?.self as UIPanel;
+            if (mainPanelGroupContentPanel is null)
+                throw new IsNullException(nameof(mainPanelGroupContentPanel));
+
             mainPanelGroupContentPanel.backgroundSprite = string.Empty;
 
             _updateEveryXSeconds = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.UpdateEveryXSeconds, 0, 30, 1, _configuration.MainPanelUpdateEveryXSeconds, value =>
@@ -93,10 +96,7 @@ namespace Stats.Config
                 _configuration.MainPanelColumnCount = (int)value;
                 _configuration.Save();
 
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
-                }
+                MainPanel?.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
             _itemPaddingSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemPadding, 0, 30, 1, _configuration.ItemPadding, value =>
@@ -104,11 +104,11 @@ namespace Stats.Config
                 _configuration.ItemPadding = value;
                 _configuration.Save();
 
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
-                }
+                if (MainPanel is null)
+                    return;
+                
+                MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
             _itemIconSizeSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemIconSize, 10, 100, 1, _configuration.ItemIconSize, value =>
@@ -116,11 +116,11 @@ namespace Stats.Config
                 _configuration.ItemIconSize = value;
                 _configuration.Save();
 
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
-                }
+                if (MainPanel is null)
+                    return;
+                
+                MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
             _itemTextScaleSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemTextScale, 0.4f, 4, 0.1f, _configuration.ItemTextScale, value =>
@@ -128,11 +128,11 @@ namespace Stats.Config
                 _configuration.ItemTextScale = value;
                 _configuration.Save();
 
-                if (MainPanel != null)
-                {
-                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
-                }
+                if (MainPanel is null)
+                    return;
+                
+                MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
             _itemTextPositionDropDown = mainPanelGroupUiHelper.AddDropdown(
@@ -146,25 +146,25 @@ namespace Stats.Config
                     _configuration.ItemTextPosition = ItemTextPosition.All.ElementAt(value);
                     _configuration.Save();
 
-                    if (MainPanel != null)
+                    if (MainPanel is null)
+                        return;
+
+                    var shouldCreatePercentButtons = previousItemTextPosition == ItemTextPosition.None
+                        && _configuration.ItemTextPosition != ItemTextPosition.None;
+                    if (shouldCreatePercentButtons)
                     {
-                        var shouldCreatePercentButtons = previousItemTextPosition == ItemTextPosition.None
-                            && _configuration.ItemTextPosition != ItemTextPosition.None;
-                        if (shouldCreatePercentButtons)
-                        {
-                            MainPanel.CreateItemPercentButtons();
-                        }
-
-                        var shouldDestroyPercentButtons = previousItemTextPosition != ItemTextPosition.None
-                            && _configuration.ItemTextPosition == ItemTextPosition.None;
-                        if (shouldDestroyPercentButtons)
-                        {
-                            MainPanel.DestroyItemPercentButtons();
-                        }
-
-                        MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
-                        MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                        MainPanel.CreateItemPercentButtons();
                     }
+
+                    var shouldDestroyPercentButtons = previousItemTextPosition != ItemTextPosition.None
+                        && _configuration.ItemTextPosition == ItemTextPosition.None;
+                    if (shouldDestroyPercentButtons)
+                    {
+                        MainPanel.DestroyItemPercentButtons();
+                    }
+
+                    MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
+                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }
             ) as UIDropDown;
 
@@ -179,15 +179,15 @@ namespace Stats.Config
                 _configuration.MainPanelHideItemsBelowThreshold = _checked;
                 _configuration.Save();
 
-                if (MainPanel != null)
-                {
-                    foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
-                    {
-                        itemPanel.UpdatePercentVisibilityAndColor();
-                    }
+                if (MainPanel is null || MainPanel.ItemPanelsInDisplayOrder is null)
+                    return;
 
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
+                {
+                    itemPanel.UpdatePercentVisibilityAndColor();
                 }
+
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             }) as UICheckBox;
 
             _hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsNotAvailable, _configuration.MainPanelHideItemsNotAvailable, _checked =>
@@ -195,19 +195,22 @@ namespace Stats.Config
                 _configuration.MainPanelHideItemsNotAvailable = _checked;
                 _configuration.Save();
 
-                if (MainPanel != null)
+                if (MainPanel is null || MainPanel.ItemPanelsInDisplayOrder is null)
+                    return;
+                
+                foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
                 {
-                    foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
-                    {
-                        itemPanel.UpdatePercentVisibilityAndColor();
-                    }
-
-                    MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                    itemPanel.UpdatePercentVisibilityAndColor();
                 }
+
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             }) as UICheckBox;
 
             var itemGroupUiHelper = mainGroupUiHelper.AddGroup(_languageResource.Items);
-            var itemGroupContentPanel = (itemGroupUiHelper as UIHelper).self as UIPanel;
+            var itemGroupContentPanel = (itemGroupUiHelper as UIHelper)?.self as UIPanel;
+            if (itemGroupContentPanel is null)
+                throw new IsNullException(nameof(itemGroupContentPanel));
+
             itemGroupContentPanel.backgroundSprite = string.Empty;
 
             var itemStringArray = ItemData.AllItems
@@ -220,8 +223,8 @@ namespace Stats.Config
                 _selectedItem = ItemData.AllItems[index];
                 UpdateSelectedItemFromModel();
             }) as UIDropDown;
-            var itemsDropdownPanel = _itemsDropDown.parent as UIPanel;
-            itemsDropdownPanel.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
+            var itemsDropdownPanel = _itemsDropDown?.parent as UIPanel;
+            itemsDropdownPanel?.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
 
             var initialConfigurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
 
@@ -231,7 +234,7 @@ namespace Stats.Config
                 configurationItemData.Enabled = _checked;
                 _configuration.Save();
 
-                if (MainPanel == null)
+                if (MainPanel is null)
                 {
                     return;
                 }
@@ -240,7 +243,7 @@ namespace Stats.Config
                     .Where(x => x.ConfigurationItemData.ItemData == _selectedItem)
                     .FirstOrDefault();
 
-                if (itemPanel == null)
+                if (itemPanel is null)
                 {
                     return;
                 }
@@ -256,19 +259,15 @@ namespace Stats.Config
                 configurationItemData.CriticalThreshold = (int)value;
                 _configuration.Save();
 
-                if (MainPanel == null)
-                {
+                if (MainPanel is null)
                     return;
-                }
 
                 var itemPanel = MainPanel.ItemPanelsInDisplayOrder
                     .Where(x => x.ConfigurationItemData.ItemData == _selectedItem)
                     .FirstOrDefault();
 
-                if (itemPanel == null)
-                {
+                if (itemPanel is null)
                     return;
-                }
 
                 itemPanel.UpdatePercentVisibilityAndColor();
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
@@ -285,11 +284,12 @@ namespace Stats.Config
                      MainPanel.UpdateSortOrder();
                  }
              }) as UITextField;
-            _sortOrderTextField.numericalOnly = true;
+            _sortOrderTextField!.numericalOnly = true;
         }
 
         private void UpdateUiFromModel()
         {
+            // Temporal coupling - call after initialization.
             _updateEveryXSeconds.value = _configuration.MainPanelUpdateEveryXSeconds;
             _columnCountSlider.value = _configuration.MainPanelColumnCount;
             _itemPaddingSlider.value = _configuration.ItemPadding;
@@ -305,7 +305,11 @@ namespace Stats.Config
 
         private void UpdateSelectedItemFromModel()
         {
+            if (_selectedItem is null)
+                return;
+
             var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
+
             _enabledCheckBox.isChecked = configurationItemData.Enabled;
             _criticalThresholdSlider.value = configurationItemData.CriticalThreshold;
             _sortOrderTextField.text = configurationItemData.SortOrder.ToString();

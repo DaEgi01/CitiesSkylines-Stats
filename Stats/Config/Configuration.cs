@@ -46,7 +46,7 @@ namespace Stats.Config
         public float ItemPadding { get; set; }
         public float ItemIconSize { get; set; }
         public float ItemTextScale { get; set; }
-        public ItemTextPosition ItemTextPosition { get; set; }
+        public ItemTextPosition ItemTextPosition { get; set; } = ItemTextPosition.None;
 
         public ConfigurationItemData GetConfigurationItemData(ItemData itemData)
         {
@@ -279,7 +279,7 @@ namespace Stats.Config
             ItemIconSize = dto.ItemIconSize;
             ItemTextScale = dto.ItemTextScale;
             ItemPadding = dto.ItemPadding;
-            ItemTextPosition = ItemTextPosition.Parse(dto.ItemTextPosition);
+            ItemTextPosition = ItemTextPosition.Parse(dto.ItemTextPosition) ?? throw new ArgumentException($"Could not parse '{dto.ItemTextPosition}'.");
 
             ApplyItem(ItemData.AverageIllnessRate, dto.AverageIllnessRate, dto.AverageIllnessRateCriticalThreshold, dto.AverageIllnessRateSortOrder);
             ApplyItem(ItemData.AverageChildrenIllnessRate, dto.AverageChildrenIllnessRate, dto.AverageChildrenIllnessRateCriticalThreshold, dto.AverageChildrenIllnessRateSortOrder);

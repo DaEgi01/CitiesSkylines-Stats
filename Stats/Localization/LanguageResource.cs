@@ -88,26 +88,51 @@ namespace Stats.Localization
             string fallbackLanguageTwoLetterCode)
         {
             var desiredLanguageResourceDto = languageResourceService.Load(languageTwoLetterCode);
-            if (desiredLanguageResourceDto != null)
+            if (desiredLanguageResourceDto is not null)
             {
-                return new LoadLanguageResult(
-                    languageTwoLetterCode,
-                    desiredLanguageResourceDto.LocalizedItems
-                        .ToDictionary(x => x.Key, x => x.Value)
-                );
+                return ValidateAndCreateResult(desiredLanguageResourceDto, languageTwoLetterCode);
             }
 
             var fallbackLanguageResourceDto = languageResourceService.Load(fallbackLanguageTwoLetterCode);
-            if (fallbackLanguageResourceDto != null)
+            if (fallbackLanguageResourceDto is not null)
             {
-                return new LoadLanguageResult(
-                    fallbackLanguageTwoLetterCode,
-                    fallbackLanguageResourceDto.LocalizedItems
-                        .ToDictionary(x => x.Key, x => x.Value)
-                );
+                return ValidateAndCreateResult(fallbackLanguageResourceDto, fallbackLanguageTwoLetterCode);
             }
 
             throw new Exception($"Could not load the LanguageResourceDto for the {nameof(languageTwoLetterCode)} '{languageTwoLetterCode}', nor for the {nameof(fallbackLanguageTwoLetterCode)} '{fallbackLanguageTwoLetterCode}'.");
+        }
+
+        private static LoadLanguageResult ValidateAndCreateResult(
+            LanguageResourceDto languageResourceDto,
+            string languageTwoLetterCode)
+        {
+            ValidateLanguageItems(languageResourceDto, languageTwoLetterCode);
+
+            return new LoadLanguageResult(
+                languageTwoLetterCode,
+                languageResourceDto.LocalizedItems.ToDictionary(x => x.Key!, x => x.Value!)
+            );
+        }
+
+        private static void ValidateLanguageItems(LanguageResourceDto? languageResourceDto, string languageTwoLetterCode)
+        {
+            if (languageResourceDto is null)
+                throw new Exception($"Could not load {nameof(LanguageResourceDto)} for languageTwoLetterCode: '{languageTwoLetterCode}'. Check if file exists.");
+
+            if (languageResourceDto.LanguageTwoLetterCode is null)
+                throw new IsNullException(nameof(languageResourceDto.LanguageTwoLetterCode), $"Localization file for '{languageTwoLetterCode}' broken.");
+
+            if (languageResourceDto.Version is null)
+                throw new IsNullException(nameof(languageResourceDto.Version), $"Localization file for '{languageTwoLetterCode}' broken.");
+
+            if (languageResourceDto.LocalizedItems is null)
+                throw new IsNullException(nameof(languageResourceDto.LocalizedItems), $"Localization file for '{languageTwoLetterCode}' broken.");
+
+            foreach (var item in languageResourceDto.LocalizedItems)
+            {
+                if (item.Key is null || item.Value is null)
+                    throw new Exception($"Localization file for '{languageTwoLetterCode}' broken. At least one LocalizedItem inside localization file for '{languageTwoLetterCode}' contains null values.");
+            }
         }
     }
 }

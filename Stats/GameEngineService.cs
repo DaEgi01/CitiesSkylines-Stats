@@ -302,10 +302,8 @@ namespace Stats
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var hospitalAI = building.Info?.GetAI() as HospitalAI;
-                if (hospitalAI == null)
-                {
+                if (hospitalAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(hospitalAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -335,10 +333,8 @@ namespace Stats
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var helicopterDepotAI = building.Info?.GetAI() as HelicopterDepotAI;
-                if (helicopterDepotAI == null)
-                {
+                if (helicopterDepotAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(helicopterDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -368,10 +364,8 @@ namespace Stats
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var cemeteryAI = building.Info?.GetAI() as CemeteryAI;
-                if (cemeteryAI == null || cemeteryAI.m_graveCount == 0) //m_graveCount == 0 -> Crematorium
-                {
+                if (cemeteryAI is null || cemeteryAI.m_graveCount == 0) //m_graveCount == 0 -> Crematorium
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(cemeteryAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -409,10 +403,8 @@ namespace Stats
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var cemeteryAI = building.Info?.GetAI() as CemeteryAI;
-                if (cemeteryAI == null || cemeteryAI.m_graveCount > 0) //m_graveCount > 0 -> Cemetery
-                {
+                if (cemeteryAI is null || cemeteryAI.m_graveCount > 0) //m_graveCount > 0 -> Cemetery
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(cemeteryAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -472,10 +464,8 @@ namespace Stats
                 var buildingId = disasterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var disasterResponseBuildingAI = building.Info?.GetAI() as DisasterResponseBuildingAI;
-                if (disasterResponseBuildingAI == null)
-                {
+                if (disasterResponseBuildingAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(disasterResponseBuildingAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -503,10 +493,8 @@ namespace Stats
                 var buildingId = disasterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var disasterResponseBuildingAI = building.Info?.GetAI() as DisasterResponseBuildingAI;
-                if (disasterResponseBuildingAI == null)
-                {
+                if (disasterResponseBuildingAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(disasterResponseBuildingAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -556,10 +544,8 @@ namespace Stats
                 var buildingId = fireDepartmentBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var fireStationAI = building.Info?.GetAI() as FireStationAI;
-                if (fireStationAI == null)
-                {
+                if (fireStationAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(fireStationAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -589,10 +575,8 @@ namespace Stats
                 var buildingId = fireDepartmentBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var helicopterDepotAI = building.Info?.GetAI() as HelicopterDepotAI;
-                if (helicopterDepotAI == null)
-                {
+                if (helicopterDepotAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(helicopterDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -637,10 +621,8 @@ namespace Stats
                 var buildingId = garbageBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var landfillSiteAI = building.Info?.GetAI() as LandfillSiteAI;
-                if (landfillSiteAI == null || landfillSiteAI.m_garbageConsumption <= 0) //m_garbageConsumption <= 0 -> Landfill
-                {
+                if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption <= 0) //m_garbageConsumption <= 0 -> Landfill
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(landfillSiteAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -676,10 +658,8 @@ namespace Stats
                 var buildingId = garbageBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var landfillSiteAI = building.Info?.GetAI() as LandfillSiteAI;
-                if (landfillSiteAI == null || landfillSiteAI.m_garbageConsumption > 0) //m_garbageConsumption > 0 -> Incinerator
-                {
+                if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption > 0) //m_garbageConsumption > 0 -> Incinerator
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(landfillSiteAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -766,16 +746,12 @@ namespace Stats
                 var buildingId = beautificationBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var maintenanceDepotAI = building.Info?.GetAI() as MaintenanceDepotAI;
-                if (maintenanceDepotAI == null)
-                {
+                if (maintenanceDepotAI is null)
                     continue;
-                }
 
                 var transferReason = GameMethods.GetTransferReason(maintenanceDepotAI);
                 if (transferReason == TransferManager.TransferReason.None)
-                {
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(maintenanceDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -815,10 +791,8 @@ namespace Stats
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
-                if (policeStationAI == null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
-                {
+                if (policeStationAI is null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
                     continue;
-                }
 
                 //PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
@@ -867,10 +841,8 @@ namespace Stats
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
-                if (policeStationAI == null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
-                {
+                if (policeStationAI is null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
                     continue;
-                }
 
                 //PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
@@ -921,10 +893,8 @@ namespace Stats
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var helicopterDepotAI = building.Info?.GetAI() as HelicopterDepotAI;
-                if (helicopterDepotAI == null)
-                {
+                if (helicopterDepotAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(helicopterDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -955,10 +925,8 @@ namespace Stats
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
-                if (policeStationAI == null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
-                {
+                if (policeStationAI is null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
                     continue;
-                }
 
                 //PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
@@ -1007,10 +975,8 @@ namespace Stats
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
-                if (policeStationAI == null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
-                {
+                if (policeStationAI is null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
                     continue;
-                }
 
                 //PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
@@ -1060,9 +1026,9 @@ namespace Stats
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var depotAI = building.Info?.GetAI() as DepotAI;
                 if (
-                    depotAI == null
+                    depotAI is null
                     || depotAI.m_maxVehicleCount == 0
-                    || depotAI.m_transportInfo == null
+                    || depotAI.m_transportInfo is null
                     || depotAI.m_transportInfo.m_transportType != TransportInfo.TransportType.Taxi)
                 {
                     continue;
@@ -1094,10 +1060,8 @@ namespace Stats
                 var buildingId = publicTransportBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var postOfficeAI = building.Info?.GetAI() as PostOfficeAI;
-                if (postOfficeAI == null)
-                {
+                if (postOfficeAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(postOfficeAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -1133,11 +1097,8 @@ namespace Stats
                 var buildingId = publicTransportBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var postOfficeAI = building.Info?.GetAI() as PostOfficeAI;
-
-                if (postOfficeAI == null)
-                {
+                if (postOfficeAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(postOfficeAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -1174,10 +1135,8 @@ namespace Stats
                 var buildingId = roadMaintenanceBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var maintenanceDepotAI = building.Info?.GetAI() as MaintenanceDepotAI;
-                if (maintenanceDepotAI == null)
-                {
+                if (maintenanceDepotAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(maintenanceDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -1212,10 +1171,8 @@ namespace Stats
                 var buildingId = roadMaintenanceBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var snowDumpAI = building.Info?.GetAI() as SnowDumpAI;
-                if (snowDumpAI == null)
-                {
+                if (snowDumpAI is null)
                     continue;
-                }
 
                 int count = 0;
                 int cargo = 0;
@@ -1240,9 +1197,7 @@ namespace Stats
         public int? GetSnowDumpVehiclesPercent()
         {
             if (!_mapHasSnowDumps)
-            {
                 return null;
-            }
 
             var snowDumpVehiclesTotal = 0;
             var snowDumpVehiclesInUse = 0;
@@ -1254,10 +1209,8 @@ namespace Stats
                 var buildingId = roadMaintenanceBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var snowDumpAI = building.Info?.GetAI() as SnowDumpAI;
-                if (snowDumpAI == null)
-                {
+                if (snowDumpAI is null)
                     continue;
-                }
 
                 int budget = _economyManager.GetBudget(snowDumpAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
@@ -1348,21 +1301,15 @@ namespace Stats
                 var buildingId = waterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var waterFacilityAI = building.Info?.GetAI() as WaterFacilityAI;
-                if (waterFacilityAI == null)
-                {
+                if (waterFacilityAI is null)
                     continue;
-                }
 
                 //WaterFacilityAI.GetLocalizedStats
                 if (waterFacilityAI.m_waterIntake != 0 && waterFacilityAI.m_waterOutlet != 0 && waterFacilityAI.m_waterStorage != 0)
-                {
                     continue;
-                }
 
                 if (waterFacilityAI.m_sewageOutlet == 0 || waterFacilityAI.m_sewageStorage == 0 || waterFacilityAI.m_pumpingVehicles == 0)
-                {
                     continue;
-                }
 
                 waterSewageStorageInUse += building.m_customBuffer2 * 1000 + building.m_sewageBuffer;
                 waterSewageStorageTotal += waterFacilityAI.m_sewageStorage;
@@ -1388,22 +1335,20 @@ namespace Stats
             {
                 var buildingId = waterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var waterFacilityAI = building.Info?.GetAI() as WaterFacilityAI;
-                if (waterFacilityAI == null)
-                {
+                var buildingInfo = building.Info;
+                if (buildingInfo is null)
                     continue;
-                }
+
+                var waterFacilityAI = building.Info.GetAI() as WaterFacilityAI;
+                if (waterFacilityAI is null)
+                    continue;
 
                 //WaterFacilityAI.GetLocalizedStats
                 if (waterFacilityAI.m_waterIntake != 0 && waterFacilityAI.m_waterOutlet != 0 && waterFacilityAI.m_waterStorage != 0)
-                {
                     continue;
-                }
 
                 if (waterFacilityAI.m_sewageOutlet == 0 || waterFacilityAI.m_sewageStorage == 0 || waterFacilityAI.m_pumpingVehicles == 0)
-                {
                     continue;
-                }
 
                 var budget = _economyManager.GetBudget(building.Info.m_class);
                 var productionRate = PlayerBuildingAI.GetProductionRate(100, budget);

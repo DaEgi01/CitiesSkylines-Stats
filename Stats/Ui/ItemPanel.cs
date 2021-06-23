@@ -11,18 +11,18 @@ namespace Stats.Ui
     {
         private const string _textToDeterminePercentButtonSize = "888%";
 
-        private Configuration _configuration;
-        private ConfigurationItemData _configurationItemData;
-        private LanguageResource _languageResource;
-        private Func<int?> _getPercentFromGame;
-        private InfoManager _infoManager;
+        private Configuration? _configuration;
+        private ConfigurationItemData? _configurationItemData;
+        private LanguageResource? _languageResource;
+        private Func<int?>? _getPercentFromGame;
+        private InfoManager? _infoManager;
 
-        private UIButton _iconButton;
-        private UIButton _percentButton;
+        private UIButton? _iconButton;
+        private UIButton? _percentButton;
 
-        private Func<UIButton, UIFontRenderer> _obtainTextRenderer;
+        private Func<UIButton, UIFontRenderer>? _obtainTextRenderer;
 
-        public ConfigurationItemData ConfigurationItemData => _configurationItemData;
+        public ConfigurationItemData? ConfigurationItemData => _configurationItemData;
 
         //TODO: refactor to localized item instead
         public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame, InfoManager infoManager)
@@ -34,10 +34,9 @@ namespace Stats.Ui
             _infoManager = infoManager ?? throw new ArgumentNullException(nameof(infoManager));
 
             var obtainTextRendererMethodInfo = typeof(UIButton).GetMethod("ObtainTextRenderer", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (obtainTextRendererMethodInfo == null)
-            {
+            if (obtainTextRendererMethodInfo is null)
                 throw new Exception("Could not get method 'ObtainTextRenderer'");
-            }
+            
             _obtainTextRenderer = (Func<UIButton, UIFontRenderer>)Delegate.CreateDelegate(typeof(Func<UIButton, UIFontRenderer>), obtainTextRendererMethodInfo);
 
             isVisible = _configurationItemData.Enabled;

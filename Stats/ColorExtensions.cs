@@ -10,10 +10,8 @@ namespace Stats
 
         public static Color32 GetColor32(this string colorString)
         {
-            if (colorString == null)
-            {
+            if (colorString is null)
                 throw new ArgumentNullException(nameof(colorString));
-            }
 
             var colorStringComponents = colorString.Split(_serializationSeparators, StringSplitOptions.None);
 

@@ -12,7 +12,10 @@ namespace Stats
             var marginBottom = 16f;
 
             var sliderControl = uIHelper.AddSlider(text, min, max, step, defaultValue, value => { }) as UISlider;
-            var rootPanel = sliderControl.parent as UIPanel;
+            var rootPanel = sliderControl!.parent as UIPanel;
+            if (rootPanel is null)
+                throw new IsNullException(nameof(rootPanel));
+
             rootPanel.autoLayout = false;
 
             var label = rootPanel.Find<UILabel>("Label");

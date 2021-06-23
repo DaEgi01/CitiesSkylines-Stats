@@ -10,16 +10,16 @@ namespace Stats.Ui
 {
     public class MainPanel : UIPanel
     {
-        private UIDragHandleWithDragState _uiDragHandle;
-        private string _modSystemName;
-        private Configuration _configuration;
-        private LanguageResource _languageResource;
-        private GameEngineService _gameEngineService;
-        private InfoManager _infoManager;
+        private UIDragHandleWithDragState? _uiDragHandle;
+        private string? _modSystemName;
+        private Configuration? _configuration;
+        private LanguageResource? _languageResource;
+        private GameEngineService? _gameEngineService;
+        private InfoManager? _infoManager;
 
-        private ItemPanel[] _itemPanelsInDisplayOrder;
+        private ItemPanel[]? _itemPanelsInDisplayOrder;
 
-        public ItemPanel[] ItemPanelsInDisplayOrder => _itemPanelsInDisplayOrder;
+        public ItemPanel[]? ItemPanelsInDisplayOrder => _itemPanelsInDisplayOrder;
 
         public void Initialize(
             string modSystemName,

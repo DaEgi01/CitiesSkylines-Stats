@@ -38,7 +38,7 @@ namespace Stats
             Left
         };
 
-        public static ItemTextPosition Parse(string name)
+        public static ItemTextPosition? Parse(string name)
         {
             return name switch
             {
@@ -46,7 +46,7 @@ namespace Stats
                 _top => Top,
                 _right => Right,
                 _left => Left,
-                _ => throw new ArgumentException($"Could not parse '{name}'.", nameof(name))
+                _ => null
             };
         }
     }

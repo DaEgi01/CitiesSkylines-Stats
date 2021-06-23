@@ -17,14 +17,14 @@ namespace Stats
         private readonly ModInfo _modInfo = new ModInfo("Stats", "Stats", "1.3.1", 1410077595);
         private readonly string _fallbackLanguageTwoLetterCode = "en";
 
-        private LanguageResourceService<LanguageResourceDto> _languageResourceService;
-        private LanguageResource _languageResource;
+        private LanguageResourceService<LanguageResourceDto>? _languageResourceService;
+        private LanguageResource? _languageResource;
 
-        private ConfigurationService<ConfigurationDto> _configurationService;
-        private Configuration _configuration;
-        private ConfigurationPanel _configurationPanel;
+        private ConfigurationService<ConfigurationDto>? _configurationService;
+        private Configuration? _configuration;
+        private ConfigurationPanel? _configurationPanel;
 
-        private MainPanel _mainPanel;
+        private MainPanel? _mainPanel;
 
         public string Name => _modInfo.DisplayName;
         public string Description => "Adds a configurable panel to display all vital city stats at a glance.";
@@ -101,7 +101,7 @@ namespace Stats
         private void LocaleManager_eventUIComponentLocaleChanged()
         {
             var languageTwoLetterCode = LocaleManager.instance.language;
-            _languageResource.LoadLanguage(languageTwoLetterCode);
+            _languageResource?.LoadLanguage(languageTwoLetterCode);
             _mainPanel?.UpdateLocalization();
         }
 
@@ -117,7 +117,7 @@ namespace Stats
             );
 
             _mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            _mainPanel.Initialize(_modInfo.SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
+            _mainPanel!.Initialize(_modInfo.SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
             if (_configurationPanel != null)
             {
                 _configurationPanel.MainPanel = _mainPanel;
@@ -130,6 +130,10 @@ namespace Stats
             {
                 _configurationPanel.MainPanel = null;
             }
+
+            if (_mainPanel is null)
+                return;
+
             GameObject.Destroy(_mainPanel.gameObject);
             _mainPanel = null;
         }
