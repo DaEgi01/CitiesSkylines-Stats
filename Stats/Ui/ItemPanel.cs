@@ -9,7 +9,7 @@ namespace Stats.Ui
 {
     public class ItemPanel : UIPanel
     {
-        private const string textToDeterminePercentButtonSize = "888%";
+        private const string _textToDeterminePercentButtonSize = "888%";
 
         private Configuration _configuration;
         private ConfigurationItemData _configurationItemData;
@@ -140,7 +140,7 @@ namespace Stats.Ui
                 var dynamicFont = (UIDynamicFont)fontRenderer.font;
                 _percentButton.size = GameMethods.MeasureText(
                     dynamicFont,
-                    textToDeterminePercentButtonSize,
+                    _textToDeterminePercentButtonSize,
                     _percentButton.textScale,
                     FontStyle.Normal);
             }

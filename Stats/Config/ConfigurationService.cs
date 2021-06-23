@@ -6,6 +6,8 @@ namespace Stats.Config
 {
     public class ConfigurationService<T>
     {
+        private readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(T));
+
         public ConfigurationService(string configurationFileFullName)
         {
             ConfigurationFileFullName = configurationFileFullName
@@ -16,19 +18,17 @@ namespace Stats.Config
 
         public T Load()
         {
-            var serializer = new XmlSerializer(typeof(T));
             using (var streamReader = new StreamReader(ConfigurationFileFullName))
             {
-                return (T)serializer.Deserialize(streamReader);
+                return (T)_xmlSerializer.Deserialize(streamReader);
             }
         }
 
         public void Save(T configuration)
         {
-            var serializer = new XmlSerializer(typeof(T));
             using (var streamWriter = new StreamWriter(ConfigurationFileFullName))
             {
-                serializer.Serialize(streamWriter, configuration);
+                _xmlSerializer.Serialize(streamWriter, configuration);
             }
         }
     }

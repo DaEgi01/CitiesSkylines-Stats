@@ -5,8 +5,8 @@ namespace Stats
 {
     public static class ColorExtensions
     {
-        private const char serializationSeparator = ',';
-        private static readonly char[] serializationSeparators = new[] { serializationSeparator };
+        private const char _serializationSeparator = ',';
+        private static readonly char[] _serializationSeparators = new[] { _serializationSeparator };
 
         public static Color32 GetColor32(this string colorString)
         {
@@ -15,7 +15,7 @@ namespace Stats
                 throw new ArgumentNullException(nameof(colorString));
             }
 
-            var colorStringComponents = colorString.Split(serializationSeparators, StringSplitOptions.None);
+            var colorStringComponents = colorString.Split(_serializationSeparators, StringSplitOptions.None);
 
             var red = byte.Parse(colorStringComponents[0]);
             var green = byte.Parse(colorStringComponents[1]);
@@ -29,11 +29,11 @@ namespace Stats
         {
             return StringBuilderSingleton.Instance
                 .Append(color.r)
-                .Append(serializationSeparator)
+                .Append(_serializationSeparator)
                 .Append(color.g)
-                .Append(serializationSeparator)
+                .Append(_serializationSeparator)
                 .Append(color.b)
-                .Append(serializationSeparator)
+                .Append(_serializationSeparator)
                 .Append(color.a)
                 .ToString();
         }
