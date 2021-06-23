@@ -14,11 +14,11 @@ namespace Stats
         public int Index { get; }
         public string Name { get; }
 
-        public static ItemTextPosition None { get; } = new ItemTextPosition(0, "None");
-        public static ItemTextPosition Top { get; } = new ItemTextPosition(1, "Top");
-        public static ItemTextPosition Right { get; } = new ItemTextPosition(2, "Right");
-        public static ItemTextPosition Bottom { get; } = new ItemTextPosition(3, "Bottom");
-        public static ItemTextPosition Left { get; } = new ItemTextPosition(4, "Left");
+        public static readonly ItemTextPosition None = new ItemTextPosition(0, "None");
+        public static readonly ItemTextPosition Top = new ItemTextPosition(1, "Top");
+        public static readonly ItemTextPosition Right = new ItemTextPosition(2, "Right");
+        public static readonly ItemTextPosition Bottom = new ItemTextPosition(3, "Bottom");
+        public static readonly ItemTextPosition Left = new ItemTextPosition(4, "Left");
 
         public static IEnumerable<ItemTextPosition> All { get; } = new[]
         {
@@ -29,31 +29,31 @@ namespace Stats
             Left
         };
 
-        public static ItemTextPosition Parse(string value)
+        public static ItemTextPosition Parse(string name)
         {
-            if (value == None.Name)
+            if (name == None.Name)
             {
                 return None;
             }
-            else if (value == Top.Name)
+            else if (name == Top.Name)
             {
                 return Top;
             }
-            else if (value == Right.Name)
+            else if (name == Right.Name)
             {
                 return Right;
             }
-            else if (value == Bottom.Name)
+            else if (name == Bottom.Name)
             {
                 return Bottom;
             }
-            else if (value == Left.Name)
+            else if (name == Left.Name)
             {
                 return Left;
             }
             else
             {
-                throw new ArgumentException($"Could not parse '{value}'.", nameof(value));
+                throw new ArgumentException($"Could not parse '{name}'.", nameof(name));
             }
         }
     }
