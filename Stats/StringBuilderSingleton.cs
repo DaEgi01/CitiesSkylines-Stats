@@ -4,7 +4,7 @@ namespace Stats
 {
     public static class StringBuilderSingleton
     {
-        private static readonly StringBuilder _stringBuilder = new StringBuilder();
+        private static readonly StringBuilder _stringBuilder = new ();
 
         public static StringBuilder Instance
         {
