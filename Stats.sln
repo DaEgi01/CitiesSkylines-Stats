@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stats", "Stats\Stats.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatsTest", "StatsTest\StatsTest.csproj", "{2F1D8DD8-7D64-48AD-A70F-D895FFC6C077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProject1", "XUnitTestProject1\XUnitTestProject1.csproj", "{23ED97C2-2D0A-4DA2-954E-8C9C82D74BDD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{2F1D8DD8-7D64-48AD-A70F-D895FFC6C077}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F1D8DD8-7D64-48AD-A70F-D895FFC6C077}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F1D8DD8-7D64-48AD-A70F-D895FFC6C077}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23ED97C2-2D0A-4DA2-954E-8C9C82D74BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23ED97C2-2D0A-4DA2-954E-8C9C82D74BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23ED97C2-2D0A-4DA2-954E-8C9C82D74BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23ED97C2-2D0A-4DA2-954E-8C9C82D74BDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
