@@ -57,10 +57,8 @@ namespace Stats.Localization
             }
 
             var serializer = new XmlSerializer(typeof(T));
-            using (var streamReader = new StreamReader(fileFullName))
-            {
-                return (T)serializer.Deserialize(streamReader);
-            }
+            using var streamReader = new StreamReader(fileFullName);
+            return (T)serializer.Deserialize(streamReader);
         }
     }
 }

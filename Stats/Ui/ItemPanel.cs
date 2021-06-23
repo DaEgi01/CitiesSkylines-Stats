@@ -149,15 +149,13 @@ namespace Stats.Ui
         private void UpdatePercentButtonSize()
         {
             _percentButton.textScale = _configuration.ItemTextScale;
-            using (UIFontRenderer fontRenderer = _obtainTextRenderer(_percentButton))
-            {
-                var dynamicFont = (UIDynamicFont)fontRenderer.font;
-                _percentButton.size = GameMethods.MeasureText(
-                    dynamicFont,
-                    _textToDeterminePercentButtonSize,
-                    _percentButton.textScale,
-                    FontStyle.Normal);
-            }
+            using UIFontRenderer fontRenderer = _obtainTextRenderer(_percentButton);
+            var dynamicFont = (UIDynamicFont)fontRenderer.font;
+            _percentButton.size = GameMethods.MeasureText(
+                dynamicFont,
+                _textToDeterminePercentButtonSize,
+                _percentButton.textScale,
+                FontStyle.Normal);
         }
 
         private void UpdatePanelSize(Vector2 panelSize)

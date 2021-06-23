@@ -18,18 +18,14 @@ namespace Stats.Config
 
         public T Load()
         {
-            using (var streamReader = new StreamReader(ConfigurationFileFullName))
-            {
-                return (T)_xmlSerializer.Deserialize(streamReader);
-            }
+            using var streamReader = new StreamReader(ConfigurationFileFullName);
+            return (T)_xmlSerializer.Deserialize(streamReader);
         }
 
         public void Save(T configuration)
         {
-            using (var streamWriter = new StreamWriter(ConfigurationFileFullName))
-            {
-                _xmlSerializer.Serialize(streamWriter, configuration);
-            }
+            using var streamWriter = new StreamWriter(ConfigurationFileFullName);
+            _xmlSerializer.Serialize(streamWriter, configuration);
         }
     }
 }
