@@ -17,3 +17,6 @@ dotnet_style_qualification_for_method = false:suggestion
 
 # IDE1006: Naming Styles
 dotnet_diagnostic.IDE1006.severity = suggestion
+
+# IDE0071: Simplify interpolation
+dotnet_style_prefer_simplified_interpolation = false
