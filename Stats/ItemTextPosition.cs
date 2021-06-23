@@ -14,11 +14,20 @@ namespace Stats
         public int Index { get; }
         public string Name { get; }
 
-        public static readonly ItemTextPosition None = new ItemTextPosition(0, "None");
-        public static readonly ItemTextPosition Top = new ItemTextPosition(1, "Top");
-        public static readonly ItemTextPosition Right = new ItemTextPosition(2, "Right");
-        public static readonly ItemTextPosition Bottom = new ItemTextPosition(3, "Bottom");
-        public static readonly ItemTextPosition Left = new ItemTextPosition(4, "Left");
+        private const string _none = "None";
+        public static readonly ItemTextPosition None = new ItemTextPosition(0, _none);
+
+        private const string _top = "Top";
+        public static readonly ItemTextPosition Top = new ItemTextPosition(1, _top);
+
+        private const string _right = "Right";
+        public static readonly ItemTextPosition Right = new ItemTextPosition(2, _right);
+
+        private const string _bottom = "Bottom";
+        public static readonly ItemTextPosition Bottom = new ItemTextPosition(3, _bottom);
+
+        private const string _left = "Left";
+        public static readonly ItemTextPosition Left = new ItemTextPosition(4, _left);
 
         public static IEnumerable<ItemTextPosition> All { get; } = new[]
         {
@@ -31,30 +40,14 @@ namespace Stats
 
         public static ItemTextPosition Parse(string name)
         {
-            if (name == None.Name)
+            return name switch
             {
-                return None;
-            }
-            else if (name == Top.Name)
-            {
-                return Top;
-            }
-            else if (name == Right.Name)
-            {
-                return Right;
-            }
-            else if (name == Bottom.Name)
-            {
-                return Bottom;
-            }
-            else if (name == Left.Name)
-            {
-                return Left;
-            }
-            else
-            {
-                throw new ArgumentException($"Could not parse '{name}'.", nameof(name));
-            }
+                _none => None,
+                _top => Top,
+                _right => Right,
+                _left => Left,
+                _ => throw new ArgumentException($"Could not parse '{name}'.", nameof(name))
+            };
         }
     }
 }
