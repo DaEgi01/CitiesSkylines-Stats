@@ -10,15 +10,12 @@ namespace Stats
         //MaintenanceDepotAI.GetTransferReason rewritten as a public static method (private instance method).
         public static TransferManager.TransferReason GetTransferReason(MaintenanceDepotAI maintenanceDepotAI)
         {
-            switch (maintenanceDepotAI.m_info.m_class.m_service)
+            return maintenanceDepotAI.m_info.m_class.m_service switch
             {
-                case ItemClass.Service.Road:
-                    return TransferManager.TransferReason.RoadMaintenance;
-                case ItemClass.Service.Beautification:
-                    return TransferManager.TransferReason.ParkMaintenance;
-                default:
-                    return TransferManager.TransferReason.None;
-            }
+                ItemClass.Service.Road => TransferManager.TransferReason.RoadMaintenance,
+                ItemClass.Service.Beautification => TransferManager.TransferReason.ParkMaintenance,
+                _ => TransferManager.TransferReason.None,
+            };
         }
 
         //CommonBuildingAI.CalculateOwnVehicles rewritten as a public static method (protected instance method).
