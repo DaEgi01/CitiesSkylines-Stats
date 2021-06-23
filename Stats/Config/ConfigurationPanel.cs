@@ -73,7 +73,10 @@ namespace Stats.Config
             {
                 _configuration.ResetPosition();
 
-                MainPanel?.UpdatePosition();
+                if (MainPanel is null)
+                    return;
+
+                MainPanel.UpdatePosition();
             });
 
             mainGroupUiHelper.AddSpace(_space);
@@ -96,7 +99,10 @@ namespace Stats.Config
                 _configuration.MainPanelColumnCount = (int)value;
                 _configuration.Save();
 
-                MainPanel?.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
+                if (MainPanel is null)
+                    return;
+
+                MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
             _itemPaddingSlider = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.ItemPadding, 0, 30, 1, _configuration.ItemPadding, value =>
@@ -223,8 +229,8 @@ namespace Stats.Config
                 _selectedItem = ItemData.AllItems[index];
                 UpdateSelectedItemFromModel();
             }) as UIDropDown;
-            var itemsDropdownPanel = _itemsDropDown?.parent as UIPanel;
-            itemsDropdownPanel?.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
+            var itemsDropdownPanel = _itemsDropDown.parent as UIPanel;
+            itemsDropdownPanel.RemoveUIComponent(itemsDropdownPanel.Find("Label"));
 
             var initialConfigurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
 

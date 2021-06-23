@@ -102,7 +102,11 @@ namespace Stats
         {
             var languageTwoLetterCode = LocaleManager.instance.language;
             _languageResource?.LoadLanguage(languageTwoLetterCode);
-            _mainPanel?.UpdateLocalization();
+
+            if (_mainPanel is null)
+                return;
+
+            _mainPanel.UpdateLocalization();
         }
 
         private void InitializeMainPanel()

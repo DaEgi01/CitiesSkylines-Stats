@@ -22,12 +22,30 @@ namespace Stats
             CitizenManager citizenManager,
             VehicleManager vehicleManager)
         {
-            _districtManager = districtManager ?? throw new ArgumentNullException(nameof(districtManager));
-            _buildingManager = buildingManager ?? throw new ArgumentNullException(nameof(buildingManager));
-            _economyManager = economyManager ?? throw new ArgumentNullException(nameof(economyManager));
-            _immaterialResourceManager = immaterialResourceManager ?? throw new ArgumentNullException(nameof(immaterialResourceManager));
-            _citizenManager = citizenManager ?? throw new ArgumentNullException(nameof(citizenManager));
-            _vehicleManager = vehicleManager ?? throw new ArgumentNullException(nameof(vehicleManager));
+            if (districtManager is null)
+                throw new ArgumentNullException(nameof(districtManager));
+
+            if (buildingManager is null)
+                throw new ArgumentNullException(nameof(buildingManager));
+
+            if (economyManager is null)
+                throw new ArgumentNullException(nameof(economyManager));
+
+            if (immaterialResourceManager is null)
+                throw new ArgumentNullException(nameof(immaterialResourceManager));
+
+            if (citizenManager is null)
+                throw new ArgumentNullException(nameof(citizenManager));
+
+            if (vehicleManager is null)
+                throw new ArgumentNullException(nameof(vehicleManager));
+
+            _districtManager = districtManager;
+            _buildingManager = buildingManager;
+            _economyManager = economyManager;
+            _immaterialResourceManager = immaterialResourceManager;
+            _citizenManager = citizenManager;
+            _vehicleManager = vehicleManager;
 
             _mapHasSnowDumps = CheckIfMapHasSnowDumps();
         }
@@ -301,7 +319,7 @@ namespace Stats
             {
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var hospitalAI = building.Info?.GetAI() as HospitalAI;
+                var hospitalAI = building.Info.GetAI() as HospitalAI;
                 if (hospitalAI is null)
                     continue;
 
@@ -332,7 +350,7 @@ namespace Stats
             {
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var helicopterDepotAI = building.Info?.GetAI() as HelicopterDepotAI;
+                var helicopterDepotAI = building.Info.GetAI() as HelicopterDepotAI;
                 if (helicopterDepotAI is null)
                     continue;
 
@@ -363,7 +381,7 @@ namespace Stats
             {
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var cemeteryAI = building.Info?.GetAI() as CemeteryAI;
+                var cemeteryAI = building.Info.GetAI() as CemeteryAI;
                 if (cemeteryAI is null || cemeteryAI.m_graveCount == 0) //m_graveCount == 0 -> Crematorium
                     continue;
 
@@ -402,7 +420,7 @@ namespace Stats
             {
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var cemeteryAI = building.Info?.GetAI() as CemeteryAI;
+                var cemeteryAI = building.Info.GetAI() as CemeteryAI;
                 if (cemeteryAI is null || cemeteryAI.m_graveCount > 0) //m_graveCount > 0 -> Cemetery
                     continue;
 
@@ -463,7 +481,7 @@ namespace Stats
             {
                 var buildingId = disasterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var disasterResponseBuildingAI = building.Info?.GetAI() as DisasterResponseBuildingAI;
+                var disasterResponseBuildingAI = building.Info.GetAI() as DisasterResponseBuildingAI;
                 if (disasterResponseBuildingAI is null)
                     continue;
 
@@ -492,7 +510,7 @@ namespace Stats
             {
                 var buildingId = disasterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var disasterResponseBuildingAI = building.Info?.GetAI() as DisasterResponseBuildingAI;
+                var disasterResponseBuildingAI = building.Info.GetAI() as DisasterResponseBuildingAI;
                 if (disasterResponseBuildingAI is null)
                     continue;
 
@@ -543,7 +561,7 @@ namespace Stats
             {
                 var buildingId = fireDepartmentBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var fireStationAI = building.Info?.GetAI() as FireStationAI;
+                var fireStationAI = building.Info.GetAI() as FireStationAI;
                 if (fireStationAI is null)
                     continue;
 
@@ -574,7 +592,7 @@ namespace Stats
             {
                 var buildingId = fireDepartmentBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var helicopterDepotAI = building.Info?.GetAI() as HelicopterDepotAI;
+                var helicopterDepotAI = building.Info.GetAI() as HelicopterDepotAI;
                 if (helicopterDepotAI is null)
                     continue;
 
@@ -620,7 +638,7 @@ namespace Stats
             {
                 var buildingId = garbageBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var landfillSiteAI = building.Info?.GetAI() as LandfillSiteAI;
+                var landfillSiteAI = building.Info.GetAI() as LandfillSiteAI;
                 if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption <= 0) //m_garbageConsumption <= 0 -> Landfill
                     continue;
 
@@ -657,7 +675,7 @@ namespace Stats
             {
                 var buildingId = garbageBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var landfillSiteAI = building.Info?.GetAI() as LandfillSiteAI;
+                var landfillSiteAI = building.Info.GetAI() as LandfillSiteAI;
                 if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption > 0) //m_garbageConsumption > 0 -> Incinerator
                     continue;
 
@@ -745,7 +763,7 @@ namespace Stats
             {
                 var buildingId = beautificationBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var maintenanceDepotAI = building.Info?.GetAI() as MaintenanceDepotAI;
+                var maintenanceDepotAI = building.Info.GetAI() as MaintenanceDepotAI;
                 if (maintenanceDepotAI is null)
                     continue;
 
@@ -789,7 +807,7 @@ namespace Stats
             {
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
+                var policeStationAI = building.Info.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
                     continue;
@@ -839,7 +857,7 @@ namespace Stats
             {
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
+                var policeStationAI = building.Info.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
                     continue;
@@ -892,7 +910,7 @@ namespace Stats
             {
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var helicopterDepotAI = building.Info?.GetAI() as HelicopterDepotAI;
+                var helicopterDepotAI = building.Info.GetAI() as HelicopterDepotAI;
                 if (helicopterDepotAI is null)
                     continue;
 
@@ -923,7 +941,7 @@ namespace Stats
             {
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
+                var policeStationAI = building.Info.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
                     continue;
@@ -973,7 +991,7 @@ namespace Stats
             {
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var policeStationAI = building.Info?.GetAI() as PoliceStationAI;
+                var policeStationAI = building.Info.GetAI() as PoliceStationAI;
                 //m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
                     continue;
@@ -1024,7 +1042,7 @@ namespace Stats
             {
                 var buildingId = publicTransportBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var depotAI = building.Info?.GetAI() as DepotAI;
+                var depotAI = building.Info.GetAI() as DepotAI;
                 if (
                     depotAI is null
                     || depotAI.m_maxVehicleCount == 0
@@ -1059,7 +1077,7 @@ namespace Stats
             {
                 var buildingId = publicTransportBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var postOfficeAI = building.Info?.GetAI() as PostOfficeAI;
+                var postOfficeAI = building.Info.GetAI() as PostOfficeAI;
                 if (postOfficeAI is null)
                     continue;
 
@@ -1096,7 +1114,7 @@ namespace Stats
             {
                 var buildingId = publicTransportBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var postOfficeAI = building.Info?.GetAI() as PostOfficeAI;
+                var postOfficeAI = building.Info.GetAI() as PostOfficeAI;
                 if (postOfficeAI is null)
                     continue;
 
@@ -1134,7 +1152,7 @@ namespace Stats
             {
                 var buildingId = roadMaintenanceBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var maintenanceDepotAI = building.Info?.GetAI() as MaintenanceDepotAI;
+                var maintenanceDepotAI = building.Info.GetAI() as MaintenanceDepotAI;
                 if (maintenanceDepotAI is null)
                     continue;
 
@@ -1170,7 +1188,7 @@ namespace Stats
             {
                 var buildingId = roadMaintenanceBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var snowDumpAI = building.Info?.GetAI() as SnowDumpAI;
+                var snowDumpAI = building.Info.GetAI() as SnowDumpAI;
                 if (snowDumpAI is null)
                     continue;
 
@@ -1208,7 +1226,7 @@ namespace Stats
             {
                 var buildingId = roadMaintenanceBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var snowDumpAI = building.Info?.GetAI() as SnowDumpAI;
+                var snowDumpAI = building.Info.GetAI() as SnowDumpAI;
                 if (snowDumpAI is null)
                     continue;
 
@@ -1300,7 +1318,7 @@ namespace Stats
             {
                 var buildingId = waterBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
-                var waterFacilityAI = building.Info?.GetAI() as WaterFacilityAI;
+                var waterFacilityAI = building.Info.GetAI() as WaterFacilityAI;
                 if (waterFacilityAI is null)
                     continue;
 

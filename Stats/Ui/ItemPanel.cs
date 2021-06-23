@@ -27,11 +27,26 @@ namespace Stats.Ui
         //TODO: refactor to localized item instead
         public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _configurationItemData = configurationItemData ?? throw new ArgumentNullException(nameof(configurationItemData));
-            _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
-            _getPercentFromGame = getPercentFromGame ?? throw new ArgumentNullException(nameof(getPercentFromGame));
-            _infoManager = infoManager ?? throw new ArgumentNullException(nameof(infoManager));
+            if (configuration is null)
+                throw new ArgumentNullException(nameof(configuration));
+
+            if (configurationItemData is null)
+                throw new ArgumentNullException(nameof(configurationItemData));
+
+            if (languageResource is null)
+                throw new ArgumentNullException(nameof(languageResource));
+
+            if (getPercentFromGame is null)
+                throw new ArgumentNullException(nameof(getPercentFromGame));
+
+            if (infoManager is null)
+                throw new ArgumentNullException(nameof(infoManager));
+
+            _configuration = configuration;
+            _configurationItemData = configurationItemData;
+            _languageResource = languageResource;
+            _getPercentFromGame = getPercentFromGame;
+            _infoManager = infoManager;
 
             var obtainTextRendererMethodInfo = typeof(UIButton).GetMethod("ObtainTextRenderer", BindingFlags.NonPublic | BindingFlags.Instance);
             if (obtainTextRendererMethodInfo is null)

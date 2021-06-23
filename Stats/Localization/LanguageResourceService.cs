@@ -14,8 +14,14 @@ namespace Stats.Localization
 
         public LanguageResourceService(ModInfo modInfo, PluginManager pluginManager)
         {
-            _modInfo = modInfo ?? throw new ArgumentNullException(nameof(modInfo));
-            _pluginManager = pluginManager ?? throw new ArgumentNullException(nameof(pluginManager));
+            if (modInfo is null)
+                throw new ArgumentNullException(nameof(modInfo));
+
+            if (pluginManager is null)
+                throw new ArgumentNullException(nameof(pluginManager));
+
+            _modInfo = modInfo;
+            _pluginManager = pluginManager;
         }
 
         private string GetExpectedFileFullName(string languageTwoLetterCode)
