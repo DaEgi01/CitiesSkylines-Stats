@@ -5,8 +5,8 @@ namespace Stats
 {
     public static class ColorExtensions
     {
-        private const string serializationSeparator = ",";
-        private static readonly string[] serializationSeparators = new[] { serializationSeparator };
+        private const char serializationSeparator = ',';
+        private static readonly char[] serializationSeparators = new[] { serializationSeparator };
 
         public static Color32 GetColor32(this string colorString)
         {
@@ -27,13 +27,15 @@ namespace Stats
 
         public static string GetColorString(this Color32 color)
         {
-            return color.r.ToString()
-                + serializationSeparator
-                + color.g.ToString()
-                + serializationSeparator
-                + color.b.ToString()
-                + serializationSeparator
-                + color.a.ToString();
+            return StringBuilderSingleton.Instance
+                .Append(color.r)
+                .Append(serializationSeparator)
+                .Append(color.g)
+                .Append(serializationSeparator)
+                .Append(color.b)
+                .Append(serializationSeparator)
+                .Append(color.a)
+                .ToString();
         }
     }
 }

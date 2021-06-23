@@ -72,6 +72,7 @@
     <Compile Include="GameMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\ConfigurationService.cs" />
+    <Compile Include="StringBuilderSingleton.cs" />
     <Compile Include="UIHelperExtensions.cs" />
     <Compile Include="Ui\ItemHelper.cs" />
     <Compile Include="Ui\MainPanel.cs" />
