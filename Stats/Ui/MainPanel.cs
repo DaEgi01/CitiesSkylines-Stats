@@ -32,7 +32,7 @@ namespace Stats.Ui
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             if (_configuration.MainPanelColumnCount < 1)
             {
-                throw new ArgumentOutOfRangeException($"'{nameof(_configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
+                throw new Exception($"'{nameof(_configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
             _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
             _gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
