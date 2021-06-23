@@ -6,7 +6,7 @@ namespace Stats.Config
 {
     public class ConfigurationService<T>
     {
-        private readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(T));
+        private readonly XmlSerializer _xmlSerializer = new (typeof(T));
 
         public ConfigurationService(string configurationFileFullName)
         {
