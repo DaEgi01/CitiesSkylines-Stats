@@ -1429,7 +1429,7 @@ namespace Stats
             );
         }
 
-        public bool CheckIfMapHasSnowDumps()
+        public static bool CheckIfMapHasSnowDumps()
         {
             var result = false;
 
@@ -1447,7 +1447,7 @@ namespace Stats
             return result;
         }
 
-        private int? GetAvailabilityPercent(long capacity, long need)
+        private static int? GetAvailabilityPercent(long capacity, long need)
         {
             if (capacity == 0)
                 return null;
@@ -1458,7 +1458,7 @@ namespace Stats
             return (int)((1 - need / (float)capacity) * 100);
         }
 
-        private int? GetUsagePercent(long capacity, long usage)
+        private static int? GetUsagePercent(long capacity, long usage)
         {
             if (capacity == 0)
                 return null;

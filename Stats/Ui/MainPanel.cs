@@ -223,7 +223,7 @@ namespace Stats.Ui
             _uiDragHandle.height = newHeight;
         }
 
-        private int GetVisibleItemsCount(ItemPanel[] itemPanels)
+        private static int GetVisibleItemsCount(ItemPanel[] itemPanels)
         {
             var result = 0;
             for (var i = 0; i < itemPanels.Length; i++)

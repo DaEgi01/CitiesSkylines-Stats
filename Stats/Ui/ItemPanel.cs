@@ -325,7 +325,7 @@ namespace Stats.Ui
             return new ItemVisibilityAndChanged(isVisible, oldVisiblity != isVisible);
         }
 
-        private string GetUsagePercentString(int? percent)
+        private static string GetUsagePercentString(int? percent)
         {
             return percent.HasValue
                 ? percent.Value.ToString() + "%"
