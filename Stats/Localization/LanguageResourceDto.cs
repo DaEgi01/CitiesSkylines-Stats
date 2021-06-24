@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
-
-namespace Stats.Localization
+﻿namespace Stats.Localization
 {
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
     [XmlRoot("LanguageResource")]
     public class LanguageResourceDto
     {

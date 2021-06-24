@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+
     public class ModInfo
     {
         private readonly string _systemName;

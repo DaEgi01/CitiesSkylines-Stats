@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
-
-namespace Stats.Config
+﻿namespace Stats.Config
 {
+    using System;
+    using System.IO;
+    using System.Xml.Serialization;
+
     public class ConfigurationService<T>
     {
         private readonly XmlSerializer _xmlSerializer = new (typeof(T));

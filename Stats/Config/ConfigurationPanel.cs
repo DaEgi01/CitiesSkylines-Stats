@@ -1,12 +1,12 @@
-﻿using ColossalFramework.UI;
-using ICities;
-using Stats.Localization;
-using Stats.Ui;
-using System;
-using System.Linq;
-
-namespace Stats.Config
+﻿namespace Stats.Config
 {
+    using System;
+    using System.Linq;
+    using ColossalFramework.UI;
+    using ICities;
+    using Stats.Localization;
+    using Stats.Ui;
+
     public class ConfigurationPanel
     {
         private readonly int _space = 16;
@@ -112,7 +112,7 @@ namespace Stats.Config
 
                 if (MainPanel is null)
                     return;
-                
+
                 MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
@@ -124,7 +124,7 @@ namespace Stats.Config
 
                 if (MainPanel is null)
                     return;
-                
+
                 MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
@@ -136,7 +136,7 @@ namespace Stats.Config
 
                 if (MainPanel is null)
                     return;
-                
+
                 MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
@@ -171,18 +171,17 @@ namespace Stats.Config
 
                     MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
                     MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
-                }
-            ) as UIDropDown;
+                }) as UIDropDown;
 
-            _autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.AutoHide, _configuration.MainPanelAutoHide, _checked =>
+            _autoHideCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.AutoHide, _configuration.MainPanelAutoHide, isChecked =>
             {
-                _configuration.MainPanelAutoHide = _checked;
+                _configuration.MainPanelAutoHide = isChecked;
                 _configuration.Save();
             }) as UICheckBox;
 
-            _hideItemsBelowThresholdCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsBelowThreshold, _configuration.MainPanelHideItemsBelowThreshold, _checked =>
+            _hideItemsBelowThresholdCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsBelowThreshold, _configuration.MainPanelHideItemsBelowThreshold, isChecked =>
             {
-                _configuration.MainPanelHideItemsBelowThreshold = _checked;
+                _configuration.MainPanelHideItemsBelowThreshold = isChecked;
                 _configuration.Save();
 
                 if (MainPanel is null || MainPanel.ItemPanelsInDisplayOrder is null)
@@ -196,14 +195,14 @@ namespace Stats.Config
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             }) as UICheckBox;
 
-            _hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsNotAvailable, _configuration.MainPanelHideItemsNotAvailable, _checked =>
+            _hideItemsNotAvailableCheckBox = mainPanelGroupUiHelper.AddCheckbox(_languageResource.HideItemsNotAvailable, _configuration.MainPanelHideItemsNotAvailable, isChecked =>
             {
-                _configuration.MainPanelHideItemsNotAvailable = _checked;
+                _configuration.MainPanelHideItemsNotAvailable = isChecked;
                 _configuration.Save();
 
                 if (MainPanel is null || MainPanel.ItemPanelsInDisplayOrder is null)
                     return;
-                
+
                 foreach (var itemPanel in MainPanel.ItemPanelsInDisplayOrder)
                 {
                     itemPanel.UpdatePercentVisibilityAndColor();
@@ -234,10 +233,10 @@ namespace Stats.Config
 
             var initialConfigurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
 
-            _enabledCheckBox = itemGroupUiHelper.AddCheckbox(_languageResource.Enabled, initialConfigurationItemData.Enabled, _checked =>
+            _enabledCheckBox = itemGroupUiHelper.AddCheckbox(_languageResource.Enabled, initialConfigurationItemData.Enabled, isChecked =>
             {
                 var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
-                configurationItemData.Enabled = _checked;
+                configurationItemData.Enabled = isChecked;
                 _configuration.Save();
 
                 if (MainPanel is null)

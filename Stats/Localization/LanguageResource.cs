@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Stats.Localization
+﻿namespace Stats.Localization
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class LanguageResource
     {
         private readonly LanguageResourceService<LanguageResourceDto> _languageResourceService;
@@ -26,25 +26,6 @@ namespace Stats.Localization
 
         public string CurrentLanguage => _currentLanguage;
 
-        public static LanguageResource Create(
-            LanguageResourceService<LanguageResourceDto> languageResourceService,
-            string initialLanguageTwoLetterCode,
-            string fallbackLanguageTwoLetterCode)
-        {
-            var result = LoadLanguageOrFallbackLanguage(
-                languageResourceService,
-                initialLanguageTwoLetterCode,
-                fallbackLanguageTwoLetterCode
-            );
-
-            return new LanguageResource(
-                languageResourceService,
-                result.Language,
-                result.LocalizedStrings,
-                fallbackLanguageTwoLetterCode
-            );
-        }
-
         public string Reset => _localizedStrings["Reset"];
         public string ResetPosition => _localizedStrings["ResetPosition"];
         public string UpdateEveryXSeconds => _localizedStrings["UpdateEveryXSeconds"];
@@ -65,6 +46,23 @@ namespace Stats.Localization
         public string CriticalThreshold => _localizedStrings["CriticalThreshold"];
         public string SortOrder => _localizedStrings["SortOrder"];
 
+        public static LanguageResource Create(
+            LanguageResourceService<LanguageResourceDto> languageResourceService,
+            string initialLanguageTwoLetterCode,
+            string fallbackLanguageTwoLetterCode)
+        {
+            var result = LoadLanguageOrFallbackLanguage(
+                languageResourceService,
+                initialLanguageTwoLetterCode,
+                fallbackLanguageTwoLetterCode);
+
+            return new LanguageResource(
+                languageResourceService,
+                result.Language,
+                result.LocalizedStrings,
+                fallbackLanguageTwoLetterCode);
+        }
+
         public string GetLocalizedItemString(ItemData item)
         {
             return _localizedStrings[item.Name];
@@ -75,8 +73,7 @@ namespace Stats.Localization
             var result = LoadLanguageOrFallbackLanguage(
                 _languageResourceService,
                 languageTwoLetterCode,
-                _fallbackLanguageTwoLetterCode
-            );
+                _fallbackLanguageTwoLetterCode);
 
             _currentLanguage = result.Language;
             _localizedStrings = result.LocalizedStrings;
@@ -110,8 +107,7 @@ namespace Stats.Localization
 
             return new LoadLanguageResult(
                 languageTwoLetterCode,
-                languageResourceDto.LocalizedItems.ToDictionary(x => x.Key!, x => x.Value!)
-            );
+                languageResourceDto.LocalizedItems.ToDictionary(x => x.Key!, x => x.Value!));
         }
 
         private static void ValidateLanguageItems(LanguageResourceDto? languageResourceDto, string languageTwoLetterCode)

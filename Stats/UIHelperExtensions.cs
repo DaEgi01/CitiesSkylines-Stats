@@ -1,9 +1,9 @@
-﻿using ColossalFramework.UI;
-using ICities;
-using UnityEngine;
-
-namespace Stats
+﻿namespace Stats
 {
+    using ColossalFramework.UI;
+    using ICities;
+    using UnityEngine;
+
     public static class UIHelperExtensions
     {
         public static UISlider AddSliderWithLabel(this UIHelperBase uIHelper, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)

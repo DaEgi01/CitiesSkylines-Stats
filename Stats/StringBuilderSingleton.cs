@@ -1,7 +1,7 @@
-﻿using System.Text;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System.Text;
+
     public static class StringBuilderSingleton
     {
         private static readonly StringBuilder _stringBuilder = new ();

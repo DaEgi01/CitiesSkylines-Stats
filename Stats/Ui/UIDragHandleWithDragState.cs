@@ -1,7 +1,7 @@
-﻿using ColossalFramework.UI;
-
-namespace Stats.Ui
+﻿namespace Stats.Ui
 {
+    using ColossalFramework.UI;
+
     public class UIDragHandleWithDragState : UIDragHandle
     {
         public bool IsDragged { get; private set; }

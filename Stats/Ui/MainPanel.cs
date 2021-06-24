@@ -1,13 +1,13 @@
-﻿using ColossalFramework.UI;
-using Stats.Config;
-using Stats.Localization;
-using System;
-using System.Collections;
-using System.Linq;
-using UnityEngine;
-
-namespace Stats.Ui
+﻿namespace Stats.Ui
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
+    using ColossalFramework.UI;
+    using Stats.Config;
+    using Stats.Localization;
+    using UnityEngine;
+
     public class MainPanel : UIPanel
     {
         private UIDragHandleWithDragState? _uiDragHandle;
@@ -34,6 +34,7 @@ namespace Stats.Ui
             {
                 throw new Exception($"'{nameof(_configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
+
             _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
             _gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
             _infoManager = infoManager;
@@ -60,44 +61,6 @@ namespace Stats.Ui
             _uiDragHandle.eventMouseUp -= UiDragHandle_eventMouseUp;
 
             base.OnDestroy();
-        }
-
-        private void CreateAndAddDragHandle()
-        {
-            var dragHandle = AddUIComponent<UIDragHandleWithDragState>();
-            dragHandle.name = _modSystemName + "DragHandle";
-            dragHandle.relativePosition = Vector2.zero;
-            dragHandle.target = this;
-            dragHandle.constrainToScreen = true;
-            dragHandle.SendToBack();
-            _uiDragHandle = dragHandle;
-        }
-
-        private void CreateAndAddAllUiItems()
-        {
-            _itemPanelsInDisplayOrder = ItemData.AllItems
-                .Where(i => _gameEngineService.MapHasSnowDumps || (i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles))
-                .Select(i => CreateUiItemAndAddButtons(
-                    _configuration.GetConfigurationItemData(i),
-                    _gameEngineService.GetPercentFunc(i),
-                    _infoManager)
-                )
-                .OrderBy(x => x.ConfigurationItemData.SortOrder)
-                .ToArray();
-        }
-
-        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
-        {
-            var itemPanel = CreateAndAddItemPanel();
-            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, getPercentFromGame, infoManager);
-            return itemPanel;
-        }
-
-        private ItemPanel CreateAndAddItemPanel()
-        {
-            var itemPanel = AddUIComponent<ItemPanel>();
-            itemPanel.zOrder = zOrder;
-            return itemPanel;
         }
 
         public void CreateItemPercentButtons()
@@ -170,36 +133,13 @@ namespace Stats.Ui
 
                 var layoutPosition = new Vector2(
                     index % _configuration.MainPanelColumnCount,
-                    index / _configuration.MainPanelColumnCount
-                );
+                    index / _configuration.MainPanelColumnCount);
 
                 currentItem.relativePosition = CalculateRelativePosition(layoutPosition);
 
                 lastLayoutPosition = CalculateNextLayoutPosition(lastLayoutPosition);
                 index++;
             }
-        }
-
-        private Vector2 CalculateNextLayoutPosition(Vector2 position)
-        {
-            if (position.x < _configuration.MainPanelColumnCount - 1)
-            {
-                return new Vector2(position.x + 1, position.y);
-            }
-            else
-            {
-                return new Vector2(0, position.y + 1);
-            }
-        }
-
-        private Vector3 CalculateRelativePosition(Vector2 layoutPosition)
-        {
-            var posX = (layoutPosition.x + 1) * _configuration.ItemPadding
-                + layoutPosition.x * _itemPanelsInDisplayOrder[0].width;
-            var posY = (layoutPosition.y + 1) * _configuration.ItemPadding
-                + layoutPosition.y * _itemPanelsInDisplayOrder[0].height;
-
-            return new Vector3(posX, posY);
         }
 
         public void UpdatePanelSize()
@@ -223,19 +163,6 @@ namespace Stats.Ui
             _uiDragHandle.height = newHeight;
         }
 
-        private static int GetVisibleItemsCount(ItemPanel[] itemPanels)
-        {
-            var result = 0;
-            for (var i = 0; i < itemPanels.Length; i++)
-            {
-                if (itemPanels[i].isVisible)
-                {
-                    result += 1;
-                }
-            }
-            return result;
-        }
-
         public void UpdatePosition()
         {
             if (_uiDragHandle.IsDragged)
@@ -254,6 +181,79 @@ namespace Stats.Ui
             }
         }
 
+        private static int GetVisibleItemsCount(ItemPanel[] itemPanels)
+        {
+            var result = 0;
+            for (var i = 0; i < itemPanels.Length; i++)
+            {
+                if (itemPanels[i].isVisible)
+                {
+                    result += 1;
+                }
+            }
+
+            return result;
+        }
+
+        private void CreateAndAddDragHandle()
+        {
+            var dragHandle = AddUIComponent<UIDragHandleWithDragState>();
+            dragHandle.name = _modSystemName + "DragHandle";
+            dragHandle.relativePosition = Vector2.zero;
+            dragHandle.target = this;
+            dragHandle.constrainToScreen = true;
+            dragHandle.SendToBack();
+            _uiDragHandle = dragHandle;
+        }
+
+        private void CreateAndAddAllUiItems()
+        {
+            _itemPanelsInDisplayOrder = ItemData.AllItems
+                .Where(i => _gameEngineService.MapHasSnowDumps || (i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles))
+                .Select(i => CreateUiItemAndAddButtons(
+                    _configuration.GetConfigurationItemData(i),
+                    _gameEngineService.GetPercentFunc(i),
+                    _infoManager))
+                .OrderBy(x => x.ConfigurationItemData.SortOrder)
+                .ToArray();
+        }
+
+        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
+        {
+            var itemPanel = CreateAndAddItemPanel();
+            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, getPercentFromGame, infoManager);
+            return itemPanel;
+        }
+
+        private ItemPanel CreateAndAddItemPanel()
+        {
+            var itemPanel = AddUIComponent<ItemPanel>();
+            itemPanel.zOrder = zOrder;
+            return itemPanel;
+        }
+
+        private Vector2 CalculateNextLayoutPosition(Vector2 position)
+        {
+            if (position.x < _configuration.MainPanelColumnCount - 1)
+            {
+                return new Vector2(position.x + 1, position.y);
+            }
+            else
+            {
+                return new Vector2(0, position.y + 1);
+            }
+        }
+
+        private Vector3 CalculateRelativePosition(Vector2 layoutPosition)
+        {
+            var posX = ((layoutPosition.x + 1) * _configuration.ItemPadding)
+                + (layoutPosition.x * _itemPanelsInDisplayOrder[0].width);
+            var posY = ((layoutPosition.y + 1) * _configuration.ItemPadding)
+                + (layoutPosition.y * _itemPanelsInDisplayOrder[0].height);
+
+            return new Vector3(posX, posY);
+        }
+
         private float CalculatePanelWidth(int visibleItemCount)
         {
             if (visibleItemCount <= 0)
@@ -263,13 +263,13 @@ namespace Stats.Ui
 
             if (visibleItemCount < _configuration.MainPanelColumnCount)
             {
-                return (visibleItemCount + 1) * _configuration.ItemPadding
-                    + visibleItemCount * _itemPanelsInDisplayOrder[0].width;
+                return ((visibleItemCount + 1) * _configuration.ItemPadding)
+                    + (visibleItemCount * _itemPanelsInDisplayOrder[0].width);
             }
             else
             {
-                return (_configuration.MainPanelColumnCount + 1) * _configuration.ItemPadding
-                    + _configuration.MainPanelColumnCount * _itemPanelsInDisplayOrder[0].width;
+                return ((_configuration.MainPanelColumnCount + 1) * _configuration.ItemPadding)
+                    + (_configuration.MainPanelColumnCount * _itemPanelsInDisplayOrder[0].width);
             }
         }
 
@@ -281,7 +281,7 @@ namespace Stats.Ui
             }
 
             var rowCount = Mathf.CeilToInt(visibleItemCount / (float)_configuration.MainPanelColumnCount);
-            return (rowCount + 1) * _configuration.ItemPadding + rowCount * _itemPanelsInDisplayOrder[0].height;
+            return ((rowCount + 1) * _configuration.ItemPadding) + (rowCount * _itemPanelsInDisplayOrder[0].height);
         }
 
         private void UiDragHandle_eventMouseUp(UIComponent component, UIMouseEventParameter eventParam)
@@ -332,7 +332,7 @@ namespace Stats.Ui
                 }
 
                 var itemVisibilityAndChanged = itemPanel.UpdatePercentVisibilityAndColor();
-                if (itemVisibilityAndChanged.isVisibleChanged)
+                if (itemVisibilityAndChanged.IsVisibleChanged)
                 {
                     UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 }

@@ -1,8 +1,8 @@
-﻿using System;
-using UnityEngine;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System;
+    using UnityEngine;
+
     public class GameEngineService
     {
         private readonly DistrictManager _districtManager;
@@ -51,6 +51,24 @@ namespace Stats
         }
 
         public bool MapHasSnowDumps => _mapHasSnowDumps;
+
+        public static bool CheckIfMapHasSnowDumps()
+        {
+            var result = false;
+
+            var loadedCount = PrefabCollection<BuildingInfo>.LoadedCount();
+            for (uint i = 0; i < loadedCount; i++)
+            {
+                var bi = PrefabCollection<BuildingInfo>.GetLoaded(i);
+                if (bi != null && bi.m_buildingAI is SnowDumpAI)
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
 
         public Func<int?> GetPercentFunc(ItemData itemData)
         {
@@ -275,7 +293,7 @@ namespace Stats
         public int? GetAverageIllnessRate()
         {
             return _districtManager.m_districts.m_buffer[0].GetSickCount() == 0
-                ? (int?)null
+                ? null
                 : (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_residentialData.m_finalHealth);
         }
 
@@ -286,8 +304,8 @@ namespace Stats
             var sickChildrenAndTeensCount = _districtManager.m_districts.m_buffer[0].m_childHealthData.m_finalCount;
 
             return childrenAndTeensCount == 0
-                ? (int?)null
-                : (int)(100 - (float)sickChildrenAndTeensCount / childrenAndTeensCount);
+                ? null
+                : (int)(100 - ((float)sickChildrenAndTeensCount / childrenAndTeensCount));
         }
 
         public int? GetAverageElderlyIllnessRate()
@@ -296,16 +314,15 @@ namespace Stats
             var sickElderlyCount = _districtManager.m_districts.m_buffer[0].m_seniorHealthData.m_finalCount;
 
             return elderlyCount == 0
-                ? (int?)null
-                : (int)(100 - (float)sickElderlyCount / elderlyCount);
+                ? null
+                : (int)(100 - ((float)sickElderlyCount / elderlyCount));
         }
 
         public int? GetCemeteryPercent()
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetDeadCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetDeadAmount()
-            );
+                _districtManager.m_districts.m_buffer[0].GetDeadAmount());
         }
 
         public int? GetHealthCareVehiclesPercent()
@@ -325,7 +342,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(hospitalAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int healthcareVehicles = (productionRate * hospitalAI.AmbulanceCount + 99) / 100;
+                int healthcareVehicles = ((productionRate * hospitalAI.AmbulanceCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -356,7 +373,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(helicopterDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int medicalHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
+                int medicalHelicopters = ((productionRate * helicopterDepotAI.m_helicopterCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -382,13 +399,13 @@ namespace Stats
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var cemeteryAI = building.Info.GetAI() as CemeteryAI;
-                if (cemeteryAI is null || cemeteryAI.m_graveCount == 0) //m_graveCount == 0 -> Crematorium
+                if (cemeteryAI is null || cemeteryAI.m_graveCount == 0) // m_graveCount == 0 -> Crematorium
                     continue;
 
                 int budget = _economyManager.GetBudget(cemeteryAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
 
-                int cemeteryVehicles = (productionRate * cemeteryAI.m_hearseCount + 99) / 100;
+                int cemeteryVehicles = ((productionRate * cemeteryAI.m_hearseCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -421,13 +438,13 @@ namespace Stats
                 var buildingId = healthcareBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var cemeteryAI = building.Info.GetAI() as CemeteryAI;
-                if (cemeteryAI is null || cemeteryAI.m_graveCount > 0) //m_graveCount > 0 -> Cemetery
+                if (cemeteryAI is null || cemeteryAI.m_graveCount > 0) // m_graveCount > 0 -> Cemetery
                     continue;
 
                 int budget = _economyManager.GetBudget(cemeteryAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
 
-                int cemeteryVehicles = (productionRate * cemeteryAI.m_hearseCount + 99) / 100;
+                int cemeteryVehicles = ((productionRate * cemeteryAI.m_hearseCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -462,8 +479,7 @@ namespace Stats
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetCremateCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetDeadCount()
-            );
+                _districtManager.m_districts.m_buffer[0].GetDeadCount());
         }
 
         public int? GetCrimeRatePercent()
@@ -488,7 +504,7 @@ namespace Stats
                 int budget = _economyManager.GetBudget(disasterResponseBuildingAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
 
-                disasterResponseVehiclesTotal += (productionRate * disasterResponseBuildingAI.m_vehicleCount + 99) / 100;
+                disasterResponseVehiclesTotal += ((productionRate * disasterResponseBuildingAI.m_vehicleCount) + 99) / 100;
                 int disasterVehicles = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -517,7 +533,7 @@ namespace Stats
                 int budget = _economyManager.GetBudget(disasterResponseBuildingAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
 
-                disasterResponseHelicoptersTotal += (productionRate * disasterResponseBuildingAI.m_helicopterCount + 99) / 100;
+                disasterResponseHelicoptersTotal += ((productionRate * disasterResponseBuildingAI.m_helicopterCount) + 99) / 100;
                 int disasterHelicopters = 0;
                 int cargo2 = 0;
                 int capacity2 = 0;
@@ -538,16 +554,14 @@ namespace Stats
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetElectricityCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetElectricityConsumption()
-            );
+                _districtManager.m_districts.m_buffer[0].GetElectricityConsumption());
         }
 
         public int? GetElementarySchoolPercent()
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetEducation1Capacity(),
-                _districtManager.m_districts.m_buffer[0].GetEducation1Need()
-            );
+                _districtManager.m_districts.m_buffer[0].GetEducation1Need());
         }
 
         public int? GetFireDepartmentVehiclesPercent()
@@ -567,7 +581,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(fireStationAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int fireTrucks = (productionRate * fireStationAI.m_fireTruckCount + 99) / 100;
+                int fireTrucks = ((productionRate * fireStationAI.m_fireTruckCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -598,7 +612,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(helicopterDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int fireHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
+                int fireHelicopters = ((productionRate * helicopterDepotAI.m_helicopterCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -639,12 +653,12 @@ namespace Stats
                 var buildingId = garbageBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var landfillSiteAI = building.Info.GetAI() as LandfillSiteAI;
-                if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption <= 0) //m_garbageConsumption <= 0 -> Landfill
+                if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption <= 0) // m_garbageConsumption <= 0 -> Landfill
                     continue;
 
                 int budget = _economyManager.GetBudget(landfillSiteAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int garbageTruckVehicles = (productionRate * landfillSiteAI.m_garbageTruckCount + 99) / 100;
+                int garbageTruckVehicles = ((productionRate * landfillSiteAI.m_garbageTruckCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -676,12 +690,12 @@ namespace Stats
                 var buildingId = garbageBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var landfillSiteAI = building.Info.GetAI() as LandfillSiteAI;
-                if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption > 0) //m_garbageConsumption > 0 -> Incinerator
+                if (landfillSiteAI is null || landfillSiteAI.m_garbageConsumption > 0) // m_garbageConsumption > 0 -> Incinerator
                     continue;
 
                 int budget = _economyManager.GetBudget(landfillSiteAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int garbageTruckVehicles = (productionRate * landfillSiteAI.m_garbageTruckCount + 99) / 100;
+                int garbageTruckVehicles = ((productionRate * landfillSiteAI.m_garbageTruckCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -706,8 +720,7 @@ namespace Stats
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetLibraryCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetLibraryVisitorCount()
-            );
+                _districtManager.m_districts.m_buffer[0].GetLibraryVisitorCount());
         }
 
         public int? GetGroundPollutionPercent()
@@ -719,16 +732,14 @@ namespace Stats
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetHealCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetSickCount()
-            );
+                _districtManager.m_districts.m_buffer[0].GetSickCount());
         }
 
         public int? GetHeatingPercent()
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetHeatingCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetHeatingConsumption()
-            );
+                _districtManager.m_districts.m_buffer[0].GetHeatingConsumption());
         }
 
         public int? GetHighSchoolPercent()
@@ -782,7 +793,8 @@ namespace Stats
                         productionRate *= 2;
                     }
                 }
-                int trucks = (productionRate * maintenanceDepotAI.m_maintenanceTruckCount + 99) / 100;
+
+                int trucks = ((productionRate * maintenanceDepotAI.m_maintenanceTruckCount) + 99) / 100;
                 int truckCount = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -808,11 +820,12 @@ namespace Stats
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info.GetAI() as PoliceStationAI;
-                //m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
+
+                // m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
                     continue;
 
-                //PoliceStationAI.GetLocalizedStats
+                // PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
                 int cellsInUse = 0;
                 while (num != 0)
@@ -829,6 +842,7 @@ namespace Stats
                             }
                         }
                     }
+
                     num = nextUnit;
                 }
 
@@ -858,11 +872,12 @@ namespace Stats
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info.GetAI() as PoliceStationAI;
-                //m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
+
+                // m_info.m_class.m_level >= ItemClass.Level.Level4 -> Prison
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level >= ItemClass.Level.Level4)
                     continue;
 
-                //PoliceStationAI.GetLocalizedStats
+                // PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
                 int cellsInUse = 0;
                 while (num != 0)
@@ -879,12 +894,13 @@ namespace Stats
                             }
                         }
                     }
+
                     num = nextUnit;
                 }
 
                 int budget = _economyManager.GetBudget(policeStationAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int policeCars = (productionRate * policeStationAI.PoliceCarCount + 99) / 100;
+                int policeCars = ((productionRate * policeStationAI.PoliceCarCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -916,7 +932,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(helicopterDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int policeHelicopters = (productionRate * helicopterDepotAI.m_helicopterCount + 99) / 100;
+                int policeHelicopters = ((productionRate * helicopterDepotAI.m_helicopterCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -942,11 +958,12 @@ namespace Stats
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info.GetAI() as PoliceStationAI;
-                //m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
+
+                // m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
                     continue;
 
-                //PoliceStationAI.GetLocalizedStats
+                // PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
                 int cellsInUse = 0;
                 while (num != 0)
@@ -963,6 +980,7 @@ namespace Stats
                             }
                         }
                     }
+
                     num = nextUnit;
                 }
 
@@ -992,11 +1010,12 @@ namespace Stats
                 var buildingId = policeBuildingIds[i];
                 var building = _buildingManager.m_buildings.m_buffer[buildingId];
                 var policeStationAI = building.Info.GetAI() as PoliceStationAI;
-                //m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
+
+                // m_info.m_class.m_level < ItemClass.Level.Level4 -> Police Station
                 if (policeStationAI is null || policeStationAI.m_info.m_class.m_level < ItemClass.Level.Level4)
                     continue;
 
-                //PoliceStationAI.GetLocalizedStats
+                // PoliceStationAI.GetLocalizedStats
                 uint num = building.m_citizenUnits;
                 int cellsInUse = 0;
                 while (num != 0)
@@ -1013,12 +1032,13 @@ namespace Stats
                             }
                         }
                     }
+
                     num = nextUnit;
                 }
 
                 int budget = _economyManager.GetBudget(policeStationAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int policeCars = (productionRate * policeStationAI.PoliceCarCount + 99) / 100;
+                int policeCars = ((productionRate * policeStationAI.PoliceCarCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -1060,7 +1080,7 @@ namespace Stats
                 int outside = 0;
                 GameMethods.CalculateOwnVehicles(buildingId, ref building, TransferManager.TransferReason.Taxi, ref taxiCount, ref cargo, ref capacity, ref outside);
 
-                taxisTotal += (productionRate * depotAI.m_maxVehicleCount + 99) / 100;
+                taxisTotal += ((productionRate * depotAI.m_maxVehicleCount) + 99) / 100;
                 taxisInUse += taxiCount;
             }
 
@@ -1093,11 +1113,11 @@ namespace Stats
                 int export = 0;
                 GameMethods.CalculateVehicles(buildingId, ref building, ref unsortedMail, ref sortedMail, ref unsortedCapacity, ref sortedCapacity, ref ownVanCount, ref ownTruckCount, ref import, ref export);
 
-                //TODO: mail and stuff
+                // TODO: mail and stuff
                 int num = building.m_customBuffer1 * 1000;
                 int num2 = building.m_customBuffer2 * 1000;
 
-                postVansTotal += (productionRate * postOfficeAI.m_postVanCount + 99) / 100;
+                postVansTotal += ((productionRate * postOfficeAI.m_postVanCount) + 99) / 100;
                 postVansInUse += ownVanCount;
             }
 
@@ -1130,11 +1150,11 @@ namespace Stats
                 int export = 0;
                 GameMethods.CalculateVehicles(buildingId, ref building, ref unsortedMail, ref sortedMail, ref unsortedCapacity, ref sortedCapacity, ref ownVanCount, ref ownTruckCount, ref import, ref export);
 
-                //TODO: mail and stuff
+                // TODO: mail and stuff
                 int num = building.m_customBuffer1 * 1000;
                 int num2 = building.m_customBuffer2 * 1000;
 
-                postTrucksTotal += (productionRate * postOfficeAI.m_postTruckCount + 99) / 100;
+                postTrucksTotal += ((productionRate * postOfficeAI.m_postTruckCount) + 99) / 100;
                 postTrucksInUse += ownTruckCount;
             }
 
@@ -1158,7 +1178,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(maintenanceDepotAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int trucks = (productionRate * maintenanceDepotAI.m_maintenanceTruckCount + 99) / 100;
+                int trucks = ((productionRate * maintenanceDepotAI.m_maintenanceTruckCount) + 99) / 100;
                 int truckCount = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -1232,7 +1252,7 @@ namespace Stats
 
                 int budget = _economyManager.GetBudget(snowDumpAI.m_info.m_class);
                 int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                int snowTrucks = (productionRate * snowDumpAI.m_snowTruckCount + 99) / 100;
+                int snowTrucks = ((productionRate * snowDumpAI.m_snowTruckCount) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -1257,8 +1277,7 @@ namespace Stats
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetSewageCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetSewageAccumulation()
-            );
+                _districtManager.m_districts.m_buffer[0].GetSewageAccumulation());
         }
 
         public int? GetTrafficJamPercent()
@@ -1295,16 +1314,14 @@ namespace Stats
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetEducation3Capacity(),
-                _districtManager.m_districts.m_buffer[0].GetEducation3Need()
-            );
+                _districtManager.m_districts.m_buffer[0].GetEducation3Need());
         }
 
         public int? GetWaterPercent()
         {
             return GetUsagePercent(
                 _districtManager.m_districts.m_buffer[0].GetWaterCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetWaterConsumption()
-            );
+                _districtManager.m_districts.m_buffer[0].GetWaterConsumption());
         }
 
         public int? GetWaterPumpingServiceStoragePercent()
@@ -1322,14 +1339,14 @@ namespace Stats
                 if (waterFacilityAI is null)
                     continue;
 
-                //WaterFacilityAI.GetLocalizedStats
+                // WaterFacilityAI.GetLocalizedStats
                 if (waterFacilityAI.m_waterIntake != 0 && waterFacilityAI.m_waterOutlet != 0 && waterFacilityAI.m_waterStorage != 0)
                     continue;
 
                 if (waterFacilityAI.m_sewageOutlet == 0 || waterFacilityAI.m_sewageStorage == 0 || waterFacilityAI.m_pumpingVehicles == 0)
                     continue;
 
-                waterSewageStorageInUse += building.m_customBuffer2 * 1000 + building.m_sewageBuffer;
+                waterSewageStorageInUse += (building.m_customBuffer2 * 1000) + building.m_sewageBuffer;
                 waterSewageStorageTotal += waterFacilityAI.m_sewageStorage;
 
                 int count = 0;
@@ -1361,7 +1378,7 @@ namespace Stats
                 if (waterFacilityAI is null)
                     continue;
 
-                //WaterFacilityAI.GetLocalizedStats
+                // WaterFacilityAI.GetLocalizedStats
                 if (waterFacilityAI.m_waterIntake != 0 && waterFacilityAI.m_waterOutlet != 0 && waterFacilityAI.m_waterStorage != 0)
                     continue;
 
@@ -1370,7 +1387,7 @@ namespace Stats
 
                 var budget = _economyManager.GetBudget(building.Info.m_class);
                 var productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-                var pumpingVehicles = (productionRate * waterFacilityAI.m_pumpingVehicles + 99) / 100;
+                var pumpingVehicles = ((productionRate * waterFacilityAI.m_pumpingVehicles) + 99) / 100;
                 int count = 0;
                 int cargo = 0;
                 int capacity = 0;
@@ -1388,26 +1405,7 @@ namespace Stats
         {
             return GetAvailabilityPercent(
                 _districtManager.m_districts.m_buffer[0].GetWaterStorageCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetWaterStorageAmount()
-            );
-        }
-
-        public static bool CheckIfMapHasSnowDumps()
-        {
-            var result = false;
-
-            var loadedCount = PrefabCollection<BuildingInfo>.LoadedCount();
-            for (uint i = 0; i < loadedCount; i++)
-            {
-                var bi = PrefabCollection<BuildingInfo>.GetLoaded(i);
-                if (bi != null && bi.m_buildingAI is SnowDumpAI)
-                {
-                    result = true;
-                    break;
-                }
-            }
-
-            return result;
+                _districtManager.m_districts.m_buffer[0].GetWaterStorageAmount());
         }
 
         private static int? GetAvailabilityPercent(long capacity, long need)
@@ -1418,7 +1416,7 @@ namespace Stats
             if (need == 0)
                 return 0;
 
-            return (int)((1 - need / (float)capacity) * 100);
+            return (int)((1 - (need / (float)capacity)) * 100);
         }
 
         private static int? GetUsagePercent(long capacity, long usage)

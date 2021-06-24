@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
-
-namespace Stats.Config
+﻿namespace Stats.Config
 {
+    using System;
+    using System.Linq;
+    using UnityEngine;
+
     public class Configuration
     {
         private readonly ConfigurationService<ConfigurationDto> _configurationService;
@@ -56,6 +56,7 @@ namespace Stats.Config
         public int GetEnabledItemsCount()
         {
             var result = 0;
+
             for (int i = 0; i < _configurationItemDatas.Length; i++)
             {
                 if (_configurationItemDatas[i].Enabled)
@@ -63,6 +64,7 @@ namespace Stats.Config
                     result += 1;
                 }
             }
+
             return result;
         }
 

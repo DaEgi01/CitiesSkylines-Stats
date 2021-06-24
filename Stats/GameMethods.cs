@@ -1,13 +1,13 @@
-﻿using ColossalFramework;
-using ColossalFramework.UI;
-using System;
-using UnityEngine;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System;
+    using ColossalFramework;
+    using ColossalFramework.UI;
+    using UnityEngine;
+
     public static class GameMethods
     {
-        //MaintenanceDepotAI.GetTransferReason rewritten as a public static method (private instance method).
+        // MaintenanceDepotAI.GetTransferReason rewritten as a public static method (private instance method).
         public static TransferManager.TransferReason GetTransferReason(MaintenanceDepotAI maintenanceDepotAI)
         {
             return maintenanceDepotAI.m_info.m_class.m_service switch
@@ -18,7 +18,7 @@ namespace Stats
             };
         }
 
-        //CommonBuildingAI.CalculateOwnVehicles rewritten as a public static method (protected instance method).
+        // CommonBuildingAI.CalculateOwnVehicles rewritten as a public static method (protected instance method).
         public static void CalculateOwnVehicles(ushort buildingID, ref Building data, TransferManager.TransferReason material, ref int count, ref int cargo, ref int capacity, ref int outside)
         {
             VehicleManager instance = Singleton<VehicleManager>.instance;
@@ -30,6 +30,7 @@ namespace Stats
                 {
                     return;
                 }
+
                 if ((TransferManager.TransferReason)instance.m_vehicles.m_buffer[num].m_transferType == material)
                 {
                     VehicleInfo info = instance.m_vehicles.m_buffer[num].Info;
@@ -42,13 +43,14 @@ namespace Stats
                         outside++;
                     }
                 }
+
                 num = instance.m_vehicles.m_buffer[num].m_nextOwnVehicle;
             }
             while (++num2 <= 16384);
             CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
         }
 
-        //PostOfficeAI.CalculateOwnVehicles rewritten as a public static method (private instance method).
+        // PostOfficeAI.CalculateOwnVehicles rewritten as a public static method (private instance method).
         public static void CalculateVehicles(ushort buildingID, ref Building data, ref int unsortedMail, ref int sortedMail, ref int unsortedCapacity, ref int sortedCapacity, ref int ownVanCount, ref int ownTruckCount, ref int import, ref int export)
         {
             VehicleManager instance = Singleton<VehicleManager>.instance;
@@ -69,6 +71,7 @@ namespace Stats
                             sortedCapacity += Mathf.Max(0, max - size);
                             break;
                         }
+
                     case 93:
                         ownTruckCount++;
                         if ((instance.m_vehicles.m_buffer[num].m_flags & Vehicle.Flags.TransferToTarget) != 0)
@@ -92,6 +95,7 @@ namespace Stats
                                 import++;
                             }
                         }
+
                         break;
                     case 94:
                     case 96:
@@ -117,6 +121,7 @@ namespace Stats
                                 import++;
                             }
                         }
+
                         break;
                     case 95:
                         ownTruckCount++;
@@ -124,8 +129,10 @@ namespace Stats
                         {
                             export++;
                         }
+
                         break;
                 }
+
                 num = instance.m_vehicles.m_buffer[num].m_nextOwnVehicle;
                 if (++num2 > 16384)
                 {
@@ -133,6 +140,7 @@ namespace Stats
                     break;
                 }
             }
+
             num = data.m_guestVehicles;
             num2 = 0;
             do
@@ -141,6 +149,7 @@ namespace Stats
                 {
                     return;
                 }
+
                 switch (instance.m_vehicles.m_buffer[num].m_transferType)
                 {
                     case 93:
@@ -162,6 +171,7 @@ namespace Stats
                                 import++;
                             }
                         }
+
                         break;
                     case 94:
                     case 96:
@@ -183,21 +193,24 @@ namespace Stats
                                 import++;
                             }
                         }
+
                         break;
                     case 95:
                         if ((instance.m_vehicles.m_buffer[num].m_flags & Vehicle.Flags.Exporting) != 0)
                         {
                             export++;
                         }
+
                         break;
                 }
+
                 num = instance.m_vehicles.m_buffer[num].m_nextGuestVehicle;
             }
             while (++num2 <= 16384);
             CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
         }
 
-        //UIDynamicFont.MeasureText rewritten as a public static method (public instance method) with some adjustments.
+        // UIDynamicFont.MeasureText rewritten as a public static method (public instance method) with some adjustments.
         public static Vector2 MeasureText(UIDynamicFont uiDynamicFont, string text, float textScale, FontStyle style)
         {
             var desiredFontSize = Mathf.CeilToInt(uiDynamicFont.size * textScale);
@@ -225,6 +238,7 @@ namespace Stats
                 {
                     num3 += uiDynamicFont.size * 4;
                 }
+
                 result += num3;
             }
 
@@ -233,7 +247,7 @@ namespace Stats
 
         private static int CalculateOptimalHeight(int fontSize)
         {
-            return fontSize + Mathf.CeilToInt(1f / 4f * fontSize - 21f / 4f);
+            return fontSize + Mathf.CeilToInt((1f / 4f * fontSize) - (21f / 4f));
         }
     }
 }

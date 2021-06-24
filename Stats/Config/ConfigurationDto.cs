@@ -1,7 +1,7 @@
-﻿using System.Xml.Serialization;
-
-namespace Stats.Config
+﻿namespace Stats.Config
 {
+    using System.Xml.Serialization;
+
     [XmlRoot("Configuration")]
     public class ConfigurationDto
     {

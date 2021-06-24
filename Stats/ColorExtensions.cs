@@ -1,8 +1,8 @@
-﻿using System;
-using UnityEngine;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System;
+    using UnityEngine;
+
     public static class ColorExtensions
     {
         private const char _serializationSeparator = ',';

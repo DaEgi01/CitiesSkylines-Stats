@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System;
+
     public class IndexesMessedUpException : Exception
     {
         public IndexesMessedUpException(int index)

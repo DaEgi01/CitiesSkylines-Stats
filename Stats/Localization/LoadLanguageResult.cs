@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Stats.Localization
+﻿namespace Stats.Localization
 {
+    using System;
+    using System.Collections.Generic;
+
     public class LoadLanguageResult
     {
         public LoadLanguageResult(string language, Dictionary<string, string> localizedStrings)

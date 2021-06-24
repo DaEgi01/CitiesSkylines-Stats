@@ -1,12 +1,12 @@
-﻿using ColossalFramework.UI;
-using Stats.Config;
-using Stats.Localization;
-using System;
-using System.Reflection;
-using UnityEngine;
-
-namespace Stats.Ui
+﻿namespace Stats.Ui
 {
+    using System;
+    using System.Reflection;
+    using ColossalFramework.UI;
+    using Stats.Config;
+    using Stats.Localization;
+    using UnityEngine;
+
     public class ItemPanel : UIPanel
     {
         private const string _textToDeterminePercentButtonSize = "888%";
@@ -24,7 +24,7 @@ namespace Stats.Ui
 
         public ConfigurationItemData? ConfigurationItemData => _configurationItemData;
 
-        //TODO: refactor to localized item instead
+        // TODO: refactor to localized item instead
         public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame, InfoManager infoManager)
         {
             if (configuration is null)
@@ -51,7 +51,7 @@ namespace Stats.Ui
             var obtainTextRendererMethodInfo = typeof(UIButton).GetMethod("ObtainTextRenderer", BindingFlags.NonPublic | BindingFlags.Instance);
             if (obtainTextRendererMethodInfo is null)
                 throw new Exception("Could not get method 'ObtainTextRenderer'");
-            
+
             _obtainTextRenderer = (Func<UIButton, UIFontRenderer>)Delegate.CreateDelegate(typeof(Func<UIButton, UIFontRenderer>), obtainTextRendererMethodInfo);
 
             isVisible = _configurationItemData.Enabled;
@@ -100,6 +100,89 @@ namespace Stats.Ui
             _percentButton = null;
         }
 
+        public void UpdateButtonSizesAndLayoutAndPanelSize()
+        {
+            UpdateButtonSizes();
+            var panelSize = CalculatePanelSize();
+            UpdateLayout(panelSize);
+            UpdatePanelSize(panelSize);
+        }
+
+        public Vector2 CalculatePanelSize()
+        {
+            var itemTextPosition = _configuration.ItemTextPosition;
+            if (itemTextPosition == ItemTextPosition.None)
+            {
+                return new Vector2(_iconButton.width, _iconButton.height);
+            }
+            else if (itemTextPosition == ItemTextPosition.Top || itemTextPosition == ItemTextPosition.Bottom)
+            {
+                var width = Mathf.Max(_iconButton.width, _percentButton.width);
+                var height = _iconButton.height + (_configuration.ItemPadding / 2f) + _percentButton.height;
+
+                return new Vector2(width, height);
+            }
+            else if (itemTextPosition == ItemTextPosition.Right || itemTextPosition == ItemTextPosition.Left)
+            {
+                var width = _iconButton.width + (_configuration.ItemPadding / 2f) + _percentButton.width;
+                var height = Mathf.Max(_iconButton.height, _percentButton.height);
+
+                return new Vector2(width, height);
+            }
+            else
+            {
+                throw new Exception($"Unknown ItemTextPosition '{itemTextPosition.Name}'");
+            }
+        }
+
+        public void UpdateButtonSizes()
+        {
+            UpdateIconButtonSize();
+            if (_configuration.ItemTextPosition != ItemTextPosition.None)
+            {
+                UpdatePercentButtonSize();
+            }
+        }
+
+        public void UpdateLocalization()
+        {
+            var localizedTooltip = _languageResource.GetLocalizedItemString(_configurationItemData.ItemData);
+            _iconButton.tooltip = localizedTooltip;
+
+            if (_configuration.ItemTextPosition != ItemTextPosition.None)
+            {
+                _percentButton.tooltip = localizedTooltip;
+            }
+        }
+
+        /// <summary>
+        /// Update the visibility of a panel.
+        /// </summary>
+        /// <returns>True if visibility changed.</returns>
+        public ItemVisibilityAndChanged UpdatePercentVisibilityAndColor()
+        {
+            var percent = _getPercentFromGame();
+            var oldVisiblity = isVisible;
+            isVisible = ItemHelper.GetItemVisibility(_configurationItemData.Enabled, _configuration.MainPanelHideItemsNotAvailable, _configuration.MainPanelHideItemsBelowThreshold, _configurationItemData.CriticalThreshold, percent);
+            if (isVisible && _configuration.ItemTextPosition != ItemTextPosition.None)
+            {
+                _percentButton.text = GetUsagePercentString(percent);
+                _percentButton.textColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
+                _percentButton.focusedColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
+                _percentButton.focusedTextColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
+                _percentButton.hoveredTextColor = GetItemHoveredTextColor(percent, _configurationItemData.CriticalThreshold);
+            }
+
+            return new ItemVisibilityAndChanged(isVisible, oldVisiblity != isVisible);
+        }
+
+        private static string GetUsagePercentString(int? percent)
+        {
+            return percent.HasValue
+                ? percent.Value.ToString() + "%"
+                : "-%";
+        }
+
         private void CreateAndAddIconButton()
         {
             var iconButton = AddUIComponent<UIButton>();
@@ -107,8 +190,8 @@ namespace Stats.Ui
             iconButton.autoSize = false;
             iconButton.disabledBgSprite = "InfoIconBaseDisabled";
             iconButton.disabledFgSprite = $"{_configurationItemData.ItemData.Icon}Disabled";
-            iconButton.focusedBgSprite = "InfoIconBaseNormal"; //don't use focused state
-            iconButton.focusedFgSprite = $"{_configurationItemData.ItemData.Icon}"; //don't use focused state
+            iconButton.focusedBgSprite = "InfoIconBaseNormal"; // don't use focused state
+            iconButton.focusedFgSprite = $"{_configurationItemData.ItemData.Icon}"; // don't use focused state
             iconButton.hoveredBgSprite = "InfoIconBaseHovered";
             iconButton.hoveredFgSprite = $"{_configurationItemData.ItemData.Icon}Hovered";
             iconButton.pressedBgSprite = "InfoIconBasePressed";
@@ -121,23 +204,6 @@ namespace Stats.Ui
             iconButton.eventClicked += ButtonClicked;
 
             _iconButton = iconButton;
-        }
-
-        public void UpdateButtonSizesAndLayoutAndPanelSize()
-        {
-            UpdateButtonSizes();
-            var panelSize = CalculatePanelSize();
-            UpdateLayout(panelSize);
-            UpdatePanelSize(panelSize);
-        }
-
-        public void UpdateButtonSizes()
-        {
-            UpdateIconButtonSize();
-            if (_configuration.ItemTextPosition != ItemTextPosition.None)
-            {
-                UpdatePercentButtonSize();
-            }
         }
 
         private void UpdateIconButtonSize()
@@ -182,33 +248,6 @@ namespace Stats.Ui
             }
         }
 
-        public Vector2 CalculatePanelSize()
-        {
-            var itemTextPosition = _configuration.ItemTextPosition;
-            if (itemTextPosition == ItemTextPosition.None)
-            {
-                return new Vector2(_iconButton.width, _iconButton.height);
-            }
-            else if (itemTextPosition == ItemTextPosition.Top || itemTextPosition == ItemTextPosition.Bottom)
-            {
-                var width = Mathf.Max(_iconButton.width, _percentButton.width);
-                var height = _iconButton.height + _configuration.ItemPadding / 2f + _percentButton.height;
-
-                return new Vector2(width, height);
-            }
-            else if (itemTextPosition == ItemTextPosition.Right || itemTextPosition == ItemTextPosition.Left)
-            {
-                var width = _iconButton.width + _configuration.ItemPadding / 2f + _percentButton.width;
-                var height = Mathf.Max(_iconButton.height, _percentButton.height);
-
-                return new Vector2(width, height);
-            }
-            else
-            {
-                throw new Exception($"Unknown ItemTextPosition '{itemTextPosition.Name}'");
-            }
-        }
-
         private Vector2 CalculateIconButtonRelativePosition(ItemTextPosition itemTextPosition, Vector2 panelSize)
         {
             if (itemTextPosition == ItemTextPosition.None)
@@ -218,15 +257,15 @@ namespace Stats.Ui
             else if (itemTextPosition == ItemTextPosition.Top)
             {
                 var left = _iconButton.width < panelSize.x
-                    ? panelSize.x / 2f - _iconButton.width / 2f
+                    ? (panelSize.x / 2f) - (_iconButton.width / 2f)
                     : 0f;
 
-                return new Vector2(left, _percentButton.height + _configuration.ItemPadding / 2f);
+                return new Vector2(left, _percentButton.height + (_configuration.ItemPadding / 2f));
             }
             else if (itemTextPosition == ItemTextPosition.Right)
             {
                 var top = _iconButton.height < panelSize.y
-                    ? panelSize.y / 2f - _iconButton.height / 2f
+                    ? (panelSize.y / 2f) - (_iconButton.height / 2f)
                     : 0f;
 
                 return new Vector2(0f, top);
@@ -234,7 +273,7 @@ namespace Stats.Ui
             else if (itemTextPosition == ItemTextPosition.Bottom)
             {
                 var left = _iconButton.width < panelSize.x
-                    ? panelSize.x / 2f - _iconButton.width / 2f
+                    ? (panelSize.x / 2f) - (_iconButton.width / 2f)
                     : 0f;
 
                 return new Vector2(left, 0f);
@@ -242,10 +281,10 @@ namespace Stats.Ui
             else if (itemTextPosition == ItemTextPosition.Left)
             {
                 var top = _iconButton.height < panelSize.y
-                    ? panelSize.y / 2f - _iconButton.height / 2f
+                    ? (panelSize.y / 2f) - (_iconButton.height / 2f)
                     : 0f;
 
-                return new Vector2(_percentButton.width + _configuration.ItemPadding / 2f, top);
+                return new Vector2(_percentButton.width + (_configuration.ItemPadding / 2f), top);
             }
             else
             {
@@ -262,7 +301,7 @@ namespace Stats.Ui
             else if (itemTextPosition == ItemTextPosition.Top)
             {
                 var left = _percentButton.width < panelSize.x
-                    ? panelSize.x / 2f - _percentButton.width / 2f
+                    ? (panelSize.x / 2f) - (_percentButton.width / 2f)
                     : 0f;
 
                 return new Vector2(left, 0f);
@@ -270,26 +309,26 @@ namespace Stats.Ui
             else if (itemTextPosition == ItemTextPosition.Right)
             {
                 var top = _percentButton.height < panelSize.y
-                    ? panelSize.y / 2f - _percentButton.height / 2f
+                    ? (panelSize.y / 2f) - (_percentButton.height / 2f)
                     : 0f;
 
-                return new Vector2(_iconButton.width + _configuration.ItemPadding / 2f, top);
+                return new Vector2(_iconButton.width + (_configuration.ItemPadding / 2f), top);
             }
             else if (itemTextPosition == ItemTextPosition.Bottom)
             {
                 var left = _percentButton.width < panelSize.x
-                    ? panelSize.x / 2f - _percentButton.width / 2f
+                    ? (panelSize.x / 2f) - (_percentButton.width / 2f)
                     : 0f;
 
-                return new Vector2(left, _iconButton.height + _configuration.ItemPadding / 2f);
+                return new Vector2(left, _iconButton.height + (_configuration.ItemPadding / 2f));
             }
             else if (itemTextPosition == ItemTextPosition.Left)
             {
                 var top = _percentButton.height < panelSize.y
-                    ? panelSize.y / 2f - _percentButton.height / 2f
+                    ? (panelSize.y / 2f) - (_percentButton.height / 2f)
                     : 0f;
 
-                return new Vector2(0f , top);
+                return new Vector2(0f, top);
             }
             else
             {
@@ -304,44 +343,14 @@ namespace Stats.Ui
             {
                 _infoManager.SetCurrentMode(
                     InfoManager.InfoMode.None,
-                    InfoManager.SubInfoMode.Default
-                );
+                    InfoManager.SubInfoMode.Default);
             }
             else
             {
                 _infoManager.SetCurrentMode(
                     _configurationItemData.ItemData.InfoMode,
-                    _configurationItemData.ItemData.SubInfoMode
-                );
+                    _configurationItemData.ItemData.SubInfoMode);
             }
-        }
-
-        /// <summary>
-        /// Update the visibility of a panel.
-        /// </summary>
-        /// <returns>True if visibility changed.</returns>
-        public ItemVisibilityAndChanged UpdatePercentVisibilityAndColor()
-        {
-            var percent = _getPercentFromGame();
-            var oldVisiblity = isVisible;
-            isVisible = ItemHelper.GetItemVisibility(_configurationItemData.Enabled, _configuration.MainPanelHideItemsNotAvailable, _configuration.MainPanelHideItemsBelowThreshold, _configurationItemData.CriticalThreshold, percent);
-            if (isVisible && _configuration.ItemTextPosition != ItemTextPosition.None)
-            {
-                _percentButton.text = GetUsagePercentString(percent);
-                _percentButton.textColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
-                _percentButton.focusedColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
-                _percentButton.focusedTextColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
-                _percentButton.hoveredTextColor = GetItemHoveredTextColor(percent, _configurationItemData.CriticalThreshold);
-            }
-
-            return new ItemVisibilityAndChanged(isVisible, oldVisiblity != isVisible);
-        }
-
-        private static string GetUsagePercentString(int? percent)
-        {
-            return percent.HasValue
-                ? percent.Value.ToString() + "%"
-                : "-%";
         }
 
         private Color32 GetItemTextColor(int? percent, int threshold)
@@ -356,17 +365,6 @@ namespace Stats.Ui
             return !percent.HasValue || percent.Value >= threshold
                 ? _configuration.MainPanelForegroundColor
                 : _configuration.MainPanelAccentColor;
-        }
-
-        public void UpdateLocalization()
-        {
-            var localizedTooltip = _languageResource.GetLocalizedItemString(_configurationItemData.ItemData);
-            _iconButton.tooltip = localizedTooltip;
-
-            if (_configuration.ItemTextPosition != ItemTextPosition.None)
-            {
-                _percentButton.tooltip = localizedTooltip;
-            }
         }
     }
 }

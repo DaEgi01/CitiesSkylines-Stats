@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System;
+
     public class IsNullException : Exception
     {
         public IsNullException(string name)

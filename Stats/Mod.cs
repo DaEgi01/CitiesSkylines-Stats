@@ -1,17 +1,17 @@
-﻿using ColossalFramework;
-using ColossalFramework.Globalization;
-using ColossalFramework.IO;
-using ColossalFramework.Plugins;
-using ColossalFramework.UI;
-using ICities;
-using Stats.Config;
-using Stats.Localization;
-using Stats.Ui;
-using System.IO;
-using UnityEngine;
-
-namespace Stats
+﻿namespace Stats
 {
+    using System.IO;
+    using ColossalFramework;
+    using ColossalFramework.Globalization;
+    using ColossalFramework.IO;
+    using ColossalFramework.Plugins;
+    using ColossalFramework.UI;
+    using ICities;
+    using Stats.Config;
+    using Stats.Localization;
+    using Stats.Ui;
+    using UnityEngine;
+
     public class Mod : LoadingExtensionBase, IUserMod
     {
         private readonly ModInfo _modInfo = new ("Stats", "Stats", "1.3.1", 1410077595);
@@ -64,21 +64,35 @@ namespace Stats
             DestroyMainPanel();
         }
 
+        public void OnSettingsUI(UIHelperBase helper)
+        {
+            _configurationPanel = new ConfigurationPanel(
+                helper,
+                _modInfo,
+                _configuration,
+                _languageResource);
+
+            _configurationPanel.Initialize();
+            if (_mainPanel != null)
+            {
+                _configurationPanel.MainPanel = _mainPanel;
+            }
+        }
+
         private void InitializeDependencies()
         {
             var configurationFileFullName = Path.Combine(DataLocation.localApplicationData, _modInfo.SystemName + ".xml");
             _configurationService = new ConfigurationService<ConfigurationDto>(configurationFileFullName);
             _languageResourceService = new LanguageResourceService<LanguageResourceDto>(
                 _modInfo,
-                PluginManager.instance
-            );
+                PluginManager.instance);
 
             _configuration = File.Exists(_configurationService.ConfigurationFileFullName)
                 ? new Configuration(_configurationService, _configurationService.Load())
                 : new Configuration(_configurationService, new ConfigurationDto());
 
             var playerLanguage = new SavedString(Settings.localeID, Settings.gameSettingsFile, DefaultSettings.localeID);
-            LocaleManager.defaultLanguage = playerLanguage; //necessary because LocaleManager.Constructor will use that value lol.
+            LocaleManager.defaultLanguage = playerLanguage; // necessary because LocaleManager.Constructor will use that value lol.
             LocaleManager.Ensure();
             _languageResource = LanguageResource.Create(_languageResourceService, playerLanguage, _fallbackLanguageTwoLetterCode);
 
@@ -117,8 +131,7 @@ namespace Stats
                 EconomyManager.instance,
                 ImmaterialResourceManager.instance,
                 CitizenManager.instance,
-                VehicleManager.instance
-            );
+                VehicleManager.instance);
 
             _mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
             _mainPanel!.Initialize(_modInfo.SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
@@ -142,35 +155,19 @@ namespace Stats
             _mainPanel = null;
         }
 
-        public void OnSettingsUI(UIHelperBase helper)
-        {
-            _configurationPanel = new ConfigurationPanel(
-                helper,
-                _modInfo,
-                _configuration,
-                _languageResource
-            );
-
-            _configurationPanel.Initialize();
-            if (_mainPanel != null)
-            {
-                _configurationPanel.MainPanel = _mainPanel;
-            }
-        }
-
-        //TODO: add missing translations
-        //TODO: mail itself
-        //TODO: evacuation buses in use
-        //TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
-        //TODO: rework healthcare: split sick citizen from hospital beds
-        //TODO: color picker
-        //TODO: maybe natural resources used
-        //TODO: unselect main menu if another service is selected but does not fit the click on the item
-        //TODO: performance (for example GetBudget can be done once)
-        //TODO: performance create only the ItemPanels that are enabled
-        //TODO: refactoring
-        //TODO: icons
-        //TODO: values per building type
-        //TODO: values per district
+        // TODO: add missing translations
+        // TODO: mail itself
+        // TODO: evacuation buses in use
+        // TODO: rework garbage: split unpicked garbage from incinerator and landfill reserves
+        // TODO: rework healthcare: split sick citizen from hospital beds
+        // TODO: color picker
+        // TODO: maybe natural resources used
+        // TODO: unselect main menu if another service is selected but does not fit the click on the item
+        // TODO: performance (for example GetBudget can be done once)
+        // TODO: performance create only the ItemPanels that are enabled
+        // TODO: refactoring
+        // TODO: icons
+        // TODO: values per building type
+        // TODO: values per district
     }
 }
