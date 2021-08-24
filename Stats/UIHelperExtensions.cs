@@ -6,7 +6,7 @@
 
     public static class UIHelperExtensions
     {
-        public static UISlider AddSliderWithLabel(this UIHelperBase uIHelper, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)
+        public static UISlider AddSliderWithLabel(this UIHelperBase uIHelper, string text, float min, float max, float step, float defaultValue, OnValueChanged onValueChangedCallback)
         {
             var spaceBetweenLabelAndSlider = 8f;
             var marginBottom = 16f;
@@ -36,7 +36,7 @@
             sliderControl.eventValueChanged += (comp, value) =>
             {
                 valueLabel.text = value.ToString();
-                eventCallback(value);
+                onValueChangedCallback(value);
             };
 
             return sliderControl;
