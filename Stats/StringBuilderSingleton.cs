@@ -4,7 +4,7 @@
 
     public static class StringBuilderSingleton
     {
-        private static readonly StringBuilder _stringBuilder = new ();
+        private static readonly StringBuilder _stringBuilder = new();
 
         public static StringBuilder Instance
         {
