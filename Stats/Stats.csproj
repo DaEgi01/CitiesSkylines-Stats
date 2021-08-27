@@ -62,9 +62,9 @@
       <ModDirectory>$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\</ModDirectory>
     </PropertyGroup>
     <ItemGroup>
-      <ModFiles Include="$(TargetDir)*.*" />
+      <ModFiles Include="$(TargetDir)\**\*.*" />
     </ItemGroup>
     <RemoveDir Directories="$(ModDirectory)" />
-    <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)" />
+    <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)\%(RecursiveDir)" />
   </Target>
 </Project>
