@@ -90,10 +90,13 @@
                 return ValidateAndCreateResult(desiredLanguageResourceDto, languageTwoLetterCode);
             }
 
-            var fallbackLanguageResourceDto = languageResourceService.Load(fallbackLanguageTwoLetterCode);
-            if (fallbackLanguageResourceDto is not null)
+            if (languageTwoLetterCode != fallbackLanguageTwoLetterCode)
             {
-                return ValidateAndCreateResult(fallbackLanguageResourceDto, fallbackLanguageTwoLetterCode);
+                var fallbackLanguageResourceDto = languageResourceService.Load(fallbackLanguageTwoLetterCode);
+                if (fallbackLanguageResourceDto is not null)
+                {
+                    return ValidateAndCreateResult(fallbackLanguageResourceDto, fallbackLanguageTwoLetterCode);
+                }
             }
 
             throw new Exception($"Could not load the LanguageResourceDto for the {nameof(languageTwoLetterCode)} '{languageTwoLetterCode}', nor for the {nameof(fallbackLanguageTwoLetterCode)} '{fallbackLanguageTwoLetterCode}'.");
