@@ -16,6 +16,7 @@
         private LanguageResource? _languageResource;
         private GameEngineService? _gameEngineService;
         private InfoManager? _infoManager;
+        private PercentStringCache? _percentStringCache;
 
         private ItemPanel[]? _itemPanelsInDisplayOrder;
 
@@ -26,7 +27,8 @@
             Configuration configuration,
             LanguageResource languageResource,
             GameEngineService gameEngineService,
-            InfoManager infoManager)
+            InfoManager infoManager,
+            PercentStringCache percentStringCache)
         {
             _modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
@@ -38,6 +40,7 @@
             _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
             _gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
             _infoManager = infoManager;
+            _percentStringCache = percentStringCache;
 
             color = configuration.MainPanelBackgroundColor;
             name = modSystemName + "MainPanel";
@@ -213,15 +216,20 @@
                 .Select(i => CreateUiItemAndAddButtons(
                     _configuration.GetConfigurationItemData(i),
                     _gameEngineService.GetPercentFunc(i),
-                    _infoManager))
+                    _infoManager,
+                    _percentStringCache))
                 .OrderBy(x => x.ConfigurationItemData.SortOrder)
                 .ToArray();
         }
 
-        private ItemPanel CreateUiItemAndAddButtons(ConfigurationItemData configurationItemData, Func<int?> getPercentFromGame, InfoManager infoManager)
+        private ItemPanel CreateUiItemAndAddButtons(
+            ConfigurationItemData configurationItemData,
+            Func<int?> getPercentFromGame,
+            InfoManager infoManager,
+            PercentStringCache percentStringCache)
         {
             var itemPanel = CreateAndAddItemPanel();
-            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, getPercentFromGame, infoManager);
+            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, getPercentFromGame, infoManager, percentStringCache);
             return itemPanel;
         }
 

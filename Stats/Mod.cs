@@ -133,8 +133,10 @@
                 CitizenManager.instance,
                 VehicleManager.instance);
 
+            var percentStringCache = new PercentStringCache(-999, 999);
+
             _mainPanel = UIView.GetAView().AddUIComponent(typeof(MainPanel)) as MainPanel;
-            _mainPanel!.Initialize(_modInfo.SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance);
+            _mainPanel!.Initialize(_modInfo.SystemName, _configuration, _languageResource, gameEngineService, InfoManager.instance, percentStringCache);
             if (_configurationPanel != null)
             {
                 _configurationPanel.MainPanel = _mainPanel;

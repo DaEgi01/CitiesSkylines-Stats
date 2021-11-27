@@ -9,13 +9,12 @@
 
     public class ItemPanel : UIPanel
     {
-        private const string _textToDeterminePercentButtonSize = "888%";
-
         private Configuration? _configuration;
         private ConfigurationItemData? _configurationItemData;
         private LanguageResource? _languageResource;
         private Func<int?>? _getPercentFromGame;
         private InfoManager? _infoManager;
+        private PercentStringCache? _percentStringCache;
 
         private UIButton? _iconButton;
         private UIButton? _percentButton;
@@ -25,7 +24,13 @@
         public ConfigurationItemData? ConfigurationItemData => _configurationItemData;
 
         // TODO: refactor to localized item instead
-        public void Initialize(Configuration configuration, ConfigurationItemData configurationItemData, LanguageResource languageResource, Func<int?> getPercentFromGame, InfoManager infoManager)
+        public void Initialize(
+            Configuration configuration,
+            ConfigurationItemData configurationItemData,
+            LanguageResource languageResource,
+            Func<int?> getPercentFromGame,
+            InfoManager infoManager,
+            PercentStringCache percentStringCache)
         {
             if (configuration is null)
                 throw new ArgumentNullException(nameof(configuration));
@@ -42,11 +47,15 @@
             if (infoManager is null)
                 throw new ArgumentNullException(nameof(infoManager));
 
+            if (percentStringCache is null)
+                throw new ArgumentNullException(nameof(percentStringCache));
+
             _configuration = configuration;
             _configurationItemData = configurationItemData;
             _languageResource = languageResource;
             _getPercentFromGame = getPercentFromGame;
             _infoManager = infoManager;
+            _percentStringCache = percentStringCache;
 
             var obtainTextRendererMethodInfo = typeof(UIButton).GetMethod("ObtainTextRenderer", BindingFlags.NonPublic | BindingFlags.Instance);
             if (obtainTextRendererMethodInfo is null)
@@ -166,7 +175,7 @@
             isVisible = ItemHelper.GetItemVisibility(_configurationItemData.Enabled, _configuration.MainPanelHideItemsNotAvailable, _configuration.MainPanelHideItemsBelowThreshold, _configurationItemData.CriticalThreshold, percent);
             if (isVisible && _configuration.ItemTextPosition != ItemTextPosition.None)
             {
-                _percentButton.text = GetUsagePercentString(percent);
+                _percentButton.text = _percentStringCache.GetPercentString(percent);
                 _percentButton.textColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
                 _percentButton.focusedColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
                 _percentButton.focusedTextColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
@@ -174,13 +183,6 @@
             }
 
             return new ItemVisibilityAndChanged(isVisible, oldVisiblity != isVisible);
-        }
-
-        private static string GetUsagePercentString(int? percent)
-        {
-            return percent.HasValue
-                ? percent.Value.ToString() + "%"
-                : "-%";
         }
 
         private void CreateAndAddIconButton()
@@ -219,7 +221,7 @@
             var dynamicFont = (UIDynamicFont)fontRenderer.font;
             _percentButton.size = GameMethods.MeasureText(
                 dynamicFont,
-                _textToDeterminePercentButtonSize,
+                _percentStringCache.NegativeOutOfRangeString,
                 _percentButton.textScale,
                 FontStyle.Normal);
         }
