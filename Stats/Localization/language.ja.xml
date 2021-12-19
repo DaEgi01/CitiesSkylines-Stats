@@ -101,7 +101,7 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceStorage</Key>
-      <Value>バキュームカー(タンク内)の使用率</Value>
+      <Value>排水サービスの使用率</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>WaterPumpingServiceVehicles</Key>
@@ -141,19 +141,19 @@
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessCommercial</Key>
-      <Value>商業地区の不幸度</Value>
+      <Value>商業地区の幸福度</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessIndustrial</Key>
-      <Value>産業地区の不幸度</Value>
+      <Value>産業地区の幸福度</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessOffice</Key>
-      <Value>オフィス地区の不幸度</Value>
+      <Value>オフィス地区の幸福度</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>UnhappinessResidential</Key>
-      <Value>住民地区の不幸度</Value>
+      <Value>住民地区の幸福度</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>Healthcare</Key>
