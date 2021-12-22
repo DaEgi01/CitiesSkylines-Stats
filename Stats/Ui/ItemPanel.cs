@@ -221,7 +221,7 @@
             var dynamicFont = (UIDynamicFont)fontRenderer.font;
             _percentButton.size = GameMethods.MeasureText(
                 dynamicFont,
-                _percentStringCache.NegativeOutOfRangeString,
+                _percentStringCache.PositiveOutOfRangeString,
                 _percentButton.textScale,
                 FontStyle.Normal);
         }

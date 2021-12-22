@@ -14,8 +14,8 @@ namespace Stats
 
         public PercentStringCache(int minValue, int maxValue)
         {
-            if (minValue >= 0)
-                throw new ArgumentOutOfRangeException(nameof(minValue), "Must be smaller than 0.");
+            if (0 < minValue)
+                throw new ArgumentOutOfRangeException(nameof(minValue), "Must be smaller or equal to 0.");
 
             if (maxValue <= 0)
                 throw new ArgumentOutOfRangeException(nameof(minValue), "Must be larger than 0.");

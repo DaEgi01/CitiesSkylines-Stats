@@ -10,6 +10,7 @@ namespace StatsTest
         [Theory]
         [InlineData(10, 10)]
         [InlineData(10, -10)]
+        [InlineData(-11, -10)]
         public void PercentStringCacheCtor_Should_ThrowException_ForInvalidInput(int minValue, int maxValue)
         {
             FluentActions
