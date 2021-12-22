@@ -23,8 +23,8 @@ namespace Stats
             _minValue = minValue;
             _maxValue = maxValue;
 
-            _negativeOutOfRangeString = $"< -{minValue.ToString()}%";
-            _positiveOutOfRangeString = $"> {maxValue.ToString()}%";
+            _negativeOutOfRangeString = $"<-{minValue.ToString()}%";
+            _positiveOutOfRangeString = $">{maxValue.ToString()}%";
             _inRangeStringCache = new string[-minValue + maxValue + 1];
             FillInRangeStringCache(_inRangeStringCache, _minValue, _maxValue);
         }
