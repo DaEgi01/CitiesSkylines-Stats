@@ -64,7 +64,7 @@
     </Content>
     <None Remove="Localization\language.en.xml" />
     <Content Include="Localization\language.en.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Remove="Localization\language.fr.xml" />
     <Content Include="Localization\language.fr.xml">
@@ -80,7 +80,7 @@
     </Content>
     <None Remove="Localization\language.ru.xml" />
     <Content Include="Localization\language.ru.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Remove="Localization\language.zh.xml" />
     <Content Include="Localization\language.zh.xml">
