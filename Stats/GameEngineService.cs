@@ -787,7 +787,7 @@
                 if (transferReason == TransferManager.TransferReason.ParkMaintenance)
                 {
                     byte district = _districtManager.GetDistrict(building.m_position);
-                    DistrictPolicies.Services servicePolicies = _districtManager.m_districts.m_buffer[(int)district].m_servicePolicies;
+                    DistrictPolicies.Services servicePolicies = _districtManager.m_districts.m_buffer[district].m_servicePolicies;
                     if ((servicePolicies & DistrictPolicies.Services.ParkMaintenanceBoost) != DistrictPolicies.Services.None)
                     {
                         productionRate *= 2;

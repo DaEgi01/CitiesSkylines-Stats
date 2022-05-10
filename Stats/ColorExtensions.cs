@@ -6,7 +6,7 @@
     public static class ColorExtensions
     {
         private const char _serializationSeparator = ',';
-        private static readonly char[] _serializationSeparators = new[] { _serializationSeparator };
+        private static readonly char[] _serializationSeparators = { _serializationSeparator };
 
         public static Color32 GetColor32(this string colorString)
         {
@@ -18,9 +18,9 @@
             var red = byte.Parse(colorStringComponents[0]);
             var green = byte.Parse(colorStringComponents[1]);
             var blue = byte.Parse(colorStringComponents[2]);
-            var transperency = byte.Parse(colorStringComponents[3]);
+            var transparency = byte.Parse(colorStringComponents[3]);
 
-            return new Color32(red, green, blue, transperency);
+            return new Color32(red, green, blue, transparency);
         }
 
         public static string GetColorString(this Color32 color)

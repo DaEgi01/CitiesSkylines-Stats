@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageResource>
+  <LanguageTwoLetterCode>nl</LanguageTwoLetterCode>
+  <Version>1</Version>
+  <LocalizedItems>
+    <LocalizedItem>
+      <Key>Reset</Key>
+      <Value>Terugzetten</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ResetPosition</Key>
+      <Value>Positie terugzetten</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UpdateEveryXSeconds</Key>
+      <Value>Iedere X seconden bijwerken</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AutoHide</Key>
+      <Value>AutoVerbergen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HideItemsBelowThreshold</Key>
+      <Value>Verberg items onder grenswaarde</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HideItemsNotAvailable</Key>
+      <Value>Verberg niet beschikbare items</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>BackgroundColor</Key>
+      <Value>Achtergrondkleur</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ForegroundColor</Key>
+      <Value>Voorgrondkleur</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AccentColor</Key>
+      <Value>Accentkleur</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>MainWindow</Key>
+      <Value>Hoofdscherm</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ColumnCount</Key>
+      <Value>Aantal kolommen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemWidth</Key>
+      <Value>Itembreedte</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemHeight</Key>
+      <Value>Itemhoogte</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemPadding</Key>
+      <Value>Afstand tussen items</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextScale</Key>
+      <Value>Tekstgrootte items</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Items</Key>
+      <Value>Items</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Enabled</Key>
+      <Value>Ingeschakeld</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CriticalThreshold</Key>
+      <Value>Kritische grens</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SortOrder</Key>
+      <Value>Sorteervolgorde</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Electricity</Key>
+      <Value>Benutting Electriciteitsnet</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Heating</Key>
+      <Value>Benutting Verwarmingsnet</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Water</Key>
+      <Value>Benutting Watervoorziening</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SewageTreatment</Key>
+      <Value>Benutting Riolering</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterReserveTank</Key>
+      <Value>Leegstroom Waterreserves</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceStorage</Key>
+      <Value>Benutting tanks Waterpompservice</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceVehicles</Key>
+      <Value>Aantal Waterpompwagens in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Landfill</Key>
+      <Value>Benutting Afvalstortplaatsen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>LandfillVehicles</Key>
+      <Value>Aantal vuilniswagens in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Library</Key>
+      <Value>Gebruik Bibliotheek</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessing</Key>
+      <Value>Benutting Afvalverwerking</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessingVehicles</Key>
+      <Value>Aantal Afvalverwerkings-wagens in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ElementarySchool</Key>
+      <Value>Benutting Basisonderwijs</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HighSchool</Key>
+      <Value>Benutting Middelbaar Onderwijs</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>University</Key>
+      <Value>Benutting Universiteiten</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessCommercial</Key>
+      <Value>Ontevredenheid Handel</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessIndustrial</Key>
+      <Value>Ontevredenheid Industrie&euml;n</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessOffice</Key>
+      <Value>Ontevredenheid Kantoren</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessResidential</Key>
+      <Value>Ontevredenheid Bewoners</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Healthcare</Key>
+      <Value>Gebruik Klinieken &amp; Ziekenhuizen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HealthcareVehicles</Key>
+      <Value>Aantal Ambulances in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>MedicalHelicopters</Key>
+      <Value>Aantal Medische Helikopters in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageIllnessRate</Key>
+      <Value>Gemiddelde ziektegraad</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageChildrenIllnessRate</Key>
+      <Value>Gemiddelde ziektegraad (kinderen)</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageElderlyIllnessRate</Key>
+      <Value>Gemiddelde ziektegraad (ouderen)</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Cemetery</Key>
+      <Value>Bezetting begraafplaatsen</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CemeteryVehicles</Key>
+      <Value>Aantal lijkwagens (begraafplaatsen) in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Crematorium</Key>
+      <Value>Bezetting Crematoria</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrematoriumVehicles</Key>
+      <Value>Aantal lijkwagens (crematoria) in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>TrafficJam</Key>
+      <Value>Files</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GroundPollution</Key>
+      <Value>Bodemvervuiling</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DrinkingWaterPollution</Key>
+      <Value>Drinkwatervervuiling</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>NoisePollution</Key>
+      <Value>Geluidsoverlast</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireHazard</Key>
+      <Value>Brandgevaar</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireDepartmentVehicles</Key>
+      <Value>Aantal brandweerwagens in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireHelicopters</Key>
+      <Value>Aantal blushelikopters in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrimeRate</Key>
+      <Value>Misdaadcijfer</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHoldingCells</Key>
+      <Value>Aantal politiecellen in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceVehicles</Key>
+      <Value>Aantal politiewagens in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHelicopters</Key>
+      <Value>Aantal politie-helikopters in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonCells</Key>
+      <Value>Aantal gevangeniscellen in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonVehicles</Key>
+      <Value>Aantal gevangenistransporten in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Unemployment</Key>
+      <Value>Werkloosheid</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>RoadMaintenanceVehicles</Key>
+      <Value>Aantal Wegbeheerder-voertuigen in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ParkMaintenanceVehicles</Key>
+      <Value>Aantal parkonderhoud-voertuigen in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDump</Key>
+      <Value>Benutting Sneeuwdump</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDumpVehicles</Key>
+      <Value>Aantal sneeuwruimers in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CityUnattractiveness</Key>
+      <Value>Onaantrekkelijkheid van de stad</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Taxis</Key>
+      <Value>Aantal taxis in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostVans</Key>
+      <Value>Aantal postbodes in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostTrucks</Key>
+      <Value>Aantal postvrachtwagens in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseVehicles</Key>
+      <Value>Aantal rampenbestrijders (wagens) in gebruik</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseHelicopters</Key>
+      <Value>Aantal rampenbestrijders (helikopters) in gebruik</Value>
+    </LocalizedItem>
+  </LocalizedItems>
+</LanguageResource>

@@ -58,15 +58,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Update="Localization\language.de.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Localization\language.en.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Localization\language.ru.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Localization\language.de.xml" />
+    <Content Include="Localization\language.de.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="DeployToModDirectory" AfterTargets="Build">
     <PropertyGroup>

@@ -34,7 +34,7 @@ namespace StatsTest
         {
             var sut = new PercentStringCache(minValue, maxValue);
             var result = sut.GetPercentString(value);
-            result.Should().Equals(expected);
+            result.Should().Be(expected);
         }
     }
 }

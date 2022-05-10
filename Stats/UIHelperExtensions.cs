@@ -6,12 +6,19 @@
 
     public static class UIHelperExtensions
     {
-        public static UISlider AddSliderWithLabel(this UIHelperBase uIHelper, string text, float min, float max, float step, float defaultValue, OnValueChanged onValueChangedCallback)
+        public static UISlider AddSliderWithLabel(
+            this UIHelperBase uIHelper,
+            string text,
+            float min,
+            float max,
+            float step,
+            float defaultValue,
+            OnValueChanged onValueChangedCallback)
         {
             var spaceBetweenLabelAndSlider = 8f;
             var marginBottom = 16f;
 
-            var sliderControl = uIHelper.AddSlider(text, min, max, step, defaultValue, value => { }) as UISlider;
+            var sliderControl = uIHelper.AddSlider(text, min, max, step, defaultValue, _ => { }) as UISlider;
             var rootPanel = sliderControl!.parent as UIPanel;
             if (rootPanel is null)
                 throw new IsNullException(nameof(rootPanel));
@@ -33,7 +40,7 @@
 
             rootPanel.height = label.height + spaceBetweenLabelAndSlider + slider.height + marginBottom;
 
-            sliderControl.eventValueChanged += (comp, value) =>
+            sliderControl.eventValueChanged += (_, value) =>
             {
                 valueLabel.text = value.ToString();
                 onValueChangedCallback(value);

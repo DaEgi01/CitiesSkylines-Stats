@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageResource>
+  <LanguageTwoLetterCode>fr</LanguageTwoLetterCode>
+  <Version>1</Version>
+  <LocalizedItems>
+    <LocalizedItem>
+      <Key>Reset</Key>
+      <Value>Reset</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ResetPosition</Key>
+      <Value>Reset Position</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UpdateEveryXSeconds</Key>
+      <Value>Mise à jour tous les x seconds</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AutoHide</Key>
+      <Value>Caché Automatiquement la vue</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HideItemsBelowThreshold</Key>
+      <Value>Caché les elements en dessous du seuil</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HideItemsNotAvailable</Key>
+      <Value>Caché les elements inéxistants</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>BackgroundColor</Key>
+      <Value>Background color</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ForegroundColor</Key>
+      <Value>Foreground color</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AccentColor</Key>
+      <Value>Accent color</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>MainWindow</Key>
+      <Value>Ecran principal</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ColumnCount</Key>
+      <Value>Nombre de Colonne</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemWidth</Key>
+      <Value>Largeur de l'élement</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemHeight</Key>
+      <Value>Hauteur de l'élement</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemPadding</Key>
+      <Value>Espacement des élements</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextScale</Key>
+      <Value>Echelle du texte des élements</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Items</Key>
+      <Value>Elements</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Enabled</Key>
+      <Value>Activé</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CriticalThreshold</Key>
+      <Value>Seuil critique</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SortOrder</Key>
+      <Value>Ordonancement du tri </Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Electricity</Key>
+      <Value>Taux de consommation électrique</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Heating</Key>
+      <Value>Taux de consommation du chauffage</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Water</Key>
+      <Value>Taux de consommation d'eau</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SewageTreatment</Key>
+      <Value>Taux de traitement des eaux usées</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterReserveTank</Key>
+      <Value>Taux de vidange des réservoir d'eau</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceStorage</Key>
+      <Value>Taux d'utilisation des citernes d'eaux</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>WaterPumpingServiceVehicles</Key>
+      <Value>Camion citerne en utilisation</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Landfill</Key>
+      <Value>Taux d'utilisation des décharges</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>LandfillVehicles</Key>
+      <Value>Camion poubelle en utilisation</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Library</Key>
+      <Value>Taux d'utilisation des bibliothèques</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessing</Key>
+      <Value>Taux d'utilisation des décheteries</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GarbageProcessingVehicles</Key>
+      <Value>Camion de recyclage en utilisation</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ElementarySchool</Key>
+      <Value>Taux d'utilisation des écoles élementaires</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HighSchool</Key>
+      <Value>Taux d'utilisation des collèges</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>University</Key>
+      <Value>Taux d'utilisation des universités</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessCommercial</Key>
+      <Value>Taux des commerces mécontents</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessIndustrial</Key>
+      <Value>Taux des industries mécontents</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessOffice</Key>
+      <Value>Taux de travailleurs des bureaux mécontents</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>UnhappinessResidential</Key>
+      <Value>Taux de resident mécontent</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Healthcare</Key>
+      <Value>Taux d'Occupation des Cliniques &amp; hopitaux</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>HealthcareVehicles</Key>
+      <Value>Taux d'utilisation des ambulances</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>MedicalHelicopters</Key>
+      <Value>Taux d'utilisation d'hélicoptère medical</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageIllnessRate</Key>
+      <Value>Taux Moyen de personnes malades</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageChildrenIllnessRate</Key>
+      <Value>Taux Moyen d'enfants malades</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>AverageElderlyIllnessRate</Key>
+      <Value>Taux Moyen de personnes agées maladies</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Cemetery</Key>
+      <Value>Taux d'occupation des cimetières</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CemeteryVehicles</Key>
+      <Value>Taux d'utilisation des corbillards</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Crematorium</Key>
+      <Value>Taux d'utilisation des crématorium</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrematoriumVehicles</Key>
+      <Value>Taux d'utilisation des véhicules du Crematorium</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>TrafficJam</Key>
+      <Value>Densité du traffique</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>GroundPollution</Key>
+      <Value>Taux de pollution du sol</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DrinkingWaterPollution</Key>
+      <Value>Taux de pollution des eaux</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>NoisePollution</Key>
+      <Value>Taux de pollution sonnore</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireHazard</Key>
+      <Value>Taux de risque d'incendie</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireDepartmentVehicles</Key>
+      <Value>Taux d'utilisation des camions pompiers</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>FireHelicopters</Key>
+      <Value>Taux d'utilisation des hélicoptères bombardiers d'eau</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CrimeRate</Key>
+      <Value>Taux de criminalité</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHoldingCells</Key>
+      <Value>Taux d'occupation des cellules des postes de Police</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceVehicles</Key>
+      <Value>Taux d'utilisation des vehicules de Police</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PoliceHelicopters</Key>
+      <Value>Taux d'utilisation des hélicoptères de la police</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonCells</Key>
+      <Value>Taux d'occupation des Prisons</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PrisonVehicles</Key>
+      <Value>Taux d'utilisation des fourgons des Prisons</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Unemployment</Key>
+      <Value>Taux de Chômages</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>RoadMaintenanceVehicles</Key>
+      <Value>Taux d'utilisation des vehicules de maintenance des routes</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ParkMaintenanceVehicles</Key>
+      <Value>Taux d'utilisation des vehicules de maintenance des parks</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDump</Key>
+      <Value>Taux d'occupation du stockage des déblais neigeux</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>SnowDumpVehicles</Key>
+      <Value>Taux d'utilisation des déneigeuses</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>CityUnattractiveness</Key>
+      <Value>Taux d'attractivité de la ville</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Taxis</Key>
+      <Value>Taux d'utilisation des taxis</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostVans</Key>
+      <Value>Taux d'utilisation des vans de la poste</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>PostTrucks</Key>
+      <Value>Taux d'utilisation des camions de la poste</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseVehicles</Key>
+      <Value>Taux d'utilisation des vehicules de prevention des désastres</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>DisasterResponseHelicopters</Key>
+      <Value>Taux d'utilisation des hélicoptères de prevention des désastres</Value>
+    </LocalizedItem>
+  </LocalizedItems>
+</LanguageResource>

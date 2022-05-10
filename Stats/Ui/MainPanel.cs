@@ -242,14 +242,9 @@
 
         private Vector2 CalculateNextLayoutPosition(Vector2 position)
         {
-            if (position.x < _configuration.MainPanelColumnCount - 1)
-            {
-                return new Vector2(position.x + 1, position.y);
-            }
-            else
-            {
-                return new Vector2(0, position.y + 1);
-            }
+            return position.x < _configuration.MainPanelColumnCount - 1
+                ? new Vector2(position.x + 1, position.y)
+                : new Vector2(0, position.y + 1);
         }
 
         private Vector3 CalculateRelativePosition(Vector2 layoutPosition)

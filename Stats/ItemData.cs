@@ -60,7 +60,7 @@
 
         static ItemData()
         {
-            var allItems = new ItemData[]
+            var allItems = new[]
             {
                 AverageIllnessRate,
                 AverageChildrenIllnessRate,
@@ -124,6 +124,9 @@
 
         /// <param name="index">Used as index in an array.</param>
         /// <param name="name">Must be a unique string.</param>
+        /// <param name="icon">Sprite name of the icon.</param>
+        /// <param name="infoMode">InfoMode of the Item.</param>
+        /// <param name="subInfoMode">SubInfoMode of the Item.</param>
         private ItemData(
             int index,
             string name,

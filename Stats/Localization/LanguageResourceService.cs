@@ -45,11 +45,11 @@
         private string GetExpectedFileFullName(string languageTwoLetterCode)
         {
             var publishedFileId = new PublishedFileId(_modInfo.WorkshopId);
-            var plugin = _pluginManager.GetPluginsInfo()
-                .Where(x =>
+            var plugin = _pluginManager
+                .GetPluginsInfo()
+                .FirstOrDefault(x =>
                     x.name == _modInfo.DisplayName
-                    || x.publishedFileID == publishedFileId)
-                .FirstOrDefault();
+                    || x.publishedFileID == publishedFileId);
 
             return Path.Combine(
                 plugin.modPath,

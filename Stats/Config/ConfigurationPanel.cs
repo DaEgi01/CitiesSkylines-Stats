@@ -57,7 +57,6 @@
 
             mainGroupUiHelper.AddButton(_languageResource.Reset, () =>
             {
-                string? oldSelectedItemName = _selectedItem?.Name;
                 _configuration.Reset();
                 UpdateUiFromModel();
 
@@ -245,8 +244,7 @@
                 }
 
                 var itemPanel = MainPanel.ItemPanelsInDisplayOrder
-                    .Where(x => x.ConfigurationItemData.ItemData == _selectedItem)
-                    .FirstOrDefault();
+                    .FirstOrDefault(x => x.ConfigurationItemData.ItemData == _selectedItem);
 
                 if (itemPanel is null)
                 {
@@ -258,7 +256,13 @@
             }) as UICheckBox;
             itemGroupUiHelper.AddSpace(_space);
 
-            _criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(_languageResource.CriticalThreshold, 0, 100, 1, initialConfigurationItemData.CriticalThreshold, value =>
+            _criticalThresholdSlider = itemGroupUiHelper.AddSliderWithLabel(
+                _languageResource.CriticalThreshold,
+                0,
+                100,
+                1,
+                initialConfigurationItemData.CriticalThreshold,
+                value =>
             {
                 var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
                 configurationItemData.CriticalThreshold = (int)value;
@@ -268,8 +272,7 @@
                     return;
 
                 var itemPanel = MainPanel.ItemPanelsInDisplayOrder
-                    .Where(x => x.ConfigurationItemData.ItemData == _selectedItem)
-                    .FirstOrDefault();
+                    .FirstOrDefault(x => x.ConfigurationItemData.ItemData == _selectedItem);
 
                 if (itemPanel is null)
                     return;
@@ -278,8 +281,8 @@
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             });
 
-            _sortOrderTextField = itemGroupUiHelper.AddTextfield(_languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), (v) => { }, v =>
-             {
+            _sortOrderTextField = itemGroupUiHelper.AddTextfield(_languageResource.SortOrder, initialConfigurationItemData.SortOrder.ToString(), _ => { }, v =>
+            {
                  var configurationItemData = _configuration.GetConfigurationItemData(_selectedItem);
                  configurationItemData.SortOrder = int.Parse(v);
                  _configuration.Save();
@@ -288,7 +291,7 @@
                  {
                      MainPanel.UpdateSortOrder();
                  }
-             }) as UITextField;
+            }) as UITextField;
             _sortOrderTextField!.numericalOnly = true;
         }
 

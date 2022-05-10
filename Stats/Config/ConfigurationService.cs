@@ -24,6 +24,9 @@
 
         public void Save(T configuration)
         {
+            if (configuration is null)
+                throw new ArgumentNullException(nameof(configuration));
+
             using var streamWriter = new StreamWriter(ConfigurationFileFullName);
             _xmlSerializer.Serialize(streamWriter, configuration);
         }

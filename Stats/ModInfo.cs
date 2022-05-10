@@ -22,9 +22,7 @@
             var systemNameHasInvalidPathChars = Path.GetInvalidPathChars()
                 .Any(c => systemNameCharArray.Contains(c));
             if (systemNameHasInvalidPathChars)
-            {
                 throw new ArgumentException("Please only use valid path characters.", nameof(systemName));
-            }
 
             _systemName = systemName;
             _displayName = displayName ?? throw new ArgumentNullException(nameof(displayName));

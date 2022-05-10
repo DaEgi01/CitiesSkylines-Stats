@@ -49,7 +49,7 @@ namespace StatsTest
         [Theory]
         [InlineData(true, false, true, 50, 10)]
         [InlineData(true, true, true, 50, 10)]
-        public void GetItemVisibility_Should_BeFalse_When_EnabledHideItemsBelowThresholdTrueAndPercentBelowThreshhold(
+        public void GetItemVisibility_Should_BeFalse_When_EnabledHideItemsBelowThresholdTrueAndPercentBelowThreshold(
             bool enabled,
             bool hideItemsNotAvailable,
             bool hideItemsBelowThreshold,
