@@ -53,12 +53,12 @@
       <Value>Werticongröße</Value>
     </LocalizedItem>
     <LocalizedItem>
-      <Key>ItemTextScale</Key>
-      <Value>Werttextskalierung</Value>
-    </LocalizedItem>
-    <LocalizedItem>
       <Key>ItemPadding</Key>
       <Value>Werteabstand</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>ItemTextScale</Key>
+      <Value>Werttextskalierung</Value>
     </LocalizedItem>
     <LocalizedItem>
       <Key>ItemTextPosition</Key>
