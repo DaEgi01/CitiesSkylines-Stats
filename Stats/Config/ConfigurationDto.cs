@@ -12,9 +12,9 @@
         public bool MainPanelHideItemsBelowThreshold { get; set; } = true;
         public bool MainPanelHideItemsNotAvailable { get; set; } = false;
         public int MainPanelColumnCount { get; set; } = 2;
-        public string MainPanelBackgroundColor { get; set; } = "50, 50, 50, 255";
-        public string MainPanelForegroundColor { get; set; } = "255, 255, 255, 255";
-        public string MainPanelAccentColor { get; set; } = "230, 65, 65, 255";
+        public string MainPanelBackgroundColor { get; set; } = "50,50,50,255";
+        public string MainPanelForegroundColor { get; set; } = "255,255,255,255";
+        public string MainPanelAccentColor { get; set; } = "230,65,65,255";
 
         public float ItemPadding { get; set; } = 8f;
         public float ItemIconSize { get; set; } = 20f;
