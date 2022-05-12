@@ -68,12 +68,6 @@
             return result;
         }
 
-        public void Save()
-        {
-            var dto = GetConfigurationDto();
-            _configurationService.Save(dto);
-        }
-
         public void Reset()
         {
             var dto = new ConfigurationDto();
@@ -85,6 +79,12 @@
         {
             MainPanelPosition = Vector2.zero;
             Save();
+        }
+
+        public void Save()
+        {
+            var dto = GetConfigurationDto();
+            _configurationService.Save(dto);
         }
 
         public ConfigurationDto GetConfigurationDto()

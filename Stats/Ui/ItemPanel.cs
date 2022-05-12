@@ -176,9 +176,12 @@
             if (isVisible && _configuration.ItemTextPosition != ItemTextPosition.None)
             {
                 _percentButton.text = _percentStringCache.GetPercentString(percent);
-                _percentButton.textColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
-                _percentButton.focusedColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
-                _percentButton.focusedTextColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
+
+                var foregroundColor = GetItemTextColor(percent, _configurationItemData.CriticalThreshold);
+
+                _percentButton.textColor = foregroundColor;
+                _percentButton.focusedColor = foregroundColor;
+                _percentButton.focusedTextColor = foregroundColor;
                 _percentButton.hoveredTextColor = GetItemHoveredTextColor(percent, _configurationItemData.CriticalThreshold);
             }
 
