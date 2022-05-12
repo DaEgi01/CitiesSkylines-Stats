@@ -57,7 +57,7 @@
 
         private int GetIndex(int value)
         {
-            return value + _maxValue;
+            return value - _minValue;
         }
     }
 }

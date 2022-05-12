@@ -30,6 +30,12 @@ namespace StatsTest
         [InlineData(-10, 10, -10, "-10%")]
         [InlineData(-10, 10, 100, ">10%")]
         [InlineData(-10, 10, -100, "<-10%")]
+        [InlineData(0, 999, -1, "<0%")]
+        [InlineData(0, 999, 0, "0%")]
+        [InlineData(0, 999, 1, "1%")]
+        [InlineData(0, 999, 500, "500%")]
+        [InlineData(0, 999, 999, "999%")]
+        [InlineData(0, 999, 1000, ">999%")]
         public void GetPercentString_Should_ReturnString(int minValue, int maxValue, int? value, string expected)
         {
             var sut = new PercentStringCache(minValue, maxValue);
