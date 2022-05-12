@@ -44,7 +44,7 @@
 
             color = configuration.MainPanelBackgroundColor;
             name = modSystemName + "MainPanel";
-            backgroundSprite = "GenericPanelLight";
+            backgroundSprite = "GenericPanelWhite";
             isInteractive = false;
 
             CreateAndAddDragHandle();
@@ -111,13 +111,16 @@
 
         public override void Update()
         {
-            if (_configuration.MainPanelAutoHide && !containsMouse)
+            if (_configuration.MainPanelAutoHide)
             {
-                opacity = 0;
-            }
-            else
-            {
-                opacity = 1;
+                if (containsMouse)
+                {
+                    opacity = _configuration.MainPanelBackgroundColor.a / (float)byte.MaxValue;
+                }
+                else
+                {
+                    opacity = 0f;
+                }
             }
         }
 
@@ -181,6 +184,15 @@
             for (int i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
             {
                 _itemPanelsInDisplayOrder[i].UpdateLocalization();
+            }
+        }
+
+        public void UpdateMainPanelAndItemColors()
+        {
+            color = _configuration.MainPanelBackgroundColor;
+            for (int i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
+            {
+                _itemPanelsInDisplayOrder[i].UpdatePercentVisibilityAndColor();
             }
         }
 

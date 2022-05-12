@@ -63,6 +63,7 @@
                 if (MainPanel is null)
                     return;
 
+                MainPanel.UpdateMainPanelAndItemColors();
                 MainPanel.UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
                 MainPanel.UpdatePanelLayoutAndPanelSizeAndClampToScreen();
                 MainPanel.UpdatePosition();
