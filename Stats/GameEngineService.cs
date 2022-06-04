@@ -292,16 +292,20 @@
 
         public int? GetAverageIllnessRate()
         {
-            return _districtManager.m_districts.m_buffer[0].GetSickCount() == 0
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return globalDistrict.GetSickCount() == 0
                 ? null
-                : (int)(100 - (float)_districtManager.m_districts.m_buffer[0].m_residentialData.m_finalHealth);
+                : (int)(100 - (float)globalDistrict.m_residentialData.m_finalHealth);
         }
 
         public int? GetAverageChildrenIllnessRate()
         {
-            var childrenAndTeensCount = _districtManager.m_districts.m_buffer[0].m_childData.m_finalCount
-                + _districtManager.m_districts.m_buffer[0].m_teenData.m_finalCount;
-            var sickChildrenAndTeensCount = _districtManager.m_districts.m_buffer[0].m_childHealthData.m_finalCount;
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            var childrenAndTeensCount = globalDistrict.m_childData.m_finalCount
+                + globalDistrict.m_teenData.m_finalCount;
+            var sickChildrenAndTeensCount = globalDistrict.m_childHealthData.m_finalCount;
 
             return childrenAndTeensCount == 0
                 ? null
@@ -310,8 +314,10 @@
 
         public int? GetAverageElderlyIllnessRate()
         {
-            var elderlyCount = _districtManager.m_districts.m_buffer[0].m_seniorData.m_finalCount;
-            var sickElderlyCount = _districtManager.m_districts.m_buffer[0].m_seniorHealthData.m_finalCount;
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            var elderlyCount = globalDistrict.m_seniorData.m_finalCount;
+            var sickElderlyCount = globalDistrict.m_seniorHealthData.m_finalCount;
 
             return elderlyCount == 0
                 ? null
@@ -320,9 +326,9 @@
 
         public int? GetCemeteryPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetDeadCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetDeadAmount());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetDeadCapacity(), globalDistrict.GetDeadAmount());
         }
 
         public int? GetHealthCareVehiclesPercent()
@@ -477,9 +483,9 @@
 
         public int? GetCrematoriumPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetCremateCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetDeadCount());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetCremateCapacity(), globalDistrict.GetDeadCount());
         }
 
         public int? GetCrimeRatePercent()
@@ -552,16 +558,18 @@
 
         public int? GetElectricityPercent()
         {
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
             return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetElectricityCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetElectricityConsumption());
+                globalDistrict.GetElectricityCapacity(),
+                globalDistrict.GetElectricityConsumption());
         }
 
         public int? GetElementarySchoolPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetEducation1Capacity(),
-                _districtManager.m_districts.m_buffer[0].GetEducation1Need());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetEducation1Capacity(), globalDistrict.GetEducation1Need());
         }
 
         public int? GetFireDepartmentVehiclesPercent()
@@ -636,8 +644,10 @@
 
         public int? GetGarbageProcessingPercent()
         {
-            var incineratorCapacity = _districtManager.m_districts.m_buffer[0].GetIncinerationCapacity();
-            var incineratorAccumulation = _districtManager.m_districts.m_buffer[0].GetGarbageAccumulation();
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            var incineratorCapacity = globalDistrict.GetIncinerationCapacity();
+            var incineratorAccumulation = globalDistrict.GetGarbageAccumulation();
 
             return GetUsagePercent(incineratorCapacity, incineratorAccumulation);
         }
@@ -718,9 +728,9 @@
 
         public int? GetLibraryPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetLibraryCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetLibraryVisitorCount());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetLibraryCapacity(), globalDistrict.GetLibraryVisitorCount());
         }
 
         public int? GetGroundPollutionPercent()
@@ -730,29 +740,34 @@
 
         public int? GetHealthCarePercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetHealCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetSickCount());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetHealCapacity(), globalDistrict.GetSickCount());
         }
 
         public int? GetHeatingPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetHeatingCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetHeatingConsumption());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetHeatingCapacity(), globalDistrict.GetHeatingConsumption());
         }
 
         public int? GetHighSchoolPercent()
         {
-            var highSchoolCapacity = _districtManager.m_districts.m_buffer[0].GetEducation2Capacity();
-            var highSchoolUsage = _districtManager.m_districts.m_buffer[0].GetEducation2Need();
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            var highSchoolCapacity = globalDistrict.GetEducation2Capacity();
+            var highSchoolUsage = globalDistrict.GetEducation2Need();
+
             return GetUsagePercent(highSchoolCapacity, highSchoolUsage);
         }
 
         public int? GetLandfillPercent()
         {
-            var garbageCapacity = _districtManager.m_districts.m_buffer[0].GetGarbageCapacity();
-            var garbageAmout = _districtManager.m_districts.m_buffer[0].GetGarbageAmount();
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            var garbageCapacity = globalDistrict.GetGarbageCapacity();
+            var garbageAmout = globalDistrict.GetGarbageAmount();
 
             return GetUsagePercent(garbageCapacity, garbageAmout);
         }
@@ -1275,9 +1290,9 @@
 
         public int? GetSewageTreatmentPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetSewageCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetSewageAccumulation());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetSewageCapacity(), globalDistrict.GetSewageAccumulation());
         }
 
         public int? GetTrafficJamPercent()
@@ -1312,16 +1327,16 @@
 
         public int? GetUniversityPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetEducation3Capacity(),
-                _districtManager.m_districts.m_buffer[0].GetEducation3Need());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetEducation3Capacity(), globalDistrict.GetEducation3Need());
         }
 
         public int? GetWaterPercent()
         {
-            return GetUsagePercent(
-                _districtManager.m_districts.m_buffer[0].GetWaterCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetWaterConsumption());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetUsagePercent(globalDistrict.GetWaterCapacity(), globalDistrict.GetWaterConsumption());
         }
 
         public int? GetWaterPumpingServiceStoragePercent()
@@ -1403,9 +1418,9 @@
 
         public int? GetWaterReserveTanksPercent()
         {
-            return GetAvailabilityPercent(
-                _districtManager.m_districts.m_buffer[0].GetWaterStorageCapacity(),
-                _districtManager.m_districts.m_buffer[0].GetWaterStorageAmount());
+            ref District globalDistrict = ref _districtManager.m_districts.m_buffer[0];
+
+            return GetAvailabilityPercent(globalDistrict.GetWaterStorageCapacity(), globalDistrict.GetWaterStorageAmount());
         }
 
         private static int? GetAvailabilityPercent(long capacity, long need)
