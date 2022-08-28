@@ -9,19 +9,17 @@
                 return false;
             }
 
-            if (percent.HasValue)
-            {
-                if (hideItemsBelowThreshold)
-                {
-                    return threshold < percent.Value;
-                }
-
-                return true;
-            }
-            else
+            if (!percent.HasValue)
             {
                 return !hideItemsNotAvailable;
             }
+
+            if (hideItemsBelowThreshold)
+            {
+                return threshold < percent.Value;
+            }
+
+            return true;
         }
     }
 }
