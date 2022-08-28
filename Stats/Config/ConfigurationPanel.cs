@@ -38,7 +38,7 @@
             Configuration configuration,
             LanguageResource languageResource)
         {
-            if (_uiHelperBase is null)
+            if (uiHelperBase is null)
                 throw new ArgumentNullException(nameof(uiHelperBase));
             if (modInfo is null)
                 throw new ArgumentNullException(nameof(modInfo));
