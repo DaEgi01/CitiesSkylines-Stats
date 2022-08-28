@@ -1,9 +1,14 @@
 ﻿namespace Stats.Config
 {
+    using System;
+
     public class ConfigurationItemData
     {
         public ConfigurationItemData(ItemData itemData, bool enabled, int criticalThreshold, int sortOrder)
         {
+            if (itemData is null)
+                throw new ArgumentNullException(nameof(itemData));
+
             ItemData = itemData;
             Enabled = enabled;
             CriticalThreshold = criticalThreshold;

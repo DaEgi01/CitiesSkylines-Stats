@@ -18,10 +18,19 @@
             Dictionary<string, string> localizedStrings,
             string fallbackLanguageTwoLetterCode)
         {
-            _currentLanguage = currentLanguage ?? throw new ArgumentNullException(nameof(currentLanguage));
-            _languageResourceService = languageResourceService ?? throw new ArgumentNullException(nameof(languageResourceService));
-            _localizedStrings = localizedStrings ?? throw new ArgumentNullException(nameof(localizedStrings));
-            _fallbackLanguageTwoLetterCode = fallbackLanguageTwoLetterCode ?? throw new ArgumentNullException(nameof(fallbackLanguageTwoLetterCode));
+            if (languageResourceService is null)
+                throw new ArgumentNullException(nameof(languageResourceService));
+            if (currentLanguage is null)
+                throw new ArgumentNullException(nameof(currentLanguage));
+            if (localizedStrings is null)
+                throw new ArgumentNullException(nameof(localizedStrings));
+            if (fallbackLanguageTwoLetterCode is null)
+                throw new ArgumentNullException(nameof(fallbackLanguageTwoLetterCode));
+
+            _currentLanguage = currentLanguage;
+            _languageResourceService = languageResourceService;
+            _localizedStrings = localizedStrings;
+            _fallbackLanguageTwoLetterCode = fallbackLanguageTwoLetterCode;
         }
 
         public string CurrentLanguage => _currentLanguage;

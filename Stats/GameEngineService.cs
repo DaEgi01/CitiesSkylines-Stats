@@ -24,19 +24,14 @@
         {
             if (districtManager is null)
                 throw new ArgumentNullException(nameof(districtManager));
-
             if (buildingManager is null)
                 throw new ArgumentNullException(nameof(buildingManager));
-
             if (economyManager is null)
                 throw new ArgumentNullException(nameof(economyManager));
-
             if (immaterialResourceManager is null)
                 throw new ArgumentNullException(nameof(immaterialResourceManager));
-
             if (citizenManager is null)
                 throw new ArgumentNullException(nameof(citizenManager));
-
             if (vehicleManager is null)
                 throw new ArgumentNullException(nameof(vehicleManager));
 

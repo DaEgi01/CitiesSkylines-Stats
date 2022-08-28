@@ -30,17 +30,30 @@
             InfoManager infoManager,
             PercentStringCache percentStringCache)
         {
-            _modSystemName = modSystemName ?? throw new ArgumentNullException(nameof(modSystemName));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            if (modSystemName is null)
+                throw new ArgumentNullException(nameof(modSystemName));
+            if (configuration is null)
+                throw new ArgumentNullException(nameof(configuration));
+            if (languageResource is null)
+                throw new ArgumentNullException(nameof(languageResource));
+            if (gameEngineService is null)
+                throw new ArgumentNullException(nameof(gameEngineService));
+            if (infoManager is null)
+                throw new ArgumentNullException(nameof(infoManager));
+            if (percentStringCache is null)
+                throw new ArgumentNullException(nameof(percentStringCache));
+
+            _modSystemName = modSystemName;
+            _configuration = configuration;
+            _languageResource = languageResource;
+            _gameEngineService = gameEngineService;
+            _infoManager = infoManager;
+            _percentStringCache = percentStringCache;
+
             if (_configuration.MainPanelColumnCount < 1)
             {
                 throw new Exception($"'{nameof(_configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
-
-            _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
-            _gameEngineService = gameEngineService ?? throw new ArgumentNullException(nameof(gameEngineService));
-            _infoManager = infoManager;
-            _percentStringCache = percentStringCache;
 
             color = configuration.MainPanelBackgroundColor;
             name = modSystemName + "MainPanel";

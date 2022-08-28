@@ -38,10 +38,19 @@
             Configuration configuration,
             LanguageResource languageResource)
         {
-            _uiHelperBase = uiHelperBase ?? throw new ArgumentNullException(nameof(uiHelperBase));
-            _modInfo = modInfo ?? throw new ArgumentNullException(nameof(modInfo));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _languageResource = languageResource ?? throw new ArgumentNullException(nameof(languageResource));
+            if (_uiHelperBase is null)
+                throw new ArgumentNullException(nameof(uiHelperBase));
+            if (modInfo is null)
+                throw new ArgumentNullException(nameof(modInfo));
+            if (configuration is null)
+                throw new ArgumentNullException(nameof(configuration));
+            if (languageResource is null)
+                throw new ArgumentNullException(nameof(languageResource));
+
+            _uiHelperBase = uiHelperBase;
+            _modInfo = modInfo;
+            _configuration = configuration;
+            _languageResource = languageResource;
         }
 
         public MainPanel? MainPanel { get; set; }

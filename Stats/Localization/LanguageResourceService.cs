@@ -16,7 +16,6 @@
         {
             if (modInfo is null)
                 throw new ArgumentNullException(nameof(modInfo));
-
             if (pluginManager is null)
                 throw new ArgumentNullException(nameof(pluginManager));
 

@@ -14,9 +14,11 @@
         public ModInfo(string systemName, string displayName, string version, ulong workshopId)
         {
             if (systemName is null)
-            {
                 throw new ArgumentNullException(nameof(systemName));
-            }
+            if (displayName is null)
+                throw new ArgumentNullException(nameof(displayName));
+            if (version is null)
+                throw new ArgumentNullException(nameof(version));
 
             var systemNameCharArray = systemName.ToCharArray();
             var systemNameHasInvalidPathChars = Path.GetInvalidPathChars()
@@ -25,8 +27,8 @@
                 throw new ArgumentException("Please only use valid path characters.", nameof(systemName));
 
             _systemName = systemName;
-            _displayName = displayName ?? throw new ArgumentNullException(nameof(displayName));
-            _version = version ?? throw new ArgumentNullException(nameof(version));
+            _displayName = displayName;
+            _version = version;
             _workshopId = workshopId;
         }
 

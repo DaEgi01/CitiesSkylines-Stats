@@ -10,8 +10,10 @@
 
         public ConfigurationService(string configurationFileFullName)
         {
-            ConfigurationFileFullName = configurationFileFullName
-                ?? throw new ArgumentNullException(nameof(configurationFileFullName));
+            if (configurationFileFullName is null)
+                throw new ArgumentNullException(nameof(configurationFileFullName));
+
+            ConfigurationFileFullName = configurationFileFullName;
         }
 
         public string ConfigurationFileFullName { get; }

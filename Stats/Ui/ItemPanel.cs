@@ -34,19 +34,14 @@
         {
             if (configuration is null)
                 throw new ArgumentNullException(nameof(configuration));
-
             if (configurationItemData is null)
                 throw new ArgumentNullException(nameof(configurationItemData));
-
             if (languageResource is null)
                 throw new ArgumentNullException(nameof(languageResource));
-
             if (gameEngineService is null)
                 throw new ArgumentNullException(nameof(gameEngineService));
-
             if (infoManager is null)
                 throw new ArgumentNullException(nameof(infoManager));
-
             if (percentStringCache is null)
                 throw new ArgumentNullException(nameof(percentStringCache));
 

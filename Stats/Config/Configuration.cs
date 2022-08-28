@@ -12,14 +12,9 @@
         public Configuration(ConfigurationService<ConfigurationDto> configurationService, ConfigurationDto dto)
         {
             if (configurationService is null)
-            {
                 throw new ArgumentNullException(nameof(configurationService));
-            }
-
             if (dto is null)
-            {
                 throw new ArgumentNullException(nameof(dto));
-            }
 
             _configurationService = configurationService;
 

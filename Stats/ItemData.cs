@@ -137,12 +137,19 @@
             InfoManager.SubInfoMode subInfoMode,
             Func<GameEngineService, int?> getPercentFunc)
         {
+            if (name is null)
+                throw new ArgumentNullException(nameof(name));
+            if (icon is null)
+                throw new ArgumentNullException(nameof(icon));
+            if (getPercentFunc is null)
+                throw new ArgumentNullException(nameof(getPercentFunc));
+
             Index = index;
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Icon = icon ?? throw new ArgumentNullException(nameof(icon));
+            Name = name;
+            Icon = icon;
             InfoMode = infoMode;
             SubInfoMode = subInfoMode;
-            GetPercentFunc = getPercentFunc ?? throw new ArgumentNullException(nameof(getPercentFunc));
+            GetPercentFunc = getPercentFunc;
         }
 
         public static ReadOnlyCollection<ItemData> AllItems { get; }
