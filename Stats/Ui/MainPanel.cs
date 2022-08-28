@@ -236,8 +236,10 @@
 
         private void CreateAndAddAllUiItems()
         {
+            var mapHasSnowDumps = GameEngineService.HasMapSnowDumps();
+
             _itemPanelsInDisplayOrder = ItemData.AllItems
-                .Where(i => _gameEngineService.MapHasSnowDumps || (i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles))
+                .Where(i => mapHasSnowDumps || (i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles))
                 .Select(i => CreateUiItemAndAddButtons(
                     _configuration.GetConfigurationItemData(i),
                     _infoManager,

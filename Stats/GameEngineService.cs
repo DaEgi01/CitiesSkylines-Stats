@@ -41,28 +41,22 @@
             _immaterialResourceManager = immaterialResourceManager;
             _citizenManager = citizenManager;
             _vehicleManager = vehicleManager;
-
-            _mapHasSnowDumps = CheckIfMapHasSnowDumps();
         }
 
-        public bool MapHasSnowDumps => _mapHasSnowDumps;
-
-        public static bool CheckIfMapHasSnowDumps()
+        public static bool HasMapSnowDumps()
         {
-            var result = false;
-
             var loadedCount = PrefabCollection<BuildingInfo>.LoadedCount();
             for (uint i = 0; i < loadedCount; i++)
             {
                 var bi = PrefabCollection<BuildingInfo>.GetLoaded(i);
-                if (bi != null && bi.m_buildingAI is SnowDumpAI)
-                {
-                    result = true;
-                    break;
-                }
+                if (bi is null)
+                    continue;
+
+                if (bi.m_buildingAI is SnowDumpAI)
+                    return true;
             }
 
-            return result;
+            return false;
         }
 
         public int? GetAverageIllnessRate()
