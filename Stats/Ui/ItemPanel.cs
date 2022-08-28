@@ -12,8 +12,8 @@
         private Configuration? _configuration;
         private ConfigurationItemData? _configurationItemData;
         private LanguageResource? _languageResource;
-        private Func<int?>? _getPercentFromGame;
         private InfoManager? _infoManager;
+        private GameEngineService? _gameEngineService;
         private PercentStringCache? _percentStringCache;
 
         private UIButton? _iconButton;
@@ -28,7 +28,7 @@
             Configuration configuration,
             ConfigurationItemData configurationItemData,
             LanguageResource languageResource,
-            Func<int?> getPercentFromGame,
+            GameEngineService gameEngineService,
             InfoManager infoManager,
             PercentStringCache percentStringCache)
         {
@@ -41,8 +41,8 @@
             if (languageResource is null)
                 throw new ArgumentNullException(nameof(languageResource));
 
-            if (getPercentFromGame is null)
-                throw new ArgumentNullException(nameof(getPercentFromGame));
+            if (gameEngineService is null)
+                throw new ArgumentNullException(nameof(gameEngineService));
 
             if (infoManager is null)
                 throw new ArgumentNullException(nameof(infoManager));
@@ -53,7 +53,7 @@
             _configuration = configuration;
             _configurationItemData = configurationItemData;
             _languageResource = languageResource;
-            _getPercentFromGame = getPercentFromGame;
+            _gameEngineService = gameEngineService;
             _infoManager = infoManager;
             _percentStringCache = percentStringCache;
 
@@ -170,7 +170,7 @@
         /// <returns>True if visibility changed.</returns>
         public ItemVisibilityAndChanged UpdatePercentVisibilityAndColor()
         {
-            var percent = _getPercentFromGame();
+            var percent = _configurationItemData.ItemData.GetPercentFunc(_gameEngineService);
             var oldVisiblity = isVisible;
             isVisible = ItemHelper.GetItemVisibility(_configurationItemData.Enabled, _configuration.MainPanelHideItemsNotAvailable, _configuration.MainPanelHideItemsBelowThreshold, _configurationItemData.CriticalThreshold, percent);
             if (isVisible && _configuration.ItemTextPosition != ItemTextPosition.None)

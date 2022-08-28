@@ -227,7 +227,6 @@
                 .Where(i => _gameEngineService.MapHasSnowDumps || (i != ItemData.SnowDump && i != ItemData.SnowDumpVehicles))
                 .Select(i => CreateUiItemAndAddButtons(
                     _configuration.GetConfigurationItemData(i),
-                    _gameEngineService.GetPercentFunc(i),
                     _infoManager,
                     _percentStringCache))
                 .OrderBy(x => x.ConfigurationItemData.SortOrder)
@@ -236,12 +235,11 @@
 
         private ItemPanel CreateUiItemAndAddButtons(
             ConfigurationItemData configurationItemData,
-            Func<int?> getPercentFromGame,
             InfoManager infoManager,
             PercentStringCache percentStringCache)
         {
             var itemPanel = CreateAndAddItemPanel();
-            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, getPercentFromGame, infoManager, percentStringCache);
+            itemPanel.Initialize(_configuration, configurationItemData, _languageResource, _gameEngineService, infoManager, percentStringCache);
             return itemPanel;
         }
 
