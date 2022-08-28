@@ -7,6 +7,7 @@
     using ColossalFramework.Plugins;
     using ColossalFramework.UI;
     using ICities;
+    using JetBrains.Annotations;
     using Stats.Config;
     using Stats.Localization;
     using Stats.Ui;
@@ -29,6 +30,7 @@
         public string Name => _modInfo.DisplayName;
         public string Description => "Adds a configurable panel to display all vital city stats at a glance.";
 
+        [UsedImplicitly]
         public void OnEnabled()
         {
             InitializeDependencies();
@@ -39,6 +41,7 @@
             }
         }
 
+        [UsedImplicitly]
         public void OnDisabled()
         {
             if (LoadingManager.exists && LoadingManager.instance.m_loadingComplete)
@@ -64,6 +67,7 @@
             DestroyMainPanel();
         }
 
+        [UsedImplicitly]
         public void OnSettingsUI(UIHelperBase helper)
         {
             _configurationPanel = new ConfigurationPanel(
