@@ -7,9 +7,9 @@
     {
         public LoadLanguageResult(string language, Dictionary<string, string> localizedStrings)
         {
-            if (Language is null)
+            if (language is null)
                 throw new ArgumentNullException(nameof(language));
-            if (LocalizedStrings is null)
+            if (localizedStrings is null)
                 throw new ArgumentNullException(nameof(localizedStrings));
 
             Language = language;
