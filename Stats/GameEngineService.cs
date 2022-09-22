@@ -12,8 +12,6 @@
         private readonly CitizenManager _citizenManager;
         private readonly VehicleManager _vehicleManager;
 
-        private readonly bool _mapHasSnowDumps;
-
         public GameEngineService(
             DistrictManager districtManager,
             BuildingManager buildingManager,
@@ -978,11 +976,6 @@
 
         public int? GetSnowDumpPercent()
         {
-            if (!_mapHasSnowDumps)
-            {
-                return null;
-            }
-
             var snowDumpStorageTotal = 0;
             var snowDumpStorageInUse = 0;
 
@@ -1018,9 +1011,6 @@
 
         public int? GetSnowDumpVehiclesPercent()
         {
-            if (!_mapHasSnowDumps)
-                return null;
-
             var snowDumpVehiclesTotal = 0;
             var snowDumpVehiclesInUse = 0;
 
