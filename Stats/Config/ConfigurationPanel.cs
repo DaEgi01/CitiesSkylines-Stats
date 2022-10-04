@@ -121,6 +121,9 @@
                 var colorFieldOutOfGameLabel = mainPanelGroupContentPanel.AddUIComponent<UILabel>();
                 colorFieldOutOfGameLabel.text = "Colors can only be changed during gameplay.";
                 colorFieldOutOfGameLabel.textScale = 1.125f;
+
+                var colorFieldOutOfGameHelper = new UIHelper(mainPanelGroupContentPanel);
+                colorFieldOutOfGameHelper.AddSpace(_space);
             }
 
             _mainWindowTransparency = mainPanelGroupUiHelper.AddSliderWithLabel(
