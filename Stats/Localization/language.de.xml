@@ -13,6 +13,14 @@
       <Value>Position zurücksetzen</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>ColorChangeDuringGameplay</Key>
+      <Value>Die Farben können nur im Spiel geändert werden.</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Transparency</Key>
+      <Value>Transparenz</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>UpdateEveryXSeconds</Key>
       <Value>Alle x sekunden aktualisieren</Value>
     </LocalizedItem>

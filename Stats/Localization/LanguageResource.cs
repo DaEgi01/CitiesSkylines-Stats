@@ -37,6 +37,8 @@
 
         public string Reset => _localizedStrings["Reset"];
         public string ResetPosition => _localizedStrings["ResetPosition"];
+        public string ColorChangeDuringGameplay => _localizedStrings["ColorChangeDuringGameplay"];
+        public string Transparency => _localizedStrings["Transparency"];
         public string UpdateEveryXSeconds => _localizedStrings["UpdateEveryXSeconds"];
         public string AutoHide => _localizedStrings["AutoHide"];
         public string HideItemsBelowThreshold => _localizedStrings["HideItemsBelowThreshold"];

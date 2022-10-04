@@ -22,7 +22,7 @@
         private UIColorField? _accentColorField;
         private UIColorField? _foregroundColorField;
         private UIColorField? _backgroundColorField;
-        private UISlider? _mainWindowTransparency;
+        private UISlider? _backgroundTransparency;
         private UISlider? _updateEveryXSeconds;
         private UISlider? _columnCountSlider;
         private UISlider? _itemIconSizeSlider;
@@ -119,15 +119,15 @@
             else
             {
                 var colorFieldOutOfGameLabel = mainPanelGroupContentPanel.AddUIComponent<UILabel>();
-                colorFieldOutOfGameLabel.text = "Colors can only be changed during gameplay.";
+                colorFieldOutOfGameLabel.text = _languageResource.ColorChangeDuringGameplay;
                 colorFieldOutOfGameLabel.textScale = 1.125f;
 
                 var colorFieldOutOfGameHelper = new UIHelper(mainPanelGroupContentPanel);
                 colorFieldOutOfGameHelper.AddSpace(_space);
             }
 
-            _mainWindowTransparency = mainPanelGroupUiHelper.AddSliderWithLabel(
-                "Transparency",
+            _backgroundTransparency = mainPanelGroupUiHelper.AddSliderWithLabel(
+                _languageResource.Transparency,
                 0f,
                 1f,
                 0.01f,
@@ -433,7 +433,7 @@
                 _backgroundColorField.selectedColor = _configuration.MainPanelBackgroundColor;
             }
 
-            _mainWindowTransparency.value = _configuration.MainPanelBackgroundColor.a;
+            _backgroundTransparency.value = _configuration.MainPanelBackgroundColor.a;
             _updateEveryXSeconds.value = _configuration.MainPanelUpdateEveryXSeconds;
             _columnCountSlider.value = _configuration.MainPanelColumnCount;
             _itemPaddingSlider.value = _configuration.ItemPadding;

@@ -13,6 +13,14 @@
       <Value>Positie terugzetten</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>ColorChangeDuringGameplay</Key>
+      <Value>Colors can only be changed during gameplay.</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Transparency</Key>
+      <Value>Transparency</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>UpdateEveryXSeconds</Key>
       <Value>Iedere X seconden bijwerken</Value>
     </LocalizedItem>

@@ -13,6 +13,14 @@
       <Value>重置位置</Value>
     </LocalizedItem>
     <LocalizedItem>
+      <Key>ColorChangeDuringGameplay</Key>
+      <Value>Colors can only be changed during gameplay.</Value>
+    </LocalizedItem>
+    <LocalizedItem>
+      <Key>Transparency</Key>
+      <Value>Transparency</Value>
+    </LocalizedItem>
+    <LocalizedItem>
       <Key>UpdateEveryXSeconds</Key>
       <Value>每 x 秒更新</Value>
     </LocalizedItem>
