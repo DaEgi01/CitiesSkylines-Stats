@@ -124,17 +124,8 @@
 
         public override void Update()
         {
-            if (_configuration.MainPanelAutoHide)
-            {
-                if (containsMouse)
-                {
-                    opacity = _configuration.MainPanelBackgroundColor.a / (float)byte.MaxValue;
-                }
-                else
-                {
-                    opacity = 0f;
-                }
-            }
+            bool hide = _configuration.MainPanelAutoHide && !containsMouse;
+            opacity = hide ? 0f : 1f;
         }
 
         public void UpdatePanelLayout()
