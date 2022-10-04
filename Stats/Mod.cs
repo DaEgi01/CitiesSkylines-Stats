@@ -60,6 +60,7 @@
             }
 
             InitializeMainPanel();
+            _configurationPanel.InitializeColorFields();
         }
 
         public override void OnLevelUnloading()
@@ -70,13 +71,7 @@
         [UsedImplicitly]
         public void OnSettingsUI(UIHelperBase helper)
         {
-            _configurationPanel = new ConfigurationPanel(
-                helper,
-                _modInfo,
-                _configuration,
-                _languageResource);
-
-            _configurationPanel.Initialize();
+            _configurationPanel.Initialize(helper);
             if (_mainPanel != null)
             {
                 _configurationPanel.MainPanel = _mainPanel;
@@ -101,6 +96,8 @@
             _languageResource = LanguageResource.Create(_languageResourceService, playerLanguage, _fallbackLanguageTwoLetterCode);
 
             LocaleManager.eventUIComponentLocaleChanged += LocaleManager_eventUIComponentLocaleChanged;
+
+            _configurationPanel = new ConfigurationPanel(_modInfo, _configuration, _languageResource);
         }
 
         private void DestroyDependencies()

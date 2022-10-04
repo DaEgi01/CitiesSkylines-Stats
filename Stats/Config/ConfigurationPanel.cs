@@ -6,16 +6,23 @@
     using ICities;
     using Stats.Localization;
     using Stats.Ui;
+    using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     public class ConfigurationPanel
     {
+        private static readonly string _colorFieldsUiPanelName = "Stats.ColorFieldsPanel";
+
         private readonly int _space = 16;
 
-        private readonly UIHelperBase _uiHelperBase;
         private readonly ModInfo _modInfo;
         private readonly LanguageResource _languageResource;
         private readonly Configuration _configuration;
 
+        private UIColorField? _accentColorField;
+        private UIColorField? _foregroundColorField;
+        private UIColorField? _backgroundColorField;
+        private UISlider? _mainWindowTransparency;
         private UISlider? _updateEveryXSeconds;
         private UISlider? _columnCountSlider;
         private UISlider? _itemIconSizeSlider;
@@ -33,13 +40,10 @@
         private ItemData? _selectedItem;
 
         public ConfigurationPanel(
-            UIHelperBase uiHelperBase,
             ModInfo modInfo,
             Configuration configuration,
             LanguageResource languageResource)
         {
-            if (uiHelperBase is null)
-                throw new ArgumentNullException(nameof(uiHelperBase));
             if (modInfo is null)
                 throw new ArgumentNullException(nameof(modInfo));
             if (configuration is null)
@@ -47,7 +51,6 @@
             if (languageResource is null)
                 throw new ArgumentNullException(nameof(languageResource));
 
-            _uiHelperBase = uiHelperBase;
             _modInfo = modInfo;
             _configuration = configuration;
             _languageResource = languageResource;
@@ -55,9 +58,9 @@
 
         public MainPanel? MainPanel { get; set; }
 
-        public void Initialize()
+        public void Initialize(UIHelperBase uiHelperBase)
         {
-            var mainGroupUiHelper = _uiHelperBase.AddGroup(_modInfo.GetDisplayNameWithVersion());
+            var mainGroupUiHelper = uiHelperBase.AddGroup(_modInfo.GetDisplayNameWithVersion());
             var mainGroupContentPanel = (mainGroupUiHelper as UIHelper)?.self as UIPanel;
             if (mainGroupContentPanel is null)
                 throw new IsNullException(nameof(mainGroupContentPanel));
@@ -96,6 +99,52 @@
                 throw new IsNullException(nameof(mainPanelGroupContentPanel));
 
             mainPanelGroupContentPanel.backgroundSprite = string.Empty;
+
+            if (SceneManager.GetActiveScene().name == "Game")
+            {
+                // Due to timing issues, all color fields are initialized during OnLevelLoaded.
+                // Instead a placeholder is injected here to reserve the proper position inside the panel.
+                var colorFieldsUiPanel = mainPanelGroupContentPanel.AddUIComponent<UIPanel>();
+                colorFieldsUiPanel.height = 0;
+                colorFieldsUiPanel.autoLayout = true;
+                colorFieldsUiPanel.autoLayoutDirection = LayoutDirection.Vertical;
+                colorFieldsUiPanel.autoFitChildrenVertically = true;
+                colorFieldsUiPanel.name = _colorFieldsUiPanelName;
+
+                if (LoadingManager.exists && LoadingManager.instance.m_loadingComplete)
+                {
+                    InitializeColorFields();
+                }
+            }
+            else
+            {
+                var colorFieldOutOfGameLabel = mainPanelGroupContentPanel.AddUIComponent<UILabel>();
+                colorFieldOutOfGameLabel.text = "Colors can only be changed during gameplay.";
+                colorFieldOutOfGameLabel.textScale = 1.125f;
+            }
+
+            _mainWindowTransparency = mainPanelGroupUiHelper.AddSliderWithLabel(
+                "Transparency",
+                0f,
+                1f,
+                0.01f,
+                1f,
+                value =>
+                {
+                    var color = _configuration.MainPanelBackgroundColor;
+
+                    _configuration.MainPanelBackgroundColor = new Color32(
+                        color.r,
+                        color.g,
+                        color.b,
+                        (byte)(value * 255));
+                    _configuration.Save();
+
+                    if (MainPanel is null)
+                        return;
+
+                    MainPanel.UpdateMainPanelAndItemColors();
+                });
 
             _updateEveryXSeconds = mainPanelGroupUiHelper.AddSliderWithLabel(_languageResource.UpdateEveryXSeconds, 0, 30, 1, _configuration.MainPanelUpdateEveryXSeconds, value =>
             {
@@ -305,9 +354,83 @@
             _sortOrderTextField!.numericalOnly = true;
         }
 
+        public void InitializeColorFields()
+        {
+            var colorFieldsUiPanel = GameObject.Find(_colorFieldsUiPanelName)
+                .GetComponent<UIPanel>();
+            if (colorFieldsUiPanel is null)
+                throw new IsNullException(nameof(colorFieldsUiPanel));
+
+            var colorFieldsUiPanelHelper = new UIHelper(colorFieldsUiPanel);
+
+            _accentColorField = colorFieldsUiPanelHelper.AddColorFieldWithLabel(
+                _languageResource.AccentColor,
+                _configuration.MainPanelAccentColor,
+                selectedColorChanged: (_, value) =>
+                {
+                    _configuration.MainPanelAccentColor = value;
+                    _configuration.Save();
+
+                    if (MainPanel is null)
+                        return;
+
+                    MainPanel.UpdateMainPanelAndItemColors();
+                });
+
+            _foregroundColorField = colorFieldsUiPanelHelper.AddColorFieldWithLabel(
+                _languageResource.ForegroundColor,
+                _configuration.MainPanelForegroundColor,
+                selectedColorChanged: (_, value) =>
+                {
+                    _configuration.MainPanelForegroundColor = value;
+                    _configuration.Save();
+
+                    if (MainPanel is null)
+                        return;
+
+                    MainPanel.UpdateMainPanelAndItemColors();
+                });
+
+            _backgroundColorField = colorFieldsUiPanelHelper.AddColorFieldWithLabel(
+                _languageResource.BackgroundColor,
+                _configuration.MainPanelBackgroundColor,
+                selectedColorChanged: (_, value) =>
+                {
+                    Color32 newColor = new Color32(
+                        (byte)(value.r * byte.MaxValue),
+                        (byte)(value.g * byte.MaxValue),
+                        (byte)(value.b * byte.MaxValue),
+                        _configuration.MainPanelBackgroundColor.a);
+
+                    _configuration.MainPanelBackgroundColor = newColor;
+                    _configuration.Save();
+
+                    if (MainPanel is null)
+                        return;
+
+                    MainPanel.UpdateMainPanelAndItemColors();
+                });
+        }
+
         private void UpdateUiFromModel()
         {
             // Temporal coupling - call after initialization.
+            if (_accentColorField is not null)
+            {
+                _accentColorField.selectedColor = _configuration.MainPanelAccentColor;
+            }
+
+            if (_foregroundColorField is not null)
+            {
+                _foregroundColorField.selectedColor = _configuration.MainPanelForegroundColor;
+            }
+
+            if (_backgroundColorField is not null)
+            {
+                _backgroundColorField.selectedColor = _configuration.MainPanelBackgroundColor;
+            }
+
+            _mainWindowTransparency.value = _configuration.MainPanelBackgroundColor.a;
             _updateEveryXSeconds.value = _configuration.MainPanelUpdateEveryXSeconds;
             _columnCountSlider.value = _configuration.MainPanelColumnCount;
             _itemPaddingSlider.value = _configuration.ItemPadding;

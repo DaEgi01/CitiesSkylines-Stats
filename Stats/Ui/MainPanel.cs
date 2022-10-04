@@ -10,6 +10,7 @@
 
     public class MainPanel : UIPanel
     {
+        private UIPanel _uiBackgroundPanel;
         private UIDragHandleWithDragState? _uiDragHandle;
         private string? _modSystemName;
         private Configuration? _configuration;
@@ -55,12 +56,13 @@
                 throw new Exception($"'{nameof(_configuration.MainPanelColumnCount)}' parameter must be bigger or equal to 1.");
             }
 
-            color = configuration.MainPanelBackgroundColor;
             name = modSystemName + "MainPanel";
-            backgroundSprite = "GenericPanelWhite";
+            backgroundSprite = string.Empty;
             isInteractive = false;
+            zOrder = 10;
 
             CreateAndAddDragHandle();
+            CreateAndAddBackgroundPanel();
             CreateAndAddAllUiItems();
 
             UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
@@ -169,6 +171,9 @@
             width = newWidth;
             height = newHeight;
 
+            _uiBackgroundPanel.width = newWidth;
+            _uiBackgroundPanel.height = newHeight;
+
             _uiDragHandle.width = newWidth;
             _uiDragHandle.height = newHeight;
         }
@@ -193,7 +198,8 @@
 
         public void UpdateMainPanelAndItemColors()
         {
-            color = _configuration.MainPanelBackgroundColor;
+            _uiBackgroundPanel.color = _configuration.MainPanelBackgroundColor;
+
             for (int i = 0; i < _itemPanelsInDisplayOrder.Length; i++)
             {
                 _itemPanelsInDisplayOrder[i].UpdatePercentVisibilityAndColor();
@@ -212,6 +218,17 @@
             }
 
             return result;
+        }
+
+        private void CreateAndAddBackgroundPanel()
+        {
+            var backgroundPanel = AddUIComponent<UIPanel>();
+            backgroundPanel.name = _modSystemName + "BackgroundPanel";
+            backgroundPanel.relativePosition = Vector2.zero;
+            backgroundPanel.SendToBack();
+            backgroundPanel.backgroundSprite = "GenericPanelWhite";
+            backgroundPanel.color = _configuration.MainPanelBackgroundColor;
+            _uiBackgroundPanel = backgroundPanel;
         }
 
         private void CreateAndAddDragHandle()
