@@ -1,4 +1,6 @@
-﻿namespace Stats
+﻿using System;
+
+namespace Stats
 {
     using System.Collections.Generic;
 
@@ -42,7 +44,8 @@
                 _top => Top,
                 _right => Right,
                 _left => Left,
-                _ => null
+                _bottom => Bottom,
+                _ => throw new Exception($"Could not parse {nameof(ItemTextPosition)} '{nameof(name)}'")
             };
         }
     }
