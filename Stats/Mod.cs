@@ -15,7 +15,7 @@
 
     public class Mod : LoadingExtensionBase, IUserMod
     {
-        private readonly ModInfo _modInfo = new ("Stats", "Stats", "1.3.1", 1410077595);
+        private readonly ModInfo _modInfo = new ("Stats", "Stats", "1.4.0", 1410077595);
         private readonly string _fallbackLanguageTwoLetterCode = "en";
 
         private LanguageResourceService<LanguageResourceDto>? _languageResourceService;
