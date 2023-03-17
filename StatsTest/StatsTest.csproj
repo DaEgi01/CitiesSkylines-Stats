@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <Authors>egi</Authors>
     <Company>egi</Company>
@@ -9,8 +9,13 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="FluentAssertions" Version="6.10.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.1">
       <PrivateAssets>all</PrivateAssets>
