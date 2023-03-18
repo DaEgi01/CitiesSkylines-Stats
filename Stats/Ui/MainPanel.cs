@@ -324,6 +324,8 @@
         {
             _configuration.MainPanelPosition = relativePosition;
             _configuration.Save();
+
+            OnPositionChanged();
         }
 
         private IEnumerator KeepUpdatingUICoroutine()
