@@ -11,7 +11,7 @@
     public class MainPanel : UIPanel
     {
         private UIPanel _uiBackgroundPanel;
-        private UIDragHandleWithDragState? _uiDragHandle;
+        private UIDragHandle? _uiDragHandle;
         private string? _modSystemName;
         private Configuration? _configuration;
         private LanguageResource? _languageResource;
@@ -180,11 +180,6 @@
 
         public void UpdatePosition()
         {
-            if (_uiDragHandle.IsDragged)
-            {
-                return;
-            }
-
             relativePosition = _configuration.MainPanelPosition;
         }
 
@@ -233,7 +228,7 @@
 
         private void CreateAndAddDragHandle()
         {
-            var dragHandle = AddUIComponent<UIDragHandleWithDragState>();
+            var dragHandle = AddUIComponent<UIDragHandle>();
             dragHandle.name = _modSystemName + "DragHandle";
             dragHandle.relativePosition = Vector2.zero;
             dragHandle.target = this;
