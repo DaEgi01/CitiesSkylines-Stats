@@ -1,6 +1,5 @@
 ﻿namespace Stats
 {
-    using System;
     using System.Globalization;
     using ColossalFramework.UI;
     using ICities;
