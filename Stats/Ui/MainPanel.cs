@@ -65,6 +65,7 @@
             CreateAndAddBackgroundPanel();
             CreateAndAddAllUiItems();
 
+            UpdateMainPanelAndItemColors();
             UpdateItemPanelButtonSizesAndLayoutAndPanelSize();
             UpdatePanelLayoutAndPanelSizeAndClampToScreen();
             UpdatePosition();
