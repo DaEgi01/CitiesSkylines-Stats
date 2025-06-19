@@ -15,7 +15,7 @@ namespace Stats;
 
 public sealed class Mod : LoadingExtensionBase, IUserMod
 {
-    private readonly ModInfo _modInfo = new ("Stats", "Stats", "1.4.1", 1410077595);
+    private readonly ModInfo _modInfo = new ("Stats", "Stats", "1.4.2", 1410077595);
     private readonly string _fallbackLanguageTwoLetterCode = "en";
 
     private LanguageResourceService<LanguageResourceDto>? _languageResourceService;
