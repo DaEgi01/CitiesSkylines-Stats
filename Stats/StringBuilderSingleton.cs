@@ -1,18 +1,17 @@
-﻿namespace Stats
+﻿using System.Text;
+
+namespace Stats;
+
+public static class StringBuilderSingleton
 {
-    using System.Text;
+    private static readonly StringBuilder _stringBuilder = new();
 
-    public static class StringBuilderSingleton
+    public static StringBuilder Instance
     {
-        private static readonly StringBuilder _stringBuilder = new();
-
-        public static StringBuilder Instance
+        get
         {
-            get
-            {
-                _stringBuilder.Length = 0;
-                return _stringBuilder;
-            }
+            _stringBuilder.Length = 0;
+            return _stringBuilder;
         }
     }
 }

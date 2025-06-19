@@ -1,39 +1,38 @@
-﻿namespace Stats
+﻿using System;
+using UnityEngine;
+
+namespace Stats;
+
+public static class ColorExtensions
 {
-    using System;
-    using UnityEngine;
+    private const char _serializationSeparator = ',';
+    private static readonly char[] _serializationSeparators = { _serializationSeparator };
 
-    public static class ColorExtensions
+    public static Color32 GetColor32(this string colorString)
     {
-        private const char _serializationSeparator = ',';
-        private static readonly char[] _serializationSeparators = { _serializationSeparator };
+        if (colorString is null)
+            throw new ArgumentNullException(nameof(colorString));
 
-        public static Color32 GetColor32(this string colorString)
-        {
-            if (colorString is null)
-                throw new ArgumentNullException(nameof(colorString));
+        var colorStringComponents = colorString.Split(_serializationSeparators, StringSplitOptions.None);
 
-            var colorStringComponents = colorString.Split(_serializationSeparators, StringSplitOptions.None);
+        var red = byte.Parse(colorStringComponents[0]);
+        var green = byte.Parse(colorStringComponents[1]);
+        var blue = byte.Parse(colorStringComponents[2]);
+        var transparency = byte.Parse(colorStringComponents[3]);
 
-            var red = byte.Parse(colorStringComponents[0]);
-            var green = byte.Parse(colorStringComponents[1]);
-            var blue = byte.Parse(colorStringComponents[2]);
-            var transparency = byte.Parse(colorStringComponents[3]);
+        return new Color32(red, green, blue, transparency);
+    }
 
-            return new Color32(red, green, blue, transparency);
-        }
-
-        public static string GetColorString(this Color32 color)
-        {
-            return StringBuilderSingleton.Instance
-                .Append(color.r)
-                .Append(_serializationSeparator)
-                .Append(color.g)
-                .Append(_serializationSeparator)
-                .Append(color.b)
-                .Append(_serializationSeparator)
-                .Append(color.a)
-                .ToString();
-        }
+    public static string GetColorString(this Color32 color)
+    {
+        return StringBuilderSingleton.Instance
+            .Append(color.r)
+            .Append(_serializationSeparator)
+            .Append(color.g)
+            .Append(_serializationSeparator)
+            .Append(color.b)
+            .Append(_serializationSeparator)
+            .Append(color.a)
+            .ToString();
     }
 }

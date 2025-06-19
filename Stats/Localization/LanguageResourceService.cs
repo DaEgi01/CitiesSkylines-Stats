@@ -1,60 +1,59 @@
-﻿namespace Stats.Localization
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
+using ColossalFramework.PlatformServices;
+using ColossalFramework.Plugins;
+
+namespace Stats.Localization;
+
+public sealed class LanguageResourceService<T>
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Xml.Serialization;
-    using ColossalFramework.PlatformServices;
-    using ColossalFramework.Plugins;
+    private readonly ModInfo _modInfo;
+    private readonly PluginManager _pluginManager;
 
-    public class LanguageResourceService<T>
+    public LanguageResourceService(ModInfo modInfo, PluginManager pluginManager)
     {
-        private readonly ModInfo _modInfo;
-        private readonly PluginManager _pluginManager;
+        if (modInfo is null)
+            throw new ArgumentNullException(nameof(modInfo));
+        if (pluginManager is null)
+            throw new ArgumentNullException(nameof(pluginManager));
 
-        public LanguageResourceService(ModInfo modInfo, PluginManager pluginManager)
+        _modInfo = modInfo;
+        _pluginManager = pluginManager;
+    }
+
+    public T? Load(string languageTwoLetterCode)
+    {
+        if (languageTwoLetterCode is null)
         {
-            if (modInfo is null)
-                throw new ArgumentNullException(nameof(modInfo));
-            if (pluginManager is null)
-                throw new ArgumentNullException(nameof(pluginManager));
-
-            _modInfo = modInfo;
-            _pluginManager = pluginManager;
+            throw new ArgumentNullException(nameof(languageTwoLetterCode));
         }
 
-        public T? Load(string languageTwoLetterCode)
+        var fileFullName = GetExpectedFileFullName(languageTwoLetterCode);
+        if (!File.Exists(fileFullName))
         {
-            if (languageTwoLetterCode is null)
-            {
-                throw new ArgumentNullException(nameof(languageTwoLetterCode));
-            }
-
-            var fileFullName = GetExpectedFileFullName(languageTwoLetterCode);
-            if (!File.Exists(fileFullName))
-            {
-                return default;
-            }
-
-            var serializer = new XmlSerializer(typeof(T));
-            using var streamReader = new StreamReader(fileFullName);
-            return (T)serializer.Deserialize(streamReader);
+            return default;
         }
 
-        private string GetExpectedFileFullName(string languageTwoLetterCode)
-        {
-            var publishedFileId = new PublishedFileId(_modInfo.WorkshopId);
-            var plugin = _pluginManager
-                .GetPluginsInfo()
-                .FirstOrDefault(x =>
-                    x.name == _modInfo.DisplayName
-                    || x.publishedFileID == publishedFileId);
+        var serializer = new XmlSerializer(typeof(T));
+        using var streamReader = new StreamReader(fileFullName);
+        return (T)serializer.Deserialize(streamReader);
+    }
 
-            return Path.Combine(
-                plugin.modPath,
-                Path.Combine(
-                    "Localization",
-                    $"language.{languageTwoLetterCode}.xml"));
-        }
+    private string GetExpectedFileFullName(string languageTwoLetterCode)
+    {
+        var publishedFileId = new PublishedFileId(_modInfo.WorkshopId);
+        var plugin = _pluginManager
+            .GetPluginsInfo()
+            .FirstOrDefault(x =>
+                x.name == _modInfo.DisplayName
+                || x.publishedFileID == publishedFileId);
+
+        return Path.Combine(
+            plugin.modPath,
+            Path.Combine(
+                "Localization",
+                $"language.{languageTwoLetterCode}.xml"));
     }
 }

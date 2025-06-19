@@ -1,17 +1,16 @@
-﻿namespace Stats
+﻿using System.Runtime.InteropServices;
+
+namespace Stats;
+
+[StructLayout(LayoutKind.Auto)]
+public readonly struct ItemVisibilityAndChanged
 {
-    using System.Runtime.InteropServices;
+    public readonly bool IsVisible;
+    public readonly bool IsVisibleChanged;
 
-    [StructLayout(LayoutKind.Auto)]
-    public readonly struct ItemVisibilityAndChanged
+    public ItemVisibilityAndChanged(bool isVisible, bool isVisibleChanged)
     {
-        public readonly bool IsVisible;
-        public readonly bool IsVisibleChanged;
-
-        public ItemVisibilityAndChanged(bool isVisible, bool isVisibleChanged)
-        {
-            IsVisible = isVisible;
-            IsVisibleChanged = isVisibleChanged;
-        }
+        IsVisible = isVisible;
+        IsVisibleChanged = isVisibleChanged;
     }
 }

@@ -1,36 +1,35 @@
-﻿namespace Stats.Config
+﻿using System;
+using System.IO;
+using System.Xml.Serialization;
+
+namespace Stats.Config;
+
+public sealed class ConfigurationService<T>
 {
-    using System;
-    using System.IO;
-    using System.Xml.Serialization;
+    private readonly XmlSerializer _xmlSerializer = new (typeof(T));
 
-    public class ConfigurationService<T>
+    public ConfigurationService(string configurationFileFullName)
     {
-        private readonly XmlSerializer _xmlSerializer = new (typeof(T));
+        if (configurationFileFullName is null)
+            throw new ArgumentNullException(nameof(configurationFileFullName));
 
-        public ConfigurationService(string configurationFileFullName)
-        {
-            if (configurationFileFullName is null)
-                throw new ArgumentNullException(nameof(configurationFileFullName));
+        ConfigurationFileFullName = configurationFileFullName;
+    }
 
-            ConfigurationFileFullName = configurationFileFullName;
-        }
+    public string ConfigurationFileFullName { get; }
 
-        public string ConfigurationFileFullName { get; }
+    public T Load()
+    {
+        using var streamReader = new StreamReader(ConfigurationFileFullName);
+        return (T)_xmlSerializer.Deserialize(streamReader);
+    }
 
-        public T Load()
-        {
-            using var streamReader = new StreamReader(ConfigurationFileFullName);
-            return (T)_xmlSerializer.Deserialize(streamReader);
-        }
+    public void Save(T configuration)
+    {
+        if (configuration is null)
+            throw new ArgumentNullException(nameof(configuration));
 
-        public void Save(T configuration)
-        {
-            if (configuration is null)
-                throw new ArgumentNullException(nameof(configuration));
-
-            using var streamWriter = new StreamWriter(ConfigurationFileFullName);
-            _xmlSerializer.Serialize(streamWriter, configuration);
-        }
+        using var streamWriter = new StreamWriter(ConfigurationFileFullName);
+        _xmlSerializer.Serialize(streamWriter, configuration);
     }
 }
