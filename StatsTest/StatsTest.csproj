@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <IsPackable>false</IsPackable>
     <Authors>egi</Authors>
     <Company>egi</Company>
-    <Copyright></Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <ApplicationIcon />
-    <OutputType>Exe</OutputType>
-    <StartupObject />
+    <Product>Stats</Product>
+  </PropertyGroup>
+  <PropertyGroup>
     <LangVersion>default</LangVersion>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0">

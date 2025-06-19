@@ -2,9 +2,9 @@
   <PropertyGroup>
     <Authors>egi</Authors>
     <Company>egi</Company>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Product>Stats</Product>
     <Description>Adds a configurable panel to display all vital city stats at a glance.</Description>
-    <Copyright></Copyright>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyTitle>Stats</AssemblyTitle>
